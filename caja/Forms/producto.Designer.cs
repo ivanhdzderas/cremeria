@@ -57,6 +57,7 @@
 			this.txtExistencia = new System.Windows.Forms.TextBox();
 			this.label21 = new System.Windows.Forms.Label();
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
+			this.max_p1 = new System.Windows.Forms.NumericUpDown();
 			this.txtPrice5 = new System.Windows.Forms.TextBox();
 			this.txtPrice4 = new System.Windows.Forms.TextBox();
 			this.txtPrice3 = new System.Windows.Forms.TextBox();
@@ -156,15 +157,38 @@
 			this.butSave = new System.Windows.Forms.Button();
 			this.label6 = new System.Windows.Forms.Label();
 			this.txtDescripcion = new System.Windows.Forms.TextBox();
+			this.max_p2 = new System.Windows.Forms.NumericUpDown();
+			this.max_p3 = new System.Windows.Forms.NumericUpDown();
+			this.max_p4 = new System.Windows.Forms.NumericUpDown();
+			this.max_p5 = new System.Windows.Forms.NumericUpDown();
+			this.label52 = new System.Windows.Forms.Label();
+			this.max_p1c = new System.Windows.Forms.NumericUpDown();
+			this.max_p2c = new System.Windows.Forms.NumericUpDown();
+			this.max_p3c = new System.Windows.Forms.NumericUpDown();
+			this.label53 = new System.Windows.Forms.Label();
+			this.max_p1ct = new System.Windows.Forms.NumericUpDown();
+			this.max_p2ct = new System.Windows.Forms.NumericUpDown();
+			this.max_p3ct = new System.Windows.Forms.NumericUpDown();
 			this.tabControl1.SuspendLayout();
 			this.tabPage1.SuspendLayout();
 			this.groupBox1.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.max_p1)).BeginInit();
 			this.tabPage2.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.dtKardex)).BeginInit();
 			this.tabPage3.SuspendLayout();
 			this.groupBox3.SuspendLayout();
 			this.groupBox2.SuspendLayout();
 			this.Grupo.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.max_p2)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.max_p3)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.max_p4)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.max_p5)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.max_p1c)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.max_p2c)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.max_p3c)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.max_p1ct)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.max_p2ct)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.max_p3ct)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// tabControl1
@@ -232,7 +256,7 @@
 			// chkLote
 			// 
 			this.chkLote.AutoSize = true;
-			this.chkLote.Location = new System.Drawing.Point(258, 191);
+			this.chkLote.Location = new System.Drawing.Point(321, 123);
 			this.chkLote.Name = "chkLote";
 			this.chkLote.Size = new System.Drawing.Size(157, 17);
 			this.chkLote.TabIndex = 55;
@@ -312,7 +336,7 @@
 			// 
 			// txtDescuento
 			// 
-			this.txtDescuento.Location = new System.Drawing.Point(335, 162);
+			this.txtDescuento.Location = new System.Drawing.Point(398, 94);
 			this.txtDescuento.Name = "txtDescuento";
 			this.txtDescuento.Size = new System.Drawing.Size(43, 20);
 			this.txtDescuento.TabIndex = 45;
@@ -321,7 +345,7 @@
 			// chkDescuento
 			// 
 			this.chkDescuento.AutoSize = true;
-			this.chkDescuento.Location = new System.Drawing.Point(258, 164);
+			this.chkDescuento.Location = new System.Drawing.Point(321, 96);
 			this.chkDescuento.Name = "chkDescuento";
 			this.chkDescuento.Size = new System.Drawing.Size(78, 17);
 			this.chkDescuento.TabIndex = 44;
@@ -332,7 +356,7 @@
 			// cboCompra
 			// 
 			this.cboCompra.FormattingEnabled = true;
-			this.cboCompra.Location = new System.Drawing.Point(367, 130);
+			this.cboCompra.Location = new System.Drawing.Point(583, 198);
 			this.cboCompra.Name = "cboCompra";
 			this.cboCompra.Size = new System.Drawing.Size(121, 21);
 			this.cboCompra.TabIndex = 43;
@@ -340,7 +364,7 @@
 			// cboVenta
 			// 
 			this.cboVenta.FormattingEnabled = true;
-			this.cboVenta.Location = new System.Drawing.Point(367, 103);
+			this.cboVenta.Location = new System.Drawing.Point(583, 171);
 			this.cboVenta.Name = "cboVenta";
 			this.cboVenta.Size = new System.Drawing.Size(121, 21);
 			this.cboVenta.TabIndex = 42;
@@ -348,7 +372,7 @@
 			// label26
 			// 
 			this.label26.AutoSize = true;
-			this.label26.Location = new System.Drawing.Point(247, 133);
+			this.label26.Location = new System.Drawing.Point(463, 201);
 			this.label26.Name = "label26";
 			this.label26.Size = new System.Drawing.Size(114, 13);
 			this.label26.TabIndex = 41;
@@ -357,7 +381,7 @@
 			// label25
 			// 
 			this.label25.AutoSize = true;
-			this.label25.Location = new System.Drawing.Point(255, 106);
+			this.label25.Location = new System.Drawing.Point(471, 174);
 			this.label25.Name = "label25";
 			this.label25.Size = new System.Drawing.Size(106, 13);
 			this.label25.TabIndex = 40;
@@ -449,6 +473,12 @@
 			// 
 			// groupBox1
 			// 
+			this.groupBox1.Controls.Add(this.label52);
+			this.groupBox1.Controls.Add(this.max_p5);
+			this.groupBox1.Controls.Add(this.max_p4);
+			this.groupBox1.Controls.Add(this.max_p3);
+			this.groupBox1.Controls.Add(this.max_p2);
+			this.groupBox1.Controls.Add(this.max_p1);
 			this.groupBox1.Controls.Add(this.txtPrice5);
 			this.groupBox1.Controls.Add(this.txtPrice4);
 			this.groupBox1.Controls.Add(this.txtPrice3);
@@ -473,9 +503,16 @@
 			this.groupBox1.Controls.Add(this.label10);
 			this.groupBox1.Location = new System.Drawing.Point(9, 87);
 			this.groupBox1.Name = "groupBox1";
-			this.groupBox1.Size = new System.Drawing.Size(240, 182);
+			this.groupBox1.Size = new System.Drawing.Size(304, 182);
 			this.groupBox1.TabIndex = 24;
 			this.groupBox1.TabStop = false;
+			// 
+			// max_p1
+			// 
+			this.max_p1.Location = new System.Drawing.Point(234, 46);
+			this.max_p1.Name = "max_p1";
+			this.max_p1.Size = new System.Drawing.Size(44, 20);
+			this.max_p1.TabIndex = 22;
 			// 
 			// txtPrice5
 			// 
@@ -869,6 +906,9 @@
 			// 
 			this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+			this.groupBox3.Controls.Add(this.max_p3ct);
+			this.groupBox3.Controls.Add(this.max_p2ct);
+			this.groupBox3.Controls.Add(this.max_p1ct);
 			this.groupBox3.Controls.Add(this.txtPrecio3Ct);
 			this.groupBox3.Controls.Add(this.txtPrecio2Ct);
 			this.groupBox3.Controls.Add(this.txtPrecio1Ct);
@@ -1120,6 +1160,10 @@
 			// 
 			this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+			this.groupBox2.Controls.Add(this.label53);
+			this.groupBox2.Controls.Add(this.max_p3c);
+			this.groupBox2.Controls.Add(this.max_p2c);
+			this.groupBox2.Controls.Add(this.max_p1c);
 			this.groupBox2.Controls.Add(this.label39);
 			this.groupBox2.Controls.Add(this.txtUtilidad3C);
 			this.groupBox2.Controls.Add(this.txtUtilidad2C);
@@ -1440,6 +1484,94 @@
 			this.txtDescripcion.Size = new System.Drawing.Size(418, 20);
 			this.txtDescripcion.TabIndex = 12;
 			// 
+			// max_p2
+			// 
+			this.max_p2.Location = new System.Drawing.Point(234, 72);
+			this.max_p2.Name = "max_p2";
+			this.max_p2.Size = new System.Drawing.Size(44, 20);
+			this.max_p2.TabIndex = 23;
+			// 
+			// max_p3
+			// 
+			this.max_p3.Location = new System.Drawing.Point(234, 98);
+			this.max_p3.Name = "max_p3";
+			this.max_p3.Size = new System.Drawing.Size(44, 20);
+			this.max_p3.TabIndex = 24;
+			// 
+			// max_p4
+			// 
+			this.max_p4.Location = new System.Drawing.Point(234, 124);
+			this.max_p4.Name = "max_p4";
+			this.max_p4.Size = new System.Drawing.Size(44, 20);
+			this.max_p4.TabIndex = 25;
+			// 
+			// max_p5
+			// 
+			this.max_p5.Location = new System.Drawing.Point(234, 150);
+			this.max_p5.Name = "max_p5";
+			this.max_p5.Size = new System.Drawing.Size(44, 20);
+			this.max_p5.TabIndex = 26;
+			// 
+			// label52
+			// 
+			this.label52.AutoSize = true;
+			this.label52.Location = new System.Drawing.Point(235, 26);
+			this.label52.Name = "label52";
+			this.label52.Size = new System.Drawing.Size(43, 13);
+			this.label52.TabIndex = 27;
+			this.label52.Text = "Maximo";
+			// 
+			// max_p1c
+			// 
+			this.max_p1c.Location = new System.Drawing.Point(655, 105);
+			this.max_p1c.Name = "max_p1c";
+			this.max_p1c.Size = new System.Drawing.Size(48, 20);
+			this.max_p1c.TabIndex = 36;
+			// 
+			// max_p2c
+			// 
+			this.max_p2c.Location = new System.Drawing.Point(655, 131);
+			this.max_p2c.Name = "max_p2c";
+			this.max_p2c.Size = new System.Drawing.Size(48, 20);
+			this.max_p2c.TabIndex = 37;
+			// 
+			// max_p3c
+			// 
+			this.max_p3c.Location = new System.Drawing.Point(655, 157);
+			this.max_p3c.Name = "max_p3c";
+			this.max_p3c.Size = new System.Drawing.Size(48, 20);
+			this.max_p3c.TabIndex = 38;
+			// 
+			// label53
+			// 
+			this.label53.AutoSize = true;
+			this.label53.Location = new System.Drawing.Point(660, 83);
+			this.label53.Name = "label53";
+			this.label53.Size = new System.Drawing.Size(43, 13);
+			this.label53.TabIndex = 39;
+			this.label53.Text = "Maximo";
+			// 
+			// max_p1ct
+			// 
+			this.max_p1ct.Location = new System.Drawing.Point(655, 119);
+			this.max_p1ct.Name = "max_p1ct";
+			this.max_p1ct.Size = new System.Drawing.Size(48, 20);
+			this.max_p1ct.TabIndex = 26;
+			// 
+			// max_p2ct
+			// 
+			this.max_p2ct.Location = new System.Drawing.Point(655, 145);
+			this.max_p2ct.Name = "max_p2ct";
+			this.max_p2ct.Size = new System.Drawing.Size(48, 20);
+			this.max_p2ct.TabIndex = 27;
+			// 
+			// max_p3ct
+			// 
+			this.max_p3ct.Location = new System.Drawing.Point(655, 171);
+			this.max_p3ct.Name = "max_p3ct";
+			this.max_p3ct.Size = new System.Drawing.Size(48, 20);
+			this.max_p3ct.TabIndex = 28;
+			// 
 			// producto
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1458,6 +1590,7 @@
 			this.tabPage1.PerformLayout();
 			this.groupBox1.ResumeLayout(false);
 			this.groupBox1.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)(this.max_p1)).EndInit();
 			this.tabPage2.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.dtKardex)).EndInit();
 			this.tabPage3.ResumeLayout(false);
@@ -1467,6 +1600,16 @@
 			this.groupBox2.PerformLayout();
 			this.Grupo.ResumeLayout(false);
 			this.Grupo.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)(this.max_p2)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.max_p3)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.max_p4)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.max_p5)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.max_p1c)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.max_p2c)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.max_p3c)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.max_p1ct)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.max_p2ct)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.max_p3ct)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -1599,5 +1742,18 @@
 		private System.Windows.Forms.TreeView tvGrupos;
 		private System.Windows.Forms.Label label7;
 		private System.Windows.Forms.CheckBox chkLote;
+		private System.Windows.Forms.NumericUpDown max_p1;
+		private System.Windows.Forms.Label label52;
+		private System.Windows.Forms.NumericUpDown max_p5;
+		private System.Windows.Forms.NumericUpDown max_p4;
+		private System.Windows.Forms.NumericUpDown max_p3;
+		private System.Windows.Forms.NumericUpDown max_p2;
+		private System.Windows.Forms.Label label53;
+		private System.Windows.Forms.NumericUpDown max_p3c;
+		private System.Windows.Forms.NumericUpDown max_p2c;
+		private System.Windows.Forms.NumericUpDown max_p1c;
+		private System.Windows.Forms.NumericUpDown max_p3ct;
+		private System.Windows.Forms.NumericUpDown max_p2ct;
+		private System.Windows.Forms.NumericUpDown max_p1ct;
 	}
 }

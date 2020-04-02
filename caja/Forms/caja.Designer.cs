@@ -28,19 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle17 = new System.Windows.Forms.DataGridViewCellStyle();
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle18 = new System.Windows.Forms.DataGridViewCellStyle();
-
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle19 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle20 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle21 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle22 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle23 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle24 = new System.Windows.Forms.DataGridViewCellStyle();
 			this.label1 = new System.Windows.Forms.Label();
 			this.label2 = new System.Windows.Forms.Label();
 			this.label3 = new System.Windows.Forms.Label();
@@ -58,7 +51,6 @@
 			this.txtCodigo = new System.Windows.Forms.TextBox();
 			this.txtCantidad = new System.Windows.Forms.TextBox();
 			this.txtDescripcion = new System.Windows.Forms.TextBox();
-			this.cbPu = new System.Windows.Forms.ComboBox();
 			this.txtImporte = new System.Windows.Forms.TextBox();
 			this.label5 = new System.Windows.Forms.Label();
 			this.txtNproductos = new System.Windows.Forms.TextBox();
@@ -86,6 +78,7 @@
 			this.label12 = new System.Windows.Forms.Label();
 			this.txtcIva = new System.Windows.Forms.TextBox();
 			this.txtsIva = new System.Windows.Forms.TextBox();
+			this.cbPu = new System.Windows.Forms.TextBox();
 			((System.ComponentModel.ISupportInitialize)(this.dtProductos)).BeginInit();
 			this.SuspendLayout();
 			// 
@@ -177,49 +170,34 @@
 			// 
 			// Codigo
 			// 
-			dataGridViewCellStyle13.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.Codigo.DefaultCellStyle = dataGridViewCellStyle13;
-
-			dataGridViewCellStyle7.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.Codigo.DefaultCellStyle = dataGridViewCellStyle7;
+			dataGridViewCellStyle19.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.Codigo.DefaultCellStyle = dataGridViewCellStyle19;
 			this.Codigo.HeaderText = "Código";
 			this.Codigo.Name = "Codigo";
 			this.Codigo.ReadOnly = true;
 			// 
 			// Cantidad
 			// 
-
-			dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-			dataGridViewCellStyle14.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.Cantidad.DefaultCellStyle = dataGridViewCellStyle14;
-
-			dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-			dataGridViewCellStyle8.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.Cantidad.DefaultCellStyle = dataGridViewCellStyle8;
+			dataGridViewCellStyle20.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+			dataGridViewCellStyle20.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.Cantidad.DefaultCellStyle = dataGridViewCellStyle20;
 			this.Cantidad.HeaderText = "Cantidad";
 			this.Cantidad.Name = "Cantidad";
 			// 
 			// Producto
 			// 
 			this.Producto.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-			dataGridViewCellStyle15.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.Producto.DefaultCellStyle = dataGridViewCellStyle15;
-
-			dataGridViewCellStyle9.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.Producto.DefaultCellStyle = dataGridViewCellStyle9;
+			dataGridViewCellStyle21.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.Producto.DefaultCellStyle = dataGridViewCellStyle21;
 			this.Producto.HeaderText = "Producto";
 			this.Producto.Name = "Producto";
 			this.Producto.ReadOnly = true;
 			// 
 			// p_unitario
 			// 
-			dataGridViewCellStyle16.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-			dataGridViewCellStyle16.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.p_unitario.DefaultCellStyle = dataGridViewCellStyle16;
-
-			dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-			dataGridViewCellStyle10.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.p_unitario.DefaultCellStyle = dataGridViewCellStyle10;
+			dataGridViewCellStyle22.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+			dataGridViewCellStyle22.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.p_unitario.DefaultCellStyle = dataGridViewCellStyle22;
 			this.p_unitario.HeaderText = "Unitario";
 			this.p_unitario.Name = "p_unitario";
 			this.p_unitario.ReadOnly = true;
@@ -227,26 +205,18 @@
 			// 
 			// descuento
 			// 
-			dataGridViewCellStyle17.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-			dataGridViewCellStyle17.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.descuento.DefaultCellStyle = dataGridViewCellStyle17;
-
-			dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-			dataGridViewCellStyle11.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.descuento.DefaultCellStyle = dataGridViewCellStyle11;
+			dataGridViewCellStyle23.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+			dataGridViewCellStyle23.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.descuento.DefaultCellStyle = dataGridViewCellStyle23;
 			this.descuento.HeaderText = "Descuento";
 			this.descuento.Name = "descuento";
 			this.descuento.Width = 150;
 			// 
 			// importe
 			// 
-			dataGridViewCellStyle18.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-			dataGridViewCellStyle18.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.importe.DefaultCellStyle = dataGridViewCellStyle18;
-
-			dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-			dataGridViewCellStyle12.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.importe.DefaultCellStyle = dataGridViewCellStyle12;
+			dataGridViewCellStyle24.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+			dataGridViewCellStyle24.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.importe.DefaultCellStyle = dataGridViewCellStyle24;
 			this.importe.HeaderText = "Importe";
 			this.importe.Name = "importe";
 			this.importe.ReadOnly = true;
@@ -293,19 +263,6 @@
 			this.txtDescripcion.TabIndex = 3;
 			this.metroToolTip1.SetToolTip(this.txtDescripcion, "F3 Buscar producto");
 			this.txtDescripcion.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox3_KeyDown);
-			// 
-			// cbPu
-			// 
-			this.cbPu.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.cbPu.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.cbPu.FormattingEnabled = true;
-			this.cbPu.Location = new System.Drawing.Point(837, 58);
-			this.cbPu.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-			this.cbPu.Name = "cbPu";
-			this.cbPu.Size = new System.Drawing.Size(180, 32);
-			this.cbPu.TabIndex = 4;
-			this.metroToolTip1.SetToolTip(this.cbPu, "F2 Cambia de precio");
-			this.cbPu.KeyDown += new System.Windows.Forms.KeyEventHandler(this.comboBox1_KeyDown);
 			// 
 			// txtImporte
 			// 
@@ -492,6 +449,7 @@
 			this.btnVer.Text = "Ver";
 			this.btnVer.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
 			this.btnVer.UseVisualStyleBackColor = true;
+			this.btnVer.Click += new System.EventHandler(this.btnVer_Click_1);
 			// 
 			// button5
 			// 
@@ -614,19 +572,21 @@
 			// 
 			// cbPu
 			// 
+			this.cbPu.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.cbPu.BorderStyle = System.Windows.Forms.BorderStyle.None;
 			this.cbPu.Enabled = false;
 			this.cbPu.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.cbPu.Location = new System.Drawing.Point(840, 58);
+			this.cbPu.Location = new System.Drawing.Point(846, 60);
 			this.cbPu.Name = "cbPu";
-			this.cbPu.Size = new System.Drawing.Size(180, 22);
-			this.cbPu.TabIndex = 32;
+			this.cbPu.Size = new System.Drawing.Size(174, 22);
+			this.cbPu.TabIndex = 33;
 			// 
-
 			// caja
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(1347, 717);
+			this.Controls.Add(this.cbPu);
 			this.Controls.Add(this.txtsIva);
 			this.Controls.Add(this.txtcIva);
 			this.Controls.Add(this.label12);
@@ -652,7 +612,6 @@
 			this.Controls.Add(this.txtNproductos);
 			this.Controls.Add(this.label5);
 			this.Controls.Add(this.txtImporte);
-			this.Controls.Add(this.cbPu);
 			this.Controls.Add(this.txtDescripcion);
 			this.Controls.Add(this.txtCantidad);
 			this.Controls.Add(this.txtCodigo);
@@ -685,7 +644,6 @@
         private System.Windows.Forms.TextBox txtCodigo;
         private System.Windows.Forms.TextBox txtCantidad;
         private System.Windows.Forms.TextBox txtDescripcion;
-        private System.Windows.Forms.ComboBox cbPu;
         private System.Windows.Forms.TextBox txtImporte;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox txtNproductos;
@@ -721,5 +679,6 @@
 		private System.Windows.Forms.DataGridViewTextBoxColumn descuento;
 		private System.Windows.Forms.DataGridViewTextBoxColumn importe;
 		private System.Windows.Forms.DataGridViewTextBoxColumn grabado;
+		private System.Windows.Forms.TextBox cbPu;
 	}
 }

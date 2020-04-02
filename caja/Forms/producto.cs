@@ -68,6 +68,9 @@ namespace caja
                     txtPrecio1Ct.Text = prod.Price1.ToString();
                     txtPrecio2Ct.Text = prod.Price2.ToString();
                     txtPrecio3Ct.Text = prod.Price3.ToString();
+                    max_p1ct.Value = prod.Max_p1;
+                    max_p2ct.Value = prod.Max_p2;
+                    max_p3ct.Value = prod.Max_p3;
                     txtp_carton.Text = prod.C_unidad;
                 }
             }
@@ -167,6 +170,10 @@ namespace caja
                     txtPrecio1C.Text = prod.Price1.ToString();
                     txtPrecio2C.Text = prod.Price2.ToString();
                     txtPrecio3C.Text = prod.Price3.ToString();
+                    max_p1c.Value = prod.Max_p1;
+                    max_p2c.Value = prod.Max_p2;
+                    max_p3c.Value = prod.Max_p3;
+
                     txtPCaja.Text = prod.C_unidad;
                 }
             }
@@ -297,7 +304,11 @@ namespace caja
                         txtDescuento.Enabled = true;
                     }
                     chkLote.Checked = Convert.ToBoolean(item.Lote);
-
+                    max_p1.Value = item.Max_p1;
+                    max_p2.Value = item.Max_p2;
+                    max_p3.Value = item.Max_p3;
+                    max_p4.Value = item.Max_p4;
+                    max_p5.Value = item.Max_p5;
                     txtdias.Text = item.Dias_alerta.ToString();
                     carga_pack(Convert.ToUInt16(Codigo));
                     carga_box();
@@ -717,11 +728,11 @@ namespace caja
                 "0",
                 Convert.ToUInt16(txtdias.Text),
                 Convert.ToUInt16(chkLote.Checked),
-                0,
-                0,
-                0,
-                0,
-                0
+                Convert.ToInt16(max_p1.Value),
+                Convert.ToInt16(max_p2.Value),
+                Convert.ToInt16(max_p3.Value),
+                Convert.ToInt16(max_p4.Value),
+                Convert.ToInt16(max_p5.Value)
                 );
 
             if (Codigo == "")
@@ -780,9 +791,9 @@ namespace caja
                 txtPCaja.Text,
                 Convert.ToUInt16(txtdias.Text),
                 Convert.ToUInt16(chkLote.Checked),
-                0,
-                0,
-                0,
+                Convert.ToInt16(max_p1c.Value),
+                Convert.ToInt16(max_p2c.Value),
+                Convert.ToInt16(max_p3c.Value),
                 0,
                 0
                 );
@@ -843,9 +854,9 @@ namespace caja
                    txtp_carton.Text,
                    Convert.ToUInt16(txtdias.Text),
                    Convert.ToUInt16(chkLote.Checked),
-                   0,
-                   0,
-                   0,
+                   Convert.ToInt16(max_p1ct.Value),
+                   Convert.ToInt16(max_p2ct.Value),
+                   Convert.ToInt16(max_p3ct.Value),
                    0,
                    0
                    );

@@ -65,6 +65,7 @@ namespace caja
             txtTotal.TextAlign = HorizontalAlignment.Right;
             txtcIva.TextAlign = HorizontalAlignment.Right;
             txtsIva.TextAlign = HorizontalAlignment.Right;
+            cbPu.TextAlign = HorizontalAlignment.Right;
 
         }
 
@@ -147,6 +148,7 @@ namespace caja
         }
         private void textBox1_KeyDown(object sender, KeyEventArgs e)
         {
+         
             if (txtCodigo.Text != "")
             {
 
@@ -236,45 +238,7 @@ namespace caja
 
                     
                 }
-                else {
-                    CODIGOABUSCAR = txtCodigo.Text;
-                    Product producto = new Product();
-                    List<Product> result = producto.getProductByCode(CODIGOABUSCAR);
-                    foreach (Product item in result)
-                    {
-                        id = item.Id.ToString();
-                        txtCodigo.Text = item.Code1;
-                        txtDescripcion.Text = item.Description;
-                        if (item.Price1 != 0)
-                        {
-                            cbPu.Items.Add(string.Format("{0:#,0.00}", item.Price1));
-
-                            txtImporte.Text = string.Format("{0:#,0.00}", item.Price1);
-                        }
-                        if (item.Price2 != 0)
-                        {
-                            cbPu.Items.Add(string.Format("{0:#,0.00}", item.Price2));
-                        }
-                        if (item.Price3 != 0)
-                        {
-                            cbPu.Items.Add(string.Format("{0:#,0.00}", item.Price3));
-                        }
-                        if (item.Price4 != 0)
-                        {
-                            cbPu.Items.Add(string.Format("{0:#,0.00}", item.Price4));
-                        }
-                        if (item.Price5 != 0)
-                        {
-                            cbPu.Items.Add(string.Format("{0:#,0.00}", item.Price5));
-                        }
-
-                    }
-                    cbPu.SelectedIndex = 0;
-                    txtCantidad.Text = "1";
-                    txtDescuento.Text = "0";
-                    txtCantidad.Focus();
-                    btnVer.Enabled = true;
-                }
+                
             }
         }
 
@@ -290,41 +254,7 @@ namespace caja
            
         }
 
-        private void comboBox1_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.F2)
-            {
-                int cuantos=cbPu.Items.Count;
-                int selector = cbPu.SelectedIndex;
-                int nuevo;
-                for (int i = 0; i <= (cuantos-1); i++)
-                {
-                   if (selector == i)
-                    {
-                        if (i == (cuantos - 1))
-                        {
-                            nuevo = 0;
-                        }
-                        else
-                        {
-                            nuevo = i + 1;
-                        }
-                        cbPu.SelectedIndex= nuevo;
-                        string precio = cbPu.SelectedItem.ToString();
-                        txtImporte.Text = (Convert.ToDouble(txtCantidad.Text) * Convert.ToDouble(precio)).ToString();
-                        break;
-                    }
-                }
-            }
-
-            if (e.KeyCode == Keys.Enter)
-            {
-                if (cbPu.Text != "") {
-                    txtDescuento.Focus();
-                }
-            }
-           
-        }
+        
 
         private void txtCantidad_Leave(object sender, EventArgs e)
         {
@@ -359,11 +289,11 @@ namespace caja
                 List<Product> prod = producto.getProductById(Convert.ToInt16(id)) ;
                 string grabado = prod[0].Sale_tax;
                 grabado = grabado.Replace("IVA ", "");
-                dtProductos.Rows.Add(id, txtCodigo.Text, txtCantidad.Text, txtDescripcion.Text, string.Format("{0:#,0.00}", Convert.ToDouble(cbPu.SelectedItem)), string.Format("{0:#,0.00}", Convert.ToDouble(txtDescuento.Text)), string.Format("{0:#,0.00}", Convert.ToDouble(txtImporte.Text)), grabado);
+                dtProductos.Rows.Add(id, txtCodigo.Text, txtCantidad.Text, txtDescripcion.Text, string.Format("{0:#,0.00}", Convert.ToDouble(cbPu.Text)), string.Format("{0:#,0.00}", Convert.ToDouble(txtDescuento.Text)), string.Format("{0:#,0.00}", Convert.ToDouble(txtImporte.Text)), grabado);
                 txtCodigo.Text = "";
                 txtCantidad.Text = "";
                 txtDescripcion.Text = "";
-                cbPu.Items.Clear();
+                cbPu.Text = "0.00";
                 txtImporte.Text = "";
                 txtDescuento.Text = "";
                 calcula();
@@ -385,7 +315,7 @@ namespace caja
             txtCodigo.Text = "";
             txtCantidad.Text = "";
             txtDescripcion.Text = "";
-            cbPu.Items.Clear();
+            cbPu.Text = "0.00";
             txtImporte.Text = "";
             txtDescuento.Text = "";
             tarjeta = 0;
@@ -438,33 +368,14 @@ namespace caja
                 {
                     cbPu.Text = (string.Format("{0:#,0.00}", item.Price5));
                 }
-                if (item.Price1 != 0)
-                {
-                    cbPu.Items.Add(string.Format("{0:#,0.00}", item.Price1));
-                    txtImporte.Text = string.Format("{0:#,0.00}", item.Price1);
-                }
-                if (item.Price2 != 0)
-                {
-                    cbPu.Items.Add(string.Format("{0:#,0.00}", item.Price2));
-                }
-                if (item.Price3 != 0)
-                {
-                    cbPu.Items.Add(string.Format("{0:#,0.00}", item.Price3));
-                }
-                if (item.Price4 != 0)
-                {
-                    cbPu.Items.Add(string.Format("{0:#,0.00}", item.Price4));
-                }
-                if (item.Price5 != 0)
-                {
-                    cbPu.Items.Add(string.Format("{0:#,0.00}", item.Price5));
-                }
+
+               
             }
             txtImporte.Text = (Convert.ToDouble(cbPu.Text) * Convert.ToDouble(txtCantidad.Text)).ToString();
             txtDescuento.Text = "0";
  
 
-            cbPu.SelectedIndex = 0;
+           
             txtCantidad.Text = "1";
             txtCantidad.Focus();
             btnVer.Enabled = true;
@@ -777,6 +688,11 @@ namespace caja
             }
         }
 
-      
+        private void btnVer_Click_1(object sender, EventArgs e)
+        {
+            producto.Codigo = id;
+            producto Producto = new producto();
+            Producto.Show(this);
+        }
     }
 }
