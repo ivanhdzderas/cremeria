@@ -212,6 +212,12 @@
     <Compile Include="Forms\form_proveedor.Designer.cs">
       <DependentUpon>form_proveedor.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Form_sucursal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Form_sucursal.Designer.cs">
+      <DependentUpon>Form_sucursal.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Form_usuario.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -321,6 +327,12 @@
     <Compile Include="Forms\Reportes\Proveedores.Designer.cs">
       <DependentUpon>Proveedores.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Sucursales.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Sucursales.Designer.cs">
+      <DependentUpon>Sucursales.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Usuarios.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -346,6 +358,7 @@
     <Compile Include="Models\Inv_out.cs" />
     <Compile Include="Models\Kardex.cs" />
     <Compile Include="Models\Marcas.cs" />
+    <Compile Include="Models\Offices.cs" />
     <Compile Include="Models\Pago_ticket.cs" />
     <Compile Include="Models\Permisos.cs" />
     <Compile Include="Models\Product.cs" />
@@ -409,6 +422,9 @@
     <EmbeddedResource Include="Forms\form_proveedor.resx">
       <DependentUpon>form_proveedor.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Form_sucursal.resx">
+      <DependentUpon>Form_sucursal.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\Form_usuario.resx">
       <DependentUpon>Form_usuario.cs</DependentUpon>
     </EmbeddedResource>
@@ -459,6 +475,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Reportes\Proveedores.resx">
       <DependentUpon>Proveedores.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Sucursales.resx">
+      <DependentUpon>Sucursales.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Usuarios.resx">
       <DependentUpon>Usuarios.cs</DependentUpon>

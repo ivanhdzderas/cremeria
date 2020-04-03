@@ -122,3 +122,5 @@ C:\Users\anton\source\repos\caja\caja\bin\Debug\zh-CHT\Microsoft.ReportViewer.Wi
 C:\Users\anton\source\repos\caja\caja\obj\Debug\caja.Forms.Reportes.Cierre_caja.resources
 C:\Users\anton\source\repos\caja\caja\obj\Debug\RdlCompile.cache
 C:\Users\anton\source\repos\caja\caja\obj\Debug\RdlCompile.compiled
+C:\Users\anton\source\repos\caja\caja\obj\Debug\caja.Forms.Sucursales.resources
+C:\Users\anton\source\repos\caja\caja\obj\Debug\caja.Forms.Form_sucursal.resources

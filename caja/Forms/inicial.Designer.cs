@@ -45,6 +45,7 @@
 			this.ajustesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.comprasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.comprasToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+			this.pagosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.reportesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.inventarioToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
 			this.inventarioToolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
@@ -79,7 +80,7 @@
 			this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.printToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.printPreviewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.pagosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.sucursalesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.menuStrip.SuspendLayout();
 			this.statusStrip.SuspendLayout();
 			this.Menu.SuspendLayout();
@@ -116,7 +117,8 @@
             this.clientesToolStripMenuItem,
             this.proveedoresToolStripMenuItem,
             this.usuariosToolStripMenuItem,
-            this.gruposYSubgruposToolStripMenuItem});
+            this.gruposYSubgruposToolStripMenuItem,
+            this.sucursalesToolStripMenuItem});
 			this.catalogoMenu.Enabled = false;
 			this.catalogoMenu.Name = "catalogoMenu";
 			this.catalogoMenu.Size = new System.Drawing.Size(67, 20);
@@ -174,7 +176,7 @@
             this.salidasToolStripMenuItem,
             this.ajustesToolStripMenuItem});
 			this.inventarioToolStripMenuItem1.Name = "inventarioToolStripMenuItem1";
-			this.inventarioToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+			this.inventarioToolStripMenuItem1.Size = new System.Drawing.Size(139, 22);
 			this.inventarioToolStripMenuItem1.Text = "i&nventario";
 			// 
 			// entradasToolStripMenuItem
@@ -204,15 +206,22 @@
             this.comprasToolStripMenuItem1,
             this.pagosToolStripMenuItem});
 			this.comprasToolStripMenuItem.Name = "comprasToolStripMenuItem";
-			this.comprasToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.comprasToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
 			this.comprasToolStripMenuItem.Text = "Proveedores";
 			// 
 			// comprasToolStripMenuItem1
 			// 
 			this.comprasToolStripMenuItem1.Name = "comprasToolStripMenuItem1";
-			this.comprasToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+			this.comprasToolStripMenuItem1.Size = new System.Drawing.Size(122, 22);
 			this.comprasToolStripMenuItem1.Text = "Compras";
 			this.comprasToolStripMenuItem1.Click += new System.EventHandler(this.comprasToolStripMenuItem1_Click);
+			// 
+			// pagosToolStripMenuItem
+			// 
+			this.pagosToolStripMenuItem.Name = "pagosToolStripMenuItem";
+			this.pagosToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
+			this.pagosToolStripMenuItem.Text = "Pagos";
+			this.pagosToolStripMenuItem.Click += new System.EventHandler(this.pagosToolStripMenuItem_Click);
 			// 
 			// reportesToolStripMenuItem
 			// 
@@ -496,12 +505,12 @@
 			this.printPreviewToolStripMenuItem.Size = new System.Drawing.Size(206, 22);
 			this.printPreviewToolStripMenuItem.Text = "&Vista previa de impresión";
 			// 
-			// pagosToolStripMenuItem
+			// sucursalesToolStripMenuItem
 			// 
-			this.pagosToolStripMenuItem.Name = "pagosToolStripMenuItem";
-			this.pagosToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-			this.pagosToolStripMenuItem.Text = "Pagos";
-			this.pagosToolStripMenuItem.Click += new System.EventHandler(this.pagosToolStripMenuItem_Click);
+			this.sucursalesToolStripMenuItem.Name = "sucursalesToolStripMenuItem";
+			this.sucursalesToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
+			this.sucursalesToolStripMenuItem.Text = "Sucursales";
+			this.sucursalesToolStripMenuItem.Click += new System.EventHandler(this.sucursalesToolStripMenuItem_Click);
 			// 
 			// inicial
 			// 
@@ -582,6 +591,7 @@
 		private System.Windows.Forms.ToolStripButton btnCorteTurno;
 		private System.Windows.Forms.ToolStripMenuItem corteCajaToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem pagosToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem sucursalesToolStripMenuItem;
 	}
 }
 
