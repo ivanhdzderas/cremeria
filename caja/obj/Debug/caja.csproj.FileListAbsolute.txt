@@ -124,3 +124,5 @@ C:\Users\anton\source\repos\caja\caja\obj\Debug\RdlCompile.cache
 C:\Users\anton\source\repos\caja\caja\obj\Debug\RdlCompile.compiled
 C:\Users\anton\source\repos\caja\caja\obj\Debug\caja.Forms.Sucursales.resources
 C:\Users\anton\source\repos\caja\caja\obj\Debug\caja.Forms.Form_sucursal.resources
+C:\Users\anton\source\repos\caja\caja\obj\Debug\caja.Forms.Transfer_forms.resources
+C:\Users\anton\source\repos\caja\caja\obj\Debug\caja.Forms.Traspasos.resources

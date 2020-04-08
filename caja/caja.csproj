@@ -333,6 +333,18 @@
     <Compile Include="Forms\Sucursales.Designer.cs">
       <DependentUpon>Sucursales.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Transfer_forms.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Transfer_forms.Designer.cs">
+      <DependentUpon>Transfer_forms.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Traspasos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Traspasos.Designer.cs">
+      <DependentUpon>Traspasos.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Usuarios.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -351,8 +363,10 @@
     <Compile Include="Models\det_ajustes.cs" />
     <Compile Include="Models\Det_entradas.cs" />
     <Compile Include="Models\Det_salidas.cs" />
+    <Compile Include="Models\Det_transfers.cs" />
     <Compile Include="Models\Export_excel.cs" />
     <Compile Include="Models\Export_pdf.cs" />
+    <Compile Include="Models\Folios.cs" />
     <Compile Include="Models\Groups.cs" />
     <Compile Include="Models\Inv_in.cs" />
     <Compile Include="Models\Inv_out.cs" />
@@ -369,6 +383,7 @@
     <Compile Include="Models\Reports\Venta_grupo.cs" />
     <Compile Include="Models\SAT_prod.cs" />
     <Compile Include="Models\Tickets.cs" />
+    <Compile Include="Models\Transfers.cs" />
     <Compile Include="Models\Unidad_Sat.cs" />
     <Compile Include="Models\Users.cs" />
     <Compile Include="Program.cs" />
@@ -478,6 +493,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Sucursales.resx">
       <DependentUpon>Sucursales.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Transfer_forms.resx">
+      <DependentUpon>Transfer_forms.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Traspasos.resx">
+      <DependentUpon>Traspasos.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Usuarios.resx">
       <DependentUpon>Usuarios.cs</DependentUpon>

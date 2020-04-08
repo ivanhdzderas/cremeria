@@ -743,22 +743,7 @@ namespace caja
                     tc.TabPages.Remove(tabP);
                 }
            
-            /* for (var i = 0; i < this.Home.TabPages.Count; i++)
-            {
-                var tabRect = this.Home.GetTabRect(i);
-                tabRect.Inflate(-2, -2);
-                var closeImage = new Bitmap(imagenCerado);
-                var imageRect = new Rectangle(
-                    (tabRect.Right - closeImage.Width),
-                    tabRect.Top + (tabRect.Height - closeImage.Height) / 2,
-                    closeImage.Width,
-                    closeImage.Height);
-                if (imageRect.Contains(e.Location))
-                {
-                    this.Home.TabPages.RemoveAt(i);
-                    break;
-                }
-            }*/
+          
         }
 
         private void clientesToolStripMenuItem1_Click(object sender, EventArgs e)
@@ -1004,6 +989,38 @@ namespace caja
                 tpage.Name = tabName;
 
                 Sucursales fc = new Sucursales();
+                fc.TopLevel = false;
+                fc.Visible = true;
+                fc.MdiParent = this;
+                fc.FormBorderStyle = FormBorderStyle.None;
+                fc.Dock = DockStyle.Fill;
+                Home.TabPages.Add(tpage);
+                int ultimo = (Home.TabPages.Count - 1);
+                Home.TabPages[ultimo].Controls.Add(fc);
+                Home.SelectTab(tabName);
+            }
+        }
+
+        private void traspasosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string tabName = "Traspasos";
+            Boolean encontrado = false;
+            foreach (TabPage page in Home.TabPages)
+            {
+                string name = page.Name;
+
+                if (name == tabName)
+                {
+                    encontrado = true;
+                    Home.SelectTab(tabName);
+                }
+            }
+            if (encontrado == false)
+            {
+                TabPage tpage = new TabPage(tabName);
+                tpage.Name = tabName;
+
+                Traspasos fc = new Traspasos();
                 fc.TopLevel = false;
                 fc.Visible = true;
                 fc.MdiParent = this;
