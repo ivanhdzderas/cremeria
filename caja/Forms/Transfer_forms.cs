@@ -35,19 +35,23 @@ namespace caja.Forms
 		}
 		private void Transfer_forms_Load(object sender, EventArgs e)
 		{
+			this.txtFolios.AutoSize = true;
 			txtCodigo.AutoCompleteCustomSource = cargadatos();
 			txtCodigo.AutoCompleteMode = AutoCompleteMode.Suggest;
 			txtCodigo.AutoCompleteSource = AutoCompleteSource.CustomSource;
 
 
-			lbFecha.Visible = false;
+			//lbFecha.Visible = false;
 			DataTable table = new DataTable();
 			DataRow row;
 
 			table.Columns.Add("Text", typeof(string));
 			table.Columns.Add("Value", typeof(string));
+			row = table.NewRow();
+			row["Text"] = "";
+			row["Value"] = "";
+			table.Rows.Add(row);
 
-			
 			Offices oficinas = new Offices();
 			List<Offices> oficina = oficinas.GetOffices();
 			foreach(Offices ofi in oficina)
@@ -62,7 +66,7 @@ namespace caja.Forms
 			cbOficinas.DisplayMember = "Text";
 			cbOficinas.ValueMember = "Value";
 			cbOficinas.BindingContext = new BindingContext();
-
+			
 			if (id_transfer != 0)
 			{
 				Transfers transferencias = new Transfers();
@@ -72,9 +76,8 @@ namespace caja.Forms
 				Product productos = new Product();
 				if (lista.Count > 0)
 				{
-					txtFolios.Text = lista[0].Folio.ToString();
-					lbFecha.Visible = true;
-					lbFecha.Text = lista[0].Fecha.ToString();
+					txtFolios.Text = lista[0].Folio.ToString() + "  Fecha: "+ lista[0].Fecha.ToString();
+					cbOficinas.SelectedValue = lista[0].Sucursal;
 					List<Det_transfers> detallado = detalles.getDet_trans(id_transfer);
 					if (detallado.Count > 0)
 					{
@@ -84,6 +87,11 @@ namespace caja.Forms
 							double importe = item.Precio * item.Cantidad;
 							dtProductos.Rows.Add(item.Id_producto, item.Cantidad, producto[0].Code1, producto[0].Description, item.Precio, importe);
 						}
+						calcula();
+						nuCantidad.Enabled = false;
+						txtCodigo.Enabled = false;
+						txtDescripcion.Enabled = false;
+						txtPrecio.Enabled = false;
 					}
 				}
 			}
@@ -111,9 +119,9 @@ namespace caja.Forms
 					id_producto = producto[0].Id;
 					txtDescripcion.Text = producto[0].Description;
 					txtPrecio.Text = producto[0].Cost.ToString();
-
+					txtPrecio.Focus();
 				}
-				txtPrecio.Focus();
+				
 			}
 		}
 
@@ -187,6 +195,7 @@ namespace caja.Forms
 				detalles.Precio = Convert.ToDouble(row.Cells["p_u"].Value.ToString());
 				detalles.CreateDet();
 			}
+			this.Close();
 
 		}
 	}

@@ -694,5 +694,101 @@ namespace caja
             producto Producto = new producto();
             Producto.Show(this);
         }
+
+        private void txtCantidad_KeyDown_1(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                if (txtCantidad.Text != "")
+                {
+
+                    txtImporte.Text = (Convert.ToDouble(cbPu.Text) * Convert.ToDouble(txtCantidad.Text)).ToString();
+
+                    Product producto = new Product();
+                    List<Product> prod = producto.getProductById(Convert.ToInt16(id));
+
+                    string grabado = prod[0].Sale_tax;
+                    grabado = grabado.Replace("IVA ", "");
+                    dtProductos.Rows.Add(id, txtCodigo.Text, txtCantidad.Text, txtDescripcion.Text, string.Format("{0:#,0.00}", Convert.ToDouble(cbPu.Text)), string.Format("{0:#,0.00}", Convert.ToDouble(txtDescuento.Text)), string.Format("{0:#,0.00}", Convert.ToDouble(txtImporte.Text)), grabado);
+                    txtCodigo.Text = "";
+                    txtCantidad.Text = "";
+                    txtDescripcion.Text = "";
+                    cbPu.Text = "0.00";
+                    txtImporte.Text = "";
+                    txtDescuento.Text = "";
+                    calcula();
+                    btnVer.Enabled = false;
+                    txtCodigo.Focus();
+                }
+            }
+
+           
+
+
+        }
+
+        private void txtCantidad_KeyPress(object sender, KeyPressEventArgs e)
+        {
+          
+            if (char.IsDigit(e.KeyChar))
+            {
+                e.Handled = false;
+            }
+            else if (char.IsControl(e.KeyChar))
+            {
+                e.Handled = false;
+            }
+            else if (e.KeyChar == '.' && !Convert.ToBoolean(txtCantidad.Text.IndexOf('.')))
+            {
+                e.Handled = true;
+            }
+            else if (e.KeyChar == '.')
+            {
+                e.Handled = false;
+            }
+            else
+            {
+                e.Handled = true;
+            }
+
+        }
+
+        private void txtCantidad_TextChanged(object sender, EventArgs e)
+        {
+            if (txtCantidad.Text.Trim() != "")
+            {
+                if (txtCantidad.Text.Trim() != "0")
+                {
+                    if (id is null) { }
+                    else
+                    {
+                        Product productos = new Product();
+                        List<Product> producto = productos.getProductById(Convert.ToInt16(id));
+                        if (producto[0].Max_p1 >= Convert.ToInt16(txtCantidad.Text))
+                        {
+                            cbPu.Text = (string.Format("{0:#,0.00}", producto[0].Price1));
+                        }
+                        else if (producto[0].Max_p2 >= Convert.ToInt16(txtCantidad.Text))
+                        {
+                            cbPu.Text = (string.Format("{0:#,0.00}", producto[0].Price2));
+                        }
+                        else if (producto[0].Max_p3 >= Convert.ToInt16(txtCantidad.Text))
+                        {
+                            cbPu.Text = (string.Format("{0:#,0.00}", producto[0].Price3));
+                        }
+                        else if (producto[0].Max_p4 >= Convert.ToInt16(txtCantidad.Text))
+                        {
+                            cbPu.Text = (string.Format("{0:#,0.00}", producto[0].Price4));
+                        }
+                        else if (producto[0].Max_p5 >= Convert.ToInt16(txtCantidad.Text))
+                        {
+                            cbPu.Text = (string.Format("{0:#,0.00}", producto[0].Price5));
+                        }
+                    }
+
+                }
+            }
+            
+        }
     }
 }

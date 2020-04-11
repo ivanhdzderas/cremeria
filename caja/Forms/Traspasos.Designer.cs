@@ -57,6 +57,7 @@
 			this.dtTraspasos.ReadOnly = true;
 			this.dtTraspasos.Size = new System.Drawing.Size(776, 283);
 			this.dtTraspasos.TabIndex = 0;
+			this.dtTraspasos.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtTraspasos_CellDoubleClick);
 			// 
 			// id
 			// 

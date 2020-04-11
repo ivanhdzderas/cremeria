@@ -55,7 +55,6 @@
 			this.txtTotal = new System.Windows.Forms.TextBox();
 			this.btnGuardar = new System.Windows.Forms.Button();
 			this.btnCancelar = new System.Windows.Forms.Button();
-			this.lbFecha = new System.Windows.Forms.Label();
 			((System.ComponentModel.ISupportInitialize)(this.nuCantidad)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.dtProductos)).BeginInit();
 			this.SuspendLayout();
@@ -80,7 +79,7 @@
 			// label2
 			// 
 			this.label2.AutoSize = true;
-			this.label2.Location = new System.Drawing.Point(327, 9);
+			this.label2.Location = new System.Drawing.Point(269, 9);
 			this.label2.Name = "label2";
 			this.label2.Size = new System.Drawing.Size(29, 13);
 			this.label2.TabIndex = 2;
@@ -90,9 +89,9 @@
 			// 
 			this.txtFolios.BorderStyle = System.Windows.Forms.BorderStyle.None;
 			this.txtFolios.Enabled = false;
-			this.txtFolios.Location = new System.Drawing.Point(358, 10);
+			this.txtFolios.Location = new System.Drawing.Point(300, 10);
 			this.txtFolios.Name = "txtFolios";
-			this.txtFolios.Size = new System.Drawing.Size(69, 13);
+			this.txtFolios.Size = new System.Drawing.Size(426, 13);
 			this.txtFolios.TabIndex = 3;
 			// 
 			// label3
@@ -292,21 +291,11 @@
 			this.btnCancelar.UseVisualStyleBackColor = true;
 			this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
 			// 
-			// lbFecha
-			// 
-			this.lbFecha.AutoSize = true;
-			this.lbFecha.Location = new System.Drawing.Point(491, 9);
-			this.lbFecha.Name = "lbFecha";
-			this.lbFecha.Size = new System.Drawing.Size(41, 13);
-			this.lbFecha.TabIndex = 21;
-			this.lbFecha.Text = "label10";
-			// 
 			// Transfer_forms
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(738, 398);
-			this.Controls.Add(this.lbFecha);
 			this.Controls.Add(this.btnCancelar);
 			this.Controls.Add(this.btnGuardar);
 			this.Controls.Add(this.txtTotal);
@@ -367,6 +356,5 @@
 		private System.Windows.Forms.TextBox txtTotal;
 		private System.Windows.Forms.Button btnGuardar;
 		private System.Windows.Forms.Button btnCancelar;
-		private System.Windows.Forms.Label lbFecha;
 	}
 }

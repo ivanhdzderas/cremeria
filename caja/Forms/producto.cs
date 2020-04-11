@@ -49,31 +49,35 @@ namespace caja
         public void carga_box ()
         {
 
-            Product sub = new Product();
-            List<Product> item = sub.getProduct(Convert.ToInt32(SubProducto));
-            if (item.Any() == true)
+            if (SubProducto != null)
             {
-                chkCarton.Checked = true;
-                foreach (Product prod in item)
+                Product sub = new Product();
+                List<Product> item = sub.getProduct(Convert.ToInt32(SubProducto));
+                if (item.Any() == true)
                 {
-                    SubSubProducto = prod.Id.ToString();
-                    txtCodigoCarton.Text = prod.Code1;
-                    txtSkuCarton.Text = prod.Sku;
-                    txtDescripcionCarton.Text = prod.Description;
-                    txtCostoCarton.Text = prod.Cost.ToString();
-                    txtUtilidad1Ct.Text = prod.Utility1.ToString();
-                    txtUtilidad2Ct.Text = prod.Utility2.ToString();
-                    txtUtilidad3Ct.Text = prod.Utility3.ToString();
+                    chkCarton.Checked = true;
+                    foreach (Product prod in item)
+                    {
+                        SubSubProducto = prod.Id.ToString();
+                        txtCodigoCarton.Text = prod.Code1;
+                        txtSkuCarton.Text = prod.Sku;
+                        txtDescripcionCarton.Text = prod.Description;
+                        txtCostoCarton.Text = prod.Cost.ToString();
+                        txtUtilidad1Ct.Text = prod.Utility1.ToString();
+                        txtUtilidad2Ct.Text = prod.Utility2.ToString();
+                        txtUtilidad3Ct.Text = prod.Utility3.ToString();
 
-                    txtPrecio1Ct.Text = prod.Price1.ToString();
-                    txtPrecio2Ct.Text = prod.Price2.ToString();
-                    txtPrecio3Ct.Text = prod.Price3.ToString();
-                    max_p1ct.Value = prod.Max_p1;
-                    max_p2ct.Value = prod.Max_p2;
-                    max_p3ct.Value = prod.Max_p3;
-                    txtp_carton.Text = prod.C_unidad;
+                        txtPrecio1Ct.Text = prod.Price1.ToString();
+                        txtPrecio2Ct.Text = prod.Price2.ToString();
+                        txtPrecio3Ct.Text = prod.Price3.ToString();
+                        max_p1ct.Value = prod.Max_p1;
+                        max_p2ct.Value = prod.Max_p2;
+                        max_p3ct.Value = prod.Max_p3;
+                        txtp_carton.Text = prod.C_unidad;
+                    }
                 }
             }
+            
 
         }
         public void carga_grupos()
@@ -152,7 +156,7 @@ namespace caja
         }
         public void carga_pack(int id)
         {
-
+            
             Product sub = new Product();
             List<Product> item = sub.getProduct(id);
             if (item.Any()==true) {
@@ -689,7 +693,11 @@ namespace caja
 
 
 
-   
+            string grupo = "";
+            if (tvGrupos.SelectedNode != null)
+            {
+                grupo = tvGrupos.SelectedNode.Tag.ToString();
+            }
             
             Product product = new Product(
                 0,
@@ -700,7 +708,7 @@ namespace caja
                 txtCodigo4.Text,
                 txtCodigo5.Text,
                 0,
-                tvGrupos.SelectedNode.Tag.ToString(),
+                grupo,
                 cboMarca.SelectedValue.ToString(),
                 cboUnidad.SelectedValue.ToString(),
                 Convert.ToDouble(txtPrice1.Text),
@@ -826,7 +834,7 @@ namespace caja
                    "",
                    "",
                    0,
-                   tvGrupos.SelectedNode.Tag.ToString(),
+                   grupo,
                    cboMarca.SelectedValue.ToString(),
                    cboUnidad.SelectedValue.ToString(),
                    Convert.ToDouble(txtPrecio1Ct.Text),

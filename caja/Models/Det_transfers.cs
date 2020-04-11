@@ -39,7 +39,7 @@ namespace caja.Models
 			query += "'" + this.Tipo + "', ";
 			query += "'" + this.Cantidad + "', ";
 			query += "'" + this.Id_producto + "', ";
-			query += "'" + this.Precio + "', ";
+			query += "'" + this.Precio + "' ";
 			query += ")";
 			object result = runQuery(query);
 		}

@@ -22,9 +22,14 @@ namespace caja.Forms
 			dtTraspasos.Rows.Clear();
 			Transfers transferencias = new Transfers();
 			List<Transfers> lista = transferencias.getTransfers();
+
+			Offices oficinas = new Offices();
+
+
 			foreach(Transfers item in lista)
 			{
-				dtTraspasos.Rows.Add(item.Id, item.Folio, item.Sucursal, item.Fecha, item.Total);
+				List<Offices> sucursal = oficinas.GetOfficesbyid(Convert.ToInt16(item.Sucursal));
+				dtTraspasos.Rows.Add(item.Id, item.Folio, sucursal[0].Name, item.Fecha, item.Total);
 			}
 		}
 		private void Traspasos_Load(object sender, EventArgs e)
@@ -34,9 +39,23 @@ namespace caja.Forms
 
 		private void button1_Click(object sender, EventArgs e)
 		{
+			Transfer_forms.id_transfer = 0;
 			Transfer_forms Producto = new Transfer_forms();
 
-			Producto.Show(this);
+			Producto.ShowDialog();
+			carga();
+		}
+
+		private void dtTraspasos_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+		{
+			int selectedrowindex = dtTraspasos.SelectedCells[0].RowIndex;
+			DataGridViewRow selectedRow = dtTraspasos.Rows[selectedrowindex];
+			string codigo = Convert.ToString(selectedRow.Cells["id"].Value);
+			Transfer_forms.id_transfer =Convert.ToInt16(codigo);
+			Transfer_forms Producto = new Transfer_forms();
+
+			Producto.ShowDialog();
+			carga();
 		}
 	}
 }
