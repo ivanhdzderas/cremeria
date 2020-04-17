@@ -79,6 +79,7 @@
 			this.txtcIva = new System.Windows.Forms.TextBox();
 			this.txtsIva = new System.Windows.Forms.TextBox();
 			this.cbPu = new System.Windows.Forms.TextBox();
+			this.button6 = new System.Windows.Forms.Button();
 			((System.ComponentModel.ISupportInitialize)(this.dtProductos)).BeginInit();
 			this.SuspendLayout();
 			// 
@@ -585,11 +586,25 @@
 			this.cbPu.Size = new System.Drawing.Size(174, 22);
 			this.cbPu.TabIndex = 33;
 			// 
+			// button6
+			// 
+			this.button6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+			this.button6.Image = global::caja.Properties.Resources.coins;
+			this.button6.Location = new System.Drawing.Point(523, 599);
+			this.button6.Name = "button6";
+			this.button6.Size = new System.Drawing.Size(95, 80);
+			this.button6.TabIndex = 34;
+			this.button6.Text = "Retiro";
+			this.button6.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+			this.button6.UseVisualStyleBackColor = true;
+			this.button6.Click += new System.EventHandler(this.button6_Click);
+			// 
 			// caja
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(1347, 717);
+			this.Controls.Add(this.button6);
 			this.Controls.Add(this.cbPu);
 			this.Controls.Add(this.txtsIva);
 			this.Controls.Add(this.txtcIva);
@@ -684,5 +699,6 @@
 		private System.Windows.Forms.DataGridViewTextBoxColumn importe;
 		private System.Windows.Forms.DataGridViewTextBoxColumn grabado;
 		private System.Windows.Forms.TextBox cbPu;
+		private System.Windows.Forms.Button button6;
 	}
 }

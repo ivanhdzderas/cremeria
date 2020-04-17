@@ -110,10 +110,11 @@ namespace caja.Forms
                     permiso.Corte_todos = Convert.ToInt16(checkBox20.Checked);
                     permiso.Ganancias = Convert.ToInt16(checkBox21.Checked);
                     permiso.Reporte_ganancias = Convert.ToInt16(checkBox22.Checked);
+                    permiso.Retiro_efectivo = Convert.ToInt16(checkBox23.Checked);
                     permiso.createPermisos();
                 }
                 else {
-                    usuario.Pass = usuario.Pass;
+                    usuario.Pass = txtContra.Text;
                     usuario.saveUser();
 
                     Permisos permiso = new Permisos();
@@ -140,6 +141,7 @@ namespace caja.Forms
                     permiso.Corte_todos = Convert.ToInt16(checkBox20.Checked);
                     permiso.Ganancias = Convert.ToInt16(checkBox21.Checked);
                     permiso.Reporte_ganancias = Convert.ToInt16(checkBox22.Checked);
+                    permiso.Retiro_efectivo = Convert.ToInt16(checkBox23.Checked);
                     permiso.Id = id_permiso;
                     permiso.savePermisos();
                 }
@@ -175,15 +177,16 @@ namespace caja.Forms
                 checkBox20.Checked = Convert.ToBoolean(lista[0].Corte_todos);
                 checkBox21.Checked = Convert.ToBoolean(lista[0].Ganancias);
                 checkBox22.Checked = Convert.ToBoolean(lista[0].Reporte_ganancias);
+                checkBox23.Checked = Convert.ToBoolean(lista[0].Retiro_efectivo);
                 id_permiso = lista[0].Id;
                 Users usuario = new Users();
                 List<Users> item = usuario.getUserbyid(id);
                 txtNombre.Text = item[0].Nombre;
                 txtUsuario.Text = item[0].User;
                 cbTipo.SelectedValue = item[0].Tipo;
-                if (item[0].Tipo == "Cajero") {
-                    txtContra.Text = item[0].Pass;
-                }
+                
+                txtContra.Text = item[0].Pass;
+                
             }
         }
     }

@@ -790,5 +790,17 @@ namespace caja
             }
             
         }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            autentificar cb = new autentificar();
+            cancelado = false;
+
+            cb.Owner = this;
+           
+            
+            cb.ShowDialog();
+           
+        }
     }
 }

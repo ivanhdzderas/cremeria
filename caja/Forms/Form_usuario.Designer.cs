@@ -66,6 +66,7 @@
 			this.checkBox19 = new System.Windows.Forms.CheckBox();
 			this.button1 = new System.Windows.Forms.Button();
 			this.button2 = new System.Windows.Forms.Button();
+			this.checkBox23 = new System.Windows.Forms.CheckBox();
 			this.tabControl1.SuspendLayout();
 			this.tabPage1.SuspendLayout();
 			this.tabPage2.SuspendLayout();
@@ -154,6 +155,7 @@
 			// 
 			// tabPage1
 			// 
+			this.tabPage1.Controls.Add(this.checkBox23);
 			this.tabPage1.Controls.Add(this.checkBox7);
 			this.tabPage1.Controls.Add(this.checkBox6);
 			this.tabPage1.Controls.Add(this.checkBox5);
@@ -465,6 +467,16 @@
 			this.button2.UseVisualStyleBackColor = true;
 			this.button2.Click += new System.EventHandler(this.button2_Click);
 			// 
+			// checkBox23
+			// 
+			this.checkBox23.AutoSize = true;
+			this.checkBox23.Location = new System.Drawing.Point(6, 167);
+			this.checkBox23.Name = "checkBox23";
+			this.checkBox23.Size = new System.Drawing.Size(111, 17);
+			this.checkBox23.TabIndex = 7;
+			this.checkBox23.Text = "Retiro de Efectivo";
+			this.checkBox23.UseVisualStyleBackColor = true;
+			// 
 			// Form_usuario
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -542,5 +554,6 @@
 		private System.Windows.Forms.CheckBox checkBox21;
 		private System.Windows.Forms.CheckBox checkBox20;
 		private System.Windows.Forms.CheckBox checkBox19;
+		private System.Windows.Forms.CheckBox checkBox23;
 	}
 }
