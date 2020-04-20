@@ -127,3 +127,4 @@ C:\Users\anton\source\repos\caja\caja\obj\Debug\caja.Forms.Form_sucursal.resourc
 C:\Users\anton\source\repos\caja\caja\obj\Debug\caja.Forms.Transfer_forms.resources
 C:\Users\anton\source\repos\caja\caja\obj\Debug\caja.Forms.Traspasos.resources
 C:\Users\anton\source\repos\caja\caja\obj\Debug\caja.Forms.autentificar.resources
+C:\Users\anton\source\repos\caja\caja\obj\Debug\caja.Forms.retiro.resources

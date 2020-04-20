@@ -41,7 +41,11 @@ namespace caja.Forms
 						{
 							if (Convert.ToBoolean(permiso[0].Retiro_efectivo) == true)
 							{
-
+								retiro ret = new retiro();
+								retiro.usuario = result[0].Id;
+								ret.Owner = this;
+								ret.ShowDialog();
+								this.Close();
 							}
 							else
 							{

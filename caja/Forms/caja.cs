@@ -532,6 +532,48 @@ namespace caja
             printDocument1.PrinterSettings = ps;
             printDocument1.Print();
             limpiar();
+
+            aviso_retiro();
+        }
+        private void aviso_retiro()
+        {
+            double retirado = 0;
+            retiro_efectivo retiro = new retiro_efectivo();
+            List<retiro_efectivo> retiros = retiro.get_retirostoday();
+            if (retiros.Count > 0)
+            {
+                foreach(retiro_efectivo item in retiros)
+                {
+                    retirado = retirado + item.Monto;
+                }
+            }
+
+            double vendido = 0;
+            string fecha = DateTime.Now.ToString("yyyy-MM-dd");
+            Tickets ticket = new Tickets();
+            List<Tickets> lista = ticket.getTicketsToday(fecha);
+            Pago_ticket pagos = new Pago_ticket();
+            if (lista.Count > 0)
+            {
+                foreach(Tickets it in lista)
+                {
+                    List<Pago_ticket> pago = pagos.get_pago(it.Id); 
+                    foreach(Pago_ticket pag in pago)
+                    {
+                        if (pag.Tipo_pago== "Efectivo")
+                        {
+                            vendido = vendido + pag.Monto;
+                        }
+                    }
+                   
+                }
+            }
+
+            double diferencia = vendido - retirado;
+            if (diferencia >= 5000)
+            {
+                MessageBox.Show("Es necesario hacer el retiro de efectivo", "Retiro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
         private void button5_Click(object sender, EventArgs e)
         {
@@ -764,26 +806,30 @@ namespace caja
                     {
                         Product productos = new Product();
                         List<Product> producto = productos.getProductById(Convert.ToInt16(id));
-                        if (producto[0].Max_p1 >= Convert.ToInt16(txtCantidad.Text))
+                        if (producto.Count > 0)
                         {
-                            cbPu.Text = (string.Format("{0:#,0.00}", producto[0].Price1));
+                            if (producto[0].Max_p1 >= Convert.ToInt16(txtCantidad.Text))
+                            {
+                                cbPu.Text = (string.Format("{0:#,0.00}", producto[0].Price1));
+                            }
+                            else if (producto[0].Max_p2 >= Convert.ToInt16(txtCantidad.Text))
+                            {
+                                cbPu.Text = (string.Format("{0:#,0.00}", producto[0].Price2));
+                            }
+                            else if (producto[0].Max_p3 >= Convert.ToInt16(txtCantidad.Text))
+                            {
+                                cbPu.Text = (string.Format("{0:#,0.00}", producto[0].Price3));
+                            }
+                            else if (producto[0].Max_p4 >= Convert.ToInt16(txtCantidad.Text))
+                            {
+                                cbPu.Text = (string.Format("{0:#,0.00}", producto[0].Price4));
+                            }
+                            else if (producto[0].Max_p5 >= Convert.ToInt16(txtCantidad.Text))
+                            {
+                                cbPu.Text = (string.Format("{0:#,0.00}", producto[0].Price5));
+                            }
                         }
-                        else if (producto[0].Max_p2 >= Convert.ToInt16(txtCantidad.Text))
-                        {
-                            cbPu.Text = (string.Format("{0:#,0.00}", producto[0].Price2));
-                        }
-                        else if (producto[0].Max_p3 >= Convert.ToInt16(txtCantidad.Text))
-                        {
-                            cbPu.Text = (string.Format("{0:#,0.00}", producto[0].Price3));
-                        }
-                        else if (producto[0].Max_p4 >= Convert.ToInt16(txtCantidad.Text))
-                        {
-                            cbPu.Text = (string.Format("{0:#,0.00}", producto[0].Price4));
-                        }
-                        else if (producto[0].Max_p5 >= Convert.ToInt16(txtCantidad.Text))
-                        {
-                            cbPu.Text = (string.Format("{0:#,0.00}", producto[0].Price5));
-                        }
+                        
                     }
 
                 }

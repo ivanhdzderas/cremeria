@@ -107,7 +107,21 @@ namespace caja.Models
 			}
 			return result;
 		}
-
+		public List<Tickets> getTicketsToday(string fecha)
+		{
+			string query = "select id, id_cliente, fecha, subtotal, descuento, iva, total, status, c_iva, s_iva,id_usuario from tbatickets where fecha like '%" + fecha + "%'";
+			MySqlDataReader data = runQuery(query);
+			List<Tickets> result = new List<Tickets>();
+			if (data.HasRows)
+			{
+				while (data.Read())
+				{
+					Tickets item = buildTicket(data);
+					result.Add(item);
+				}
+			}
+			return result;
+		}
 		public List<Tickets> getTicketsbyFechas(string fecha1, string fecha2)
 		{
 			string query = "select id, id_cliente, fecha, subtotal, descuento, iva, total, status, c_iva, s_iva,id_usuario from tbatickets where fecha BETWEEN '" + fecha1 + "' and '" + fecha2 + "'";
