@@ -11,7 +11,7 @@ namespace caja.Models
 	{
 		public int Id { get; set; }
 		public int Id_salida { get; set; }
-		public int Cantidad { get; set; }
+		public double Cantidad { get; set; }
 		public int Id_producto { get; set; }
 		public double P_u { get; set; }
 		public double Total { get; set; }
@@ -19,7 +19,7 @@ namespace caja.Models
 		public Det_salidas(
 			int id,
 			int id_salida,
-			int cantidad,
+			double cantidad,
 			int id_producto,
 			double p_u,
 			double total
@@ -39,7 +39,7 @@ namespace caja.Models
 			Det_salidas item = new Det_salidas(
 				data.GetInt16("id"),
 				data.GetInt16("id_salida"),
-				data.GetInt16("cantidad"),
+				data.GetDouble("cantidad"),
 				data.GetInt16("id_producto"),
 				data.GetDouble("p_u"),
 				data.GetDouble("total")

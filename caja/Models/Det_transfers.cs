@@ -12,14 +12,14 @@ namespace caja.Models
 		public int Id { get; set; }
 		public int Folio { get; set; }
 		public string Tipo { get; set; }
-		public int Cantidad { get; set; }
+		public double Cantidad { get; set; }
 		public int Id_producto { get; set; }
 		public double Precio { get; set; }
 		public Det_transfers(
 			int id, 
 			int folio, 
 			string tipo,
-			int cantidad,
+			double cantidad,
 			int id_producto,
 			double precio
 			) {
@@ -49,7 +49,7 @@ namespace caja.Models
 				data.GetInt16("id"),
 				data.GetInt16("folio"),
 				data.GetString("tipo"),
-				data.GetInt16("cantidad"),
+				data.GetDouble("cantidad"),
 				data.GetInt16("id_producto"),
 				data.GetDouble("precio")
 				);

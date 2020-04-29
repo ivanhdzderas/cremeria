@@ -15,7 +15,7 @@ namespace caja.Models
         public string Code3 { get; set; }
         public string Code4 { get; set; }
         public string Code5 { get; set; }
-        public int Existencia { get; set; }
+        public double Existencia { get; set; }
         public string Group { get; set; }
         public string Brand { get; set; }
         public string Unit { get; set; }
@@ -64,7 +64,7 @@ namespace caja.Models
             string code3,
             string code4,
             string code5,
-            int existencia,
+            double existencia,
             string group,
             string brand,
             string unit,
@@ -260,7 +260,7 @@ namespace caja.Models
                 data.GetString("codigo3"),
                 data.GetString("codigo4"),
                 data.GetString("codigo5"),
-                data.GetInt32("cantidad"),
+                data.GetDouble("cantidad"),
                 data.GetString("grupo"),
                 data.GetString("marca"),
                 data.GetString("unidad"),

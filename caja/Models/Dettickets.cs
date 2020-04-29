@@ -14,7 +14,7 @@ namespace caja.Models
 		public int Id_ticket { get; set; }
 		public int Id_producto { get; set; }
 		public string Descripcion { get; set; }
-		public int Cantidad { get; set; }
+		public double Cantidad { get; set; }
 		public double Descuento { get; set; }
 		public double Pu { get; set; }
 		public double Total { get; set; }
@@ -25,7 +25,7 @@ namespace caja.Models
 			int id_ticket,
 			int id_producto, 
 			string descripcion,
-			int cantidad,
+			double cantidad,
 			double descuento,
 			double pu,
 			double total,
@@ -66,7 +66,7 @@ namespace caja.Models
 				data.GetInt16("id_ticket"),
 				data.GetInt16("id_producto"),
 				data.GetString("descripcion"),
-				data.GetInt16("cantidad"),
+				data.GetDouble("cantidad"),
 				data.GetDouble("descuento"),
 				data.GetDouble("pu"),
 				data.GetDouble("total"),

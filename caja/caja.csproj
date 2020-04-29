@@ -380,12 +380,14 @@
     <Compile Include="Models\Export_excel.cs" />
     <Compile Include="Models\Export_pdf.cs" />
     <Compile Include="Models\Folios.cs" />
+    <Compile Include="Models\Fpagos.cs" />
     <Compile Include="Models\Groups.cs" />
     <Compile Include="Models\Inv_in.cs" />
     <Compile Include="Models\Inv_out.cs" />
     <Compile Include="Models\Kardex.cs" />
     <Compile Include="Models\Marcas.cs" />
     <Compile Include="Models\Offices.cs" />
+    <Compile Include="Models\Pagos_compras.cs" />
     <Compile Include="Models\Pago_ticket.cs" />
     <Compile Include="Models\Permisos.cs" />
     <Compile Include="Models\Product.cs" />
@@ -489,6 +491,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\login.resx">
       <DependentUpon>login.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Pagos_proveedores.resx">
+      <DependentUpon>Pagos_proveedores.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\producto.resx">
       <DependentUpon>producto.cs</DependentUpon>

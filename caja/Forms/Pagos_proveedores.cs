@@ -16,5 +16,10 @@ namespace caja.Forms
 		{
 			InitializeComponent();
 		}
+
+		private void Pagos_proveedores_Load(object sender, EventArgs e)
+		{
+
+		}
 	}
 }
