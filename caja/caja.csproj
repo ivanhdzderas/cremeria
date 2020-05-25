@@ -200,6 +200,12 @@
     <Compile Include="Forms\configuracion.Designer.cs">
       <DependentUpon>configuracion.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Forms_pagos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Forms_pagos.Designer.cs">
+      <DependentUpon>Forms_pagos.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\form_cliente.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -374,6 +380,7 @@
     <Compile Include="Models\Dettickets.cs" />
     <Compile Include="Models\det_ajustes.cs" />
     <Compile Include="Models\Det_entradas.cs" />
+    <Compile Include="Models\Det_pagos.cs" />
     <Compile Include="Models\det_retiro.cs" />
     <Compile Include="Models\Det_salidas.cs" />
     <Compile Include="Models\Det_transfers.cs" />
@@ -446,6 +453,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\configuracion.resx">
       <DependentUpon>configuracion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Forms_pagos.resx">
+      <DependentUpon>Forms_pagos.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\form_cliente.resx">
       <DependentUpon>form_cliente.cs</DependentUpon>

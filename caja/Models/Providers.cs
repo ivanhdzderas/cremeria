@@ -150,6 +150,23 @@ namespace caja.Models
             return result;
         }
 
+        public List<Providers> getProviderbyNombreabsolute(string nombre)
+        {
+            string query = maq_query + " where nombre='" + nombre + "'";
+            MySqlDataReader data = runQuery(query);
+            List<Providers> result = new List<Providers>();
+            if (data.HasRows)
+            {
+                while (data.Read())
+                {
+                    Providers item = buildProvideer(data);
+                    result.Add(item)
+;
+                }
+            }
+            return result;
+        }
+
         public List<Providers> getProviderbyRFC(string rfc)
         {
             string query = maq_query + " where RFC like '%" + rfc + "%'";

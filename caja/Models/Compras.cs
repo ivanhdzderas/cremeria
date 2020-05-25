@@ -71,6 +71,12 @@ namespace caja.Models
 			object result = runQuery(query);
 		}
 
+		public void pagar()
+		{
+			string query = "update tbacompras set pagado='SI' where id='" + this.Id + "'";
+			object result = runQuery(query);
+		}
+
 		private Compras buildCompra(MySqlDataReader data) {
 			Compras item = new Compras(
 				data.GetInt16("id"),
@@ -127,6 +133,23 @@ namespace caja.Models
 		{
 			string query = "select tbacompras.id, tbacompras.fecha, tbacompras.documento, tbacompras.fecha_doc, tbaproveedores.nombre as proveedor ,tbacompras.status, tbacompras.dias, tbacompras.fecha_credito, tbacompras.pagado, tbacompras.subtotal, tbacompras.iva, tbacompras.total, tbacompras.descuento from tbacompras inner join tbaproveedores on tbacompras.id_proveedor=tbaproveedores.id";
 			query += "  where tbacompras.id='" + id + "'";
+
+			MySqlDataReader data = runQuery(query);
+			List<Compras> result = new List<Compras>();
+			if (data.HasRows)
+			{
+				while (data.Read())
+				{
+					Compras item = buildCompra(data);
+					result.Add(item);
+				}
+			}
+			return result;
+		}
+		public List<Compras> getCompra_sin_pagar(string proveedor)
+		{
+			string query = "select tbacompras.id, tbacompras.fecha, tbacompras.documento, tbacompras.fecha_doc, tbaproveedores.nombre as proveedor ,tbacompras.status, tbacompras.dias, tbacompras.fecha_credito, tbacompras.pagado, tbacompras.subtotal, tbacompras.iva, tbacompras.total, tbacompras.descuento from tbacompras inner join tbaproveedores on tbacompras.id_proveedor=tbaproveedores.id";
+			query += "  where tbaproveedores.id='" + proveedor + "' and tbacompras.pagado='NO'";
 
 			MySqlDataReader data = runQuery(query);
 			List<Compras> result = new List<Compras>();

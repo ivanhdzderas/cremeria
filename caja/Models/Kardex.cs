@@ -9,7 +9,7 @@ namespace caja.Models
 		public string Tipo { get; set; }
 		public int Id_documento { get; set; }
 		public  double Cantidad { get; set; }
-		public int Antes { get; set; }
+		public double Antes { get; set; }
 		public string Fecha { get; set; }
 		public Kardex(
 			int id,
@@ -17,7 +17,7 @@ namespace caja.Models
 			string tipo,
 			int id_documento,
 			double cantidad,
-			int antes,
+			double antes,
 			string fecha
 			)
 		{
@@ -38,7 +38,7 @@ namespace caja.Models
 				data.GetString("tipo_movimiento"),
 				data.GetInt16("id_documento"),
 				data.GetDouble("cantidad"),
-				data.GetInt16("antes"),
+				data.GetDouble("antes"),
 				data.GetString("fecha")
 				);
 			return item;

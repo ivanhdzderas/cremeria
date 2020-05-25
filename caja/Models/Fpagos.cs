@@ -47,9 +47,44 @@ namespace caja.Models
 			return result;
 		}
 
-		public List<Fpagos> getpagosbyid(int id)
+		public List<Fpagos> getpagosbyid(string id)
 		{
 			string query = "select c_formapago,descripcion from zz33_formapago where c_formapago='" + id.ToString() + "'";
+			MySqlDataReader data = runQuery(query);
+			List<Fpagos> result = new List<Fpagos>();
+			if (data.HasRows)
+			{
+				while (data.Read())
+				{
+					Fpagos item = buildFpago(data);
+					result.Add(item);
+
+				}
+			}
+			return result;
+		}
+
+		public List<Fpagos> getpagosbydescripcion(string descripcion)
+		{
+			string query = "select c_formapago,descripcion from zz33_formapago where descripcion='" + descripcion + "'";
+			MySqlDataReader data = runQuery(query);
+			List<Fpagos> result = new List<Fpagos>();
+			if (data.HasRows)
+			{
+				while (data.Read())
+				{
+					Fpagos item = buildFpago(data);
+					result.Add(item);
+
+				}
+			}
+			return result;
+		}
+
+
+		public List<Fpagos> getpagosbyidlike(string codigo)
+		{
+			string query = "select c_formapago,descripcion from zz33_formapago where c_formapago like '" + codigo + "'";
 			MySqlDataReader data = runQuery(query);
 			List<Fpagos> result = new List<Fpagos>();
 			if (data.HasRows)

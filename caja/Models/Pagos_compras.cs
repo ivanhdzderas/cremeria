@@ -12,21 +12,27 @@ namespace caja.Models
 		public int Id { get; set; }
 		public int Fpago { get; set; }
 		public int Id_compra { get; set; }
-		public DateTime Fecha { get; set; }
+		public string Folio_pago { get; set; }
+		public string Fecha { get; set; }
+		public string Fecha_pago { get; set; }
 		public double Monto { get; set; }
 
 		public Pagos_compras(
 			int id,
 			int fpago,
 			int id_compra,
-			DateTime fecha,
+			string folio_pago,
+			string fecha,
+			string fecha_pago,
 			double monto
 			)
 		{
 			Id = id;
 			Fpago = fpago;
 			Id_compra = id_compra;
+			Folio_pago = folio_pago;
 			Fecha = fecha;
+			Fecha_pago = fecha_pago;
 			Monto = monto;
 		}
 
@@ -34,7 +40,7 @@ namespace caja.Models
 
 		public void create_pago()
 		{
-			string query = "insert into tbapagos (idfpago, id_compra, fecha, monto ) values ('" + this.Fpago + "', '" + this.Id_compra + "', '" + this.Fecha + "',  '" + this.Monto + "')";
+			string query = "insert into tbapagos (idfpago, id_compra,folio_pago, fecha, fecha_pago, monto ) values ('" + this.Fpago + "', '" + this.Id_compra + "', '" + this.Folio_pago + "' ,CURDATE() , '" + this.Fecha_pago + "' ,'" + this.Monto + "')";
 			object result = runQuery(query);
 		}
 		private Pagos_compras buildcompras(MySqlDataReader data)
@@ -43,15 +49,17 @@ namespace caja.Models
 				data.GetInt16("id"),
 				data.GetInt16("idfpago"),
 				data.GetInt16("id_compra"),
-				data.GetDateTime("fecha"),
+				data.GetString("folio_pago"),
+				data.GetString("fecha"),
+				data.GetString("fecha_pago"),
 				data.GetDouble("monto")
-				);
+				) ;
 			return item;
 		}
 
 		public List<Pagos_compras> getcompras()
 		{
-			string query = "select id, idfpago, id_compra, fecha, monto from tbapagos";
+			string query = "select id, idfpago, id_compra,folio_pago,  fecha, fecha_pago, monto from tbapagos";
 			MySqlDataReader data = runQuery(query);
 			List<Pagos_compras> result = new List<Pagos_compras>();
 			if (data.HasRows)
@@ -66,9 +74,25 @@ namespace caja.Models
 			return result;
 		}
 
+		public List<Pagos_compras> getcomprabyfolio(string folio)
+		{
+			string query = "select id, idfpago, id_compra, folio_pago, fecha, fecha_pago, monto from tbapagos where idfpago='" + folio.ToString() + "'";
+			MySqlDataReader data = runQuery(query);
+			List<Pagos_compras> result = new List<Pagos_compras>();
+			if (data.HasRows)
+			{
+				while (data.Read())
+				{
+					Pagos_compras item = buildcompras(data);
+					result.Add(item);
+
+				}
+			}
+			return result;
+		}
 		public List<Pagos_compras> getcomprasbyid(int id)
 		{
-			string query = "select id, idfpago, id_compra, fecha, monto from tbapagos where id='" + id.ToString() + "'";
+			string query = "select id, idfpago, id_compra,folio_pago, fecha, fecha_pago, monto from tbapagos where id='" + id.ToString() + "'";
 			MySqlDataReader data = runQuery(query);
 			List<Pagos_compras> result = new List<Pagos_compras>();
 			if (data.HasRows)
