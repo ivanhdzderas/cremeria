@@ -137,6 +137,21 @@ namespace caja.Models
 			}
 			return result;
 		}
+		public List<Offices> GetOfficesbyrfc(string rfc)
+		{
+			string query = maq_query + " where rfc='" + rfc + "' ";
+			MySqlDataReader data = runQuery(query);
+			List<Offices> result = new List<Offices>();
+			if (data.HasRows)
+			{
+				while (data.Read())
+				{
+					Offices item = buildOffice(data);
+					result.Add(item);
+				}
+			}
+			return result;
+		}
 		public List<Offices> GetOfficesbyid(int id)
 		{
 			string query = maq_query + " where id='" + id.ToString() + "'";

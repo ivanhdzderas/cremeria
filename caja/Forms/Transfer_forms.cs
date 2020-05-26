@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml;
 using caja.Models;
 
 namespace caja.Forms
@@ -76,7 +77,8 @@ namespace caja.Forms
 				Product productos = new Product();
 				if (lista.Count > 0)
 				{
-					txtFolios.Text = lista[0].Folio.ToString() + "  Fecha: "+ lista[0].Fecha.ToString();
+					txtFolios.Text = lista[0].Folio.ToString();
+					lbFecha.Text= "Fecha: " + lista[0].Fecha.ToString();
 					cbOficinas.SelectedValue = lista[0].Sucursal;
 					List<Det_transfers> detallado = detalles.getDet_trans(id_transfer);
 					if (detallado.Count > 0)
@@ -121,7 +123,6 @@ namespace caja.Forms
 					txtPrecio.Text = producto[0].Cost.ToString();
 					txtPrecio.Focus();
 				}
-				
 			}
 		}
 
@@ -139,7 +140,6 @@ namespace caja.Forms
 					txtCodigo.Text = "";
 					txtDescripcion.Text = "";
 					txtPrecio.Text = "";
-
 				}
 			}
 		}
@@ -188,15 +188,100 @@ namespace caja.Forms
 			Det_transfers detalles = new Det_transfers();
 			detalles.Folio = Convert.ToInt16(txtFolios.Text);
 			detalles.Tipo = "E";
+
+			Product poductos = new Product();
 			foreach (DataGridViewRow row in dtProductos.Rows)
 			{
 				detalles.Cantidad = Convert.ToInt16(row.Cells["cantidad"].Value.ToString());
 				detalles.Id_producto = Convert.ToInt16(row.Cells["id"].Value.ToString());
 				detalles.Precio = Convert.ToDouble(row.Cells["p_u"].Value.ToString());
 				detalles.CreateDet();
+				List<Product> producto = poductos.getProductById(Convert.ToInt16(row.Cells["id"].Value.ToString()));
+				Kardex kardex = new Kardex();
+				kardex.Id_producto = Convert.ToInt16(row.Cells["id"].Value.ToString());
+				kardex.Tipo = "T";
+				kardex.Id_documento = ultimo[0].Id;
+				kardex.Cantidad = Convert.ToInt16(row.Cells["cantidad"].Value.ToString());
+				kardex.Antes = producto[0].Existencia;
+				kardex.CreateKardex();
+				List<Kardex> ultimo_kardez = kardex.getidKardex(Convert.ToInt16(row.Cells["id"].Value.ToString()), ultimo[0].Id, "T");
+
+
+
+				Afecta_inv afecta = new Afecta_inv();
+				afecta.Disminuye(ultimo_kardez[0].Id);
+
 			}
+
+			crea_xml();
+	
 			this.Close();
 
+
+			Folios folio = new Folios();
+			folio.Transferencia = (Convert.ToInt16(txtFolios.Text)+1);
+			folio.savenewTransfer();
+
+
+			
 		}
+		private void crea_xml()
+		{
+			Transfers transferencia = new Transfers();
+			List<Transfers> lista = transferencia.getTransferbyfolio(Convert.ToInt16(txtFolios.Text), "E");
+
+			XmlTextWriter writer;
+			writer = new XmlTextWriter("C://facturas//transferencia-" + txtFolios.Text + ".xml", Encoding.UTF8);
+			writer.Formatting = Formatting.Indented;
+			writer.WriteStartDocument();
+			writer.WriteStartElement("transferencia");
+			//nodo de folio
+			writer.WriteElementString("Folio", lista[0].Folio.ToString());
+			//nodo de fecha
+			writer.WriteElementString("Fecha", lista[0].Fecha.ToString());
+			//nodo de Emisor
+			Configuration configu = new Configuration();
+			List<Configuration> config = configu.getConfiguration();
+			writer.WriteElementString("Emisor", config[0].RFC);
+			//nodo Receptor
+			Offices oficinas = new Offices();
+			List<Offices> oficina = oficinas.GetOfficesbyid(Convert.ToInt16(lista[0].Sucursal));
+			writer.WriteElementString("Receptor", oficina[0].Rfc);
+			//nodo monto
+			writer.WriteElementString("Monto", lista[0].Total.ToString());
+			//nodo de productos
+			writer.WriteStartElement("Productos");
+
+			// produtos uno a uno
+			Det_transfers detalles = new Det_transfers();
+			List<Det_transfers> lista_detalles = detalles.getDet_trans(Convert.ToInt16(lista[0].Folio));
+			foreach (Det_transfers item in lista_detalles)
+			{
+				Product productos = new Product();
+				List<Product> producto = productos.getProductById(Convert.ToInt16(item.Id));
+				writer.WriteStartElement("Producto");
+				writer.WriteElementString("Cantidad", Convert.ToDouble(item.Cantidad).ToString());
+				writer.WriteElementString("Codigo1", producto[0].Code1);
+				writer.WriteElementString("Codigo2", producto[0].Code2);
+				writer.WriteElementString("Codigo3", producto[0].Code3);
+				writer.WriteElementString("Codigo4", producto[0].Code4);
+				writer.WriteElementString("Codigo5", producto[0].Code5);
+				writer.WriteElementString("Descripcion", producto[0].Description);
+				writer.WriteElementString("Pu", Convert.ToDouble(item.Precio).ToString());
+				writer.WriteEndElement();
+				
+			}
+			//fin nodo productos
+			writer.WriteEndElement();
+			//fin 
+			writer.WriteEndElement();
+			writer.WriteEndDocument();
+			writer.Flush();
+			writer.Close();
+
+
+		}
+
+		
 	}
 }
