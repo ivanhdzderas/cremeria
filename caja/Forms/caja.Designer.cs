@@ -67,19 +67,20 @@
 			this.txtTotal = new System.Windows.Forms.TextBox();
 			this.printDocument1 = new System.Drawing.Printing.PrintDocument();
 			this.lbClient = new System.Windows.Forms.Label();
-			this.btnVer = new System.Windows.Forms.Button();
-			this.button5 = new System.Windows.Forms.Button();
-			this.button4 = new System.Windows.Forms.Button();
-			this.button3 = new System.Windows.Forms.Button();
-			this.button2 = new System.Windows.Forms.Button();
-			this.button1 = new System.Windows.Forms.Button();
 			this.lbidcliente = new System.Windows.Forms.TextBox();
 			this.label11 = new System.Windows.Forms.Label();
 			this.label12 = new System.Windows.Forms.Label();
 			this.txtcIva = new System.Windows.Forms.TextBox();
 			this.txtsIva = new System.Windows.Forms.TextBox();
 			this.cbPu = new System.Windows.Forms.TextBox();
+			this.button7 = new System.Windows.Forms.Button();
 			this.button6 = new System.Windows.Forms.Button();
+			this.btnVer = new System.Windows.Forms.Button();
+			this.button5 = new System.Windows.Forms.Button();
+			this.button4 = new System.Windows.Forms.Button();
+			this.button3 = new System.Windows.Forms.Button();
+			this.button2 = new System.Windows.Forms.Button();
+			this.button1 = new System.Windows.Forms.Button();
 			((System.ComponentModel.ISupportInitialize)(this.dtProductos)).BeginInit();
 			this.SuspendLayout();
 			// 
@@ -87,7 +88,7 @@
 			// 
 			this.label1.AutoSize = true;
 			this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label1.Location = new System.Drawing.Point(18, 29);
+			this.label1.Location = new System.Drawing.Point(18, 56);
 			this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
 			this.label1.Name = "label1";
 			this.label1.Size = new System.Drawing.Size(71, 24);
@@ -98,7 +99,7 @@
 			// 
 			this.label2.AutoSize = true;
 			this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label2.Location = new System.Drawing.Point(238, 29);
+			this.label2.Location = new System.Drawing.Point(238, 56);
 			this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
 			this.label2.Name = "label2";
 			this.label2.Size = new System.Drawing.Size(84, 24);
@@ -109,7 +110,7 @@
 			// 
 			this.label3.AutoSize = true;
 			this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label3.Location = new System.Drawing.Point(330, 29);
+			this.label3.Location = new System.Drawing.Point(330, 56);
 			this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
 			this.label3.Name = "label3";
 			this.label3.Size = new System.Drawing.Size(86, 24);
@@ -121,7 +122,7 @@
 			this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.label4.AutoSize = true;
 			this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label4.Location = new System.Drawing.Point(929, 29);
+			this.label4.Location = new System.Drawing.Point(930, 53);
 			this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
 			this.label4.Name = "label4";
 			this.label4.Size = new System.Drawing.Size(73, 24);
@@ -133,7 +134,7 @@
 			this.importetxt.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.importetxt.AutoSize = true;
 			this.importetxt.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.importetxt.Location = new System.Drawing.Point(1261, 29);
+			this.importetxt.Location = new System.Drawing.Point(1262, 53);
 			this.importetxt.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
 			this.importetxt.Name = "importetxt";
 			this.importetxt.Size = new System.Drawing.Size(73, 24);
@@ -156,10 +157,10 @@
             this.descuento,
             this.importe,
             this.grabado});
-			this.dtProductos.Location = new System.Drawing.Point(18, 97);
+			this.dtProductos.Location = new System.Drawing.Point(18, 121);
 			this.dtProductos.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
 			this.dtProductos.Name = "dtProductos";
-			this.dtProductos.Size = new System.Drawing.Size(1311, 391);
+			this.dtProductos.Size = new System.Drawing.Size(1311, 367);
 			this.dtProductos.TabIndex = 5;
 			this.dtProductos.RowsRemoved += new System.Windows.Forms.DataGridViewRowsRemovedEventHandler(this.dtProductos_RowsRemoved);
 			// 
@@ -232,7 +233,7 @@
 			// txtCodigo
 			// 
 			this.txtCodigo.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.txtCodigo.Location = new System.Drawing.Point(18, 58);
+			this.txtCodigo.Location = new System.Drawing.Point(18, 85);
 			this.txtCodigo.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
 			this.txtCodigo.Name = "txtCodigo";
 			this.txtCodigo.Size = new System.Drawing.Size(180, 29);
@@ -243,7 +244,7 @@
 			// txtCantidad
 			// 
 			this.txtCantidad.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.txtCantidad.Location = new System.Drawing.Point(208, 58);
+			this.txtCantidad.Location = new System.Drawing.Point(208, 85);
 			this.txtCantidad.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
 			this.txtCantidad.Name = "txtCantidad";
 			this.txtCantidad.Size = new System.Drawing.Size(114, 29);
@@ -260,7 +261,7 @@
 			this.txtDescripcion.BorderStyle = System.Windows.Forms.BorderStyle.None;
 			this.txtDescripcion.Enabled = false;
 			this.txtDescripcion.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.txtDescripcion.Location = new System.Drawing.Point(333, 58);
+			this.txtDescripcion.Location = new System.Drawing.Point(333, 85);
 			this.txtDescripcion.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
 			this.txtDescripcion.Name = "txtDescripcion";
 			this.txtDescripcion.Size = new System.Drawing.Size(416, 22);
@@ -274,7 +275,7 @@
 			this.txtImporte.BorderStyle = System.Windows.Forms.BorderStyle.None;
 			this.txtImporte.Enabled = false;
 			this.txtImporte.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.txtImporte.Location = new System.Drawing.Point(1186, 58);
+			this.txtImporte.Location = new System.Drawing.Point(1187, 82);
 			this.txtImporte.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
 			this.txtImporte.Name = "txtImporte";
 			this.txtImporte.Size = new System.Drawing.Size(148, 22);
@@ -327,7 +328,7 @@
 			this.label7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.label7.AutoSize = true;
 			this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label7.Location = new System.Drawing.Point(1074, 29);
+			this.label7.Location = new System.Drawing.Point(1075, 53);
 			this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
 			this.label7.Name = "label7";
 			this.label7.Size = new System.Drawing.Size(101, 24);
@@ -338,7 +339,7 @@
 			// 
 			this.txtDescuento.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.txtDescuento.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.txtDescuento.Location = new System.Drawing.Point(1027, 58);
+			this.txtDescuento.Location = new System.Drawing.Point(1028, 82);
 			this.txtDescuento.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
 			this.txtDescuento.Name = "txtDescuento";
 			this.txtDescuento.Size = new System.Drawing.Size(148, 29);
@@ -431,14 +432,101 @@
 			// 
 			// lbClient
 			// 
-			this.lbClient.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
 			this.lbClient.AutoSize = true;
 			this.lbClient.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.lbClient.Location = new System.Drawing.Point(128, 536);
+			this.lbClient.Location = new System.Drawing.Point(124, 12);
 			this.lbClient.Name = "lbClient";
 			this.lbClient.Size = new System.Drawing.Size(70, 24);
 			this.lbClient.TabIndex = 23;
 			this.lbClient.Text = "label11";
+			// 
+			// lbidcliente
+			// 
+			this.lbidcliente.Location = new System.Drawing.Point(18, 12);
+			this.lbidcliente.Name = "lbidcliente";
+			this.lbidcliente.Size = new System.Drawing.Size(100, 26);
+			this.lbidcliente.TabIndex = 27;
+			// 
+			// label11
+			// 
+			this.label11.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+			this.label11.AutoSize = true;
+			this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label11.Location = new System.Drawing.Point(1064, 532);
+			this.label11.Name = "label11";
+			this.label11.Size = new System.Drawing.Size(109, 24);
+			this.label11.TabIndex = 28;
+			this.label11.Text = "Venta c/IVA";
+			// 
+			// label12
+			// 
+			this.label12.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+			this.label12.AutoSize = true;
+			this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label12.Location = new System.Drawing.Point(1065, 567);
+			this.label12.Name = "label12";
+			this.label12.Size = new System.Drawing.Size(108, 24);
+			this.label12.TabIndex = 29;
+			this.label12.Text = "Venta s/IVA";
+			// 
+			// txtcIva
+			// 
+			this.txtcIva.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+			this.txtcIva.BorderStyle = System.Windows.Forms.BorderStyle.None;
+			this.txtcIva.Enabled = false;
+			this.txtcIva.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.txtcIva.Location = new System.Drawing.Point(1179, 529);
+			this.txtcIva.Name = "txtcIva";
+			this.txtcIva.Size = new System.Drawing.Size(148, 22);
+			this.txtcIva.TabIndex = 30;
+			// 
+			// txtsIva
+			// 
+			this.txtsIva.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+			this.txtsIva.BorderStyle = System.Windows.Forms.BorderStyle.None;
+			this.txtsIva.Enabled = false;
+			this.txtsIva.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.txtsIva.Location = new System.Drawing.Point(1179, 564);
+			this.txtsIva.Name = "txtsIva";
+			this.txtsIva.Size = new System.Drawing.Size(148, 22);
+			this.txtsIva.TabIndex = 31;
+			// 
+			// cbPu
+			// 
+			this.cbPu.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.cbPu.BorderStyle = System.Windows.Forms.BorderStyle.None;
+			this.cbPu.Enabled = false;
+			this.cbPu.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.cbPu.Location = new System.Drawing.Point(847, 84);
+			this.cbPu.Name = "cbPu";
+			this.cbPu.Size = new System.Drawing.Size(174, 22);
+			this.cbPu.TabIndex = 33;
+			// 
+			// button7
+			// 
+			this.button7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+			this.button7.Image = global::caja.Properties.Resources.intercambiar;
+			this.button7.Location = new System.Drawing.Point(624, 599);
+			this.button7.Name = "button7";
+			this.button7.Size = new System.Drawing.Size(95, 80);
+			this.button7.TabIndex = 35;
+			this.button7.Text = "Transfer.";
+			this.button7.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+			this.button7.UseVisualStyleBackColor = true;
+			this.button7.Click += new System.EventHandler(this.button7_Click);
+			// 
+			// button6
+			// 
+			this.button6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+			this.button6.Image = global::caja.Properties.Resources.coins;
+			this.button6.Location = new System.Drawing.Point(523, 599);
+			this.button6.Name = "button6";
+			this.button6.Size = new System.Drawing.Size(95, 80);
+			this.button6.TabIndex = 34;
+			this.button6.Text = "Retiro";
+			this.button6.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+			this.button6.UseVisualStyleBackColor = true;
+			this.button6.Click += new System.EventHandler(this.button6_Click);
 			// 
 			// btnVer
 			// 
@@ -446,7 +534,7 @@
 			this.btnVer.Enabled = false;
 			this.btnVer.Image = global::caja.Properties.Resources.vision;
 			this.btnVer.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-			this.btnVer.Location = new System.Drawing.Point(756, 58);
+			this.btnVer.Location = new System.Drawing.Point(756, 84);
 			this.btnVer.Name = "btnVer";
 			this.btnVer.Size = new System.Drawing.Size(74, 29);
 			this.btnVer.TabIndex = 25;
@@ -523,87 +611,12 @@
 			this.button1.UseVisualStyleBackColor = true;
 			this.button1.Click += new System.EventHandler(this.button1_Click);
 			// 
-			// lbidcliente
-			// 
-			this.lbidcliente.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-			this.lbidcliente.Location = new System.Drawing.Point(22, 536);
-			this.lbidcliente.Name = "lbidcliente";
-			this.lbidcliente.Size = new System.Drawing.Size(100, 26);
-			this.lbidcliente.TabIndex = 27;
-			// 
-			// label11
-			// 
-			this.label11.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.label11.AutoSize = true;
-			this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label11.Location = new System.Drawing.Point(1064, 532);
-			this.label11.Name = "label11";
-			this.label11.Size = new System.Drawing.Size(109, 24);
-			this.label11.TabIndex = 28;
-			this.label11.Text = "Venta c/IVA";
-			// 
-			// label12
-			// 
-			this.label12.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.label12.AutoSize = true;
-			this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label12.Location = new System.Drawing.Point(1065, 567);
-			this.label12.Name = "label12";
-			this.label12.Size = new System.Drawing.Size(108, 24);
-			this.label12.TabIndex = 29;
-			this.label12.Text = "Venta s/IVA";
-			// 
-			// txtcIva
-			// 
-			this.txtcIva.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.txtcIva.BorderStyle = System.Windows.Forms.BorderStyle.None;
-			this.txtcIva.Enabled = false;
-			this.txtcIva.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.txtcIva.Location = new System.Drawing.Point(1179, 529);
-			this.txtcIva.Name = "txtcIva";
-			this.txtcIva.Size = new System.Drawing.Size(148, 22);
-			this.txtcIva.TabIndex = 30;
-			// 
-			// txtsIva
-			// 
-			this.txtsIva.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.txtsIva.BorderStyle = System.Windows.Forms.BorderStyle.None;
-			this.txtsIva.Enabled = false;
-			this.txtsIva.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.txtsIva.Location = new System.Drawing.Point(1179, 564);
-			this.txtsIva.Name = "txtsIva";
-			this.txtsIva.Size = new System.Drawing.Size(148, 22);
-			this.txtsIva.TabIndex = 31;
-			// 
-			// cbPu
-			// 
-			this.cbPu.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.cbPu.BorderStyle = System.Windows.Forms.BorderStyle.None;
-			this.cbPu.Enabled = false;
-			this.cbPu.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.cbPu.Location = new System.Drawing.Point(846, 60);
-			this.cbPu.Name = "cbPu";
-			this.cbPu.Size = new System.Drawing.Size(174, 22);
-			this.cbPu.TabIndex = 33;
-			// 
-			// button6
-			// 
-			this.button6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-			this.button6.Image = global::caja.Properties.Resources.coins;
-			this.button6.Location = new System.Drawing.Point(523, 599);
-			this.button6.Name = "button6";
-			this.button6.Size = new System.Drawing.Size(95, 80);
-			this.button6.TabIndex = 34;
-			this.button6.Text = "Retiro";
-			this.button6.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-			this.button6.UseVisualStyleBackColor = true;
-			this.button6.Click += new System.EventHandler(this.button6_Click);
-			// 
 			// caja
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(1347, 717);
+			this.Controls.Add(this.button7);
 			this.Controls.Add(this.button6);
 			this.Controls.Add(this.cbPu);
 			this.Controls.Add(this.txtsIva);
@@ -700,5 +713,6 @@
 		private System.Windows.Forms.DataGridViewTextBoxColumn grabado;
 		private System.Windows.Forms.TextBox cbPu;
 		private System.Windows.Forms.Button button6;
+		private System.Windows.Forms.Button button7;
 	}
 }

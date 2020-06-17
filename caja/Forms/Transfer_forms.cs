@@ -143,7 +143,7 @@ namespace caja.Forms
 				}
 			}
 		}
-		private void calcula()
+		public void calcula()
 		{
 			double subtotal = 0;
 			double total = 0;

@@ -34,6 +34,7 @@ namespace caja.Models
 		public int Ganancias { get; set; }
 		public int Reporte_ganancias { get; set; }
 		public int Retiro_efectivo { get; set; }
+		public int Transferencias { get; set; }
 		public Permisos(
 			int id,
 			int id_usuario,
@@ -59,7 +60,8 @@ namespace caja.Models
 			int corte_todos,
 			int ganancias,
 			int reporte_ganancias,
-			int retiro_efectivo
+			int retiro_efectivo,
+			int trasnferencias
 		) {
 			Id = id;
 			Id_usuario = id_usuario;
@@ -86,6 +88,7 @@ namespace caja.Models
 			Ganancias = ganancias;
 			Reporte_ganancias = reporte_ganancias;
 			Retiro_efectivo = retiro_efectivo;
+			Transferencias = trasnferencias;
 		}
 		public Permisos() { }
 
@@ -115,12 +118,13 @@ namespace caja.Models
 				data.GetInt16("corte_todos"),
 				data.GetInt16("ganancias"),
 				data.GetInt16("reporte_ganancias"),
-				data.GetInt16("retiro_efectivo")
+				data.GetInt16("retiro_efectivo"),
+				data.GetInt16("transferencias")
 				);
 			return item;
 		}
 		public void createPermisos() {
-			string query = "insert into tbapermisos ( id_usuario,may_men,historia_venta,entrada_efectivo,salida_efectivo,cobrar_ticket,cancelar_ticket,alimina_art_venta,cred_cli,mod_cli,nuevo_prod,mod_prod,del_prod,rep_venta,nueva_promo,add_mercancia,ver_minimos,ver_mov_inv,ajus_inv,corte_caja,corte_todos,ganancias,reporte_ganancias, retiro_efectivo)";
+			string query = "insert into tbapermisos ( id_usuario,may_men,historia_venta,entrada_efectivo,salida_efectivo,cobrar_ticket,cancelar_ticket,alimina_art_venta,cred_cli,mod_cli,nuevo_prod,mod_prod,del_prod,rep_venta,nueva_promo,add_mercancia,ver_minimos,ver_mov_inv,ajus_inv,corte_caja,corte_todos,ganancias,reporte_ganancias, retiro_efectivo, transferencias)";
 			query += "values (";
 			query += "'" + this.Id_usuario + "', ";
 			query += "'" + this.May_men + "', ";
@@ -145,7 +149,8 @@ namespace caja.Models
 			query += "'" + this.Corte_todos + "', ";
 			query += "'" + this.Ganancias + "', ";
 			query += "'" + this.Reporte_ganancias + "', ";
-			query += "'" + this.Retiro_efectivo + "'";
+			query += "'" + this.Retiro_efectivo + "', ";
+			query += "'" + this.Transferencias + "'";
 			query += ")";
 			object result = runQuery(query);
 		}
@@ -175,11 +180,12 @@ namespace caja.Models
 			query += "ganancias='" + this.Ganancias + "', ";
 			query += "reporte_ganancias='" + this.Reporte_ganancias + "', ";
 			query += "ajus_inv='" + this.Ajus_inv + "', ";
-			query += "retiro_efectivo='" + this.Retiro_efectivo + "' ";
+			query += "retiro_efectivo='" + this.Retiro_efectivo + "', ";
+			query += "transferencias='" + this.Transferencias + "' ";
 			query += "where id='" + this.Id + "'";
 			object result = runQuery(query);
 		}
-		string mac_query = "select id,id_usuario,may_men,historia_venta,entrada_efectivo,salida_efectivo,cobrar_ticket,cancelar_ticket,alimina_art_venta,cred_cli,mod_cli,nuevo_prod,mod_prod,del_prod,rep_venta,nueva_promo,add_mercancia,ver_minimos,ver_mov_inv,ajus_inv,corte_caja,corte_todos,ganancias,reporte_ganancias, retiro_efectivo from tbapermisos";
+		string mac_query = "select id,id_usuario,may_men,historia_venta,entrada_efectivo,salida_efectivo,cobrar_ticket,cancelar_ticket,alimina_art_venta,cred_cli,mod_cli,nuevo_prod,mod_prod,del_prod,rep_venta,nueva_promo,add_mercancia,ver_minimos,ver_mov_inv,ajus_inv,corte_caja,corte_todos,ganancias,reporte_ganancias, retiro_efectivo, transferencias from tbapermisos";
 		public List<Permisos> getPermiso(int id_usuario) {
 			string query = mac_query + " where id_usuario = '" + id_usuario.ToString() + "'";
 			MySqlDataReader data = runQuery(query);

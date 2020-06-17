@@ -13,6 +13,7 @@ namespace caja.Forms
 {
 	public partial class autentificar : Form
 	{
+		public string origen;
 		public autentificar()
 		{
 			InitializeComponent();
@@ -20,6 +21,7 @@ namespace caja.Forms
 
 		private void button1_Click(object sender, EventArgs e)
 		{
+			caja.cancelado = true;
 			this.Close();
 		}
 
@@ -39,18 +41,34 @@ namespace caja.Forms
 						List<Permisos> permiso = permisos.getPermiso(result[0].Id);
 						if (permiso.Count > 0)
 						{
-							if (Convert.ToBoolean(permiso[0].Retiro_efectivo) == true)
+							if (origen == "retiro")
 							{
-								retiro ret = new retiro();
-								retiro.usuario = result[0].Id;
-								ret.Owner = this;
-								ret.ShowDialog();
-								this.Close();
+								if (Convert.ToBoolean(permiso[0].Retiro_efectivo) == true)
+								{
+									retiro ret = new retiro();
+									retiro.usuario = result[0].Id;
+									ret.Owner = this;
+									ret.ShowDialog();
+									this.Close();
+								}
+								else
+								{
+									MessageBox.Show("El usuario no tiene permiso de efectuar retiro de caja", "Usuario invalido", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+								}
 							}
-							else
+							if (origen == "transferencia")
 							{
-								MessageBox.Show("El usuario no tiene permiso de efectuar retiro de caja", "Usuario invalido", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+								if (Convert.ToBoolean(permiso[0].Transferencias) == true)
+								{
+									
+									this.Close();
+								}
+								else
+								{
+									MessageBox.Show("El usuario no tiene permiso de efectuar transferencias", "Usuario invalido", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+								}
 							}
+							
 						}
 					}
 					else

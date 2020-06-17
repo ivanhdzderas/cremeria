@@ -193,6 +193,16 @@ namespace caja.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        public static System.Drawing.Bitmap intercambiar {
+            get {
+                object obj = ResourceManager.GetObject("intercambiar", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         public static System.Drawing.Bitmap lapiz {
             get {
                 object obj = ResourceManager.GetObject("lapiz", resourceCulture);

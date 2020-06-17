@@ -25,6 +25,7 @@ namespace caja
         public static double efectivo;
         public static Boolean factura;
         public static Boolean cancelado;
+        public static string sucursal;
         public static string fecha = DateTime.Now.ToString("yyyy-MM-dd H:mm:ss");
         public caja()
         {
@@ -840,6 +841,7 @@ namespace caja
         private void button6_Click(object sender, EventArgs e)
         {
             autentificar cb = new autentificar();
+            cb.origen = "retiro";
             cancelado = false;
 
             cb.Owner = this;
@@ -847,6 +849,57 @@ namespace caja
             
             cb.ShowDialog();
            
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            autentificar cb = new autentificar();
+            cb.origen = "transferencia";
+            cancelado = false;
+
+            cb.Owner = this;
+
+
+            cb.ShowDialog();
+            if (cancelado == false)
+            {
+                transferencias();
+            }
+            
+        }
+        public void transferencias()
+        {
+            cancelado = false;
+            Sucursal cb = new Sucursal();
+
+            Product productos = new Product();
+            foreach (DataGridViewRow row in dtProductos.Rows)
+            {
+                List<Product> produto = productos.getProductById(Convert.ToInt16(row.Cells["id_producto"].Value.ToString()));
+                row.Cells["p_unitario"].Value = string.Format("{0:#,0.00}", produto[0].Cost);
+                double sub = produto[0].Cost * Convert.ToDouble(row.Cells["Cantidad"].Value);
+                row.Cells["importe"].Value = string.Format("{0:#,0.00}", sub);
+            }
+
+            Transfer_forms.id_transfer = 0;
+            Transfer_forms Transfer = new Transfer_forms();
+
+            Transfer.cbOficinas.SelectedValue = sucursal;
+            foreach (DataGridViewRow row in dtProductos.Rows)
+            {
+                Transfer.dtProductos.Rows.Add(row.Cells["id_producto"].Value, row.Cells["Cantidad"].Value, row.Cells["Codigo"].Value, row.Cells["Producto"].Value, row.Cells["p_unitario"].Value, row.Cells["importe"].Value);
+            }
+
+            Transfer.calcula();
+            Transfer.btnGuardar.PerformClick();
+            PrinterSettings ps = new PrinterSettings();
+            Configuration configuracion = new Configuration();
+            List<Configuration> config = configuracion.getConfiguration();
+            printDocument1.PrinterSettings.PrinterName = config[0].Impresora;
+            printDocument1.PrintPage += Imprimir;
+            printDocument1.PrinterSettings = ps;
+            printDocument1.Print();
+            limpiar();
         }
     }
 }
