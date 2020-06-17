@@ -198,11 +198,20 @@ namespace caja
                 configuracionToolStripMenuItem.Enabled = true;
                 Bienvenido.Text = "Bienvenido: " + nombre;
                 busca_caducos();
+                busca_pagos();
             }
             
 
         }
-
+        public void busca_pagos()
+        {
+            Models.Compras compras = new Models.Compras();
+            List<Models.Compras> compra = compras.getCompras_sin_pagar();
+            if (compra.Count > 0)
+            {
+                noticacion("Proximos pagos a proveedores", "Tiene pagos por caducar");
+            }
+        }
         public void noticacion(string Titulo, string texto) {
             notifyIcon1.Text = "Notificaciones";
             notifyIcon1.BalloonTipTitle = Titulo;

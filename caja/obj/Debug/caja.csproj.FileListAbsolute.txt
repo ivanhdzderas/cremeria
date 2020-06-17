@@ -130,3 +130,4 @@ C:\Users\anton\source\repos\caja\caja\obj\Debug\caja.Forms.autentificar.resource
 C:\Users\anton\source\repos\caja\caja\obj\Debug\caja.Forms.retiro.resources
 C:\Users\anton\source\repos\caja\caja\obj\Debug\caja.Forms.Pagos_proveedores.resources
 C:\Users\anton\source\repos\caja\caja\obj\Debug\caja.Forms.Forms_pagos.resources
+C:\Users\anton\source\repos\caja\caja\obj\Debug\caja.Forms.Sucursal.resources

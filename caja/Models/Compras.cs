@@ -163,5 +163,22 @@ namespace caja.Models
 			}
 			return result;
 		}
+		public List<Compras> getCompras_sin_pagar()
+		{
+			string query = "select tbacompras.id, tbacompras.fecha,  tbacompras.documento, tbacompras.fecha_doc, tbaproveedores.nombre as proveedor ,tbacompras.status, tbacompras.dias, tbacompras.fecha_credito, tbacompras.pagado, tbacompras.subtotal, tbacompras.iva, tbacompras.total, tbacompras.descuento from tbacompras inner join tbaproveedores on tbacompras.id_proveedor=tbaproveedores.id";
+			query += "  where tbacompras.pagado='NO' and fecha_credito  BETWEEN CONCAT(DATE_SUB(CURDATE(),INTERVAL 3 DAY),'  00:00:00') AND CONCAT(DATE_ADD(CURDATE(),INTERVAL 3 DAY),' 00:00:00')";
+
+			MySqlDataReader data = runQuery(query);
+			List<Compras> result = new List<Compras>();
+			if (data.HasRows)
+			{
+				while (data.Read())
+				{
+					Compras item = buildCompra(data);
+					result.Add(item);
+				}
+			}
+			return result;
+		}
 	}
 }
