@@ -121,6 +121,14 @@ namespace caja.Forms
                 caja.tarjeta = 0;
             }
 
+            if (txtTransferencia.Text != "")
+            {
+                caja.transferencia = Convert.ToDouble(txtTransferencia.Text);
+            }
+            else {
+                caja.transferencia = 0;
+            }
+
             caja.factura = Convert.ToBoolean(chkFactura.Checked);
             this.Close();
                

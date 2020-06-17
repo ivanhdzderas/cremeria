@@ -23,6 +23,7 @@ namespace caja
 
         public static double tarjeta;
         public static double efectivo;
+        public static double transferencia;
         public static Boolean factura;
         public static Boolean cancelado;
         public static string sucursal;
@@ -492,6 +493,13 @@ namespace caja
             if (efectivo !=0) {
                 pago.Monto = efectivo;
                 pago.Tipo_pago = "Efectivo";
+                pago.CreatePago();
+            }
+
+            if (transferencia != 0)
+            {
+                pago.Monto = transferencia;
+                pago.Tipo_pago = "Transferencia";
                 pago.CreatePago();
             }
             detalle.Id_ticket = lista[0].Id;

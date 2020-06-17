@@ -40,6 +40,8 @@
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
 			this.lbCobrar = new System.Windows.Forms.Label();
 			this.groupBox2 = new System.Windows.Forms.GroupBox();
+			this.label2 = new System.Windows.Forms.Label();
+			this.txtTransferencia = new System.Windows.Forms.TextBox();
 			this.SuspendLayout();
 			// 
 			// btnCancelar
@@ -71,7 +73,7 @@
 			// label1
 			// 
 			this.label1.AutoSize = true;
-			this.label1.Location = new System.Drawing.Point(83, 117);
+			this.label1.Location = new System.Drawing.Point(83, 100);
 			this.label1.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
 			this.label1.Name = "label1";
 			this.label1.Size = new System.Drawing.Size(66, 20);
@@ -81,7 +83,7 @@
 			// label3
 			// 
 			this.label3.AutoSize = true;
-			this.label3.Location = new System.Drawing.Point(91, 149);
+			this.label3.Location = new System.Drawing.Point(91, 164);
 			this.label3.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
 			this.label3.Name = "label3";
 			this.label3.Size = new System.Drawing.Size(58, 20);
@@ -110,7 +112,7 @@
 			// 
 			// txtEfectivo
 			// 
-			this.txtEfectivo.Location = new System.Drawing.Point(157, 114);
+			this.txtEfectivo.Location = new System.Drawing.Point(157, 97);
 			this.txtEfectivo.Name = "txtEfectivo";
 			this.txtEfectivo.Size = new System.Drawing.Size(150, 26);
 			this.txtEfectivo.TabIndex = 12;
@@ -120,7 +122,7 @@
 			// 
 			// txtTarjeta
 			// 
-			this.txtTarjeta.Location = new System.Drawing.Point(157, 146);
+			this.txtTarjeta.Location = new System.Drawing.Point(157, 161);
 			this.txtTarjeta.Name = "txtTarjeta";
 			this.txtTarjeta.Size = new System.Drawing.Size(150, 26);
 			this.txtTarjeta.TabIndex = 14;
@@ -132,7 +134,7 @@
 			// 
 			this.chkFactura.AutoSize = true;
 			this.chkFactura.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-			this.chkFactura.Location = new System.Drawing.Point(20, 178);
+			this.chkFactura.Location = new System.Drawing.Point(20, 191);
 			this.chkFactura.Name = "chkFactura";
 			this.chkFactura.Size = new System.Drawing.Size(149, 24);
 			this.chkFactura.TabIndex = 15;
@@ -166,11 +168,29 @@
 			this.groupBox2.TabIndex = 18;
 			this.groupBox2.TabStop = false;
 			// 
+			// label2
+			// 
+			this.label2.AutoSize = true;
+			this.label2.Location = new System.Drawing.Point(45, 132);
+			this.label2.Name = "label2";
+			this.label2.Size = new System.Drawing.Size(106, 20);
+			this.label2.TabIndex = 19;
+			this.label2.Text = "Transferencia";
+			// 
+			// txtTransferencia
+			// 
+			this.txtTransferencia.Location = new System.Drawing.Point(157, 129);
+			this.txtTransferencia.Name = "txtTransferencia";
+			this.txtTransferencia.Size = new System.Drawing.Size(150, 26);
+			this.txtTransferencia.TabIndex = 20;
+			// 
 			// cobro
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(319, 409);
+			this.Controls.Add(this.txtTransferencia);
+			this.Controls.Add(this.label2);
 			this.Controls.Add(this.groupBox2);
 			this.Controls.Add(this.lbCobrar);
 			this.Controls.Add(this.groupBox1);
@@ -209,5 +229,7 @@
 		private System.Windows.Forms.GroupBox groupBox1;
 		private System.Windows.Forms.Label lbCobrar;
 		private System.Windows.Forms.GroupBox groupBox2;
+		private System.Windows.Forms.Label label2;
+		private System.Windows.Forms.TextBox txtTransferencia;
 	}
 }
