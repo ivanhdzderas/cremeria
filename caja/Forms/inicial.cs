@@ -187,7 +187,7 @@ namespace caja
                     cajaMenu.Enabled = false;
                     toolStripButton1.Visible = false;
                 }
-
+                facturasToolStripMenuItem.Enabled = true;
                 catalogoMenu.Enabled = true;
                 movimientosToolStripMenuItem.Enabled = true;
                 toolStripMenuItem1.Enabled = true;
@@ -1030,6 +1030,38 @@ namespace caja
                 tpage.Name = tabName;
 
                 Traspasos fc = new Traspasos();
+                fc.TopLevel = false;
+                fc.Visible = true;
+                fc.MdiParent = this;
+                fc.FormBorderStyle = FormBorderStyle.None;
+                fc.Dock = DockStyle.Fill;
+                Home.TabPages.Add(tpage);
+                int ultimo = (Home.TabPages.Count - 1);
+                Home.TabPages[ultimo].Controls.Add(fc);
+                Home.SelectTab(tabName);
+            }
+        }
+
+        private void facturasToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string tabName = "Facturas";
+            Boolean encontrado = false;
+            foreach (TabPage page in Home.TabPages)
+            {
+                string name = page.Name;
+
+                if (name == tabName)
+                {
+                    encontrado = true;
+                    Home.SelectTab(tabName);
+                }
+            }
+            if (encontrado == false)
+            {
+                TabPage tpage = new TabPage(tabName);
+                tpage.Name = tabName;
+
+                Facturas fc = new Facturas();
                 fc.TopLevel = false;
                 fc.Visible = true;
                 fc.MdiParent = this;

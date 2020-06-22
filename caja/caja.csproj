@@ -200,6 +200,12 @@
     <Compile Include="Forms\configuracion.Designer.cs">
       <DependentUpon>configuracion.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Facturas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Facturas.Designer.cs">
+      <DependentUpon>Facturas.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Forms_pagos.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -217,6 +223,12 @@
     </Compile>
     <Compile Include="Forms\Form_compras.Designer.cs">
       <DependentUpon>Form_compras.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Form_factura.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Form_factura.Designer.cs">
+      <DependentUpon>Form_factura.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\form_proveedor.cs">
       <SubType>Form</SubType>
@@ -357,6 +369,12 @@
     <Compile Include="Forms\Sucursales.Designer.cs">
       <DependentUpon>Sucursales.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Ticket_a_factura.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Ticket_a_factura.Designer.cs">
+      <DependentUpon>Ticket_a_factura.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Transfer_forms.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -412,6 +430,7 @@
     <Compile Include="Models\retiro_efectivo.cs" />
     <Compile Include="Models\SAT_prod.cs" />
     <Compile Include="Models\Tickets.cs" />
+    <Compile Include="Models\Ticket_a_facturas.cs" />
     <Compile Include="Models\Transfers.cs" />
     <Compile Include="Models\Unidad_Sat.cs" />
     <Compile Include="Models\Users.cs" />
@@ -460,6 +479,9 @@
     <EmbeddedResource Include="Forms\configuracion.resx">
       <DependentUpon>configuracion.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Facturas.resx">
+      <DependentUpon>Facturas.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\Forms_pagos.resx">
       <DependentUpon>Forms_pagos.cs</DependentUpon>
     </EmbeddedResource>
@@ -468,6 +490,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Form_compras.resx">
       <DependentUpon>Form_compras.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Form_factura.resx">
+      <DependentUpon>Form_factura.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\form_proveedor.resx">
       <DependentUpon>form_proveedor.cs</DependentUpon>
@@ -537,6 +562,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Sucursales.resx">
       <DependentUpon>Sucursales.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Ticket_a_factura.resx">
+      <DependentUpon>Ticket_a_factura.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Transfer_forms.resx">
       <DependentUpon>Transfer_forms.cs</DependentUpon>
