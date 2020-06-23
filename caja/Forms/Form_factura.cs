@@ -3,11 +3,15 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using caja.Models;
+using Facturapi;
+using Product = caja.Models.Product;
 
 namespace caja.Forms
 {
@@ -78,6 +82,56 @@ namespace caja.Forms
 						break; 
 				}
 			}
+		}
+
+		private async Task button1_ClickAsync(object sender, EventArgs e)
+		{
+
+
+
+
+
+
+			
+
+			
+
+		}
+
+		private void button1_Click(object sender, EventArgs e)
+		{
+			var facturapi = new FacturapiClient("sk_test_ZMndoLa1ODwz13GebqDgXp0WXx5kVRK8");
+			// Después, procede a llamar a los métodos como muestra la documentación.
+			var invoice = await facturapi.Invoice.CreateAsync(new Dictionary<string, object>
+			{
+				["customer"] = "58e93bd8e86eb318b0197456",
+				["items"] = new Dictionary<string, object>[]
+				{
+				new Dictionary<string, object>
+				{
+					["product"] = new Dictionary<string, object>
+					{
+					["description"] = "Ukelele",
+					["product_key"] = "60131324",
+					["price"] = 345.60
+					}
+				}
+				},
+				["payment_form"] = Facturapi.PaymentForm.DINERO_ELECTRONICO,
+				["folio_number"] = 914,
+				["series"] = "A"
+			});
+
+			// Create a new WebClient instance.
+			WebClient myWebClient = new WebClient();
+			string fileName = invoice.Id + ".zip", myStringWebResource = null;
+
+			// Concatenate the domain with the Web resource filename.
+			myStringWebResource = "https://www.facturapi.io/v1/invoices/" + invoice.Id + "/zip";
+			Console.WriteLine("Downloading File \"{0}\" from \"{1}\" .......\n\n", fileName, myStringWebResource);
+			// Download the Web resource and save it into the current filesystem folder.
+			myWebClient.DownloadFile(myStringWebResource, fileName);
+
 		}
 	}
 }

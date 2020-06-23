@@ -39,6 +39,8 @@
 			this.txtCliente = new System.Windows.Forms.TextBox();
 			this.txtIdCliente = new System.Windows.Forms.TextBox();
 			this.dtdocumentos = new System.Windows.Forms.DataGridView();
+			this.folio = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.tipo = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.dtProductos = new System.Windows.Forms.DataGridView();
 			this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.cantidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -46,8 +48,7 @@
 			this.descripcion = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.pu = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.total = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.folio = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.tipo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.button1 = new System.Windows.Forms.Button();
 			((System.ComponentModel.ISupportInitialize)(this.dtdocumentos)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.dtProductos)).BeginInit();
 			this.SuspendLayout();
@@ -150,6 +151,18 @@
 			this.dtdocumentos.TabIndex = 10;
 			this.dtdocumentos.Visible = false;
 			// 
+			// folio
+			// 
+			this.folio.HeaderText = "folio";
+			this.folio.Name = "folio";
+			this.folio.ReadOnly = true;
+			// 
+			// tipo
+			// 
+			this.tipo.HeaderText = "tipo";
+			this.tipo.Name = "tipo";
+			this.tipo.ReadOnly = true;
+			// 
 			// dtProductos
 			// 
 			this.dtProductos.AllowUserToAddRows = false;
@@ -205,23 +218,22 @@
 			this.total.Name = "total";
 			this.total.ReadOnly = true;
 			// 
-			// folio
+			// button1
 			// 
-			this.folio.HeaderText = "folio";
-			this.folio.Name = "folio";
-			this.folio.ReadOnly = true;
-			// 
-			// tipo
-			// 
-			this.tipo.HeaderText = "tipo";
-			this.tipo.Name = "tipo";
-			this.tipo.ReadOnly = true;
+			this.button1.Location = new System.Drawing.Point(713, 264);
+			this.button1.Name = "button1";
+			this.button1.Size = new System.Drawing.Size(75, 23);
+			this.button1.TabIndex = 12;
+			this.button1.Text = "button1";
+			this.button1.UseVisualStyleBackColor = true;
+			this.button1.Click += new System.EventHandler(this.button1_Click);
 			// 
 			// Form_factura
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(800, 450);
+			this.Controls.Add(this.button1);
 			this.Controls.Add(this.dtProductos);
 			this.Controls.Add(this.dtdocumentos);
 			this.Controls.Add(this.txtIdCliente);
@@ -266,5 +278,6 @@
 		private System.Windows.Forms.DataGridViewTextBoxColumn total;
 		private System.Windows.Forms.DataGridViewTextBoxColumn folio;
 		private System.Windows.Forms.DataGridViewTextBoxColumn tipo;
+		private System.Windows.Forms.Button button1;
 	}
 }
