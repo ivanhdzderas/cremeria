@@ -31,14 +31,14 @@
 			this.label1 = new System.Windows.Forms.Label();
 			this.txtIdCliente = new System.Windows.Forms.TextBox();
 			this.dtTickets = new System.Windows.Forms.DataGridView();
-			this.button1 = new System.Windows.Forms.Button();
-			this.txtCliente = new System.Windows.Forms.TextBox();
-			this.label2 = new System.Windows.Forms.Label();
 			this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.folio = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.fecha = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.total = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.chk = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+			this.button1 = new System.Windows.Forms.Button();
+			this.txtCliente = new System.Windows.Forms.TextBox();
+			this.label2 = new System.Windows.Forms.Label();
 			((System.ComponentModel.ISupportInitialize)(this.dtTickets)).BeginInit();
 			this.SuspendLayout();
 			// 
@@ -78,33 +78,6 @@
 			this.dtTickets.Size = new System.Drawing.Size(580, 130);
 			this.dtTickets.TabIndex = 3;
 			// 
-			// button1
-			// 
-			this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.button1.Location = new System.Drawing.Point(517, 200);
-			this.button1.Name = "button1";
-			this.button1.Size = new System.Drawing.Size(75, 23);
-			this.button1.TabIndex = 4;
-			this.button1.Text = "Aceptar";
-			this.button1.UseVisualStyleBackColor = true;
-			this.button1.Click += new System.EventHandler(this.button1_Click);
-			// 
-			// txtCliente
-			// 
-			this.txtCliente.Location = new System.Drawing.Point(77, 38);
-			this.txtCliente.Name = "txtCliente";
-			this.txtCliente.Size = new System.Drawing.Size(381, 20);
-			this.txtCliente.TabIndex = 2;
-			// 
-			// label2
-			// 
-			this.label2.AutoSize = true;
-			this.label2.Location = new System.Drawing.Point(32, 41);
-			this.label2.Name = "label2";
-			this.label2.Size = new System.Drawing.Size(39, 13);
-			this.label2.TabIndex = 5;
-			this.label2.Text = "Cliente";
-			// 
 			// id
 			// 
 			this.id.HeaderText = "id";
@@ -133,6 +106,34 @@
 			// 
 			this.chk.HeaderText = "";
 			this.chk.Name = "chk";
+			// 
+			// button1
+			// 
+			this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+			this.button1.Location = new System.Drawing.Point(517, 200);
+			this.button1.Name = "button1";
+			this.button1.Size = new System.Drawing.Size(75, 23);
+			this.button1.TabIndex = 4;
+			this.button1.Text = "Aceptar";
+			this.button1.UseVisualStyleBackColor = true;
+			this.button1.Click += new System.EventHandler(this.button1_Click);
+			// 
+			// txtCliente
+			// 
+			this.txtCliente.Location = new System.Drawing.Point(77, 38);
+			this.txtCliente.Name = "txtCliente";
+			this.txtCliente.Size = new System.Drawing.Size(381, 20);
+			this.txtCliente.TabIndex = 2;
+			this.txtCliente.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtCliente_KeyDown);
+			// 
+			// label2
+			// 
+			this.label2.AutoSize = true;
+			this.label2.Location = new System.Drawing.Point(32, 41);
+			this.label2.Name = "label2";
+			this.label2.Size = new System.Drawing.Size(39, 13);
+			this.label2.TabIndex = 5;
+			this.label2.Text = "Cliente";
 			// 
 			// Ticket_a_factura
 			// 

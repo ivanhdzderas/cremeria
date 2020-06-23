@@ -34,8 +34,8 @@ namespace caja.Forms
 		{
 			if (e.KeyChar==(char)13)
 			{
-				
 
+				Product productos = new Product();
 				switch (cbTipo.SelectedItem.ToString())
 				{
 					case "Ticket":
@@ -44,7 +44,7 @@ namespace caja.Forms
 						tic_a_fact.ShowDialog();
 
 
-						Product productos = new Product();
+						
 						foreach (DataGridViewRow row in dtdocumentos.Rows)
 						{
 							Dettickets detalles = new Dettickets();
@@ -57,7 +57,21 @@ namespace caja.Forms
 						}
 							break;
 					case "Traspasos":
+						Traspasos_a_facturas traspasos = new Traspasos_a_facturas();
+						traspasos.Owner = this;
+						traspasos.ShowDialog();
 
+
+						foreach (DataGridViewRow row in dtdocumentos.Rows)
+						{
+							Det_transfers detalles = new Det_transfers();
+							List<Det_transfers> detalle = detalles.getDet_trans(Convert.ToInt16(row.Cells["folio"].Value.ToString()));
+							foreach (Det_transfers item in detalle)
+							{
+								List<Product> producto = productos.getProductById(item.Id_producto);
+								dtProductos.Rows.Add(item.Id_producto, item.Cantidad, producto[0].Code1, producto[0].Description, item.Precio, (item.Precio*item.Cantidad));
+							}
+						}
 						break;
 					default:
 						txtCliente.Focus();

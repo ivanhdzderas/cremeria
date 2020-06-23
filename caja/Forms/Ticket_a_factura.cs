@@ -26,7 +26,7 @@ namespace caja.Forms
 				if (Convert.ToBoolean(row.Cells["chk"].Value) == true)
 				{
 					
-					form_interface.dtdocumentos.Rows.Add(row.Cells["id"].Value.ToString());
+					form_interface.dtdocumentos.Rows.Add(row.Cells["id"].Value.ToString(),"Ticket");
 				}
 			}
 			form_interface.txtIdCliente.Text = txtIdCliente.Text;
@@ -76,10 +76,25 @@ namespace caja.Forms
 		{
 			if (e.KeyCode == Keys.Enter)
 			{
-
 				Client clientes = new Client();
 				List<Client> client = clientes.getClientbyId(Convert.ToInt16(txtIdCliente.Text));
 				txtCliente.Text = client[0].Name;
+				Tickets ticket = new Tickets();
+				List<Models.Tickets> tic = ticket.getbyclient(txtIdCliente.Text);
+				foreach (Tickets item in tic)
+				{
+					dtTickets.Rows.Add(item.Id, item.Id, item.Fecha, item.Total);
+				}
+			}
+		}
+
+		private void txtCliente_KeyDown(object sender, KeyEventArgs e)
+		{
+			if (e.KeyCode == Keys.Enter)
+			{
+				Client clientes = new Client();
+				List<Client> client = clientes.getClientbyName(txtCliente.Text);
+				txtIdCliente.Text = client[0].Id.ToString();
 				Tickets ticket = new Tickets();
 				List<Models.Tickets> tic = ticket.getbyclient(txtIdCliente.Text);
 				foreach (Tickets item in tic)

@@ -100,6 +100,21 @@ namespace caja.Models
 			}
 			return result;
 		}
+		public List<Transfers> getTransferbysucursal(int id_sucursal)
+		{
+			string query = maq_query + " where sucursal='" + id_sucursal + "' and tipo='E'";
+			MySqlDataReader data = runQuery(query);
+			List<Transfers> result = new List<Transfers>();
+			if (data.HasRows)
+			{
+				while (data.Read())
+				{
+					Transfers item = build_transfer(data);
+					result.Add(item);
+				}
+			}
+			return result;
+		}
 		public List<Transfers> getTransferbyfolio(int folio, string tipo)
 		{
 			string query = maq_query + " where folio='" + folio.ToString() + "' and tipo='" + tipo + "'";

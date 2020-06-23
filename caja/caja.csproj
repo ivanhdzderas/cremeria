@@ -387,6 +387,12 @@
     <Compile Include="Forms\Traspasos.Designer.cs">
       <DependentUpon>Traspasos.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Traspasos_a_facturas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Traspasos_a_facturas.Designer.cs">
+      <DependentUpon>Traspasos_a_facturas.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Usuarios.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -432,6 +438,7 @@
     <Compile Include="Models\Tickets.cs" />
     <Compile Include="Models\Ticket_a_facturas.cs" />
     <Compile Include="Models\Transfers.cs" />
+    <Compile Include="Models\Traspasos_a_facturas.cs" />
     <Compile Include="Models\Unidad_Sat.cs" />
     <Compile Include="Models\Users.cs" />
     <Compile Include="Program.cs" />
@@ -571,6 +578,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Traspasos.resx">
       <DependentUpon>Traspasos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Traspasos_a_facturas.resx">
+      <DependentUpon>Traspasos_a_facturas.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Usuarios.resx">
       <DependentUpon>Usuarios.cs</DependentUpon>

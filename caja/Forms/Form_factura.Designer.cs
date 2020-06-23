@@ -39,7 +39,6 @@
 			this.txtCliente = new System.Windows.Forms.TextBox();
 			this.txtIdCliente = new System.Windows.Forms.TextBox();
 			this.dtdocumentos = new System.Windows.Forms.DataGridView();
-			this.folio = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.dtProductos = new System.Windows.Forms.DataGridView();
 			this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.cantidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -47,6 +46,8 @@
 			this.descripcion = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.pu = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.total = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.folio = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.tipo = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			((System.ComponentModel.ISupportInitialize)(this.dtdocumentos)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.dtProductos)).BeginInit();
 			this.SuspendLayout();
@@ -140,18 +141,14 @@
 			this.dtdocumentos.AllowUserToDeleteRows = false;
 			this.dtdocumentos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
 			this.dtdocumentos.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.folio});
+            this.folio,
+            this.tipo});
 			this.dtdocumentos.Location = new System.Drawing.Point(12, 264);
 			this.dtdocumentos.Name = "dtdocumentos";
 			this.dtdocumentos.ReadOnly = true;
-			this.dtdocumentos.Size = new System.Drawing.Size(155, 150);
+			this.dtdocumentos.Size = new System.Drawing.Size(249, 150);
 			this.dtdocumentos.TabIndex = 10;
-			// 
-			// folio
-			// 
-			this.folio.HeaderText = "folio";
-			this.folio.Name = "folio";
-			this.folio.ReadOnly = true;
+			this.dtdocumentos.Visible = false;
 			// 
 			// dtProductos
 			// 
@@ -208,6 +205,18 @@
 			this.total.Name = "total";
 			this.total.ReadOnly = true;
 			// 
+			// folio
+			// 
+			this.folio.HeaderText = "folio";
+			this.folio.Name = "folio";
+			this.folio.ReadOnly = true;
+			// 
+			// tipo
+			// 
+			this.tipo.HeaderText = "tipo";
+			this.tipo.Name = "tipo";
+			this.tipo.ReadOnly = true;
+			// 
 			// Form_factura
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -248,7 +257,6 @@
 		public System.Windows.Forms.TextBox txtCliente;
 		public System.Windows.Forms.TextBox txtIdCliente;
 		public System.Windows.Forms.DataGridView dtdocumentos;
-		private System.Windows.Forms.DataGridViewTextBoxColumn folio;
 		private System.Windows.Forms.DataGridView dtProductos;
 		private System.Windows.Forms.DataGridViewTextBoxColumn id;
 		private System.Windows.Forms.DataGridViewTextBoxColumn cantidad;
@@ -256,5 +264,7 @@
 		private System.Windows.Forms.DataGridViewTextBoxColumn descripcion;
 		private System.Windows.Forms.DataGridViewTextBoxColumn pu;
 		private System.Windows.Forms.DataGridViewTextBoxColumn total;
+		private System.Windows.Forms.DataGridViewTextBoxColumn folio;
+		private System.Windows.Forms.DataGridViewTextBoxColumn tipo;
 	}
 }

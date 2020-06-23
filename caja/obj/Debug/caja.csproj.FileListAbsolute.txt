@@ -134,3 +134,4 @@ C:\Users\anton\source\repos\caja\caja\obj\Debug\caja.Forms.Facturas.resources
 C:\Users\anton\source\repos\caja\caja\obj\Debug\caja.Forms.Form_factura.resources
 C:\Users\anton\source\repos\caja\caja\obj\Debug\caja.Forms.Ticket_a_factura.resources
 C:\Users\anton\source\repos\caja\caja\obj\Debug\caja.csprojAssemblyReference.cache
+C:\Users\anton\source\repos\caja\caja\obj\Debug\caja.Forms.Traspasos_a_facturas.resources
