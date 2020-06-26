@@ -133,5 +133,10 @@ C:\Users\anton\source\repos\caja\caja\obj\Debug\caja.Forms.Sucursal.resources
 C:\Users\anton\source\repos\caja\caja\obj\Debug\caja.Forms.Facturas.resources
 C:\Users\anton\source\repos\caja\caja\obj\Debug\caja.Forms.Form_factura.resources
 C:\Users\anton\source\repos\caja\caja\obj\Debug\caja.Forms.Ticket_a_factura.resources
-C:\Users\anton\source\repos\caja\caja\obj\Debug\caja.csprojAssemblyReference.cache
 C:\Users\anton\source\repos\caja\caja\obj\Debug\caja.Forms.Traspasos_a_facturas.resources
+C:\Users\anton\source\repos\caja\caja\bin\Debug\Facturapi.dll
+C:\Users\anton\source\repos\caja\caja\bin\Debug\Newtonsoft.Json.ContractResolverExtentions.dll
+C:\Users\anton\source\repos\caja\caja\bin\Debug\Newtonsoft.Json.dll
+C:\Users\anton\source\repos\caja\caja\bin\Debug\Newtonsoft.Json.pdb
+C:\Users\anton\source\repos\caja\caja\bin\Debug\Newtonsoft.Json.xml
+C:\Users\anton\source\repos\caja\caja\obj\Debug\caja.csprojAssemblyReference.cache
