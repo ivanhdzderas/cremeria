@@ -47,7 +47,11 @@ namespace caja.Models
 
 		}
 		public Tickets() { }
-
+		public void CancelTicket()
+		{
+			string query = "update tbatickets set status='C' where id='" + this.Id + "'";
+			runQuery(query);
+		}
 		public void CreateTicket()
 		{
 			string query = "insert into tbatickets (id_cliente, fecha, subtotal, descuento, iva, total, status, c_iva, s_iva, id_usuario, atendio) values (";
@@ -65,6 +69,7 @@ namespace caja.Models
 
 			object result = runQuery(query);
 		}
+
 		private Tickets buildTicket(MySqlDataReader data) {
 			Tickets item = new Tickets(
 				data.GetInt16("id"),
@@ -100,6 +105,21 @@ namespace caja.Models
 		public List<Tickets> getTicketsbyId(int id)
 		{
 			string query = "select id, id_cliente, fecha, subtotal, descuento, iva, total, status, c_iva, s_iva, id_usuario,atendio  from tbatickets where id='" + id.ToString() + "'";
+			MySqlDataReader data = runQuery(query);
+			List<Tickets> result = new List<Tickets>();
+			if (data.HasRows)
+			{
+				while (data.Read())
+				{
+					Tickets item = buildTicket(data);
+					result.Add(item);
+				}
+			}
+			return result;
+		}
+		public List<Tickets> getActiveTicketsbyId(int id)
+		{
+			string query = "select id, id_cliente, fecha, subtotal, descuento, iva, total, status, c_iva, s_iva, id_usuario,atendio  from tbatickets where id='" + id.ToString() + "' and status='A'";
 			MySqlDataReader data = runQuery(query);
 			List<Tickets> result = new List<Tickets>();
 			if (data.HasRows)

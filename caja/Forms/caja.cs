@@ -1063,8 +1063,57 @@ namespace caja
         {
             string folio=Interaction.InputBox("Ingrese el folio a cancelar","Cancelar");
             if (folio != "")
-            { 
-                
+            {
+                Tickets tickets = new Tickets();
+                List<Tickets> ticket = tickets.getTicketsbyId(Convert.ToInt16(folio));
+                if (ticket.Count > 0)
+                {
+                    if (ticket[0].Status == "C")
+                    {
+                        MessageBox.Show("Ticket cancelado previamente");
+                    }
+                    else
+                    {
+                        tickets.Id = Convert.ToInt16(folio);
+                        tickets.CancelTicket();
+
+                        Dettickets detalle_ticket = new Dettickets();
+                        List<Dettickets> Detalles = detalle_ticket.getDetalles(Convert.ToInt16(folio));
+                        Product productos = new Product();
+                        Kardex kardex = new Kardex();
+                        Afecta_inv afecta = new Afecta_inv();
+                        int nuevo = 0;
+                        foreach (Dettickets dettickets in Detalles)
+                        {
+
+                            List<Product> prod = productos.getProductById(dettickets.Id_producto);
+                            nuevo = Convert.ToInt16(dettickets.Cantidad);
+                            while (prod[0].Parent != "0")
+                            {
+                                nuevo = nuevo * Convert.ToInt16(prod[0].C_unidad);
+                                prod = productos.getProductById(Convert.ToInt16(prod[0].Parent));
+                            }
+
+
+                            
+                            kardex.Id_producto = prod[0].Id;
+                            kardex.Tipo = "D";
+                            kardex.Id_documento = Convert.ToInt16(folio);
+                            kardex.Cantidad =nuevo;
+                            kardex.Antes = prod[0].Existencia;
+                            kardex.Fecha = fecha;
+                            kardex.CreateKardex();
+                            List<Kardex> ultimo = kardex.getidKardex(prod[0].Id, Convert.ToInt16(folio), "D");
+                            afecta.Agrega(ultimo[0].Id);
+                        }
+                        MessageBox.Show("Ticket cancelado satisfactoriamente");
+                    }
+                   
+                }
+                else
+                {
+                    MessageBox.Show("No se encontro Ticket");
+                }
             }
         }
     }

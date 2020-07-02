@@ -150,6 +150,9 @@ namespace caja
                     case "C":
                         tipo = "Compra";
                         break;
+                    case "D":
+                        tipo = "Ticket";
+                        break;
                 }
                 dtKardex.Rows.Add(id, fecha, tipo, folio_documento, antes, cantidad);
             }
