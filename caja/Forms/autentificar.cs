@@ -68,6 +68,18 @@ namespace caja.Forms
 									MessageBox.Show("El usuario no tiene permiso de efectuar transferencias", "Usuario invalido", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
 								}
 							}
+							if (origen== "Cancelar")
+							{
+								if (Convert.ToBoolean(permiso[0].Cancelar_ticket) == true)
+								{
+
+									this.Close();
+								}
+								else
+								{
+									MessageBox.Show("El usuario no tiene permiso para cancelar Ticket", "Usuario invalido", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+								}
+							}
 							
 						}
 					}

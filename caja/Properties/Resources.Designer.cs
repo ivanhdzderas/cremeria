@@ -213,6 +213,16 @@ namespace caja.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        public static System.Drawing.Bitmap limpieza {
+            get {
+                object obj = ResourceManager.GetObject("limpieza", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         public static System.Drawing.Bitmap lock_go {
             get {
                 object obj = ResourceManager.GetObject("lock_go", resourceCulture);

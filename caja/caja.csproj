@@ -99,6 +99,12 @@
     <Reference Include="System.Configuration.Install" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing.Design" />
+    <Reference Include="System.IO.Compression.FileSystem" />
+    <Reference Include="System.IO.Compression.ZipFile, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.Compression.ZipFile.4.3.0\lib\net46\System.IO.Compression.ZipFile.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Management" />
     <Reference Include="System.Memory, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Memory.4.5.3\lib\netstandard2.0\System.Memory.dll</HintPath>
@@ -312,6 +318,12 @@
     <Compile Include="Forms\Inventario\Salidas.Designer.cs">
       <DependentUpon>Salidas.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Levantar_inventario.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Levantar_inventario.Designer.cs">
+      <DependentUpon>Levantar_inventario.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\login.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -419,12 +431,14 @@
     <Compile Include="Models\Dettickets.cs" />
     <Compile Include="Models\det_ajustes.cs" />
     <Compile Include="Models\Det_entradas.cs" />
+    <Compile Include="Models\Det_facturas.cs" />
     <Compile Include="Models\Det_pagos.cs" />
     <Compile Include="Models\det_retiro.cs" />
     <Compile Include="Models\Det_salidas.cs" />
     <Compile Include="Models\Det_transfers.cs" />
     <Compile Include="Models\Export_excel.cs" />
     <Compile Include="Models\Export_pdf.cs" />
+    <Compile Include="Models\Facturas.cs" />
     <Compile Include="Models\Factura\items.cs" />
     <Compile Include="Models\Factura\local_taxes.cs" />
     <Compile Include="Models\Factura\Productos.cs" />
@@ -553,6 +567,9 @@
     <EmbeddedResource Include="Forms\Inventario\Salidas.resx">
       <DependentUpon>Salidas.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Levantar_inventario.resx">
+      <DependentUpon>Levantar_inventario.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\login.resx">
       <DependentUpon>login.cs</DependentUpon>
     </EmbeddedResource>
@@ -647,6 +664,7 @@
     <None Include="Assets\intercambiar.png" />
     <Content Include="Assets\lapiz.png" />
     <Content Include="Assets\add.png" />
+    <None Include="Assets\limpieza.png" />
     <Content Include="Assets\lock_go.png" />
     <Content Include="Assets\money_dollar.png" />
     <Content Include="Assets\open_folder.png" />

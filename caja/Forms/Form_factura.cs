@@ -4,12 +4,15 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.IO;
+using System.IO.Compression;
 using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml;
 using caja.Models;
+
 using Facturapi;
 using Product = caja.Models.Product;
 
@@ -71,6 +74,22 @@ namespace caja.Forms
 			}
 			return datos;
 		}
+		private void Calcula()
+		{
+			double subtotal = 0;
+			double iva = 0;
+			double total = 0;
+			foreach (DataGridViewRow row in dtProductos.Rows)
+			{
+				subtotal = subtotal + (Convert.ToDouble(row.Cells["cantidad"].Value)* Convert.ToDouble(row.Cells["pu"].Value));
+			}
+			iva = subtotal * 0.16;
+			total = subtotal * 1.16;
+
+			txtSubtotal.Text = subtotal.ToString();
+			txtIVa.Text = iva.ToString();
+			txtTotal.Text = total.ToString();
+		}
 		private AutoCompleteStringCollection cargadatos3()
 		{
 			AutoCompleteStringCollection datos = new AutoCompleteStringCollection();
@@ -108,6 +127,7 @@ namespace caja.Forms
 								dtProductos.Rows.Add(item.Id_producto, item.Cantidad,producto[0].Code1, producto[0].Description,item.Pu, item.Total);
 							}
 						}
+						Calcula();
 							break;
 					case "Traspasos":
 						Traspasos_a_facturas traspasos = new Traspasos_a_facturas();
@@ -125,6 +145,7 @@ namespace caja.Forms
 								dtProductos.Rows.Add(item.Id_producto, item.Cantidad, producto[0].Code1, producto[0].Description, item.Precio, (item.Precio*item.Cantidad));
 							}
 						}
+						Calcula();
 						break;
 					default:
 						txtCliente.Focus();
@@ -136,19 +157,31 @@ namespace caja.Forms
 
 		private async void button1_Click(object sender, EventArgs e)
 		{
+			Models.Facturas factura = new Models.Facturas();
+
+			Models.Folios folios = new Models.Folios();
+			List<Models.Folios> folio = folios.getFolios();
+
+
+			factura.Folio = folio[0].Facturas;
+			factura.Serie = folio[0].Serie;
+			factura.Cliente = Convert.ToInt16(txtIdCliente.Text);
+			factura.Subtotal = Convert.ToDouble(txtSubtotal.Text);
+			factura.Total = Convert.ToDouble(txtTotal.Text);
+			factura.Pago = txtFpago.Text;
+
+
+			Models.Client clientes = new Models.Client();
+			List<Models.Client> cliente = clientes.getClientbyId(Convert.ToInt16(txtIdCliente.Text));
 			var facturapi = new FacturapiClient("sk_test_ZMndoLa1ODwz13GebqDgXp0WXx5kVRK8");
 			// Después, procede a llamar a los métodos como muestra la documentación.
 			
-
 			Product productos = new Product();
 
-			
 			List<Models.Factura.items> producto_factura = new List<Models.Factura.items>();
 
 			foreach (DataGridViewRow row in dtProductos.Rows)
 			{
-
-
 				List<Product> producto = productos.getProductById(Convert.ToInt16(row.Cells["id"].Value.ToString()));
 				producto_factura.Add(
 					new Models.Factura.items
@@ -172,32 +205,60 @@ namespace caja.Forms
 					}
 					);
 
-			
+
 			}
 
-
-			var invoice = await facturapi.Invoice.CreateAsync(new Dictionary<string, object>
-			{
-				["customer"] = new Dictionary<string, object>
+			try {
+				var invoice = await facturapi.Invoice.CreateAsync(new Dictionary<string, object>
 				{
-					["legal_name"] = "John Doe",
-					["tax_id"] = "ABCD111111CBA"
-				},
-				["items"]= producto_factura,
-				
-				["use"] = txtUsoCfdi.Text,
-				["payment_method"] = txtMPago.Text,
-				["payment_form"] = txtFpago.Text,
-				["folio_number"] = 914,
-				["series"] = "A"
-			});
-			var zipStream = await facturapi.Invoice.DownloadZipAsync(invoice.Id);
-			var file = new System.IO.FileStream("C:\\prueba\\" + invoice.Id+".zip", FileMode.Create);
-			zipStream.CopyTo(file);
-			file.Close();
+					["customer"] = new Dictionary<string, object>
+					{
+						["legal_name"] = cliente[0].Name,
+						["tax_id"] = cliente[0].RFC
+					},
+					["items"] = producto_factura,
 
+					["use"] = txtUsoCfdi.Text,
+					["payment_method"] = txtMPago.Text,
+					["payment_form"] = txtFpago.Text,
+					["folio_number"] = folio[0].Facturas,
+					["series"] = folio[0].Serie
+				});
+				factura.Id_invoi = invoice.Id;
+				factura.Uuid = invoice.Uuid;
+
+				var zipStream = await facturapi.Invoice.DownloadZipAsync(invoice.Id);
+				string Directorio = "C:\\prueba\\";
+				string Archivo = Directorio + invoice.Id + ".zip";
+
+				var file = new System.IO.FileStream(Archivo, FileMode.Create);
+				zipStream.CopyTo(file);
+				file.Close();
+				//Descomprimir
+				System.IO.Compression.ZipFile.ExtractToDirectory(Archivo, Directorio);
+				string Archivo_xml = Directorio + invoice.Uuid + ".xml";
+				string text = System.IO.File.ReadAllText(Archivo_xml);
+				factura.Xml = text;
+
+				XmlDocument CFDI = new XmlDocument();
+				CFDI.Load(Archivo_xml);
+				XmlNode nodo = CFDI.GetElementsByTagName("cfdi:Comprobante").Item(0);
+				string valorAtributo = nodo.Attributes.GetNamedItem("Fecha").Value;
+				XmlNode Complemento = CFDI.GetElementsByTagName("cfdi:Complemento").Item(0);
+				XmlNode Timbre = CFDI.GetElementsByTagName("tfd:TimbreFiscalDigital").Item(0);
+				string SelloSAT = Timbre.Attributes.GetNamedItem("SelloSAT").Value;
+
+				factura.Sello = SelloSAT;
+				factura.create();
+
+				folios.saveFacturas();
+			} 
+			catch (Exception ex) {
+				MessageBox.Show(ex.Message);
+			}
 			
-
+			
+			
 		}
 
 		private void txtUsoCfdi_KeyDown(object sender, KeyEventArgs e)

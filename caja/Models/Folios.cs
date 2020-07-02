@@ -12,14 +12,17 @@ namespace caja.Models
 		public int Transferencia { get; set; }
 		public int Pagos { get; set; }
 		public int Facturas { get; set; }
+		public string Serie { get; set; }
 		public Folios(
 			int transferencia,
 			int pagos,
-			int facturas) 
+			int facturas,
+			string serie) 
 		{
 			Transferencia = transferencia;
 			Pagos = pagos;
 			Facturas = facturas;
+			Serie = serie;
 		}
 		public Folios() { }
 
@@ -28,7 +31,8 @@ namespace caja.Models
 			Folios item = new Folios(
 				data.GetInt16("transf"),
 				data.GetInt16("pagos"),
-				data.GetInt16("factura")
+				data.GetInt16("factura"),
+				data.GetString("serie")
 				);
 			return item;
 		}
@@ -45,12 +49,12 @@ namespace caja.Models
 		}
 		public void saveFacturas()
 		{
-			string query = "update tbafolios set factura='" + this.Facturas + "'";
+			string query = "update tbafolios set factura=factura+1";
 			object result = runQuery(query);
 		}
 		public List<Folios> getFolios()
 		{
-			string query = "select transf, pagos, factura from tbafolios";
+			string query = "select transf, pagos, factura, serie from tbafolios";
 			MySqlDataReader data = runQuery(query);
 			List<Folios> result = new List<Folios>();
 			if (data.HasRows)

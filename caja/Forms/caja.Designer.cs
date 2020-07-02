@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+			this.components = new System.ComponentModel.Container();
 			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
 			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
 			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
@@ -67,12 +68,17 @@
 			this.txtTotal = new System.Windows.Forms.TextBox();
 			this.printDocument1 = new System.Drawing.Printing.PrintDocument();
 			this.lbClient = new System.Windows.Forms.Label();
-			this.lbidcliente = new System.Windows.Forms.TextBox();
 			this.label11 = new System.Windows.Forms.Label();
 			this.label12 = new System.Windows.Forms.Label();
 			this.txtcIva = new System.Windows.Forms.TextBox();
 			this.txtsIva = new System.Windows.Forms.TextBox();
 			this.cbPu = new System.Windows.Forms.TextBox();
+			this.txtidcliente = new System.Windows.Forms.TextBox();
+			this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
+			this.label13 = new System.Windows.Forms.Label();
+			this.txtIdAtiende = new System.Windows.Forms.TextBox();
+			this.lbAtiende = new System.Windows.Forms.Label();
+			this.button8 = new System.Windows.Forms.Button();
 			this.button7 = new System.Windows.Forms.Button();
 			this.button6 = new System.Windows.Forms.Button();
 			this.btnVer = new System.Windows.Forms.Button();
@@ -82,6 +88,7 @@
 			this.button2 = new System.Windows.Forms.Button();
 			this.button1 = new System.Windows.Forms.Button();
 			((System.ComponentModel.ISupportInitialize)(this.dtProductos)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// label1
@@ -440,13 +447,6 @@
 			this.lbClient.TabIndex = 23;
 			this.lbClient.Text = "label11";
 			// 
-			// lbidcliente
-			// 
-			this.lbidcliente.Location = new System.Drawing.Point(18, 12);
-			this.lbidcliente.Name = "lbidcliente";
-			this.lbidcliente.Size = new System.Drawing.Size(100, 26);
-			this.lbidcliente.TabIndex = 27;
-			// 
 			// label11
 			// 
 			this.label11.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -501,6 +501,63 @@
 			this.cbPu.Name = "cbPu";
 			this.cbPu.Size = new System.Drawing.Size(174, 22);
 			this.cbPu.TabIndex = 33;
+			// 
+			// txtidcliente
+			// 
+			this.txtidcliente.Location = new System.Drawing.Point(18, 10);
+			this.txtidcliente.Name = "txtidcliente";
+			this.txtidcliente.Size = new System.Drawing.Size(100, 26);
+			this.txtidcliente.TabIndex = 36;
+			this.txtidcliente.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtidcliente_KeyDown);
+			this.txtidcliente.Leave += new System.EventHandler(this.txtidcliente_Leave);
+			// 
+			// errorProvider1
+			// 
+			this.errorProvider1.ContainerControl = this;
+			this.errorProvider1.RightToLeft = true;
+			// 
+			// label13
+			// 
+			this.label13.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+			this.label13.AutoSize = true;
+			this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label13.Location = new System.Drawing.Point(60, 541);
+			this.label13.Name = "label13";
+			this.label13.Size = new System.Drawing.Size(75, 24);
+			this.label13.TabIndex = 37;
+			this.label13.Text = "Atiende";
+			// 
+			// txtIdAtiende
+			// 
+			this.txtIdAtiende.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+			this.txtIdAtiende.Location = new System.Drawing.Point(141, 539);
+			this.txtIdAtiende.Name = "txtIdAtiende";
+			this.txtIdAtiende.Size = new System.Drawing.Size(93, 26);
+			this.txtIdAtiende.TabIndex = 38;
+			this.txtIdAtiende.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtIdAtiende_KeyDown);
+			// 
+			// lbAtiende
+			// 
+			this.lbAtiende.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+			this.lbAtiende.AutoSize = true;
+			this.lbAtiende.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.lbAtiende.Location = new System.Drawing.Point(238, 541);
+			this.lbAtiende.Name = "lbAtiende";
+			this.lbAtiende.Size = new System.Drawing.Size(0, 24);
+			this.lbAtiende.TabIndex = 39;
+			// 
+			// button8
+			// 
+			this.button8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+			this.button8.Image = global::caja.Properties.Resources.cross;
+			this.button8.Location = new System.Drawing.Point(725, 599);
+			this.button8.Name = "button8";
+			this.button8.Size = new System.Drawing.Size(95, 80);
+			this.button8.TabIndex = 40;
+			this.button8.Text = "Cnl Ticket";
+			this.button8.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+			this.button8.UseVisualStyleBackColor = true;
+			this.button8.Click += new System.EventHandler(this.button8_Click);
 			// 
 			// button7
 			// 
@@ -585,7 +642,7 @@
 			// 
 			this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
 			this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.button2.Image = global::caja.Properties.Resources.cross;
+			this.button2.Image = global::caja.Properties.Resources.limpieza;
 			this.button2.Location = new System.Drawing.Point(119, 599);
 			this.button2.Name = "button2";
 			this.button2.Size = new System.Drawing.Size(95, 80);
@@ -616,6 +673,11 @@
 			this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(1347, 717);
+			this.Controls.Add(this.button8);
+			this.Controls.Add(this.lbAtiende);
+			this.Controls.Add(this.txtIdAtiende);
+			this.Controls.Add(this.label13);
+			this.Controls.Add(this.txtidcliente);
 			this.Controls.Add(this.button7);
 			this.Controls.Add(this.button6);
 			this.Controls.Add(this.cbPu);
@@ -623,7 +685,6 @@
 			this.Controls.Add(this.txtcIva);
 			this.Controls.Add(this.label12);
 			this.Controls.Add(this.label11);
-			this.Controls.Add(this.lbidcliente);
 			this.Controls.Add(this.btnVer);
 			this.Controls.Add(this.lbClient);
 			this.Controls.Add(this.button5);
@@ -660,6 +721,7 @@
 			this.Text = "caja";
 			this.Load += new System.EventHandler(this.caja_Load);
 			((System.ComponentModel.ISupportInitialize)(this.dtProductos)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -698,7 +760,6 @@
 		private System.Windows.Forms.Button button5;
 		private System.Windows.Forms.Label lbClient;
 		private System.Windows.Forms.Button btnVer;
-		private System.Windows.Forms.TextBox lbidcliente;
 		private System.Windows.Forms.Label label11;
 		private System.Windows.Forms.Label label12;
 		private System.Windows.Forms.TextBox txtcIva;
@@ -714,5 +775,11 @@
 		private System.Windows.Forms.TextBox cbPu;
 		private System.Windows.Forms.Button button6;
 		private System.Windows.Forms.Button button7;
+		private System.Windows.Forms.TextBox txtidcliente;
+		private System.Windows.Forms.ErrorProvider errorProvider1;
+		private System.Windows.Forms.Label lbAtiende;
+		private System.Windows.Forms.TextBox txtIdAtiende;
+		private System.Windows.Forms.Label label13;
+		private System.Windows.Forms.Button button8;
 	}
 }

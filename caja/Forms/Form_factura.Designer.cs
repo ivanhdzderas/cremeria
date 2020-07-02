@@ -56,6 +56,12 @@
 			this.label7 = new System.Windows.Forms.Label();
 			this.txtUsoCfdi = new System.Windows.Forms.TextBox();
 			this.label6 = new System.Windows.Forms.Label();
+			this.label9 = new System.Windows.Forms.Label();
+			this.label10 = new System.Windows.Forms.Label();
+			this.label11 = new System.Windows.Forms.Label();
+			this.txtSubtotal = new System.Windows.Forms.TextBox();
+			this.txtIVa = new System.Windows.Forms.TextBox();
+			this.txtTotal = new System.Windows.Forms.TextBox();
 			((System.ComponentModel.ISupportInitialize)(this.dtdocumentos)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.dtProductos)).BeginInit();
 			this.groupBox1.SuspendLayout();
@@ -228,7 +234,7 @@
 			// 
 			// button1
 			// 
-			this.button1.Location = new System.Drawing.Point(713, 286);
+			this.button1.Location = new System.Drawing.Point(405, 293);
 			this.button1.Name = "button1";
 			this.button1.Size = new System.Drawing.Size(75, 23);
 			this.button1.TabIndex = 12;
@@ -303,11 +309,71 @@
 			this.label6.TabIndex = 0;
 			this.label6.Text = "Uso CFDI";
 			// 
+			// label9
+			// 
+			this.label9.AutoSize = true;
+			this.label9.Location = new System.Drawing.Point(636, 289);
+			this.label9.Name = "label9";
+			this.label9.Size = new System.Drawing.Size(46, 13);
+			this.label9.TabIndex = 14;
+			this.label9.Text = "Subtotal";
+			// 
+			// label10
+			// 
+			this.label10.AutoSize = true;
+			this.label10.Location = new System.Drawing.Point(658, 315);
+			this.label10.Name = "label10";
+			this.label10.Size = new System.Drawing.Size(24, 13);
+			this.label10.TabIndex = 15;
+			this.label10.Text = "IVA";
+			// 
+			// label11
+			// 
+			this.label11.AutoSize = true;
+			this.label11.Location = new System.Drawing.Point(651, 341);
+			this.label11.Name = "label11";
+			this.label11.Size = new System.Drawing.Size(31, 13);
+			this.label11.TabIndex = 16;
+			this.label11.Text = "Total";
+			// 
+			// txtSubtotal
+			// 
+			this.txtSubtotal.BorderStyle = System.Windows.Forms.BorderStyle.None;
+			this.txtSubtotal.Enabled = false;
+			this.txtSubtotal.Location = new System.Drawing.Point(688, 286);
+			this.txtSubtotal.Name = "txtSubtotal";
+			this.txtSubtotal.Size = new System.Drawing.Size(100, 13);
+			this.txtSubtotal.TabIndex = 17;
+			// 
+			// txtIVa
+			// 
+			this.txtIVa.BorderStyle = System.Windows.Forms.BorderStyle.None;
+			this.txtIVa.Enabled = false;
+			this.txtIVa.Location = new System.Drawing.Point(688, 312);
+			this.txtIVa.Name = "txtIVa";
+			this.txtIVa.Size = new System.Drawing.Size(100, 13);
+			this.txtIVa.TabIndex = 18;
+			// 
+			// txtTotal
+			// 
+			this.txtTotal.BorderStyle = System.Windows.Forms.BorderStyle.None;
+			this.txtTotal.Enabled = false;
+			this.txtTotal.Location = new System.Drawing.Point(688, 338);
+			this.txtTotal.Name = "txtTotal";
+			this.txtTotal.Size = new System.Drawing.Size(100, 13);
+			this.txtTotal.TabIndex = 19;
+			// 
 			// Form_factura
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(800, 450);
+			this.Controls.Add(this.txtTotal);
+			this.Controls.Add(this.txtIVa);
+			this.Controls.Add(this.txtSubtotal);
+			this.Controls.Add(this.label11);
+			this.Controls.Add(this.label10);
+			this.Controls.Add(this.label9);
 			this.Controls.Add(this.groupBox1);
 			this.Controls.Add(this.button1);
 			this.Controls.Add(this.dtProductos);
@@ -364,5 +430,11 @@
 		private System.Windows.Forms.Label label7;
 		private System.Windows.Forms.TextBox txtMPago;
 		private System.Windows.Forms.Label label8;
+		private System.Windows.Forms.Label label9;
+		private System.Windows.Forms.Label label10;
+		private System.Windows.Forms.Label label11;
+		private System.Windows.Forms.TextBox txtSubtotal;
+		private System.Windows.Forms.TextBox txtIVa;
+		private System.Windows.Forms.TextBox txtTotal;
 	}
 }

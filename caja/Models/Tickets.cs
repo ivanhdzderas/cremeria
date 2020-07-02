@@ -17,6 +17,7 @@ namespace caja.Models
 		public double C_iva { get; set; }
 		public double S_iva { get; set; }
 		public int Id_usuario { get; set; }
+		public int Atienda { get; set; }
 		public Tickets(
 			int id,
 			int id_cliente,
@@ -28,7 +29,8 @@ namespace caja.Models
 			string status,
 			double c_iva,
 			double s_iva,
-			int id_usuario
+			int id_usuario,
+			int atienda
 			) {
 			Id = id;
 			Id_cliente = id_cliente;
@@ -41,13 +43,14 @@ namespace caja.Models
 			C_iva = c_iva;
 			S_iva = s_iva;
 			Id_usuario = id_usuario;
+			Atienda = atienda;
 
 		}
 		public Tickets() { }
 
 		public void CreateTicket()
 		{
-			string query = "insert into tbatickets (id_cliente, fecha, subtotal, descuento, iva, total, status, c_iva, s_iva, id_usuario) values (";
+			string query = "insert into tbatickets (id_cliente, fecha, subtotal, descuento, iva, total, status, c_iva, s_iva, id_usuario, atendio) values (";
 			query += "'" + this.Id_cliente + "', ";
 			query += "'" + this.Fecha + "', ";
 			query += "'" + this.Subtotal + "', ";
@@ -57,7 +60,8 @@ namespace caja.Models
 			query += "'" + this.Status + "', ";
 			query += "'" + this.C_iva + "', ";
 			query += "'" + this.S_iva + "', ";
-			query += "'" + this.Id_usuario + "')";
+			query += "'" + this.Id_usuario + "',";
+			query += "'" + this.Atienda + "')";
 
 			object result = runQuery(query);
 		}
@@ -73,13 +77,14 @@ namespace caja.Models
 				data.GetString("status"),
 				data.GetDouble("c_iva"),
 				data.GetDouble("s_iva"),
-				data.GetInt16("id_usuario")
+				data.GetInt16("id_usuario"),
+				data.GetInt16("atendio")
 				);
 			return item;
 		}
 
 		public List<Tickets> getTickets() {
-			string query = "select id, id_cliente, fecha, subtotal, descuento, iva, total, status, c_iva, s_iva, id_usuario from tbatickets";
+			string query = "select id, id_cliente, fecha, subtotal, descuento, iva, total, status, c_iva, s_iva, id_usuario,atendio from tbatickets";
 			MySqlDataReader data = runQuery(query);
 			List<Tickets> result = new List<Tickets>();
 			if (data.HasRows)
@@ -94,7 +99,7 @@ namespace caja.Models
 		}
 		public List<Tickets> getTicketsbyId(int id)
 		{
-			string query = "select id, id_cliente, fecha, subtotal, descuento, iva, total, status, c_iva, s_iva, id_usuario from tbatickets where id='" + id.ToString() + "'";
+			string query = "select id, id_cliente, fecha, subtotal, descuento, iva, total, status, c_iva, s_iva, id_usuario,atendio  from tbatickets where id='" + id.ToString() + "'";
 			MySqlDataReader data = runQuery(query);
 			List<Tickets> result = new List<Tickets>();
 			if (data.HasRows)
@@ -109,7 +114,7 @@ namespace caja.Models
 		}
 		public List<Tickets> getTicketsToday(string fecha)
 		{
-			string query = "select id, id_cliente, fecha, subtotal, descuento, iva, total, status, c_iva, s_iva,id_usuario from tbatickets where fecha like '%" + fecha + "%'";
+			string query = "select id, id_cliente, fecha, subtotal, descuento, iva, total, status, c_iva, s_iva,id_usuario, atendio from tbatickets where fecha like '%" + fecha + "%'";
 			MySqlDataReader data = runQuery(query);
 			List<Tickets> result = new List<Tickets>();
 			if (data.HasRows)
@@ -125,7 +130,7 @@ namespace caja.Models
 
 		public List<Tickets> getbyclient(string id_cliente)
 		{
-			string query = "select id, id_cliente, fecha, subtotal, descuento, iva, total, status, c_iva, s_iva,id_usuario from tbatickets where id_cliente='" + id_cliente + "'";
+			string query = "select id, id_cliente, fecha, subtotal, descuento, iva, total, status, c_iva, s_iva,id_usuario, atendio from tbatickets where id_cliente='" + id_cliente + "'";
 			MySqlDataReader data = runQuery(query);
 			List<Tickets> result = new List<Tickets>();
 			if (data.HasRows)
@@ -140,7 +145,7 @@ namespace caja.Models
 		}
 		public List<Tickets> getTicketsbyFechas(string fecha1, string fecha2)
 		{
-			string query = "select id, id_cliente, fecha, subtotal, descuento, iva, total, status, c_iva, s_iva,id_usuario from tbatickets where fecha BETWEEN '" + fecha1 + "' and '" + fecha2 + "'";
+			string query = "select id, id_cliente, fecha, subtotal, descuento, iva, total, status, c_iva, s_iva,id_usuario, atendio from tbatickets where fecha BETWEEN '" + fecha1 + "' and '" + fecha2 + "'";
 			MySqlDataReader data = runQuery(query);
 			List<Tickets> result = new List<Tickets>();
 			if (data.HasRows)
@@ -155,7 +160,7 @@ namespace caja.Models
 		}
 		public List<Tickets> getLastTicket(string fecha, double subtotal, double descuento, double iva, double total, int cliente)
 		{
-			string query = "select id, id_cliente, fecha, subtotal, descuento, iva, total, status, c_iva, s_iva, id_usuario from tbatickets where fecha='" + fecha + "' and subtotal='" + subtotal.ToString() + "' and iva='" + iva.ToString() + "' and descuento='" + descuento.ToString() + "' and total='" + total.ToString() + "' and id_cliente='" + cliente + "'";
+			string query = "select id, id_cliente, fecha, subtotal, descuento, iva, total, status, c_iva, s_iva, id_usuario, atendio from tbatickets where fecha='" + fecha + "' and subtotal='" + subtotal.ToString() + "' and iva='" + iva.ToString() + "' and descuento='" + descuento.ToString() + "' and total='" + total.ToString() + "' and id_cliente='" + cliente + "'";
 			MySqlDataReader data = runQuery(query);
 			List<Tickets> result = new List<Tickets>();
 			if (data.HasRows)
@@ -173,7 +178,7 @@ namespace caja.Models
 		{
 			DateTime thisDay = DateTime.Today;
 
-			string query = "select id, id_cliente, fecha, subtotal, descuento, iva, total, status, c_iva, s_iva, id_usuario from tbatickets where id_usuario='" + id_perosna.ToString() + "' and fecha like '%" + thisDay.ToString("yyyy-MM-dd") + "%'";
+			string query = "select id, id_cliente, fecha, subtotal, descuento, iva, total, status, c_iva, s_iva, id_usuario, atendio from tbatickets where id_usuario='" + id_perosna.ToString() + "' and fecha like '%" + thisDay.ToString("yyyy-MM-dd") + "%'";
 			MySqlDataReader data = runQuery(query);
 			List<Tickets> result = new List<Tickets>();
 			if (data.HasRows)

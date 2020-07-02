@@ -1061,7 +1061,39 @@ namespace caja
                 TabPage tpage = new TabPage(tabName);
                 tpage.Name = tabName;
 
-                Facturas fc = new Facturas();
+                Forms.Facturas fc = new Forms.Facturas();
+                fc.TopLevel = false;
+                fc.Visible = true;
+                fc.MdiParent = this;
+                fc.FormBorderStyle = FormBorderStyle.None;
+                fc.Dock = DockStyle.Fill;
+                Home.TabPages.Add(tpage);
+                int ultimo = (Home.TabPages.Count - 1);
+                Home.TabPages[ultimo].Controls.Add(fc);
+                Home.SelectTab(tabName);
+            }
+        }
+
+        private void levantarInventarioToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string tabName = "Levantar";
+            Boolean encontrado = false;
+            foreach (TabPage page in Home.TabPages)
+            {
+                string name = page.Name;
+
+                if (name == tabName)
+                {
+                    encontrado = true;
+                    Home.SelectTab(tabName);
+                }
+            }
+            if (encontrado == false)
+            {
+                TabPage tpage = new TabPage(tabName);
+                tpage.Name = tabName;
+
+                Forms.Levantar_inventario fc = new Forms.Levantar_inventario();
                 fc.TopLevel = false;
                 fc.Visible = true;
                 fc.MdiParent = this;

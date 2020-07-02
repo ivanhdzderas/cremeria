@@ -36,7 +36,7 @@ namespace caja
             {
                 row = table.NewRow();
                 row["Text"] = item.Marca;
-                row["Value"] = item.Marca;
+                row["Value"] = item.Id;
                 table.Rows.Add(row);
             }
             cboMarca.BindingContext = new BindingContext();

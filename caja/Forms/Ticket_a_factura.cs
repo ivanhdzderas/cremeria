@@ -81,6 +81,7 @@ namespace caja.Forms
 				txtCliente.Text = client[0].Name;
 				Tickets ticket = new Tickets();
 				List<Models.Tickets> tic = ticket.getbyclient(txtIdCliente.Text);
+				dtTickets.Rows.Clear();
 				foreach (Tickets item in tic)
 				{
 					dtTickets.Rows.Add(item.Id, item.Id, item.Fecha, item.Total);
@@ -97,6 +98,7 @@ namespace caja.Forms
 				txtIdCliente.Text = client[0].Id.ToString();
 				Tickets ticket = new Tickets();
 				List<Models.Tickets> tic = ticket.getbyclient(txtIdCliente.Text);
+				dtTickets.Rows.Clear();
 				foreach (Tickets item in tic)
 				{
 					dtTickets.Rows.Add(item.Id, item.Id, item.Fecha, item.Total);

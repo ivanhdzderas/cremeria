@@ -35,6 +35,7 @@ namespace caja.Models
 		public int Reporte_ganancias { get; set; }
 		public int Retiro_efectivo { get; set; }
 		public int Transferencias { get; set; }
+		
 		public Permisos(
 			int id,
 			int id_usuario,

@@ -28,6 +28,8 @@ namespace caja
         public static Boolean cancelado;
         public static string sucursal;
         public static string fecha = DateTime.Now.ToString("yyyy-MM-dd H:mm:ss");
+
+        public int Atendio=0;
         public caja()
         {
             InitializeComponent();
@@ -38,12 +40,24 @@ namespace caja
             txtCodigo.AutoCompleteCustomSource = cargadatos();
             txtCodigo.AutoCompleteMode = AutoCompleteMode.Suggest;
             txtCodigo.AutoCompleteSource = AutoCompleteSource.CustomSource;
+
+
+            txtidcliente.AutoCompleteCustomSource = carga_clientes();
+            txtidcliente.AutoCompleteMode = AutoCompleteMode.Suggest;
+            txtidcliente.AutoCompleteSource = AutoCompleteSource.CustomSource;
+
+
+            txtIdAtiende.AutoCompleteCustomSource = carga_atiende();
+            txtIdAtiende.AutoCompleteMode = AutoCompleteMode.Suggest;
+            txtIdAtiende.AutoCompleteSource = AutoCompleteSource.CustomSource;
+
+
             cancelado = false;
             Client cliente = new Client();
             List<Client> clien = cliente.getClientbyRFC("XAXX010101000");
             if (clien.Count > 0) {
                 lbClient.Text = "Cliente: " + clien[0].Name + ", RFC: "+ clien[0].RFC;
-                lbidcliente.Text = clien[0].Id.ToString();
+                txtidcliente.Text = clien[0].Id.ToString();
             }
 
             txtCodigo.Focus();
@@ -74,18 +88,36 @@ namespace caja
         private AutoCompleteStringCollection cargadatos()
         {
             AutoCompleteStringCollection datos = new AutoCompleteStringCollection();
-           
                 Product producto = new Product();
                 List<Product> result = producto.getProductByCodeAbsolute(txtCodigo.Text);
                 foreach(Product item in result)
                 {
                     datos.Add(item.Code1);
-                }
-          
-            
+                }   
             return datos;
         }
-
+        private AutoCompleteStringCollection carga_atiende()
+        {
+            AutoCompleteStringCollection datos = new AutoCompleteStringCollection();
+            Users usuarios = new Users();
+            List<Users> result = usuarios.getUsers();
+            foreach (Users item in result)
+            {
+                datos.Add(item.Id.ToString());
+            }
+            return datos;
+        }
+        private AutoCompleteStringCollection carga_clientes()
+        {
+            AutoCompleteStringCollection datos = new AutoCompleteStringCollection();
+            Client clientes = new Client();
+            List<Client> result = clientes.getClients();
+            foreach (Client item in result)
+            {
+                datos.Add(item.Id.ToString());
+            }
+            return datos;
+        }
         private void calcula()
         {
             double totales = 0;
@@ -444,27 +476,39 @@ namespace caja
 
         private void button1_Click(object sender, EventArgs e)
         {
-            cobro cb = new cobro();
-            cancelado = false;
-            
-            cb.Owner = this;
-            cb.lbResta.Text = txtTotal.Text;
-            while (efectivo == 0 && tarjeta == 0 ) {
-                if (cancelado == true) {
-                    break;
-                }
-                cb.ShowDialog();
+            if (txtIdAtiende.Text == "")
+            {
+                errorProvider1.SetError(txtIdAtiende, "Debe de ingresar quien atendio");
+                txtIdAtiende.Focus();
             }
+            else
+            {
+                cobro cb = new cobro();
+                cancelado = false;
 
-            if (cancelado == false) {
-                guardar();
+                cb.Owner = this;
+                cb.lbResta.Text = txtTotal.Text;
+                while (efectivo == 0 && tarjeta == 0)
+                {
+                    if (cancelado == true)
+                    {
+                        break;
+                    }
+                    cb.ShowDialog();
+                }
+
+                if (cancelado == false)
+                {
+                    guardar();
+                }
             }
+           
             
         }
         public void guardar() {
             Tickets ticket = new Tickets(
                 0,
-                Convert.ToInt16(lbidcliente.Text),
+                Convert.ToInt16(txtidcliente.Text),
                 fecha,
                 Convert.ToDouble(txtSubtotal.Text),
                 Convert.ToDouble(txtTdescuento.Text),
@@ -473,10 +517,11 @@ namespace caja
                 "A",
                 Convert.ToDouble(txtcIva.Text),
                 Convert.ToDouble(txtsIva.Text),
-                Convert.ToInt16(inicial.id_usario) 
+                Convert.ToInt16(inicial.id_usario),
+                Convert.ToInt16(txtIdAtiende.Text)
                 );
             ticket.CreateTicket();
-            List<Tickets> lista = ticket.getLastTicket(fecha, Convert.ToDouble(txtSubtotal.Text), Convert.ToDouble(txtTdescuento.Text), Convert.ToDouble(txtIva.Text), Convert.ToDouble(txtTotal.Text), Convert.ToInt16(lbidcliente.Text));
+            List<Tickets> lista = ticket.getLastTicket(fecha, Convert.ToDouble(txtSubtotal.Text), Convert.ToDouble(txtTdescuento.Text), Convert.ToDouble(txtIva.Text), Convert.ToDouble(txtTotal.Text), Convert.ToInt16(txtidcliente.Text));
             Product producto = new Product();
             Kardex kardex = new Kardex();
             Afecta_inv afecta = new Afecta_inv();
@@ -642,7 +687,7 @@ namespace caja
             y = y + 10;
             e.Graphics.DrawString("___________________________________________", font, Brushes.Black, 0, y);
             Client cliente = new Client();
-            List<Client> datos_cliente = cliente.getClientbyId(Convert.ToInt16(lbidcliente.Text));
+            List<Client> datos_cliente = cliente.getClientbyId(Convert.ToInt16(txtidcliente.Text));
             string nombre = "Cliente: [" + datos_cliente[0].Id + "] " + datos_cliente[0].Name;
             y = y + 20;
             e.Graphics.DrawString(nombre, font, Brushes.Black, 0, y);
@@ -727,15 +772,15 @@ namespace caja
         private void lbidcliente_TextChanged(object sender, EventArgs e)
         {
             Client cliente = new Client();
-            List<Client> clien = cliente.getClientbyId(Convert.ToInt16(lbidcliente.Text));
+            List<Client> clien = cliente.getClientbyId(Convert.ToInt16(txtidcliente.Text));
             if (clien.Count > 0)
             {
                 lbClient.Text = "Cliente: " + clien[0].Name + ", RFC: " + clien[0].RFC;
-                lbidcliente.Text = clien[0].Id.ToString();
+                txtidcliente.Text = clien[0].Id.ToString();
             }
             else {
                 MessageBox.Show("No se encontro cliente");
-                lbidcliente.Focus();
+                txtidcliente.Focus();
             }
         }
 
@@ -908,6 +953,119 @@ namespace caja
             printDocument1.PrinterSettings = ps;
             printDocument1.Print();
             limpiar();
+        }
+
+        private void txtidcliente_KeyDown(object sender, KeyEventArgs e)
+        {
+            bool error = false;
+            
+            if (e.KeyCode == Keys.Enter)
+            {
+                Client clientes = new Client();
+                List<Client> cliente = clientes.getClientbyId(Convert.ToInt16(txtidcliente.Text));
+                if (cliente.Count > 0)
+                {
+                    lbClient.Text = "Cliente: " + cliente[0].Name + ", RFC: " + cliente[0].RFC;
+                    txtCodigo.Focus();
+                }
+                else
+                {
+                    error = true;
+                }
+
+                if (error == true)
+                {
+                    errorProvider1.SetError(txtidcliente, "No se encontro numero de cliente");
+                    txtidcliente.Focus();
+                }
+                else
+                {
+                    errorProvider1.Clear();
+                }
+            }
+            
+        }
+
+        private void txtidcliente_Leave(object sender, EventArgs e)
+        {
+            bool error = false;
+            Client clientes = new Client();
+            List<Client> cliente = clientes.getClientbyId(Convert.ToInt16(txtidcliente.Text));
+            if (cliente.Count > 0)
+            {
+                lbClient.Text = "Cliente: " + cliente[0].Name + ", RFC: " + cliente[0].RFC;
+                txtCodigo.Focus();
+            }
+            else
+            {
+                error = true;
+            }
+
+
+            if (error == true)
+            {
+                errorProvider1.SetError(txtidcliente, "No se encontro numero de cliente");
+                txtidcliente.Focus();
+            }
+            else
+            {
+                errorProvider1.Clear();
+            }
+        }
+
+        private void txtIdAtiende_KeyDown(object sender, KeyEventArgs e)
+        {
+            bool error = false;
+            if (e.KeyCode == Keys.Enter)
+            {
+                Users usuarios = new Users();
+                List<Users> usuario = usuarios.getUserbyid(Convert.ToInt16(txtIdAtiende.Text));
+                
+                if (usuario.Count > 0)
+                {
+                    lbAtiende.Text = usuario[0].Nombre;
+                }
+                else
+                {
+                    error = true;
+                }
+
+                if (error == true)
+                {
+                    errorProvider1.RightToLeft = false;
+                    errorProvider1.SetError(txtIdAtiende, "No se encontro colaborador");
+                    lbAtiende.Text = "";
+                    txtidcliente.Focus();
+                }
+                else
+                {
+                    errorProvider1.Clear();
+                }
+            }
+        }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+            autentificar cb = new autentificar();
+            cb.origen = "Cancelar";
+            cancelado = false;
+
+            cb.Owner = this;
+
+
+            cb.ShowDialog();
+            if (cancelado == false)
+            {
+                cancelar();
+            }
+        }
+        private void cancelar()
+        {
+            string folio=Interaction.InputBox("Ingrese el folio a cancelar","Cancelar");
+            if (folio != "")
+            { 
+                
+            }
         }
     }
 }
