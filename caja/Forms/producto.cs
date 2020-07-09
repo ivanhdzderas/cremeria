@@ -677,12 +677,12 @@ namespace caja
             if (Convert.ToDouble(txtPrice5.Text) == 0.00)
             {
                 txtPrice5.Text = "0.00";
-                txtPercentPrice4.Text = "0.00";
+                txtPercentPrice5.Text = "0.00";
             }
             else
             {
                 double diferencia = ((Convert.ToDouble(txtPrice5.Text) / Convert.ToDouble(txtCosto.Text)) - 1) * 100;
-                txtPercentPrice4.Text = string.Format("{0:#,0.00}", diferencia);
+                txtPercentPrice5.Text = string.Format("{0:#,0.00}", diferencia);
             }
         }
 
@@ -690,19 +690,134 @@ namespace caja
         {
             this.Close();
         }
+        private bool validar()
+        {
+            bool validador = true;
+            if (txtDescripcion.Text == "")
+            {
+                validador = false;
+            }
+            if (txtCodigo1.Text == "")
+            {
+                validador = false;
+            }
+            if (txtPrice1.Text=="" || txtPrice1.Text == "0.00")
+            {
+                validador = false;
+            }
+            if (txtPercentPrice1.Text == "0.00")
+            {
+                validador = false;
+            }
+            if (cboUnidad.SelectedIndex == 0 || cboUnidad.Text == "")
+            {
+                validador = false;
+            }
+            if (cboMarca.SelectedIndex == 0 || cboMarca.Text == "")
+            {
+                validador = false;
+            }
+            if (txtUnidadSat.Text == "")
+            {
+                validador = false;
+            }
+            if (txtSAT.Text == "")
+            {
+                validador = false;
+            }
+            if (tvGrupos.SelectedNode == null)
+            {
+                validador = false;
+            }
+            if (txtCosto.Text=="" || txtCosto.Text == "0.00")
+            {
+                validador = false;
+            }
+            if (txtdias.Text=="" || txtdias.Text == "0")
+            {
+                validador = false;
+            }
 
+            if (chkCaja.Checked == true)
+            {
+                if (txtCodigoCaja.Text == "")
+                {
+                    validador = false;
+                }
+                if (txtDescripcionCaja.Text == "")
+                {
+                    validador = false;
+                }
+                if (txtPCaja.Text=="" || txtPCaja.Text == "0.00")
+                {
+                    validador = false;
+                }
+                if (txtCostoCaja.Text=="" || txtCostoCaja.Text == "0.00")
+                {
+                    validador = false;
+                }
+                if (txtUtilidad1C.Text == "0.00")
+                {
+                    validador = false;
+                }
+                if (txtPrecio1C.Text == "0.00")
+                {
+                    validador = false;
+                }
+                if (max_p1.Value == 0)
+                {
+                    validador = false;
+                }
+            }
+            if (chkCarton.Checked == true)
+            {
+                if (txtCodigoCarton.Text == "")
+                {
+                    validador = false;
+                }
+                if (txtDescripcionCarton.Text == "")
+                {
+                    validador = false;
+                }
+                if (txtp_carton.Text == "" || txtp_carton.Text == "0.00")
+                {
+                    validador = false;
+                }
+                if (txtCostoCarton.Text == "" || txtCostoCarton.Text == "0.00")
+                {
+                    validador = false;
+                }
+                if (txtUtilidad1Ct.Text == "0.00")
+                {
+                    validador = false;
+                }
+                if (txtPrecio1Ct.Text == "0.00")
+                {
+                    validador = false;
+                }
+                if (max_p1ct.Value == 0)
+                {
+                    validador = false;
+                }
+            }
+            return validador;
+        }
         private void button1_Click(object sender, EventArgs e)
         {
-
-
 
             string grupo = "";
             if (tvGrupos.SelectedNode != null)
             {
                 grupo = tvGrupos.SelectedNode.Tag.ToString();
             }
-            
-            Product product = new Product(
+            if (validar()==false)
+            {
+                MessageBox.Show("debe de ingresar los datos minimos para guardar un produto","Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+            else
+            {
+
+                Product product = new Product(
                 0,
                 txtDescripcion.Text,
                 txtCodigo1.Text,
@@ -746,144 +861,147 @@ namespace caja
                 Convert.ToInt16(max_p5.Value)
                 );
 
-            if (Codigo == "")
-            {
-                product.createProduct();
-                List<Product> result = product.getProductByCode(txtCodigo1.Text);
-                foreach (Product item in result) {
-                    Codigo = item.Id.ToString();
-                }
-            }
-            else
-            {
-                product.Id = Convert.ToInt32(Codigo);
-                product.saveProduct();
-            }
-
-            if (chkCaja.Checked == true )
-            {
-
-                
-
-                Product subproduct = new Product(
-                0,
-                txtDescripcionCaja.Text,
-                txtCodigoCaja.Text,
-                "",
-                "",
-                "",
-                "",
-                0,
-                tvGrupos.SelectedNode.Tag.ToString(),
-                cboMarca.SelectedValue.ToString(),
-                cboUnidad.SelectedValue.ToString(),
-                Convert.ToDouble(txtPrecio1C.Text),
-                Convert.ToDouble(txtPrecio2C.Text),
-                Convert.ToDouble(txtPrecio3C.Text),
-                Convert.ToDouble("0"),
-                Convert.ToDouble("0"),
-                Convert.ToDouble(txtUtilidad1C.Text),
-                Convert.ToDouble(txtUtilidad2C.Text),
-                Convert.ToDouble(txtUtilidad3C.Text),
-                Convert.ToDouble("0"),
-                Convert.ToDouble("0"),
-                Convert.ToDouble(txtCostoCaja.Text),
-                Convert.ToUInt16(true),
-                txtSAT.Text,
-                txtSkuCaja.Text,
-                txtUnidadSat.Text,
-                cboVenta.SelectedItem.ToString(),
-                cboCompra.SelectedItem.ToString(),
-                Convert.ToUInt16("0"),
-                Convert.ToUInt16("0"),
-                Convert.ToUInt16("0"),
-                Convert.ToUInt16("0"),
-                Codigo.ToString(),
-                txtPCaja.Text,
-                Convert.ToUInt16(txtdias.Text),
-                Convert.ToUInt16(chkLote.Checked),
-                Convert.ToInt16(max_p1c.Value),
-                Convert.ToInt16(max_p2c.Value),
-                Convert.ToInt16(max_p3c.Value),
-                0,
-                0
-                );
-
                 if (Codigo == "")
                 {
-                    subproduct.createProduct();
+                    product.createProduct();
                     List<Product> result = product.getProductByCode(txtCodigo1.Text);
                     foreach (Product item in result)
                     {
-                        SubProducto = item.Id.ToString();
+                        Codigo = item.Id.ToString();
                     }
-                }
-                else {
-                    subproduct.Id = Convert.ToInt16(SubProducto);
-                    subproduct.saveProduct();
-                }
-                    
-
-               
-
-            }
-            if (chkCarton.Checked == true) {
-                Product subsub = new Product(
-                   0,
-                   txtDescripcionCarton.Text,
-                   txtCodigoCarton.Text,
-                   "",
-                   "",
-                   "",
-                   "",
-                   0,
-                   grupo,
-                   cboMarca.SelectedValue.ToString(),
-                   cboUnidad.SelectedValue.ToString(),
-                   Convert.ToDouble(txtPrecio1Ct.Text),
-                   Convert.ToDouble(txtPrecio2Ct.Text),
-                   Convert.ToDouble(txtPrecio3Ct.Text),
-                   Convert.ToDouble("0"),
-                   Convert.ToDouble("0"),
-                   Convert.ToDouble(txtUtilidad1Ct.Text),
-                   Convert.ToDouble(txtUtilidad2Ct.Text),
-                   Convert.ToDouble(txtUtilidad3Ct.Text),
-                   Convert.ToDouble("0"),
-                   Convert.ToDouble("0"),
-                   Convert.ToDouble(txtCostoCarton.Text),
-                   Convert.ToUInt16(true),
-                   txtSAT.Text,
-                   txtSkuCarton.Text,
-                   txtUnidadSat.Text,
-                   cboVenta.SelectedItem.ToString(),
-                   cboCompra.SelectedItem.ToString(),
-                   Convert.ToUInt16("0"),
-                   Convert.ToUInt16("0"),
-                   Convert.ToUInt16("0"),
-                   Convert.ToUInt16("0"),
-                   SubProducto.ToString(),
-                   txtp_carton.Text,
-                   Convert.ToUInt16(txtdias.Text),
-                   Convert.ToUInt16(chkLote.Checked),
-                   Convert.ToInt16(max_p1ct.Value),
-                   Convert.ToInt16(max_p2ct.Value),
-                   Convert.ToInt16(max_p3ct.Value),
-                   0,
-                   0
-                   );
-                if (Codigo == "")
-                {
-                    subsub.createProduct();
                 }
                 else
                 {
-                    subsub.Id = Convert.ToInt16(SubSubProducto);
-                    subsub.saveProduct();
+                    product.Id = Convert.ToInt32(Codigo);
+                    product.saveProduct();
                 }
 
+                if (chkCaja.Checked == true)
+                {
+
+                    Product subproduct = new Product(
+                    0,
+                    txtDescripcionCaja.Text,
+                    txtCodigoCaja.Text,
+                    "",
+                    "",
+                    "",
+                    "",
+                    0,
+                    tvGrupos.SelectedNode.Tag.ToString(),
+                    cboMarca.SelectedValue.ToString(),
+                    cboUnidad.SelectedValue.ToString(),
+                    Convert.ToDouble(txtPrecio1C.Text),
+                    Convert.ToDouble(txtPrecio2C.Text),
+                    Convert.ToDouble(txtPrecio3C.Text),
+                    Convert.ToDouble("0"),
+                    Convert.ToDouble("0"),
+                    Convert.ToDouble(txtUtilidad1C.Text),
+                    Convert.ToDouble(txtUtilidad2C.Text),
+                    Convert.ToDouble(txtUtilidad3C.Text),
+                    Convert.ToDouble("0"),
+                    Convert.ToDouble("0"),
+                    Convert.ToDouble(txtCostoCaja.Text),
+                    Convert.ToUInt16(true),
+                    txtSAT.Text,
+                    txtSkuCaja.Text,
+                    txtUnidadSat.Text,
+                    cboVenta.SelectedItem.ToString(),
+                    cboCompra.SelectedItem.ToString(),
+                    Convert.ToUInt16("0"),
+                    Convert.ToUInt16("0"),
+                    Convert.ToUInt16("0"),
+                    Convert.ToUInt16("0"),
+                    Codigo.ToString(),
+                    txtPCaja.Text,
+                    Convert.ToUInt16(txtdias.Text),
+                    Convert.ToUInt16(chkLote.Checked),
+                    Convert.ToInt16(max_p1c.Value),
+                    Convert.ToInt16(max_p2c.Value),
+                    Convert.ToInt16(max_p3c.Value),
+                    0,
+                    0
+                    );
+
+                    if (Codigo == "")
+                    {
+                        subproduct.createProduct();
+                        List<Product> result = product.getProductByCode(txtCodigo1.Text);
+                        foreach (Product item in result)
+                        {
+                            SubProducto = item.Id.ToString();
+                        }
+                    }
+                    else
+                    {
+                        subproduct.Id = Convert.ToInt16(SubProducto);
+                        subproduct.saveProduct();
+                    }
+
+
+
+
+                }
+                if (chkCarton.Checked == true)
+                {
+                    Product subsub = new Product(
+                       0,
+                       txtDescripcionCarton.Text,
+                       txtCodigoCarton.Text,
+                       "",
+                       "",
+                       "",
+                       "",
+                       0,
+                       grupo,
+                       cboMarca.SelectedValue.ToString(),
+                       cboUnidad.SelectedValue.ToString(),
+                       Convert.ToDouble(txtPrecio1Ct.Text),
+                       Convert.ToDouble(txtPrecio2Ct.Text),
+                       Convert.ToDouble(txtPrecio3Ct.Text),
+                       Convert.ToDouble("0"),
+                       Convert.ToDouble("0"),
+                       Convert.ToDouble(txtUtilidad1Ct.Text),
+                       Convert.ToDouble(txtUtilidad2Ct.Text),
+                       Convert.ToDouble(txtUtilidad3Ct.Text),
+                       Convert.ToDouble("0"),
+                       Convert.ToDouble("0"),
+                       Convert.ToDouble(txtCostoCarton.Text),
+                       Convert.ToUInt16(true),
+                       txtSAT.Text,
+                       txtSkuCarton.Text,
+                       txtUnidadSat.Text,
+                       cboVenta.SelectedItem.ToString(),
+                       cboCompra.SelectedItem.ToString(),
+                       Convert.ToUInt16("0"),
+                       Convert.ToUInt16("0"),
+                       Convert.ToUInt16("0"),
+                       Convert.ToUInt16("0"),
+                       SubProducto.ToString(),
+                       txtp_carton.Text,
+                       Convert.ToUInt16(txtdias.Text),
+                       Convert.ToUInt16(chkLote.Checked),
+                       Convert.ToInt16(max_p1ct.Value),
+                       Convert.ToInt16(max_p2ct.Value),
+                       Convert.ToInt16(max_p3ct.Value),
+                       0,
+                       0
+                       );
+                    if (Codigo == "")
+                    {
+                        subsub.createProduct();
+                    }
+                    else
+                    {
+                        subsub.Id = Convert.ToInt16(SubSubProducto);
+                        subsub.saveProduct();
+                    }
+
+                }
+
+                this.Close();
             }
             
-            this.Close();
         }
 
        
@@ -956,6 +1074,9 @@ namespace caja
                 txtPrecio1C.Enabled = true;
                 txtPrecio2C.Enabled = true;
                 txtPrecio3C.Enabled = true;
+                max_p1c.Enabled = true;
+                max_p2c.Enabled = true;
+                max_p3c.Enabled = true;
             }
             else
             {
@@ -970,6 +1091,9 @@ namespace caja
                 txtPrecio1C.Enabled = false;
                 txtPrecio2C.Enabled = false;
                 txtPrecio3C.Enabled = false;
+                max_p1c.Enabled = false;
+                max_p2c.Enabled = false;
+                max_p3c.Enabled = false;
             }
         }
 
@@ -1240,6 +1364,9 @@ namespace caja
                 txtPrecio1Ct.Enabled = true;
                 txtPrecio2Ct.Enabled = true;
                 txtPrecio3Ct.Enabled = true;
+                max_p1ct.Enabled = true;
+                max_p2ct.Enabled = true;
+                max_p3ct.Enabled = true;
             } else {
                 txtCodigoCarton.Enabled = false;
                 txtSkuCarton.Enabled = false;
@@ -1252,6 +1379,9 @@ namespace caja
                 txtPrecio1Ct.Enabled = false;
                 txtPrecio2Ct.Enabled = false;
                 txtPrecio3Ct.Enabled = false;
+                max_p1ct.Enabled = false;
+                max_p2ct.Enabled = false;
+                max_p3ct.Enabled = false;
             }
         }
 

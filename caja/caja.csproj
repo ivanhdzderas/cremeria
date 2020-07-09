@@ -427,6 +427,7 @@
     <Compile Include="Models\Compras.cs" />
     <Compile Include="Models\Configuration.cs" />
     <Compile Include="Models\ConnectDB.cs" />
+    <Compile Include="Models\Connect_Web.cs" />
     <Compile Include="Models\Cortes.cs" />
     <Compile Include="Models\Dettickets.cs" />
     <Compile Include="Models\det_ajustes.cs" />

@@ -152,6 +152,8 @@ namespace caja.Models
         }
         public void update_inventary() {
             string query = "update tbaproductos set cantidad='" + this.Existencia + "' where id='" + this.Id + "'  ";
+            Connect_Web conector_web = new Connect_Web();
+            conector_web.runQuery_web(query);
             object result = runQuery(query);
         }
         public void createProduct() {
@@ -196,10 +198,17 @@ namespace caja.Models
             query += "'" + this.Max_p2 + "',";
             query += "'" + this.Max_p3 + "',";
             query += "'" + this.Max_p4 + "',";
-            query += "'" + this.Max_p5 + "',";
+            query += "'" + this.Max_p5 + "'";
             query += ");";
 
             Object result = runQuery(query);
+            Forms.intercambios intercambio = new Forms.intercambios();
+            if (intercambio.test_red())
+            {
+                Connect_Web conector_web = new Connect_Web();
+                conector_web.runQuery_web(query);
+            }
+           
 
 
         }
@@ -248,7 +257,12 @@ namespace caja.Models
             query += "where id='" + this.Id + "'";
 
             Object result = runQuery(query);
-
+            Forms.intercambios intercambio = new Forms.intercambios();
+            if (intercambio.test_red())
+            {
+                Connect_Web conector_web = new Connect_Web();
+                conector_web.runQuery_web(query);
+            }
         }
 
         private Product buildProduct(MySqlDataReader data) {

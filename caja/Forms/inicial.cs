@@ -101,6 +101,7 @@ namespace caja
         }
         public static string conntxt;
         public static string connectionString;
+        public static string web_string;
 
         public static string id_usario;
         public static Boolean cajero;
@@ -119,6 +120,10 @@ namespace caja
             imagenCerado = global::caja.Properties.Resources.close;
             conntxt = System.IO.File.ReadAllText(@"conn.txt");
             connectionString = conntxt;
+
+            web_string = System.IO.File.ReadAllText(@"conn2.txt");
+
+
             Home.Padding= new System.Drawing.Point(13,8);
             login fc = new login();
             fc.Owner = this;

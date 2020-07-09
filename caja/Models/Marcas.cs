@@ -23,6 +23,12 @@ namespace caja.Models
         public void createMarca() {
             string query = "INSERT INTO tbamarca (marca) values ('" + this.Marca + "')";
             object result = runQuery(query);
+            Forms.intercambios intercambio = new Forms.intercambios();
+            if (intercambio.test_red())
+            {
+                Connect_Web conector_web = new Connect_Web();
+                conector_web.runQuery_web(query);
+            }
         }
         private Marcas buildMarcas(MySqlDataReader data) {
             Marcas item = new Marcas(

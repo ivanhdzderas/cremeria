@@ -1,0 +1,1 @@
+datasource=fitdesign.com.mx;port=3306;username=fitdesig_caja;password=}Ttd+(6r7[nZ;database=fitdesig_caja;pooling = false;Allow Zero Datetime=true;

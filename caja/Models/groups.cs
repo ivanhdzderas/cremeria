@@ -24,10 +24,22 @@ namespace caja.Models
         public void createGroup() {
             string query = "INSERT INTO tbagrupo (grupo, master) values ('" + this.Group + "', '" + this.Master + "')";
             Object result = runQuery(query);
+            Forms.intercambios intercambio = new Forms.intercambios();
+            if (intercambio.test_red())
+            {
+                Connect_Web conector_web = new Connect_Web();
+                conector_web.runQuery_web(query);
+            }
         }
         public void deleteGroup() {
             string query = "delete from tbagrupo where id='" + this.Id + "' or master='" + this.Id + "'";
             object result = runQuery(query);
+            Forms.intercambios intercambio = new Forms.intercambios();
+            if (intercambio.test_red())
+            {
+                Connect_Web conector_web = new Connect_Web();
+                conector_web.runQuery_web(query);
+            }
         }
         private Groups buildGroup(MySqlDataReader data) {
 

@@ -57,6 +57,11 @@
 			this.txtExistencia = new System.Windows.Forms.TextBox();
 			this.label21 = new System.Windows.Forms.Label();
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
+			this.label52 = new System.Windows.Forms.Label();
+			this.max_p5 = new System.Windows.Forms.NumericUpDown();
+			this.max_p4 = new System.Windows.Forms.NumericUpDown();
+			this.max_p3 = new System.Windows.Forms.NumericUpDown();
+			this.max_p2 = new System.Windows.Forms.NumericUpDown();
 			this.max_p1 = new System.Windows.Forms.NumericUpDown();
 			this.txtPrice5 = new System.Windows.Forms.TextBox();
 			this.txtPrice4 = new System.Windows.Forms.TextBox();
@@ -102,6 +107,9 @@
 			this.cantidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.tabPage3 = new System.Windows.Forms.TabPage();
 			this.groupBox3 = new System.Windows.Forms.GroupBox();
+			this.max_p3ct = new System.Windows.Forms.NumericUpDown();
+			this.max_p2ct = new System.Windows.Forms.NumericUpDown();
+			this.max_p1ct = new System.Windows.Forms.NumericUpDown();
 			this.txtPrecio3Ct = new System.Windows.Forms.TextBox();
 			this.txtPrecio2Ct = new System.Windows.Forms.TextBox();
 			this.txtPrecio1Ct = new System.Windows.Forms.TextBox();
@@ -126,6 +134,10 @@
 			this.label40 = new System.Windows.Forms.Label();
 			this.chkCarton = new System.Windows.Forms.CheckBox();
 			this.groupBox2 = new System.Windows.Forms.GroupBox();
+			this.label53 = new System.Windows.Forms.Label();
+			this.max_p3c = new System.Windows.Forms.NumericUpDown();
+			this.max_p2c = new System.Windows.Forms.NumericUpDown();
+			this.max_p1c = new System.Windows.Forms.NumericUpDown();
 			this.label39 = new System.Windows.Forms.Label();
 			this.txtUtilidad3C = new System.Windows.Forms.TextBox();
 			this.txtUtilidad2C = new System.Windows.Forms.TextBox();
@@ -157,38 +169,27 @@
 			this.butSave = new System.Windows.Forms.Button();
 			this.label6 = new System.Windows.Forms.Label();
 			this.txtDescripcion = new System.Windows.Forms.TextBox();
-			this.max_p2 = new System.Windows.Forms.NumericUpDown();
-			this.max_p3 = new System.Windows.Forms.NumericUpDown();
-			this.max_p4 = new System.Windows.Forms.NumericUpDown();
-			this.max_p5 = new System.Windows.Forms.NumericUpDown();
-			this.label52 = new System.Windows.Forms.Label();
-			this.max_p1c = new System.Windows.Forms.NumericUpDown();
-			this.max_p2c = new System.Windows.Forms.NumericUpDown();
-			this.max_p3c = new System.Windows.Forms.NumericUpDown();
-			this.label53 = new System.Windows.Forms.Label();
-			this.max_p1ct = new System.Windows.Forms.NumericUpDown();
-			this.max_p2ct = new System.Windows.Forms.NumericUpDown();
-			this.max_p3ct = new System.Windows.Forms.NumericUpDown();
+			this.label54 = new System.Windows.Forms.Label();
 			this.tabControl1.SuspendLayout();
 			this.tabPage1.SuspendLayout();
 			this.groupBox1.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.max_p5)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.max_p4)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.max_p3)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.max_p2)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.max_p1)).BeginInit();
 			this.tabPage2.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.dtKardex)).BeginInit();
 			this.tabPage3.SuspendLayout();
 			this.groupBox3.SuspendLayout();
-			this.groupBox2.SuspendLayout();
-			this.Grupo.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.max_p2)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.max_p3)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.max_p4)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.max_p5)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.max_p1c)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.max_p2c)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.max_p3c)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.max_p1ct)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.max_p2ct)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.max_p3ct)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.max_p2ct)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.max_p1ct)).BeginInit();
+			this.groupBox2.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.max_p3c)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.max_p2c)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.max_p1c)).BeginInit();
+			this.Grupo.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// tabControl1
@@ -506,6 +507,43 @@
 			this.groupBox1.Size = new System.Drawing.Size(304, 182);
 			this.groupBox1.TabIndex = 24;
 			this.groupBox1.TabStop = false;
+			// 
+			// label52
+			// 
+			this.label52.AutoSize = true;
+			this.label52.Location = new System.Drawing.Point(235, 26);
+			this.label52.Name = "label52";
+			this.label52.Size = new System.Drawing.Size(43, 13);
+			this.label52.TabIndex = 27;
+			this.label52.Text = "Maximo";
+			// 
+			// max_p5
+			// 
+			this.max_p5.Location = new System.Drawing.Point(234, 150);
+			this.max_p5.Name = "max_p5";
+			this.max_p5.Size = new System.Drawing.Size(44, 20);
+			this.max_p5.TabIndex = 26;
+			// 
+			// max_p4
+			// 
+			this.max_p4.Location = new System.Drawing.Point(234, 124);
+			this.max_p4.Name = "max_p4";
+			this.max_p4.Size = new System.Drawing.Size(44, 20);
+			this.max_p4.TabIndex = 25;
+			// 
+			// max_p3
+			// 
+			this.max_p3.Location = new System.Drawing.Point(234, 98);
+			this.max_p3.Name = "max_p3";
+			this.max_p3.Size = new System.Drawing.Size(44, 20);
+			this.max_p3.TabIndex = 24;
+			// 
+			// max_p2
+			// 
+			this.max_p2.Location = new System.Drawing.Point(234, 72);
+			this.max_p2.Name = "max_p2";
+			this.max_p2.Size = new System.Drawing.Size(44, 20);
+			this.max_p2.TabIndex = 23;
 			// 
 			// max_p1
 			// 
@@ -906,6 +944,7 @@
 			// 
 			this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+			this.groupBox3.Controls.Add(this.label54);
 			this.groupBox3.Controls.Add(this.max_p3ct);
 			this.groupBox3.Controls.Add(this.max_p2ct);
 			this.groupBox3.Controls.Add(this.max_p1ct);
@@ -937,6 +976,30 @@
 			this.groupBox3.Size = new System.Drawing.Size(744, 235);
 			this.groupBox3.TabIndex = 4;
 			this.groupBox3.TabStop = false;
+			// 
+			// max_p3ct
+			// 
+			this.max_p3ct.Enabled = false;
+			this.max_p3ct.Location = new System.Drawing.Point(655, 171);
+			this.max_p3ct.Name = "max_p3ct";
+			this.max_p3ct.Size = new System.Drawing.Size(48, 20);
+			this.max_p3ct.TabIndex = 28;
+			// 
+			// max_p2ct
+			// 
+			this.max_p2ct.Enabled = false;
+			this.max_p2ct.Location = new System.Drawing.Point(655, 145);
+			this.max_p2ct.Name = "max_p2ct";
+			this.max_p2ct.Size = new System.Drawing.Size(48, 20);
+			this.max_p2ct.TabIndex = 27;
+			// 
+			// max_p1ct
+			// 
+			this.max_p1ct.Enabled = false;
+			this.max_p1ct.Location = new System.Drawing.Point(655, 119);
+			this.max_p1ct.Name = "max_p1ct";
+			this.max_p1ct.Size = new System.Drawing.Size(48, 20);
+			this.max_p1ct.TabIndex = 26;
 			// 
 			// txtPrecio3Ct
 			// 
@@ -1193,6 +1256,39 @@
 			this.groupBox2.TabIndex = 3;
 			this.groupBox2.TabStop = false;
 			// 
+			// label53
+			// 
+			this.label53.AutoSize = true;
+			this.label53.Location = new System.Drawing.Point(660, 83);
+			this.label53.Name = "label53";
+			this.label53.Size = new System.Drawing.Size(43, 13);
+			this.label53.TabIndex = 39;
+			this.label53.Text = "Maximo";
+			// 
+			// max_p3c
+			// 
+			this.max_p3c.Enabled = false;
+			this.max_p3c.Location = new System.Drawing.Point(655, 157);
+			this.max_p3c.Name = "max_p3c";
+			this.max_p3c.Size = new System.Drawing.Size(48, 20);
+			this.max_p3c.TabIndex = 38;
+			// 
+			// max_p2c
+			// 
+			this.max_p2c.Enabled = false;
+			this.max_p2c.Location = new System.Drawing.Point(655, 131);
+			this.max_p2c.Name = "max_p2c";
+			this.max_p2c.Size = new System.Drawing.Size(48, 20);
+			this.max_p2c.TabIndex = 37;
+			// 
+			// max_p1c
+			// 
+			this.max_p1c.Enabled = false;
+			this.max_p1c.Location = new System.Drawing.Point(655, 105);
+			this.max_p1c.Name = "max_p1c";
+			this.max_p1c.Size = new System.Drawing.Size(48, 20);
+			this.max_p1c.TabIndex = 36;
+			// 
 			// label39
 			// 
 			this.label39.AutoSize = true;
@@ -1204,6 +1300,7 @@
 			// 
 			// txtUtilidad3C
 			// 
+			this.txtUtilidad3C.Enabled = false;
 			this.txtUtilidad3C.Location = new System.Drawing.Point(401, 157);
 			this.txtUtilidad3C.Name = "txtUtilidad3C";
 			this.txtUtilidad3C.Size = new System.Drawing.Size(71, 20);
@@ -1214,6 +1311,7 @@
 			// 
 			// txtUtilidad2C
 			// 
+			this.txtUtilidad2C.Enabled = false;
 			this.txtUtilidad2C.Location = new System.Drawing.Point(401, 131);
 			this.txtUtilidad2C.Name = "txtUtilidad2C";
 			this.txtUtilidad2C.Size = new System.Drawing.Size(71, 20);
@@ -1242,6 +1340,7 @@
 			// 
 			// txtUtilidad1C
 			// 
+			this.txtUtilidad1C.Enabled = false;
 			this.txtUtilidad1C.Location = new System.Drawing.Point(401, 105);
 			this.txtUtilidad1C.Name = "txtUtilidad1C";
 			this.txtUtilidad1C.Size = new System.Drawing.Size(71, 20);
@@ -1252,6 +1351,7 @@
 			// 
 			// txtPrecio3C
 			// 
+			this.txtPrecio3C.Enabled = false;
 			this.txtPrecio3C.Location = new System.Drawing.Point(549, 157);
 			this.txtPrecio3C.Name = "txtPrecio3C";
 			this.txtPrecio3C.Size = new System.Drawing.Size(100, 20);
@@ -1262,6 +1362,7 @@
 			// 
 			// txtPrecio2C
 			// 
+			this.txtPrecio2C.Enabled = false;
 			this.txtPrecio2C.Location = new System.Drawing.Point(549, 131);
 			this.txtPrecio2C.Name = "txtPrecio2C";
 			this.txtPrecio2C.Size = new System.Drawing.Size(100, 20);
@@ -1272,6 +1373,7 @@
 			// 
 			// txtPrecio1C
 			// 
+			this.txtPrecio1C.Enabled = false;
 			this.txtPrecio1C.Location = new System.Drawing.Point(549, 105);
 			this.txtPrecio1C.Name = "txtPrecio1C";
 			this.txtPrecio1C.Size = new System.Drawing.Size(100, 20);
@@ -1309,6 +1411,7 @@
 			// 
 			// txtDescripcionCaja
 			// 
+			this.txtDescripcionCaja.Enabled = false;
 			this.txtDescripcionCaja.Location = new System.Drawing.Point(395, 50);
 			this.txtDescripcionCaja.Name = "txtDescripcionCaja";
 			this.txtDescripcionCaja.Size = new System.Drawing.Size(218, 20);
@@ -1325,6 +1428,7 @@
 			// 
 			// txtPCaja
 			// 
+			this.txtPCaja.Enabled = false;
 			this.txtPCaja.Location = new System.Drawing.Point(96, 102);
 			this.txtPCaja.Name = "txtPCaja";
 			this.txtPCaja.Size = new System.Drawing.Size(37, 20);
@@ -1342,6 +1446,7 @@
 			// 
 			// txtCostoCaja
 			// 
+			this.txtCostoCaja.Enabled = false;
 			this.txtCostoCaja.Location = new System.Drawing.Point(478, 76);
 			this.txtCostoCaja.Name = "txtCostoCaja";
 			this.txtCostoCaja.Size = new System.Drawing.Size(65, 20);
@@ -1350,6 +1455,7 @@
 			// 
 			// txtSkuCaja
 			// 
+			this.txtSkuCaja.Enabled = false;
 			this.txtSkuCaja.Location = new System.Drawing.Point(96, 76);
 			this.txtSkuCaja.Name = "txtSkuCaja";
 			this.txtSkuCaja.Size = new System.Drawing.Size(185, 20);
@@ -1357,6 +1463,7 @@
 			// 
 			// txtCodigoCaja
 			// 
+			this.txtCodigoCaja.Enabled = false;
 			this.txtCodigoCaja.Location = new System.Drawing.Point(96, 50);
 			this.txtCodigoCaja.Name = "txtCodigoCaja";
 			this.txtCodigoCaja.Size = new System.Drawing.Size(185, 20);
@@ -1484,93 +1591,14 @@
 			this.txtDescripcion.Size = new System.Drawing.Size(418, 20);
 			this.txtDescripcion.TabIndex = 12;
 			// 
-			// max_p2
+			// label54
 			// 
-			this.max_p2.Location = new System.Drawing.Point(234, 72);
-			this.max_p2.Name = "max_p2";
-			this.max_p2.Size = new System.Drawing.Size(44, 20);
-			this.max_p2.TabIndex = 23;
-			// 
-			// max_p3
-			// 
-			this.max_p3.Location = new System.Drawing.Point(234, 98);
-			this.max_p3.Name = "max_p3";
-			this.max_p3.Size = new System.Drawing.Size(44, 20);
-			this.max_p3.TabIndex = 24;
-			// 
-			// max_p4
-			// 
-			this.max_p4.Location = new System.Drawing.Point(234, 124);
-			this.max_p4.Name = "max_p4";
-			this.max_p4.Size = new System.Drawing.Size(44, 20);
-			this.max_p4.TabIndex = 25;
-			// 
-			// max_p5
-			// 
-			this.max_p5.Location = new System.Drawing.Point(234, 150);
-			this.max_p5.Name = "max_p5";
-			this.max_p5.Size = new System.Drawing.Size(44, 20);
-			this.max_p5.TabIndex = 26;
-			// 
-			// label52
-			// 
-			this.label52.AutoSize = true;
-			this.label52.Location = new System.Drawing.Point(235, 26);
-			this.label52.Name = "label52";
-			this.label52.Size = new System.Drawing.Size(43, 13);
-			this.label52.TabIndex = 27;
-			this.label52.Text = "Maximo";
-			// 
-			// max_p1c
-			// 
-			this.max_p1c.Location = new System.Drawing.Point(655, 105);
-			this.max_p1c.Name = "max_p1c";
-			this.max_p1c.Size = new System.Drawing.Size(48, 20);
-			this.max_p1c.TabIndex = 36;
-			// 
-			// max_p2c
-			// 
-			this.max_p2c.Location = new System.Drawing.Point(655, 131);
-			this.max_p2c.Name = "max_p2c";
-			this.max_p2c.Size = new System.Drawing.Size(48, 20);
-			this.max_p2c.TabIndex = 37;
-			// 
-			// max_p3c
-			// 
-			this.max_p3c.Location = new System.Drawing.Point(655, 157);
-			this.max_p3c.Name = "max_p3c";
-			this.max_p3c.Size = new System.Drawing.Size(48, 20);
-			this.max_p3c.TabIndex = 38;
-			// 
-			// label53
-			// 
-			this.label53.AutoSize = true;
-			this.label53.Location = new System.Drawing.Point(660, 83);
-			this.label53.Name = "label53";
-			this.label53.Size = new System.Drawing.Size(43, 13);
-			this.label53.TabIndex = 39;
-			this.label53.Text = "Maximo";
-			// 
-			// max_p1ct
-			// 
-			this.max_p1ct.Location = new System.Drawing.Point(655, 119);
-			this.max_p1ct.Name = "max_p1ct";
-			this.max_p1ct.Size = new System.Drawing.Size(48, 20);
-			this.max_p1ct.TabIndex = 26;
-			// 
-			// max_p2ct
-			// 
-			this.max_p2ct.Location = new System.Drawing.Point(655, 145);
-			this.max_p2ct.Name = "max_p2ct";
-			this.max_p2ct.Size = new System.Drawing.Size(48, 20);
-			this.max_p2ct.TabIndex = 27;
-			// 
-			// max_p3ct
-			// 
-			this.max_p3ct.Location = new System.Drawing.Point(655, 171);
-			this.max_p3ct.Name = "max_p3ct";
-			this.max_p3ct.Size = new System.Drawing.Size(48, 20);
-			this.max_p3ct.TabIndex = 28;
+			this.label54.AutoSize = true;
+			this.label54.Location = new System.Drawing.Point(660, 96);
+			this.label54.Name = "label54";
+			this.label54.Size = new System.Drawing.Size(43, 13);
+			this.label54.TabIndex = 40;
+			this.label54.Text = "Maximo";
 			// 
 			// producto
 			// 
@@ -1590,26 +1618,26 @@
 			this.tabPage1.PerformLayout();
 			this.groupBox1.ResumeLayout(false);
 			this.groupBox1.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)(this.max_p5)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.max_p4)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.max_p3)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.max_p2)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.max_p1)).EndInit();
 			this.tabPage2.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.dtKardex)).EndInit();
 			this.tabPage3.ResumeLayout(false);
 			this.groupBox3.ResumeLayout(false);
 			this.groupBox3.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)(this.max_p3ct)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.max_p2ct)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.max_p1ct)).EndInit();
 			this.groupBox2.ResumeLayout(false);
 			this.groupBox2.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)(this.max_p3c)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.max_p2c)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.max_p1c)).EndInit();
 			this.Grupo.ResumeLayout(false);
 			this.Grupo.PerformLayout();
-			((System.ComponentModel.ISupportInitialize)(this.max_p2)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.max_p3)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.max_p4)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.max_p5)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.max_p1c)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.max_p2c)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.max_p3c)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.max_p1ct)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.max_p2ct)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.max_p3ct)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -1755,5 +1783,6 @@
 		private System.Windows.Forms.NumericUpDown max_p3ct;
 		private System.Windows.Forms.NumericUpDown max_p2ct;
 		private System.Windows.Forms.NumericUpDown max_p1ct;
+		private System.Windows.Forms.Label label54;
 	}
 }
