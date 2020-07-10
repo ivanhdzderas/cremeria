@@ -140,3 +140,4 @@ C:\Users\anton\source\repos\caja\caja\obj\Debug\RdlCompile.compiled
 C:\Users\anton\source\repos\caja\caja\obj\Debug\caja.csproj.CopyComplete
 C:\Users\anton\source\repos\caja\caja\obj\Debug\caja.exe
 C:\Users\anton\source\repos\caja\caja\obj\Debug\caja.pdb
+C:\Users\anton\source\repos\caja\caja\obj\Debug\caja.csprojAssemblyReference.cache
