@@ -152,9 +152,12 @@ namespace caja.Models
         }
         public void update_inventary() {
             string query = "update tbaproductos set cantidad='" + this.Existencia + "' where id='" + this.Id + "'  ";
-            Connect_Web conector_web = new Connect_Web();
-            conector_web.runQuery_web(query);
-            object result = runQuery(query);
+            Forms.intercambios intercambio = new Forms.intercambios();
+            if (intercambio.test_red())
+            {
+                Connect_Web conector_web = new Connect_Web();
+                conector_web.runQuery_web(query);
+            }
         }
         public void createProduct() {
             string query = "INSERT INTO tbaproductos (codigo, descripcion, costo, codigo2, codigo3, codigo4, codigo5, precio1, precio2, precio3, precio4, precio5, utilidad1, utilidad2, utilidad3, utilidad4, utilidad5, cantidad, unidad, grupo, marca, activo,codigo_sat,sku,medida_sat,impuesto_venta,impuesto_compra,descuento,monto_descuento,minimo,maximo,id_parent, c_unidad,dias_alerta, lote, max_p1,max_p2, max_p3,max_p4,max_p5)";

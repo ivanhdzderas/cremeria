@@ -85,7 +85,6 @@ C:\Users\anton\source\repos\caja\caja\bin\Debug\pt\Microsoft.ReportViewer.WinFor
 C:\Users\anton\source\repos\caja\caja\bin\Debug\ru\Microsoft.ReportViewer.WinForms.resources.dll
 C:\Users\anton\source\repos\caja\caja\bin\Debug\zh-CHS\Microsoft.ReportViewer.WinForms.resources.dll
 C:\Users\anton\source\repos\caja\caja\bin\Debug\zh-CHT\Microsoft.ReportViewer.WinForms.resources.dll
-C:\Users\anton\source\repos\caja\caja\obj\Debug\caja.csprojAssemblyReference.cache
 C:\Users\anton\source\repos\caja\caja\obj\Debug\caja.Forms.About.resources
 C:\Users\anton\source\repos\caja\caja\obj\Debug\caja.Forms.AbreCaja.resources
 C:\Users\anton\source\repos\caja\caja\obj\Debug\caja.Forms.autentificar.resources
