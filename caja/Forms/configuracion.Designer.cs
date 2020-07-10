@@ -101,16 +101,21 @@
 			this.label21 = new System.Windows.Forms.Label();
 			this.label20 = new System.Windows.Forms.Label();
 			this.tabPage6 = new System.Windows.Forms.TabPage();
+			this.txtPieTicket = new System.Windows.Forms.TextBox();
+			this.label28 = new System.Windows.Forms.Label();
 			this.button8 = new System.Windows.Forms.Button();
 			this.cbImpreReportes = new System.Windows.Forms.ComboBox();
 			this.label27 = new System.Windows.Forms.Label();
 			this.cbImpresora = new System.Windows.Forms.ComboBox();
 			this.label26 = new System.Windows.Forms.Label();
 			this.chkticket = new System.Windows.Forms.CheckBox();
+			this.tabPage7 = new System.Windows.Forms.TabPage();
+			this.button10 = new System.Windows.Forms.Button();
+			this.button9 = new System.Windows.Forms.Button();
+			this.txtRutas = new System.Windows.Forms.TextBox();
+			this.label29 = new System.Windows.Forms.Label();
 			this.ofdLogo = new System.Windows.Forms.OpenFileDialog();
 			this.ofdTicket = new System.Windows.Forms.OpenFileDialog();
-			this.label28 = new System.Windows.Forms.Label();
-			this.txtPieTicket = new System.Windows.Forms.TextBox();
 			this.tabControl1.SuspendLayout();
 			this.tabPage1.SuspendLayout();
 			this.tabPage2.SuspendLayout();
@@ -122,6 +127,7 @@
 			this.tabPage4.SuspendLayout();
 			this.tabPage5.SuspendLayout();
 			this.tabPage6.SuspendLayout();
+			this.tabPage7.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// tabControl1
@@ -133,6 +139,7 @@
 			this.tabControl1.Controls.Add(this.tabPage4);
 			this.tabControl1.Controls.Add(this.tabPage5);
 			this.tabControl1.Controls.Add(this.tabPage6);
+			this.tabControl1.Controls.Add(this.tabPage7);
 			this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.tabControl1.DrawMode = System.Windows.Forms.TabDrawMode.OwnerDrawFixed;
 			this.tabControl1.ItemSize = new System.Drawing.Size(25, 150);
@@ -258,7 +265,6 @@
 			// 
 			// txtInterior
 			// 
-			this.txtInterior.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.txtInterior.Location = new System.Drawing.Point(395, 112);
 			this.txtInterior.Name = "txtInterior";
 			this.txtInterior.Size = new System.Drawing.Size(239, 20);
@@ -908,6 +914,23 @@
 			this.tabPage6.Text = "Impresora";
 			this.tabPage6.UseVisualStyleBackColor = true;
 			// 
+			// txtPieTicket
+			// 
+			this.txtPieTicket.Location = new System.Drawing.Point(102, 101);
+			this.txtPieTicket.Multiline = true;
+			this.txtPieTicket.Name = "txtPieTicket";
+			this.txtPieTicket.Size = new System.Drawing.Size(451, 121);
+			this.txtPieTicket.TabIndex = 7;
+			// 
+			// label28
+			// 
+			this.label28.AutoSize = true;
+			this.label28.Location = new System.Drawing.Point(26, 104);
+			this.label28.Name = "label28";
+			this.label28.Size = new System.Drawing.Size(70, 13);
+			this.label28.TabIndex = 6;
+			this.label28.Text = "Pie de Ticket";
+			// 
 			// button8
 			// 
 			this.button8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -967,6 +990,58 @@
 			this.chkticket.Text = "Imprimir Ticket";
 			this.chkticket.UseVisualStyleBackColor = true;
 			// 
+			// tabPage7
+			// 
+			this.tabPage7.Controls.Add(this.button10);
+			this.tabPage7.Controls.Add(this.button9);
+			this.tabPage7.Controls.Add(this.txtRutas);
+			this.tabPage7.Controls.Add(this.label29);
+			this.tabPage7.Location = new System.Drawing.Point(154, 4);
+			this.tabPage7.Name = "tabPage7";
+			this.tabPage7.Padding = new System.Windows.Forms.Padding(3);
+			this.tabPage7.Size = new System.Drawing.Size(642, 442);
+			this.tabPage7.TabIndex = 6;
+			this.tabPage7.Text = "Reportes";
+			this.tabPage7.UseVisualStyleBackColor = true;
+			// 
+			// button10
+			// 
+			this.button10.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+			this.button10.Location = new System.Drawing.Point(559, 411);
+			this.button10.Name = "button10";
+			this.button10.Size = new System.Drawing.Size(75, 23);
+			this.button10.TabIndex = 3;
+			this.button10.Text = "Guardar";
+			this.button10.UseVisualStyleBackColor = true;
+			this.button10.Click += new System.EventHandler(this.button10_Click);
+			// 
+			// button9
+			// 
+			this.button9.Location = new System.Drawing.Point(472, 13);
+			this.button9.Name = "button9";
+			this.button9.Size = new System.Drawing.Size(36, 23);
+			this.button9.TabIndex = 2;
+			this.button9.Text = "...";
+			this.button9.UseVisualStyleBackColor = true;
+			this.button9.Click += new System.EventHandler(this.button9_Click);
+			// 
+			// txtRutas
+			// 
+			this.txtRutas.Enabled = false;
+			this.txtRutas.Location = new System.Drawing.Point(98, 15);
+			this.txtRutas.Name = "txtRutas";
+			this.txtRutas.Size = new System.Drawing.Size(368, 20);
+			this.txtRutas.TabIndex = 1;
+			// 
+			// label29
+			// 
+			this.label29.AutoSize = true;
+			this.label29.Location = new System.Drawing.Point(6, 18);
+			this.label29.Name = "label29";
+			this.label29.Size = new System.Drawing.Size(86, 13);
+			this.label29.TabIndex = 0;
+			this.label29.Text = "Ruta de reportes";
+			// 
 			// ofdLogo
 			// 
 			this.ofdLogo.FileName = "openFileDialog1";
@@ -974,23 +1049,6 @@
 			// ofdTicket
 			// 
 			this.ofdTicket.FileName = "openFileDialog2";
-			// 
-			// label28
-			// 
-			this.label28.AutoSize = true;
-			this.label28.Location = new System.Drawing.Point(26, 104);
-			this.label28.Name = "label28";
-			this.label28.Size = new System.Drawing.Size(70, 13);
-			this.label28.TabIndex = 6;
-			this.label28.Text = "Pie de Ticket";
-			// 
-			// txtPieTicket
-			// 
-			this.txtPieTicket.Location = new System.Drawing.Point(102, 101);
-			this.txtPieTicket.Multiline = true;
-			this.txtPieTicket.Name = "txtPieTicket";
-			this.txtPieTicket.Size = new System.Drawing.Size(451, 121);
-			this.txtPieTicket.TabIndex = 7;
 			// 
 			// configuracion
 			// 
@@ -1019,6 +1077,8 @@
 			this.tabPage5.PerformLayout();
 			this.tabPage6.ResumeLayout(false);
 			this.tabPage6.PerformLayout();
+			this.tabPage7.ResumeLayout(false);
+			this.tabPage7.PerformLayout();
 			this.ResumeLayout(false);
 
 		}
@@ -1108,5 +1168,10 @@
 		private System.Windows.Forms.Button button8;
 		private System.Windows.Forms.TextBox txtPieTicket;
 		private System.Windows.Forms.Label label28;
+		private System.Windows.Forms.TabPage tabPage7;
+		private System.Windows.Forms.Button button10;
+		private System.Windows.Forms.Button button9;
+		private System.Windows.Forms.TextBox txtRutas;
+		private System.Windows.Forms.Label label29;
 	}
 }

@@ -43,17 +43,21 @@ namespace caja.Forms.Reportes
 
 		private void btnPdf_Click(object sender, EventArgs e)
 		{
+			Configuration config = new Configuration();
+			List<Configuration> configuracion = config.getConfiguration();
 			DataTable dtbl = maketable();
 			Export_pdf pdf = new Export_pdf();
-			pdf.ExportDatatablePdf(dtbl, "Proveedores.pdf", "Proveedores");
+			pdf.ExportDatatablePdf(dtbl, configuracion[0].Ruta_reportes + "/Proveedores.pdf", "Proveedores");
 			MessageBox.Show("Terminado");
 		}
 
 		private void btnExcel_Click(object sender, EventArgs e)
 		{
+			Configuration config = new Configuration();
+			List<Configuration> configuracion = config.getConfiguration();
 			DataTable dtbl = maketable();
 			Export_excel excel = new Export_excel();
-			excel.ExportToExcel(dtbl, "Proveedores");
+			excel.ExportToExcel(dtbl, configuracion[0].Ruta_reportes + "/Proveedores");
 			MessageBox.Show("Terminado");
 		}
 	}

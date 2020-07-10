@@ -46,6 +46,7 @@
 			this.salidasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.ajustesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.traspasosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.levantarInventarioToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.comprasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.comprasToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
 			this.pagosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -83,7 +84,6 @@
 			this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.printToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.printPreviewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.levantarInventarioToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.menuStrip.SuspendLayout();
 			this.statusStrip.SuspendLayout();
 			this.Menu.SuspendLayout();
@@ -197,36 +197,43 @@
             this.traspasosToolStripMenuItem,
             this.levantarInventarioToolStripMenuItem});
 			this.inventarioToolStripMenuItem1.Name = "inventarioToolStripMenuItem1";
-			this.inventarioToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+			this.inventarioToolStripMenuItem1.Size = new System.Drawing.Size(139, 22);
 			this.inventarioToolStripMenuItem1.Text = "i&nventario";
 			// 
 			// entradasToolStripMenuItem
 			// 
 			this.entradasToolStripMenuItem.Name = "entradasToolStripMenuItem";
-			this.entradasToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.entradasToolStripMenuItem.Size = new System.Drawing.Size(175, 22);
 			this.entradasToolStripMenuItem.Text = "En&tradas";
 			this.entradasToolStripMenuItem.Click += new System.EventHandler(this.entradasToolStripMenuItem_Click);
 			// 
 			// salidasToolStripMenuItem
 			// 
 			this.salidasToolStripMenuItem.Name = "salidasToolStripMenuItem";
-			this.salidasToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.salidasToolStripMenuItem.Size = new System.Drawing.Size(175, 22);
 			this.salidasToolStripMenuItem.Text = "Salidas";
 			this.salidasToolStripMenuItem.Click += new System.EventHandler(this.salidasToolStripMenuItem_Click);
 			// 
 			// ajustesToolStripMenuItem
 			// 
 			this.ajustesToolStripMenuItem.Name = "ajustesToolStripMenuItem";
-			this.ajustesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.ajustesToolStripMenuItem.Size = new System.Drawing.Size(175, 22);
 			this.ajustesToolStripMenuItem.Text = "Ajustes";
 			this.ajustesToolStripMenuItem.Click += new System.EventHandler(this.ajustesToolStripMenuItem_Click);
 			// 
 			// traspasosToolStripMenuItem
 			// 
 			this.traspasosToolStripMenuItem.Name = "traspasosToolStripMenuItem";
-			this.traspasosToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.traspasosToolStripMenuItem.Size = new System.Drawing.Size(175, 22);
 			this.traspasosToolStripMenuItem.Text = "Traspasos";
 			this.traspasosToolStripMenuItem.Click += new System.EventHandler(this.traspasosToolStripMenuItem_Click);
+			// 
+			// levantarInventarioToolStripMenuItem
+			// 
+			this.levantarInventarioToolStripMenuItem.Name = "levantarInventarioToolStripMenuItem";
+			this.levantarInventarioToolStripMenuItem.Size = new System.Drawing.Size(175, 22);
+			this.levantarInventarioToolStripMenuItem.Text = "Levantar Inventario";
+			this.levantarInventarioToolStripMenuItem.Click += new System.EventHandler(this.levantarInventarioToolStripMenuItem_Click);
 			// 
 			// comprasToolStripMenuItem
 			// 
@@ -234,7 +241,7 @@
             this.comprasToolStripMenuItem1,
             this.pagosToolStripMenuItem});
 			this.comprasToolStripMenuItem.Name = "comprasToolStripMenuItem";
-			this.comprasToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.comprasToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
 			this.comprasToolStripMenuItem.Text = "Proveedores";
 			// 
 			// comprasToolStripMenuItem1
@@ -266,28 +273,28 @@
 			// inventarioToolStripMenuItem2
 			// 
 			this.inventarioToolStripMenuItem2.Name = "inventarioToolStripMenuItem2";
-			this.inventarioToolStripMenuItem2.Size = new System.Drawing.Size(139, 22);
+			this.inventarioToolStripMenuItem2.Size = new System.Drawing.Size(180, 22);
 			this.inventarioToolStripMenuItem2.Text = "Inventario";
 			this.inventarioToolStripMenuItem2.Click += new System.EventHandler(this.inventarioToolStripMenuItem2_Click);
 			// 
 			// inventarioToolStripMenuItem3
 			// 
 			this.inventarioToolStripMenuItem3.Name = "inventarioToolStripMenuItem3";
-			this.inventarioToolStripMenuItem3.Size = new System.Drawing.Size(139, 22);
+			this.inventarioToolStripMenuItem3.Size = new System.Drawing.Size(180, 22);
 			this.inventarioToolStripMenuItem3.Text = "Proveedores";
 			this.inventarioToolStripMenuItem3.Click += new System.EventHandler(this.inventarioToolStripMenuItem3_Click);
 			// 
 			// clientesToolStripMenuItem1
 			// 
 			this.clientesToolStripMenuItem1.Name = "clientesToolStripMenuItem1";
-			this.clientesToolStripMenuItem1.Size = new System.Drawing.Size(139, 22);
+			this.clientesToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
 			this.clientesToolStripMenuItem1.Text = "Clientes";
 			this.clientesToolStripMenuItem1.Click += new System.EventHandler(this.clientesToolStripMenuItem1_Click);
 			// 
 			// corteCajaToolStripMenuItem
 			// 
 			this.corteCajaToolStripMenuItem.Name = "corteCajaToolStripMenuItem";
-			this.corteCajaToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
+			this.corteCajaToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
 			this.corteCajaToolStripMenuItem.Text = "Corte Caja";
 			this.corteCajaToolStripMenuItem.Click += new System.EventHandler(this.corteCajaToolStripMenuItem_Click);
 			// 
@@ -532,13 +539,6 @@
 			this.printPreviewToolStripMenuItem.Name = "printPreviewToolStripMenuItem";
 			this.printPreviewToolStripMenuItem.Size = new System.Drawing.Size(206, 22);
 			this.printPreviewToolStripMenuItem.Text = "&Vista previa de impresión";
-			// 
-			// levantarInventarioToolStripMenuItem
-			// 
-			this.levantarInventarioToolStripMenuItem.Name = "levantarInventarioToolStripMenuItem";
-			this.levantarInventarioToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-			this.levantarInventarioToolStripMenuItem.Text = "Levantar Inventario";
-			this.levantarInventarioToolStripMenuItem.Click += new System.EventHandler(this.levantarInventarioToolStripMenuItem_Click);
 			// 
 			// inicial
 			// 

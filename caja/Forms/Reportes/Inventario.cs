@@ -22,32 +22,39 @@ namespace caja.Forms.Reportes
 
 		private void btnPdf_Click(object sender, EventArgs e)
 		{
-
+			Configuration config = new Configuration();
+			List<Configuration> configuracion = config.getConfiguration();
 			DataTable dtbl = maketable();
 			Export_pdf pdf = new Export_pdf();
-			pdf.ExportDatatablePdf(dtbl, "inventario.pdf", "Inventario");
+			pdf.ExportDatatablePdf(dtbl, configuracion[0].Ruta_reportes + "/inventario.pdf", "Inventario");
 			MessageBox.Show("Terminado");
 
 		}
 		private void btnExcel_Click(object sender, EventArgs e)
 		{
+			Configuration config = new Configuration();
+			List<Configuration> configuracion = config.getConfiguration();
 			DataTable dtbl = maketable();
 			Export_excel excel = new Export_excel();
-			excel.ExportToExcel(dtbl,"inventario");
+			excel.ExportToExcel(dtbl, configuracion[0].Ruta_reportes+ "/inventario");
 			MessageBox.Show("Terminado");
 		}
 		private void button2_Click(object sender, EventArgs e)
 		{
+			Configuration config = new Configuration();
+			List<Configuration> configuracion = config.getConfiguration();
 			DataTable dtbl = minimos();
 			Export_pdf pdf = new Export_pdf();
-			pdf.ExportDatatablePdf(dtbl, "inventario.pdf", "Inventario");
+			pdf.ExportDatatablePdf(dtbl, configuracion[0].Ruta_reportes + "/inventario.pdf", "Inventario");
 			MessageBox.Show("Terminado");
 		}
 		private void button1_Click(object sender, EventArgs e)
 		{
+			Configuration config = new Configuration();
+			List<Configuration> configuracion = config.getConfiguration();
 			DataTable dtbl = minimos();
 			Export_excel excel = new Export_excel();
-			excel.ExportToExcel(dtbl, "inventario");
+			excel.ExportToExcel(dtbl, configuracion[0].Ruta_reportes+"inventario");
 			MessageBox.Show("Terminado");
 		}
 		DataTable maketable()

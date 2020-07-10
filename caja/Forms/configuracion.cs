@@ -200,7 +200,7 @@ namespace caja.Forms
             chkticket.Checked = Convert.ToBoolean(item[0].Tipo_Impre);
             cbImpresora.SelectedValue = item[0].Impresora;
             cbImpreReportes.SelectedValue = item[0].Impresora_reportes;
-
+            txtRutas.Text = item[0].Ruta_reportes;
 
 
            
@@ -281,6 +281,7 @@ namespace caja.Forms
                 "",
                 "",
                 0,
+                "",
                 ""
                 );
 
@@ -392,6 +393,36 @@ namespace caja.Forms
             config.Pie_ticket = txtPieTicket.Text;
             config.updateImpresoras();
             MessageBox.Show("Actualización exitosa");
+        }
+
+        private void button9_Click(object sender, EventArgs e)
+        {
+            using (var fd = new FolderBrowserDialog())
+            {
+                if (fd.ShowDialog() == System.Windows.Forms.DialogResult.OK && !string.IsNullOrWhiteSpace(fd.SelectedPath))
+                {
+                    txtRutas.Text = fd.SelectedPath;
+                }
+            }
+        }
+
+        private void button10_Click(object sender, EventArgs e)
+        {
+            if (txtRutas.Text != "")
+            {
+                Configuration config = new Configuration();
+                config.Id = Id;
+                string ruta = txtRutas.Text;
+                config.Ruta_reportes = ruta.Replace("\\", "/");
+                config.update_reportes();
+                MessageBox.Show("Actualización exitosa");
+            }
+            else
+            {
+                MessageBox.Show("no puede guardar un campo vacio");
+            }
+           
+
         }
     }
 }

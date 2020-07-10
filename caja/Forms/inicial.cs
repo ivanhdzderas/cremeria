@@ -155,12 +155,12 @@ namespace caja
 
                 Permisos permiso = new Permisos();
                 List<Permisos> permisos = permiso.getPermiso(Convert.ToInt16(id_usario));
-
+               
 
 
                 if (Convert.ToBoolean(permisos[0].Mod_cli) == false)
                 {
-                    clientesToolStripMenuItem.Enabled = false;
+                    clientesToolStripMenuItem.Visible = false;
                     toolStripButton2.Visible = false;
                 }
 
@@ -173,11 +173,11 @@ namespace caja
 
                     )
                 {
-                    inventarioToolStripMenuItem.Enabled = true;
+                    inventarioToolStripMenuItem.Visible = true;
                 }
                 else
                 {
-                    inventarioToolStripMenuItem.Enabled = false;
+                    inventarioToolStripMenuItem.Visible = false;
                 }
                 if (Convert.ToBoolean(permisos[0].Cobrar_ticket) == true
                     || Convert.ToBoolean(permisos[0].Cancelar_ticket) == true

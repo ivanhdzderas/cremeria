@@ -227,8 +227,11 @@ namespace caja.Forms
 				factura.Id_invoi = invoice.Id;
 				factura.Uuid = invoice.Uuid;
 
+				Configuration config = new Configuration();
+				List<Configuration> configuracion = config.getConfiguration();
+
 				var zipStream = await facturapi.Invoice.DownloadZipAsync(invoice.Id);
-				string Directorio = "C:\\prueba\\";
+				string Directorio = configuracion[0].Ruta_factura+"/";
 				string Archivo = Directorio + invoice.Id + ".zip";
 
 				var file = new System.IO.FileStream(Archivo, FileMode.Create);

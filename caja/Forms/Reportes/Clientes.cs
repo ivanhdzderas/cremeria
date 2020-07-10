@@ -1,11 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using caja.Models;
 
@@ -43,17 +38,21 @@ namespace caja.Forms.Reportes
 
 		private void btnPdf_Click(object sender, EventArgs e)
 		{
+			Configuration config = new Configuration();
+			List<Configuration> configuracion = config.getConfiguration();
 			DataTable dtbl = maketable();
 			Export_pdf pdf = new Export_pdf();
-			pdf.ExportDatatablePdf(dtbl, "Clientes.pdf", "Clientes");
+			pdf.ExportDatatablePdf(dtbl, configuracion[0].Ruta_reportes + "/Clientes.pdf", "Clientes");
 			MessageBox.Show("Terminado");
 		}
 
 		private void btnExcel_Click(object sender, EventArgs e)
 		{
+			Configuration config = new Configuration();
+			List<Configuration> configuracion = config.getConfiguration();
 			DataTable dtbl = maketable();
 			Export_excel excel = new Export_excel();
-			excel.ExportToExcel(dtbl, "Clientes");
+			excel.ExportToExcel(dtbl, configuracion[0].Ruta_reportes + "/Clientes");
 			MessageBox.Show("Terminado");
 		}
 	}
