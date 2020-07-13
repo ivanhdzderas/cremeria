@@ -733,7 +733,7 @@ namespace caja
             {
                 validador = false;
             }
-            if (txtdias.Text=="" || txtdias.Text == "0")
+            if (txtdias.Text=="" )
             {
                 validador = false;
             }

@@ -68,7 +68,6 @@
 			this.textBox1.Name = "textBox1";
 			this.textBox1.Size = new System.Drawing.Size(257, 29);
 			this.textBox1.TabIndex = 2;
-			this.textBox1.Text = "ihernandez";
 			this.textBox1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox1_KeyDown);
 			// 
 			// textBox2
@@ -80,7 +79,6 @@
 			this.textBox2.PasswordChar = '*';
 			this.textBox2.Size = new System.Drawing.Size(257, 29);
 			this.textBox2.TabIndex = 3;
-			this.textBox2.Text = "123";
 			this.textBox2.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox2_KeyDown);
 			// 
 			// button1

@@ -152,6 +152,7 @@ namespace caja.Models
         }
         public void update_inventary() {
             string query = "update tbaproductos set cantidad='" + this.Existencia + "' where id='" + this.Id + "'  ";
+            Object result = runQuery(query);
             Forms.intercambios intercambio = new Forms.intercambios();
             if (intercambio.test_red())
             {

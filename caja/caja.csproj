@@ -378,6 +378,12 @@
     <Compile Include="Forms\Reportes\Clientes.Designer.cs">
       <DependentUpon>Clientes.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Reportes\Ganancias.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Reportes\Ganancias.Designer.cs">
+      <DependentUpon>Ganancias.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Reportes\Inventario.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -479,6 +485,7 @@
     <Compile Include="Models\Providers.cs" />
     <Compile Include="Models\Purchases.cs" />
     <Compile Include="Models\Reports\Encaja.cs" />
+    <Compile Include="Models\Reports\Ganancias.cs" />
     <Compile Include="Models\Reports\Ventas.cs" />
     <Compile Include="Models\Reports\Venta_grupo.cs" />
     <Compile Include="Models\retiro_efectivo.cs" />
@@ -606,6 +613,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Reportes\Clientes.resx">
       <DependentUpon>Clientes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Reportes\Ganancias.resx">
+      <DependentUpon>Ganancias.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Reportes\Inventario.resx">
       <DependentUpon>Inventario.cs</DependentUpon>

@@ -141,3 +141,4 @@ C:\Users\anton\source\repos\caja\caja\obj\Debug\caja.csproj.CopyComplete
 C:\Users\anton\source\repos\caja\caja\obj\Debug\caja.exe
 C:\Users\anton\source\repos\caja\caja\obj\Debug\caja.pdb
 C:\Users\anton\source\repos\caja\caja\obj\Debug\caja.csprojAssemblyReference.cache
+C:\Users\anton\source\repos\caja\caja\obj\Debug\caja.Forms.Reportes.Ganancias.resources

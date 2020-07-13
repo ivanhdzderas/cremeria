@@ -19,6 +19,7 @@ namespace caja.Models
 		public double Pu { get; set; }
 		public double Total { get; set; }
 		public string Grabado { get; set; }
+		public double Costo { get; set; }
 		public Dettickets(
 			int id,
 			string fecha,
@@ -29,7 +30,8 @@ namespace caja.Models
 			double descuento,
 			double pu,
 			double total,
-			string grabado
+			string grabado,
+			double costo
 			) {
 			Id = id;
 			Fecha = fecha;
@@ -41,13 +43,14 @@ namespace caja.Models
 			Pu = pu;
 			Total = total;
 			Grabado = grabado;
+			Costo = costo;
 		}
 
 		public Dettickets() { }
 
 		public void CrateDetTicket()
 		{
-			string query = "insert into tbadetticket (fecha, id_ticket, id_producto, descripcion, cantidad,descuento, pu, total, grabado) values (";
+			string query = "insert into tbadetticket (fecha, id_ticket, id_producto, descripcion, cantidad,descuento, pu, total, grabado, costo) values (";
 			query += "'" + this.Fecha + "', ";
 			query += "'" + this.Id_ticket + "', ";
 			query += "'" + this.Id_producto + "', ";
@@ -56,7 +59,8 @@ namespace caja.Models
 			query += "'" + this.Descuento + "', ";
 			query += "'" + this.Pu + "', ";
 			query += "'" + this.Total + "', ";
-			query += "'" + this.Grabado + "') ";
+			query += "'" + this.Grabado + "', ";
+			query += "'" + this.Costo + "')";
 			object result = runQuery(query);
 		}
 		private Dettickets buildDetalles(MySqlDataReader data) {
@@ -70,12 +74,13 @@ namespace caja.Models
 				data.GetDouble("descuento"),
 				data.GetDouble("pu"),
 				data.GetDouble("total"),
-				data.GetString("grabado")
+				data.GetString("grabado"),
+				data.GetDouble("costo")
 				);
 			return item;
 		}
 		public List<Dettickets> getDetalles(int id) {
-			string query = "select id, fecha, id_ticket, id_producto, descripcion, cantidad,descuento, pu, total, grabado from tbadetticket  where id_ticket='" + id.ToString() + "'";
+			string query = "select id, fecha, id_ticket, id_producto, descripcion, cantidad,descuento, pu, total, grabado, costo from tbadetticket  where id_ticket='" + id.ToString() + "'";
 			MySqlDataReader data = runQuery(query);
 			List<Dettickets> result = new List<Dettickets>();
 			if (data.HasRows)

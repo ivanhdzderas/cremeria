@@ -106,53 +106,34 @@ namespace caja.Forms
 			DialogResult dialogResult = MessageBox.Show("Deseas efecturar el inventario", "Inventario", MessageBoxButtons.YesNo);
 			if (dialogResult == DialogResult.Yes)
 			{
-				DateTime today = DateTime.Today;
-				string fecha = today.ToString("dd/MM/yyyy") + " 00:00:00";
-				Models.Ajuste ajutes = new Models.Ajuste(
-						0,
-						fecha,
-						Convert.ToDouble(0),
-						"",
-						"A"
-						);
-				ajutes.createAjuste();
-				List<Models.Ajuste> general = ajutes.getlastAjustes(fecha, Convert.ToDouble(0));
-				Models.det_ajustes detalle = new Models.det_ajustes();
-				detalle.Id = 0;
-				detalle.Id_ajuste = general[0].Id;
-				Models.Kardex kardex = new Models.Kardex();
-				Models.Product producto = new Models.Product();
-				Models.Afecta_inv afecta = new Models.Afecta_inv();
-				int nuevo = 0;
-				string folio = general[0].Id.ToString();
+
+				Models.Product productos = new Models.Product();
+				double nuevo;
 				foreach (DataGridViewRow row in dtPoroductos.Rows)
 				{
-					detalle.Id_producto = Convert.ToInt16(row.Cells["id_producto"].Value.ToString());
-					detalle.P_u = Convert.ToDouble(row.Cells["costo"].Value.ToString());
-					detalle.Cantidad = Convert.ToInt16(row.Cells["cantidad"].Value.ToString());
-					detalle.Total = Convert.ToDouble(row.Cells["total"].Value.ToString());
-					detalle.craeteDet_ajuste();
 
-					List<Models.Product> prod = producto.getProductById(Convert.ToInt16(row.Cells["id"].Value.ToString()));
+					List<Models.Product> prod = productos.getProductById(Convert.ToInt16(row.Cells["id"].Value.ToString()));
+					double antes_inventario = prod[0].Existencia;
+				
+
 					nuevo = Convert.ToInt16(row.Cells["cantidad"].Value.ToString());
 					while (prod[0].Parent != "0")
 					{
 						nuevo = nuevo * Convert.ToInt16(prod[0].C_unidad);
-						prod = producto.getProductById(Convert.ToInt16(prod[0].Parent));
-
-
+						prod = productos.getProductById(Convert.ToInt16(prod[0].Parent));
 					}
-					kardex.Fecha = Convert.ToDateTime(today.ToString("dd/MM/yyyy")).ToString();
-					kardex.Id_producto = prod[0].Id;
-					kardex.Tipo = "A";
-					kardex.Cantidad = nuevo;
-					kardex.Antes = prod[0].Existencia;
-					kardex.Id = 0;
-					kardex.Id_documento = Convert.ToInt16(folio);
-					kardex.CreateKardex();
-					List<Models.Kardex> numeracion = kardex.getidKardex(prod[0].Id, Convert.ToInt16(folio), "A");
-					afecta.Ajusta(numeracion[0].Id);
+					double nuevo_inventario = antes_inventario + nuevo;
+
+					productos.Existencia = nuevo_inventario;
+					productos.Id = Convert.ToInt16(row.Cells["id"].Value.ToString());
+					productos.update_inventary();
+
+					
+					
 				}
+				dtPoroductos.Rows.Clear();
+				MessageBox.Show("Efectuado con exito");
+				txtCodigo.Focus();
 			}
 		}
 	}

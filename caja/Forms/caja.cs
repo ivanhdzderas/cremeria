@@ -182,7 +182,10 @@ namespace caja
         }
         private void textBox1_KeyDown(object sender, KeyEventArgs e)
         {
-         
+            if (e.KeyCode == Keys.F12)
+            {
+                button1.PerformClick();
+            }
             if (txtCodigo.Text != "")
             {
 
@@ -199,37 +202,41 @@ namespace caja
                         txtCantidad.Text = cantidades[0];
                         Product producto = new Product();
                         List<Product> result = producto.getProductByCodeAbsolute(CODIGOABUSCAR);
-                        foreach (Product item in result)
+                        if (result.Count > 0)
                         {
-                            id = item.Id.ToString();
-                            txtCodigo.Text = item.Code1;
-                            txtDescripcion.Text = item.Description;
-                            if (item.Max_p1 >= Convert.ToDouble(txtCantidad.Text))
+                            foreach (Product item in result)
                             {
-                                cbPu.Text = (string.Format("{0:#,0.00}", item.Price1));
-                            }
-                            else if (item.Max_p2 >= Convert.ToDouble(txtCantidad.Text))
-                            {
-                                cbPu.Text = (string.Format("{0:#,0.00}", item.Price2));
-                            }
-                            else if (item.Max_p3 >= Convert.ToDouble(txtCantidad.Text))
-                            {
-                                cbPu.Text = (string.Format("{0:#,0.00}", item.Price3));
-                            }
-                            else if (item.Max_p4 >= Convert.ToDouble(txtCantidad.Text))
-                            {
-                                cbPu.Text = (string.Format("{0:#,0.00}", item.Price4));
-                            }
-                            else if (item.Max_p5 >= Convert.ToDouble(txtCantidad.Text))
-                            {
-                                cbPu.Text = (string.Format("{0:#,0.00}", item.Price5));
-                            }
+                                id = item.Id.ToString();
+                                txtCodigo.Text = item.Code1;
+                                txtDescripcion.Text = item.Description;
+                                if (item.Max_p1 >= Convert.ToDouble(txtCantidad.Text))
+                                {
+                                    cbPu.Text = (string.Format("{0:#,0.00}", item.Price1));
+                                }
+                                else if (item.Max_p2 >= Convert.ToDouble(txtCantidad.Text))
+                                {
+                                    cbPu.Text = (string.Format("{0:#,0.00}", item.Price2));
+                                }
+                                else if (item.Max_p3 >= Convert.ToDouble(txtCantidad.Text))
+                                {
+                                    cbPu.Text = (string.Format("{0:#,0.00}", item.Price3));
+                                }
+                                else if (item.Max_p4 >= Convert.ToDouble(txtCantidad.Text))
+                                {
+                                    cbPu.Text = (string.Format("{0:#,0.00}", item.Price4));
+                                }
+                                else if (item.Max_p5 >= Convert.ToDouble(txtCantidad.Text))
+                                {
+                                    cbPu.Text = (string.Format("{0:#,0.00}", item.Price5));
+                                }
 
+                            }
+                            txtImporte.Text = (Convert.ToDouble(cbPu.Text) * Convert.ToDouble(txtCantidad.Text)).ToString();
+                            txtDescuento.Text = "0";
+                            txtCantidad.Focus();
+                            btnVer.Enabled = true;
                         }
-                        txtImporte.Text = (Convert.ToDouble(cbPu.Text) * Convert.ToDouble(txtCantidad.Text)).ToString();
-                        txtDescuento.Text = "0";
-                        txtCantidad.Focus();
-                        btnVer.Enabled = true;
+                        
                     }
                     else
                     {
@@ -237,37 +244,41 @@ namespace caja
                         Product producto = new Product();
                         List<Product> result = producto.getProductByCodeAbsolute(CODIGOABUSCAR);
                         txtCantidad.Text = "1";
-                        foreach (Product item in result)
+                        if (result.Count > 0)
                         {
-                            id = item.Id.ToString();
-                            txtCodigo.Text = item.Code1;
-                            txtDescripcion.Text = item.Description;
-                            if (item.Max_p1 >= Convert.ToDouble(txtCantidad.Text))
+                            foreach (Product item in result)
                             {
-                                cbPu.Text = (string.Format("{0:#,0.00}", item.Price1));
-                            }
-                            else if (item.Max_p2 >= Convert.ToDouble(txtCantidad.Text))
-                            {
-                                cbPu.Text = (string.Format("{0:#,0.00}", item.Price2));
-                            }
-                            else if (item.Max_p3 >= Convert.ToDouble(txtCantidad.Text))
-                            {
-                                cbPu.Text = (string.Format("{0:#,0.00}", item.Price3));
-                            }
-                            else if (item.Max_p4 >= Convert.ToDouble(txtCantidad.Text))
-                            {
-                                cbPu.Text = (string.Format("{0:#,0.00}", item.Price4));
-                            }
-                            else if (item.Max_p5 >= Convert.ToDouble(txtCantidad.Text))
-                            {
-                                cbPu.Text = (string.Format("{0:#,0.00}", item.Price5));
-                            }
+                                id = item.Id.ToString();
+                                txtCodigo.Text = item.Code1;
+                                txtDescripcion.Text = item.Description;
+                                if (item.Max_p1 >= Convert.ToDouble(txtCantidad.Text))
+                                {
+                                    cbPu.Text = (string.Format("{0:#,0.00}", item.Price1));
+                                }
+                                else if (item.Max_p2 >= Convert.ToDouble(txtCantidad.Text))
+                                {
+                                    cbPu.Text = (string.Format("{0:#,0.00}", item.Price2));
+                                }
+                                else if (item.Max_p3 >= Convert.ToDouble(txtCantidad.Text))
+                                {
+                                    cbPu.Text = (string.Format("{0:#,0.00}", item.Price3));
+                                }
+                                else if (item.Max_p4 >= Convert.ToDouble(txtCantidad.Text))
+                                {
+                                    cbPu.Text = (string.Format("{0:#,0.00}", item.Price4));
+                                }
+                                else if (item.Max_p5 >= Convert.ToDouble(txtCantidad.Text))
+                                {
+                                    cbPu.Text = (string.Format("{0:#,0.00}", item.Price5));
+                                }
 
+                            }
+                            txtImporte.Text = (Convert.ToDouble(cbPu.Text) * Convert.ToDouble(txtCantidad.Text)).ToString();
+                            txtDescuento.Text = "0";
+                            txtCantidad.Focus();
+                            btnVer.Enabled = true;
                         }
-                        txtImporte.Text = (Convert.ToDouble(cbPu.Text) * Convert.ToDouble(txtCantidad.Text)).ToString();
-                        txtDescuento.Text = "0";
-                        txtCantidad.Focus();
-                        btnVer.Enabled = true;
+                        
                     }
 
                     
@@ -322,8 +333,9 @@ namespace caja
                 Product producto = new Product();
                 List<Product> prod = producto.getProductById(Convert.ToInt16(id)) ;
                 string grabado = prod[0].Sale_tax;
+                double costo = prod[0].Cost;
                 grabado = grabado.Replace("IVA ", "");
-                dtProductos.Rows.Add(id, txtCodigo.Text, txtCantidad.Text, txtDescripcion.Text, string.Format("{0:#,0.00}", Convert.ToDouble(cbPu.Text)), string.Format("{0:#,0.00}", Convert.ToDouble(txtDescuento.Text)), string.Format("{0:#,0.00}", Convert.ToDouble(txtImporte.Text)), grabado);
+                dtProductos.Rows.Add(id, txtCodigo.Text, txtCantidad.Text, txtDescripcion.Text, string.Format("{0:#,0.00}", Convert.ToDouble(cbPu.Text)), string.Format("{0:#,0.00}", Convert.ToDouble(txtDescuento.Text)), string.Format("{0:#,0.00}", Convert.ToDouble(txtImporte.Text)), grabado, costo);
                 txtCodigo.Text = "";
                 txtCantidad.Text = "";
                 txtDescripcion.Text = "";
@@ -451,7 +463,7 @@ namespace caja
                     foreach (Dettickets item in det)
                     {
                         lista = prod.getProductById(item.Id_producto);
-                        dtProductos.Rows.Add(item.Id_producto, lista[0].Code1, item.Cantidad, item.Descripcion, item.Pu, item.Descuento, item.Total, item.Grabado);
+                        dtProductos.Rows.Add(item.Id_producto, lista[0].Code1, item.Cantidad, item.Descripcion, item.Pu, item.Descuento, item.Total, item.Grabado, item.Costo);
                         fecha = item.Fecha;
 
                     }
@@ -525,7 +537,7 @@ namespace caja
             Product producto = new Product();
             Kardex kardex = new Kardex();
             Afecta_inv afecta = new Afecta_inv();
-            int nuevo = 0;
+            double nuevo = 0;
             Dettickets detalle = new Dettickets();
             Pago_ticket pago = new Pago_ticket();
             pago.Id_ticket = lista[0].Id;
@@ -554,14 +566,15 @@ namespace caja
             {
                 detalle.Id_producto = Convert.ToInt16(row.Cells["id_producto"].Value.ToString());
                 detalle.Pu = Convert.ToDouble(row.Cells["p_unitario"].Value.ToString());
-                detalle.Cantidad = Convert.ToInt16(row.Cells["cantidad"].Value.ToString());
+                detalle.Cantidad = Convert.ToDouble(row.Cells["cantidad"].Value.ToString());
                 detalle.Descuento = Convert.ToDouble(row.Cells["descuento"].Value.ToString());
                 detalle.Total = Convert.ToDouble(row.Cells["importe"].Value.ToString());
                 detalle.Descripcion = row.Cells["Producto"].Value.ToString();
                 detalle.Grabado = row.Cells["grabado"].Value.ToString();
+                detalle.Costo = Convert.ToDouble(row.Cells["costo"].Value.ToString());
                 detalle.CrateDetTicket();
                 List<Product> prod = producto.getProductById(Convert.ToInt16(row.Cells["id_producto"].Value.ToString()));
-                nuevo = Convert.ToInt16(row.Cells["cantidad"].Value.ToString());
+                nuevo = Convert.ToDouble(row.Cells["cantidad"].Value.ToString());
                 while (prod[0].Parent != "0")
                 {
                     nuevo = nuevo * Convert.ToInt16(prod[0].C_unidad);
@@ -802,10 +815,10 @@ namespace caja
 
                     Product producto = new Product();
                     List<Product> prod = producto.getProductById(Convert.ToInt16(id));
-
+                    double costo = prod[0].Cost;
                     string grabado = prod[0].Sale_tax;
                     grabado = grabado.Replace("IVA ", "");
-                    dtProductos.Rows.Add(id, txtCodigo.Text, txtCantidad.Text, txtDescripcion.Text, string.Format("{0:#,0.00}", Convert.ToDouble(cbPu.Text)), string.Format("{0:#,0.00}", Convert.ToDouble(txtDescuento.Text)), string.Format("{0:#,0.00}", Convert.ToDouble(txtImporte.Text)), grabado);
+                    dtProductos.Rows.Add(id, txtCodigo.Text, txtCantidad.Text, txtDescripcion.Text, string.Format("{0:#,0.00}", Convert.ToDouble(cbPu.Text)), string.Format("{0:#,0.00}", Convert.ToDouble(txtDescuento.Text)), string.Format("{0:#,0.00}", Convert.ToDouble(txtImporte.Text)), grabado, costo);
                     txtCodigo.Text = "";
                     txtCantidad.Text = "";
                     txtDescripcion.Text = "";
@@ -1024,6 +1037,7 @@ namespace caja
                 if (usuario.Count > 0)
                 {
                     lbAtiende.Text = usuario[0].Nombre;
+                    txtCodigo.Focus();
                 }
                 else
                 {

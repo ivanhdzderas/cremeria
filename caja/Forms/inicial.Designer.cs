@@ -55,6 +55,7 @@
 			this.inventarioToolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
 			this.clientesToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
 			this.corteCajaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.ventasEnPeriodoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
 			this.configuracionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
@@ -264,7 +265,8 @@
             this.inventarioToolStripMenuItem2,
             this.inventarioToolStripMenuItem3,
             this.clientesToolStripMenuItem1,
-            this.corteCajaToolStripMenuItem});
+            this.corteCajaToolStripMenuItem,
+            this.ventasEnPeriodoToolStripMenuItem});
 			this.reportesToolStripMenuItem.Enabled = false;
 			this.reportesToolStripMenuItem.Name = "reportesToolStripMenuItem";
 			this.reportesToolStripMenuItem.Size = new System.Drawing.Size(65, 20);
@@ -297,6 +299,13 @@
 			this.corteCajaToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
 			this.corteCajaToolStripMenuItem.Text = "Corte Caja";
 			this.corteCajaToolStripMenuItem.Click += new System.EventHandler(this.corteCajaToolStripMenuItem_Click);
+			// 
+			// ventasEnPeriodoToolStripMenuItem
+			// 
+			this.ventasEnPeriodoToolStripMenuItem.Name = "ventasEnPeriodoToolStripMenuItem";
+			this.ventasEnPeriodoToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.ventasEnPeriodoToolStripMenuItem.Text = "Ganancias";
+			this.ventasEnPeriodoToolStripMenuItem.Click += new System.EventHandler(this.ventasEnPeriodoToolStripMenuItem_Click);
 			// 
 			// toolStripMenuItem1
 			// 
@@ -623,6 +632,7 @@
 		private System.Windows.Forms.ToolStripMenuItem traspasosToolStripMenuItem;
 		public System.Windows.Forms.ToolStripMenuItem facturasToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem levantarInventarioToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem ventasEnPeriodoToolStripMenuItem;
 	}
 }
 

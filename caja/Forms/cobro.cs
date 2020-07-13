@@ -25,6 +25,7 @@ namespace caja.Forms
 
 		private void cobro_Load(object sender, EventArgs e)
 		{
+            txtEfectivo.Focus();
             lbCobrar.Text = lbResta.Text;
             
 		}
@@ -51,6 +52,8 @@ namespace caja.Forms
             {
                 e.Handled = true;
             }
+
+            
         }
 
         private void txtTarjeta_KeyPress(object sender, KeyPressEventArgs e)
@@ -133,6 +136,14 @@ namespace caja.Forms
             this.Close();
                
             
+        }
+
+        private void txtEfectivo_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                btnCobrar.PerformClick();
+            }
         }
     }
 }

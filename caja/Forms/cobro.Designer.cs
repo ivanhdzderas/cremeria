@@ -118,6 +118,7 @@
 			this.txtEfectivo.TabIndex = 12;
 			this.txtEfectivo.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			this.txtEfectivo.TextChanged += new System.EventHandler(this.txtEfectivo_TextChanged);
+			this.txtEfectivo.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtEfectivo_KeyDown);
 			this.txtEfectivo.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtEfectivo_KeyPress);
 			// 
 			// txtTarjeta
