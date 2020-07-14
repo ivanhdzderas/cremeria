@@ -142,3 +142,5 @@ C:\Users\anton\source\repos\caja\caja\obj\Debug\caja.exe
 C:\Users\anton\source\repos\caja\caja\obj\Debug\caja.pdb
 C:\Users\anton\source\repos\caja\caja\obj\Debug\caja.csprojAssemblyReference.cache
 C:\Users\anton\source\repos\caja\caja\obj\Debug\caja.Forms.Reportes.Ganancias.resources
+C:\Users\anton\source\repos\caja\caja\obj\Debug\caja.Forms.Tickets_a_facturar.resources
+C:\Users\anton\source\repos\caja\caja\obj\Debug\caja.Forms.Tickets_terminar.resources

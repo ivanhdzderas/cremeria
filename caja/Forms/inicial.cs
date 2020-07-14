@@ -1142,5 +1142,69 @@ namespace caja
                 Home.SelectTab(tabName);
             }
         }
+
+        private void ticketsPorFacturarToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string tabName = "Por facturar";
+            Boolean encontrado = false;
+            foreach (TabPage page in Home.TabPages)
+            {
+                string name = page.Name;
+
+                if (name == tabName)
+                {
+                    encontrado = true;
+                    Home.SelectTab(tabName);
+                }
+            }
+            if (encontrado == false)
+            {
+                TabPage tpage = new TabPage(tabName);
+                tpage.Name = tabName;
+
+                Forms.Tickets_terminar fc = new Forms.Tickets_terminar();
+                fc.TopLevel = false;
+                fc.Visible = true;
+                fc.MdiParent = this;
+                fc.FormBorderStyle = FormBorderStyle.None;
+                fc.Dock = DockStyle.Fill;
+                Home.TabPages.Add(tpage);
+                int ultimo = (Home.TabPages.Count - 1);
+                Home.TabPages[ultimo].Controls.Add(fc);
+                Home.SelectTab(tabName);
+            }
+        }
+
+        private void ticketsPorPagarToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string tabName = "Por pagar";
+            Boolean encontrado = false;
+            foreach (TabPage page in Home.TabPages)
+            {
+                string name = page.Name;
+
+                if (name == tabName)
+                {
+                    encontrado = true;
+                    Home.SelectTab(tabName);
+                }
+            }
+            if (encontrado == false)
+            {
+                TabPage tpage = new TabPage(tabName);
+                tpage.Name = tabName;
+
+                Forms.Tickets_a_facturar fc = new Forms.Tickets_a_facturar();
+                fc.TopLevel = false;
+                fc.Visible = true;
+                fc.MdiParent = this;
+                fc.FormBorderStyle = FormBorderStyle.None;
+                fc.Dock = DockStyle.Fill;
+                Home.TabPages.Add(tpage);
+                int ultimo = (Home.TabPages.Count - 1);
+                Home.TabPages[ultimo].Controls.Add(fc);
+                Home.SelectTab(tabName);
+            }
+        }
     }
 }

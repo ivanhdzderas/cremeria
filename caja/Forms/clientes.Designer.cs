@@ -55,7 +55,7 @@
 			this.dtgClientes.Location = new System.Drawing.Point(12, 61);
 			this.dtgClientes.Name = "dtgClientes";
 			this.dtgClientes.ReadOnly = true;
-			this.dtgClientes.Size = new System.Drawing.Size(525, 410);
+			this.dtgClientes.Size = new System.Drawing.Size(525, 439);
 			this.dtgClientes.TabIndex = 0;
 			this.dtgClientes.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtgClientes_CellDoubleClick);
 			// 
@@ -80,7 +80,7 @@
 			// label1
 			// 
 			this.label1.AutoSize = true;
-			this.label1.Location = new System.Drawing.Point(23, 32);
+			this.label1.Location = new System.Drawing.Point(111, 32);
 			this.label1.Name = "label1";
 			this.label1.Size = new System.Drawing.Size(47, 13);
 			this.label1.TabIndex = 1;
@@ -90,16 +90,16 @@
 			// 
 			this.txtBuscar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.txtBuscar.Location = new System.Drawing.Point(76, 29);
+			this.txtBuscar.Location = new System.Drawing.Point(164, 29);
 			this.txtBuscar.Name = "txtBuscar";
-			this.txtBuscar.Size = new System.Drawing.Size(461, 20);
+			this.txtBuscar.Size = new System.Drawing.Size(373, 20);
 			this.txtBuscar.TabIndex = 2;
 			this.txtBuscar.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtBuscar_KeyDown);
 			// 
 			// button1
 			// 
 			this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.button1.Location = new System.Drawing.Point(462, 477);
+			this.button1.Location = new System.Drawing.Point(12, 26);
 			this.button1.Name = "button1";
 			this.button1.Size = new System.Drawing.Size(75, 23);
 			this.button1.TabIndex = 3;

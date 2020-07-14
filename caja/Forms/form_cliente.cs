@@ -21,7 +21,7 @@ namespace caja
         private void button1_Click(object sender, EventArgs e)
         {
 
-            if (txtNombre.Text != "" || txtCp.Text != "") {
+            if (txtNombre.Text != "" || txtTelefono.Text!="" || txtCp.Text!="" ) {
                 Client client = new Client(
                     Convert.ToInt16(id),
                     txtNombre.Text,
@@ -46,6 +46,11 @@ namespace caja
                     client.saveClient();
                 }
                 this.Close();
+            }
+            else
+            {
+                MessageBox.Show("Ingrese campos minios para dar de alta");
+                txtNombre.Focus();
             }
             
         }

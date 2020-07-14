@@ -90,7 +90,8 @@ namespace caja.Forms
         }
         private void configuracion_Load(object sender, EventArgs e)
         {
-
+            txtDebito.TextAlign = HorizontalAlignment.Right;
+            txtCredito.TextAlign = HorizontalAlignment.Right;
 
             DataTable table = new DataTable();
             DataRow row;
@@ -202,7 +203,8 @@ namespace caja.Forms
             cbImpreReportes.SelectedValue = item[0].Impresora_reportes;
             txtRutas.Text = item[0].Ruta_reportes;
 
-
+            txtCredito.Text = item[0].Credito.ToString();
+            txtDebito.Text = item[0].Debito.ToString();
            
         }
 
@@ -282,7 +284,8 @@ namespace caja.Forms
                 "",
                 0,
                 "",
-                ""
+                "",
+                0,0
                 );
 
             config.updateEmpresa();
@@ -423,6 +426,64 @@ namespace caja.Forms
             }
            
 
+        }
+
+        private void button11_Click(object sender, EventArgs e)
+        {
+            Configuration configuracion = new Configuration();
+            configuracion.Id = Id;
+            configuracion.Credito = Convert.ToDouble(txtCredito.Text);
+            configuracion.Debito = Convert.ToDouble(txtDebito.Text);
+            configuracion.updatecomisiones();
+            MessageBox.Show("Actualizacion exitosa");
+        }
+
+        private void txtCredito_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (char.IsDigit(e.KeyChar))
+            {
+                e.Handled = false;
+            }
+            else if (char.IsControl(e.KeyChar))
+            {
+                e.Handled = false;
+            }
+            else if (e.KeyChar == '.' && !Convert.ToBoolean(txtCredito.Text.IndexOf('.')))
+            {
+                e.Handled = true;
+            }
+            else if (e.KeyChar == '.')
+            {
+                e.Handled = false;
+            }
+            else
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void txtDebito_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (char.IsDigit(e.KeyChar))
+            {
+                e.Handled = false;
+            }
+            else if (char.IsControl(e.KeyChar))
+            {
+                e.Handled = false;
+            }
+            else if (e.KeyChar == '.' && !Convert.ToBoolean(txtDebito.Text.IndexOf('.')))
+            {
+                e.Handled = true;
+            }
+            else if (e.KeyChar == '.')
+            {
+                e.Handled = false;
+            }
+            else
+            {
+                e.Handled = true;
+            }
         }
     }
 }

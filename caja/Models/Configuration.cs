@@ -43,6 +43,9 @@ namespace caja.Models
 		public int Folio { get; set; }
 		public string Pie_ticket { get; set; }
 		public string Ruta_reportes { get; set; }
+		public double Credito { get; set; }
+		public double Debito { get; set; }
+
 		public Configuration(
 			int id,
 			string razon_social,
@@ -77,7 +80,9 @@ namespace caja.Models
 			string serie,
 			int folio,
 			string pie_ticket,
-			string ruta_reportes
+			string ruta_reportes,
+			double credito,
+			double debito
 			) {
 			Id = id;
 			Razon_social = razon_social;
@@ -113,6 +118,8 @@ namespace caja.Models
 			Folio = folio;
 			Pie_ticket = pie_ticket;
 			Ruta_reportes = ruta_reportes;
+			Credito = credito;
+			Debito = debito;
 		}
 		public Configuration() { }
 
@@ -152,7 +159,9 @@ namespace caja.Models
 				data.GetString("serie_factura"),
 				data.GetInt16("folio_factura"),
 				data.GetString("pie_ticket"),
-				data.GetString("ruta_reportes")
+				data.GetString("ruta_reportes"),
+				data.GetDouble("credito"),
+				data.GetDouble("debito")
 				) ;
 			return item;
 		}
@@ -192,6 +201,8 @@ namespace caja.Models
 			query += "folio_factura='" + this.Folio + "',";
 			query += "pie_ticket='" + this.Pie_ticket + "', ";
 			query += "ruta_reportes='" + this.Ruta_reportes + "', ";
+			query += "credito='" + this.Credito + "', ";
+			query += "debito='" + this.Debito + "' ";
 			query += "where id='" + this.Id + "'";
 			object result = runQuery(query);
 		}
@@ -204,6 +215,16 @@ namespace caja.Models
 			query += "pie_ticket='" + this.Pie_ticket + "', ";
 			query += "reportes_impresora='" + this.Impresora_reportes + "' ";
 			
+			query += "where id='" + this.Id + "'";
+			object result = runQuery(query);
+		}
+		public void updatecomisiones()
+		{
+			string query = "update tbaconfiguracion set ";
+
+			query += "credito='" + this.Credito + "', ";
+			query += "debito='" + this.Debito + "' ";
+
 			query += "where id='" + this.Id + "'";
 			object result = runQuery(query);
 		}
@@ -278,7 +299,7 @@ namespace caja.Models
 			object result = runQuery(query);
 		}
 		public List<Configuration> getConfiguration() {
-			string query = "SELECT id, razonsocial,nombrecomercial,rfc,telefono,calle,noext,noint,colonia,estado,municipio,pais,regimen,cp,logo,key_file,cer,pass,email,proveedor,smtpserv,contra,ssl_email,smtpport,cuerpoemail,rutafact,impresora,tipoimpre,logoticket,reportes_impresora,serie_factura, folio_factura, pie_ticket, ruta_reportes FROM tbaconfiguracion; ";
+			string query = "SELECT id, razonsocial,nombrecomercial,rfc,telefono,calle,noext,noint,colonia,estado,municipio,pais,regimen,cp,logo,key_file,cer,pass,email,proveedor,smtpserv,contra,ssl_email,smtpport,cuerpoemail,rutafact,impresora,tipoimpre,logoticket,reportes_impresora,serie_factura, folio_factura, pie_ticket, ruta_reportes, credito, debito FROM tbaconfiguracion; ";
 			MySqlDataReader data = runQuery(query);
 			List<Configuration> result = new List<Configuration>();
 			if (data.HasRows)

@@ -21,15 +21,17 @@ namespace caja
         public static string id;
         public static int id_cliente;
 
-        public static double tarjeta;
-        public static double efectivo;
-        public static double transferencia;
+        public static double pagado;
+        public static string metodo;
+
         public static Boolean factura;
         public static Boolean cancelado;
         public static string sucursal;
         public static string fecha = DateTime.Now.ToString("yyyy-MM-dd H:mm:ss");
 
         public int Atendio=0;
+
+        public int folio_ticket = 0;
         public caja()
         {
             InitializeComponent();
@@ -364,8 +366,8 @@ namespace caja
             cbPu.Text = "0.00";
             txtImporte.Text = "";
             txtDescuento.Text = "";
-            tarjeta = 0;
-            efectivo = 0;
+            metodo = "";
+            pagado = 0;
 
             calcula();
             txtCodigo.Focus();
@@ -497,10 +499,11 @@ namespace caja
             {
                 cobro cb = new cobro();
                 cancelado = false;
-
+                pagado = 0;
+                metodo = "";
                 cb.Owner = this;
-                cb.lbResta.Text = txtTotal.Text;
-                while (efectivo == 0 && tarjeta == 0)
+                cobro.deberia_ser = Convert.ToDouble(txtTotal.Text);
+                while (pagado == 0 && metodo == "")
                 {
                     if (cancelado == true)
                     {
@@ -530,36 +533,62 @@ namespace caja
                 Convert.ToDouble(txtcIva.Text),
                 Convert.ToDouble(txtsIva.Text),
                 Convert.ToInt16(inicial.id_usario),
-                Convert.ToInt16(txtIdAtiende.Text)
+                Convert.ToInt16(txtIdAtiende.Text),
+                Convert.ToInt16(factura)
                 );
-            ticket.CreateTicket();
+            
+            
             List<Tickets> lista = ticket.getLastTicket(fecha, Convert.ToDouble(txtSubtotal.Text), Convert.ToDouble(txtTdescuento.Text), Convert.ToDouble(txtIva.Text), Convert.ToDouble(txtTotal.Text), Convert.ToInt16(txtidcliente.Text));
             Product producto = new Product();
             Kardex kardex = new Kardex();
             Afecta_inv afecta = new Afecta_inv();
             double nuevo = 0;
             Dettickets detalle = new Dettickets();
-            Pago_ticket pago = new Pago_ticket();
-            pago.Id_ticket = lista[0].Id;
-            id = lista[0].Id.ToString();
-            if (tarjeta != 0) {
-                pago.Monto = tarjeta;
-                pago.Tipo_pago = "Tarjeta";
-                pago.CreatePago();
-            }
-            if (efectivo !=0) {
-                pago.Monto = efectivo;
-                pago.Tipo_pago = "Efectivo";
-                pago.CreatePago();
-            }
-
-            if (transferencia != 0)
+            if (folio_ticket == 0)
             {
-                pago.Monto = transferencia;
-                pago.Tipo_pago = "Transferencia";
+                ticket.CreateTicket();
+            }
+            else
+            {
+                ticket.update_ticket();
+                detalle.delete_det(folio_ticket);
+            }
+            Pago_ticket pago = new Pago_ticket();
+
+            if (metodo== "Transferencia")
+            {
+
+            }
+            else
+            {
+                if (folio_ticket == 0)
+                {
+                    pago.Id_ticket = lista[0].Id;
+                }
+                else
+                {
+                    pago.Id_ticket = folio_ticket;
+                }
+               
+                pago.Monto = pagado;
+                pago.Tipo_pago = metodo;
                 pago.CreatePago();
             }
-            detalle.Id_ticket = lista[0].Id;
+           
+           
+
+
+            if (folio_ticket == 0)
+            {
+                id = lista[0].Id.ToString();
+                detalle.Id_ticket = lista[0].Id;
+            }
+            else
+            {
+                id =folio_ticket.ToString();
+                detalle.Id_ticket = folio_ticket;
+            }
+           
             detalle.Id = 0;
             detalle.Fecha = fecha;
             foreach (DataGridViewRow row in dtProductos.Rows)
@@ -586,10 +615,28 @@ namespace caja
                 kardex.Cantidad = nuevo;
                 kardex.Antes = prod[0].Existencia;
                 kardex.Id = 0;
-                kardex.Id_documento = Convert.ToInt16(lista[0].Id);
+                if (folio_ticket == 0)
+                {
+                    kardex.Id_documento = Convert.ToInt16(lista[0].Id);
+                }
+                else
+                {
+                    kardex.Id_documento = folio_ticket;
+                }
+               
                 kardex.CreateKardex();
-                List<Kardex> numeracion = kardex.getidKardex(prod[0].Id, Convert.ToInt16(lista[0].Id), "V");
-                afecta.Disminuye(numeracion[0].Id);
+                if (folio_ticket == 0)
+                {
+                    List<Kardex> numeracion = kardex.getidKardex(prod[0].Id, Convert.ToInt16(lista[0].Id), "V");
+                    afecta.Disminuye(numeracion[0].Id);
+                }
+                else
+                {
+                    List<Kardex> numeracion = kardex.getidKardex(prod[0].Id, folio_ticket, "V");
+                    afecta.Disminuye(numeracion[0].Id);
+                }
+                
+                
             }
             PrinterSettings ps = new PrinterSettings();
             Configuration configuracion = new Configuration();
@@ -764,7 +811,7 @@ namespace caja
             y = y + 10;
             e.Graphics.DrawString("_____________________________", font, Brushes.Black, 140, y + 10);
             y = y + 15;
-            e.Graphics.DrawString("Efectivo", font, Brushes.Black, 150, y + 10, format);
+            /*e.Graphics.DrawString("", font, Brushes.Black, 150, y + 10, format);
             e.Graphics.DrawString(efectivo.ToString(), font, Brushes.Black, 220, y + 10, format);
             y = y + 10;
             e.Graphics.DrawString("Tarjeta", font, Brushes.Black, 150, y + 10, format);
@@ -773,6 +820,7 @@ namespace caja
             e.Graphics.DrawString("Cambio", font, Brushes.Black, 150, y + 10, format);
             cambio = (tarjeta + efectivo) - Convert.ToDouble(txtTotal.Text);
             e.Graphics.DrawString(cambio.ToString(), font, Brushes.Black, 220, y + 10, format);
+            */
             y = y + 40;
             intercambios inter = new intercambios();
             e.Graphics.DrawString(inter.enletras(txtTotal.Text), font, Brushes.Black, 0, y);
@@ -1063,10 +1111,7 @@ namespace caja
             autentificar cb = new autentificar();
             cb.origen = "Cancelar";
             cancelado = false;
-
             cb.Owner = this;
-
-
             cb.ShowDialog();
             if (cancelado == false)
             {
@@ -1129,6 +1174,41 @@ namespace caja
                     MessageBox.Show("No se encontro Ticket");
                 }
             }
+        }
+
+        private void button9_Click(object sender, EventArgs e)
+        {
+            autentificar cb = new autentificar();
+            cb.origen = "ver";
+            cancelado = false;
+            cb.Owner = this;
+            cb.ShowDialog();
+            if (cancelado == false)
+            {
+                ver_ticket();
+            }
+        }
+        public void ver_ticket()
+        {
+            string folio = Interaction.InputBox("Ingrese el folio a ver", "Cancelar");
+            if (folio != "")
+            {
+                folio_ticket = Convert.ToInt16(folio);
+                Dettickets detallados = new Dettickets();
+                List<Dettickets> detalle = detallados.getDetalles(Convert.ToInt16(folio));
+                Product producto = new Product();
+                foreach (Dettickets item in detalle)
+                {
+                    
+                    List<Product> prod = producto.getProductById(Convert.ToInt16(item.Id_producto));
+                    string grabado = prod[0].Sale_tax;
+                    double costo = prod[0].Cost;
+                    grabado = grabado.Replace("IVA ", "");
+                    dtProductos.Rows.Add(item.Id_producto, prod[0].Code1, item.Cantidad, prod[0].Description, string.Format("{0:#,0.00}", Convert.ToDouble(item.Pu)), string.Format("{0:#,0.00}", Convert.ToDouble(item.Descuento)), string.Format("{0:#,0.00}", Convert.ToDouble(item.Total)), grabado, costo);
+                    calcula();
+                }
+            }
+                
         }
     }
 }

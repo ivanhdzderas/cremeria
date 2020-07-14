@@ -56,6 +56,8 @@
 			this.clientesToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
 			this.corteCajaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.ventasEnPeriodoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.ticketsPorFacturarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.ticketsPorPagarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
 			this.configuracionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
@@ -266,7 +268,9 @@
             this.inventarioToolStripMenuItem3,
             this.clientesToolStripMenuItem1,
             this.corteCajaToolStripMenuItem,
-            this.ventasEnPeriodoToolStripMenuItem});
+            this.ventasEnPeriodoToolStripMenuItem,
+            this.ticketsPorFacturarToolStripMenuItem,
+            this.ticketsPorPagarToolStripMenuItem});
 			this.reportesToolStripMenuItem.Enabled = false;
 			this.reportesToolStripMenuItem.Name = "reportesToolStripMenuItem";
 			this.reportesToolStripMenuItem.Size = new System.Drawing.Size(65, 20);
@@ -306,6 +310,20 @@
 			this.ventasEnPeriodoToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
 			this.ventasEnPeriodoToolStripMenuItem.Text = "Ganancias";
 			this.ventasEnPeriodoToolStripMenuItem.Click += new System.EventHandler(this.ventasEnPeriodoToolStripMenuItem_Click);
+			// 
+			// ticketsPorFacturarToolStripMenuItem
+			// 
+			this.ticketsPorFacturarToolStripMenuItem.Name = "ticketsPorFacturarToolStripMenuItem";
+			this.ticketsPorFacturarToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.ticketsPorFacturarToolStripMenuItem.Text = "Tickets por facturar";
+			this.ticketsPorFacturarToolStripMenuItem.Click += new System.EventHandler(this.ticketsPorFacturarToolStripMenuItem_Click);
+			// 
+			// ticketsPorPagarToolStripMenuItem
+			// 
+			this.ticketsPorPagarToolStripMenuItem.Name = "ticketsPorPagarToolStripMenuItem";
+			this.ticketsPorPagarToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.ticketsPorPagarToolStripMenuItem.Text = "Tickets por pagar";
+			this.ticketsPorPagarToolStripMenuItem.Click += new System.EventHandler(this.ticketsPorPagarToolStripMenuItem_Click);
 			// 
 			// toolStripMenuItem1
 			// 
@@ -633,6 +651,8 @@
 		public System.Windows.Forms.ToolStripMenuItem facturasToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem levantarInventarioToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem ventasEnPeriodoToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem ticketsPorFacturarToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem ticketsPorPagarToolStripMenuItem;
 	}
 }
 

@@ -114,8 +114,16 @@
 			this.button9 = new System.Windows.Forms.Button();
 			this.txtRutas = new System.Windows.Forms.TextBox();
 			this.label29 = new System.Windows.Forms.Label();
+			this.tabPage8 = new System.Windows.Forms.TabPage();
+			this.button11 = new System.Windows.Forms.Button();
+			this.txtDebito = new System.Windows.Forms.TextBox();
+			this.txtCredito = new System.Windows.Forms.TextBox();
+			this.label31 = new System.Windows.Forms.Label();
+			this.label30 = new System.Windows.Forms.Label();
 			this.ofdLogo = new System.Windows.Forms.OpenFileDialog();
 			this.ofdTicket = new System.Windows.Forms.OpenFileDialog();
+			this.label32 = new System.Windows.Forms.Label();
+			this.label33 = new System.Windows.Forms.Label();
 			this.tabControl1.SuspendLayout();
 			this.tabPage1.SuspendLayout();
 			this.tabPage2.SuspendLayout();
@@ -128,6 +136,7 @@
 			this.tabPage5.SuspendLayout();
 			this.tabPage6.SuspendLayout();
 			this.tabPage7.SuspendLayout();
+			this.tabPage8.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// tabControl1
@@ -140,6 +149,7 @@
 			this.tabControl1.Controls.Add(this.tabPage5);
 			this.tabControl1.Controls.Add(this.tabPage6);
 			this.tabControl1.Controls.Add(this.tabPage7);
+			this.tabControl1.Controls.Add(this.tabPage8);
 			this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.tabControl1.DrawMode = System.Windows.Forms.TabDrawMode.OwnerDrawFixed;
 			this.tabControl1.ItemSize = new System.Drawing.Size(25, 150);
@@ -1042,6 +1052,68 @@
 			this.label29.TabIndex = 0;
 			this.label29.Text = "Ruta de reportes";
 			// 
+			// tabPage8
+			// 
+			this.tabPage8.Controls.Add(this.label33);
+			this.tabPage8.Controls.Add(this.label32);
+			this.tabPage8.Controls.Add(this.button11);
+			this.tabPage8.Controls.Add(this.txtDebito);
+			this.tabPage8.Controls.Add(this.txtCredito);
+			this.tabPage8.Controls.Add(this.label31);
+			this.tabPage8.Controls.Add(this.label30);
+			this.tabPage8.Location = new System.Drawing.Point(154, 4);
+			this.tabPage8.Name = "tabPage8";
+			this.tabPage8.Padding = new System.Windows.Forms.Padding(3);
+			this.tabPage8.Size = new System.Drawing.Size(642, 442);
+			this.tabPage8.TabIndex = 7;
+			this.tabPage8.Text = "Comisiones";
+			this.tabPage8.UseVisualStyleBackColor = true;
+			// 
+			// button11
+			// 
+			this.button11.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+			this.button11.Location = new System.Drawing.Point(559, 413);
+			this.button11.Name = "button11";
+			this.button11.Size = new System.Drawing.Size(75, 23);
+			this.button11.TabIndex = 4;
+			this.button11.Text = "Guardar";
+			this.button11.UseVisualStyleBackColor = true;
+			this.button11.Click += new System.EventHandler(this.button11_Click);
+			// 
+			// txtDebito
+			// 
+			this.txtDebito.Location = new System.Drawing.Point(106, 42);
+			this.txtDebito.Name = "txtDebito";
+			this.txtDebito.Size = new System.Drawing.Size(44, 20);
+			this.txtDebito.TabIndex = 3;
+			this.txtDebito.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtDebito_KeyPress);
+			// 
+			// txtCredito
+			// 
+			this.txtCredito.Location = new System.Drawing.Point(106, 16);
+			this.txtCredito.Name = "txtCredito";
+			this.txtCredito.Size = new System.Drawing.Size(44, 20);
+			this.txtCredito.TabIndex = 2;
+			this.txtCredito.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCredito_KeyPress);
+			// 
+			// label31
+			// 
+			this.label31.AutoSize = true;
+			this.label31.Location = new System.Drawing.Point(11, 45);
+			this.label31.Name = "label31";
+			this.label31.Size = new System.Drawing.Size(89, 13);
+			this.label31.TabIndex = 1;
+			this.label31.Text = "Tarjeta de Debito";
+			// 
+			// label30
+			// 
+			this.label30.AutoSize = true;
+			this.label30.Location = new System.Drawing.Point(6, 19);
+			this.label30.Name = "label30";
+			this.label30.Size = new System.Drawing.Size(94, 13);
+			this.label30.TabIndex = 0;
+			this.label30.Text = "Tarjeta de Credito ";
+			// 
 			// ofdLogo
 			// 
 			this.ofdLogo.FileName = "openFileDialog1";
@@ -1049,6 +1121,24 @@
 			// ofdTicket
 			// 
 			this.ofdTicket.FileName = "openFileDialog2";
+			// 
+			// label32
+			// 
+			this.label32.AutoSize = true;
+			this.label32.Location = new System.Drawing.Point(150, 20);
+			this.label32.Name = "label32";
+			this.label32.Size = new System.Drawing.Size(15, 13);
+			this.label32.TabIndex = 5;
+			this.label32.Text = "%";
+			// 
+			// label33
+			// 
+			this.label33.AutoSize = true;
+			this.label33.Location = new System.Drawing.Point(150, 46);
+			this.label33.Name = "label33";
+			this.label33.Size = new System.Drawing.Size(15, 13);
+			this.label33.TabIndex = 6;
+			this.label33.Text = "%";
 			// 
 			// configuracion
 			// 
@@ -1079,6 +1169,8 @@
 			this.tabPage6.PerformLayout();
 			this.tabPage7.ResumeLayout(false);
 			this.tabPage7.PerformLayout();
+			this.tabPage8.ResumeLayout(false);
+			this.tabPage8.PerformLayout();
 			this.ResumeLayout(false);
 
 		}
@@ -1173,5 +1265,13 @@
 		private System.Windows.Forms.Button button9;
 		private System.Windows.Forms.TextBox txtRutas;
 		private System.Windows.Forms.Label label29;
+		private System.Windows.Forms.TabPage tabPage8;
+		private System.Windows.Forms.Button button11;
+		private System.Windows.Forms.TextBox txtDebito;
+		private System.Windows.Forms.TextBox txtCredito;
+		private System.Windows.Forms.Label label31;
+		private System.Windows.Forms.Label label30;
+		private System.Windows.Forms.Label label33;
+		private System.Windows.Forms.Label label32;
 	}
 }

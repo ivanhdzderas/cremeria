@@ -63,6 +63,10 @@ namespace caja.Models
 			query += "'" + this.Costo + "')";
 			object result = runQuery(query);
 		}
+		public void delete_det(int id_ticket) {
+			string query = "delete from tbadetticket where id_ticket='" + id_ticket.ToString() + "'";
+			object result = runQuery(query);
+		}
 		private Dettickets buildDetalles(MySqlDataReader data) {
 			Dettickets item = new Dettickets(
 				data.GetInt16("id"),

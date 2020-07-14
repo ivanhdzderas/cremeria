@@ -88,6 +88,7 @@
 			this.button3 = new System.Windows.Forms.Button();
 			this.button2 = new System.Windows.Forms.Button();
 			this.button1 = new System.Windows.Forms.Button();
+			this.button9 = new System.Windows.Forms.Button();
 			((System.ComponentModel.ISupportInitialize)(this.dtProductos)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
 			this.SuspendLayout();
@@ -677,11 +678,24 @@
 			this.button1.UseVisualStyleBackColor = true;
 			this.button1.Click += new System.EventHandler(this.button1_Click);
 			// 
+			// button9
+			// 
+			this.button9.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+			this.button9.Location = new System.Drawing.Point(826, 599);
+			this.button9.Name = "button9";
+			this.button9.Size = new System.Drawing.Size(95, 80);
+			this.button9.TabIndex = 41;
+			this.button9.Text = "Ver Ticket";
+			this.button9.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+			this.button9.UseVisualStyleBackColor = true;
+			this.button9.Click += new System.EventHandler(this.button9_Click);
+			// 
 			// caja
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(1347, 717);
+			this.Controls.Add(this.button9);
 			this.Controls.Add(this.button8);
 			this.Controls.Add(this.lbAtiende);
 			this.Controls.Add(this.txtIdAtiende);
@@ -791,5 +805,6 @@
 		private System.Windows.Forms.DataGridViewTextBoxColumn importe;
 		private System.Windows.Forms.DataGridViewTextBoxColumn grabado;
 		private System.Windows.Forms.DataGridViewTextBoxColumn costo;
+		private System.Windows.Forms.Button button9;
 	}
 }

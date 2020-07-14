@@ -12,6 +12,7 @@ namespace caja.Forms
 {
 	public partial class cobro : Form
 	{
+        public static double deberia_ser;
 		public cobro()
 		{
 			InitializeComponent();
@@ -25,120 +26,111 @@ namespace caja.Forms
 
 		private void cobro_Load(object sender, EventArgs e)
 		{
-            txtEfectivo.Focus();
+            lbResta.Text = string.Format("{0:#,0.00}", deberia_ser);
+            txtRecibido.Focus();
             lbCobrar.Text = lbResta.Text;
-            
-		}
+            cbMpago.Items.Add("Tarjeta de Debito");
+            cbMpago.Items.Add("Tarjeta de Credito");
+            cbMpago.Items.Add("Efectivo");
+            cbMpago.Items.Add("Transferencia");
+            cbMpago.SelectedIndex = 2;
 
-		private void txtEfectivo_KeyPress(object sender, KeyPressEventArgs e)
-		{
-            if (char.IsDigit(e.KeyChar))
-            {
-                e.Handled = false;
-            }
-            else if (char.IsControl(e.KeyChar))
-            {
-                e.Handled = false;
-            }
-            else if (e.KeyChar == '.' && !Convert.ToBoolean(txtEfectivo.Text.IndexOf('.')))
-            {
-                e.Handled = true;
-            }
-            else if (e.KeyChar == '.')
-            {
-                e.Handled = false;
-            }
-            else
-            {
-                e.Handled = true;
-            }
-
-            
         }
 
-        private void txtTarjeta_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (char.IsDigit(e.KeyChar))
-            {
-                e.Handled = false;
-            }
-            else if (char.IsControl(e.KeyChar))
-            {
-                e.Handled = false;
-            }
-            else if (e.KeyChar == '.' && !Convert.ToBoolean(txtTarjeta.Text.IndexOf('.')))
-            {
-                e.Handled = true;
-            }
-            else if (e.KeyChar == '.')
-            {
-                e.Handled = false;
-            }
-            else
-            {
-                e.Handled = true;
-            }
-        }
+		
+       
         private void calcula() {
             double restantes = 0;
             double total = Convert.ToDouble(lbCobrar.Text);
-            double tarjeta = 0;
-            double efectivo = 0;
-            if (txtTarjeta.Text != "") {
-                tarjeta = Convert.ToDouble(txtTarjeta.Text);
+            double recibido = 0;
+            if (txtRecibido.Text != "")
+            {
+                recibido = Convert.ToDouble(txtRecibido.Text);
             }
-            if (txtEfectivo.Text != "") {
-                efectivo = Convert.ToDouble(txtEfectivo.Text);
-            }
+            
 
-            restantes = total - (tarjeta + efectivo);
+            restantes = total - recibido;
             lbResta.Text = string.Format("{0:#,0.00}", restantes);
         }
-        private void txtEfectivo_TextChanged(object sender, EventArgs e)
-        {
-            txtEfectivo.Text = string.Format("{0:#,0.00}", txtEfectivo.Text);
-            calcula();
-        }
-
-        private void txtTarjeta_TextChanged(object sender, EventArgs e)
-        {
-            txtTarjeta.Text = string.Format("{0:#,0.00}", txtTarjeta.Text);
-            calcula();
-        }
-
+       
         private void btnCobrar_Click(object sender, EventArgs e)
         {
-            if (txtEfectivo.Text != "")
+           if (txtRecibido.Text == "")
             {
-                caja.efectivo = Convert.ToDouble(txtEfectivo.Text);
-            }
-            else {
-                caja.efectivo = 0;
-            }
-
-            if (txtTarjeta.Text != "")
-            {
-                caja.tarjeta = Convert.ToDouble(txtTarjeta.Text);
-            }
-            else {
-                caja.tarjeta = 0;
-            }
-
-            if (txtTransferencia.Text != "")
-            {
-                caja.transferencia = Convert.ToDouble(txtTransferencia.Text);
-            }
-            else {
-                caja.transferencia = 0;
-            }
-
-            caja.factura = Convert.ToBoolean(chkFactura.Checked);
-            this.Close();
+                if (cbMpago.Text== "Transferencia")
+                {
+                    caja.pagado = Convert.ToDouble(0);
+                    caja.metodo = cbMpago.Text;
+                    caja.factura = Convert.ToBoolean(chkFactura.Checked);
+                    this.Close();
+                }
+                else
+                {
+                    MessageBox.Show("ingrese cuando recibio");
+                    txtRecibido.Focus();
+                }
                
+            }
+            else
+            {
+                caja.pagado = Convert.ToDouble(txtRecibido.Text);
+                caja.metodo = cbMpago.Text;
+                caja.factura = Convert.ToBoolean(chkFactura.Checked);
+                this.Close();
+
+            }
+           
+
+
+           
+             
             
         }
 
         private void txtEfectivo_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                btnCobrar.PerformClick();
+            }
+        }
+
+        private void txtRecibido_TextChanged(object sender, EventArgs e)
+        {
+            txtRecibido.Text = string.Format("{0:#,0.00}", txtRecibido.Text);
+            calcula();
+        }
+
+        private void cbMpago_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Models.Configuration configuracion = new Models.Configuration();
+            List<Models.Configuration> config = configuracion.getConfiguration();
+            switch (cbMpago.Text)
+            {
+                case "Tarjeta de Debito":
+
+
+                    double nuevo_total = deberia_ser + ((deberia_ser / 100) * config[0].Debito);
+                    lbCobrar.Text = string.Format("{0:#,0.00}", nuevo_total);
+                    calcula();
+                    break;
+                case "Tarjeta de Credito":
+
+                    double nuevo_total2 = deberia_ser + ((deberia_ser / 100) * config[0].Credito);
+                    lbCobrar.Text = string.Format("{0:#,0.00}", nuevo_total2);
+                    calcula();
+                    break;
+                default:
+                    lbCobrar.Text= string.Format("{0:#,0.00}", deberia_ser);
+                    calcula();
+                    break;
+
+            }
+
+
+        }
+
+        private void txtRecibido_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
