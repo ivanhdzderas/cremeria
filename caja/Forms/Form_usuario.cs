@@ -39,6 +39,22 @@ namespace caja.Forms
             table.Rows.Add(row);
 
 
+            row = table.NewRow();
+            row["Text"] = "Promotor";
+            row["Value"] = "Promotor";
+            table.Rows.Add(row);
+
+            row = table.NewRow();
+            row["Text"] = "Almacen";
+            row["Value"] = "Almacen";
+            table.Rows.Add(row);
+
+            row = table.NewRow();
+            row["Text"] = "Contador";
+            row["Value"] = "Contador";
+            table.Rows.Add(row);
+
+
             cbTipo.BindingContext = new BindingContext();
             cbTipo.DataSource = table;
             cbTipo.DisplayMember = "Text";
@@ -53,7 +69,7 @@ namespace caja.Forms
 
 		private void button1_Click(object sender, EventArgs e)
 		{
-            if (txtNombre.Text != "" || txtContra.Text != "" || txtUsuario.Text != "" || cbTipo.SelectedValue != "")
+            if (txtNombre.Text != ""  || cbTipo.Text!="")
             {
 
                 Users usuario = new Users();
@@ -64,19 +80,27 @@ namespace caja.Forms
 
                 }
 
-
-                usuario.Id = id;
-                usuario.Tipo = cbTipo.SelectedValue.ToString();
-                usuario.Nombre = txtNombre.Text;
-
-                
-                usuario.User = txtUsuario.Text;
+                if (cbTipo.SelectedValue.ToString() == "Cajero")
+                {
+                    usuario.Id = id;
+                    usuario.Tipo = cbTipo.SelectedValue.ToString();
+                    usuario.Nombre = txtNombre.Text;
+                    usuario.User = "";
+                }
+                else
+                {
+                    usuario.Id = id;
+                    usuario.Tipo = cbTipo.SelectedValue.ToString();
+                    usuario.Nombre = txtNombre.Text;
+                    usuario.User = txtUsuario.Text;
+                }
+               
 
                 if (id == 0)
                 {
                     if (cbTipo.SelectedValue.ToString() == "Cajero")
                     {
-                        usuario.Pass = txtContra.Text;
+                        usuario.Pass = "";
                     }
                     else
                     {
@@ -114,7 +138,15 @@ namespace caja.Forms
                     permiso.createPermisos();
                 }
                 else {
-                    usuario.Pass = txtContra.Text;
+
+                    if (cbTipo.SelectedValue.ToString() == "Cajero")
+                    {
+                        usuario.Pass = "";
+                    }
+                    else
+                    {
+                        usuario.Pass = resultado;
+                    }
                     usuario.saveUser();
 
                     Permisos permiso = new Permisos();

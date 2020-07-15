@@ -268,5 +268,23 @@ namespace caja.Models
 			}
 			return result;
 		}
+
+		public List<Tickets> get_folio()
+		{
+			DateTime thisDay = DateTime.Today;
+
+			string query = "select id, id_cliente, fecha, subtotal, descuento, iva, total, status, c_iva, s_iva, id_usuario, atendio, a_facturar from tbatickets order by id desc";
+			MySqlDataReader data = runQuery(query);
+			List<Tickets> result = new List<Tickets>();
+			if (data.HasRows)
+			{
+				while (data.Read())
+				{
+					Tickets item = buildTicket(data);
+					result.Add(item);
+				}
+			}
+			return result;
+		}
 	}
 }

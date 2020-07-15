@@ -75,6 +75,11 @@ namespace caja
 
         private void textBox1_KeyDown(object sender, KeyEventArgs e)
         {
+            if (e.KeyCode == Keys.Escape)
+            {
+                inicial.exit = true;
+                this.Close();
+            }
             if (e.KeyCode == Keys.Enter)
             {
                 button2.PerformClick();
@@ -83,6 +88,11 @@ namespace caja
 
         private void textBox2_KeyDown(object sender, KeyEventArgs e)
         {
+            if (e.KeyCode == Keys.Escape)
+            {
+                inicial.exit = true;
+                this.Close();
+            }
             if (e.KeyCode == Keys.Enter)
             {
                 button2.PerformClick();

@@ -29,14 +29,14 @@
 		private void InitializeComponent()
 		{
 			this.dtClientes = new System.Windows.Forms.DataGridView();
-			this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.rfc = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.telefono = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.label1 = new System.Windows.Forms.Label();
 			this.label2 = new System.Windows.Forms.Label();
 			this.txtNombre = new System.Windows.Forms.TextBox();
 			this.txtRFC = new System.Windows.Forms.TextBox();
+			this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.rfc = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.telefono = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			((System.ComponentModel.ISupportInitialize)(this.dtClientes)).BeginInit();
 			this.SuspendLayout();
 			// 
@@ -60,32 +60,6 @@
 			this.dtClientes.TabIndex = 0;
 			this.dtClientes.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtClientes_CellDoubleClick);
 			this.dtClientes.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dtClientes_KeyDown);
-			// 
-			// id
-			// 
-			this.id.HeaderText = "id";
-			this.id.Name = "id";
-			this.id.ReadOnly = true;
-			this.id.Visible = false;
-			// 
-			// nombre
-			// 
-			this.nombre.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-			this.nombre.HeaderText = "Nombre";
-			this.nombre.Name = "nombre";
-			this.nombre.ReadOnly = true;
-			// 
-			// rfc
-			// 
-			this.rfc.HeaderText = "RFC";
-			this.rfc.Name = "rfc";
-			this.rfc.ReadOnly = true;
-			// 
-			// telefono
-			// 
-			this.telefono.HeaderText = "Telefono";
-			this.telefono.Name = "telefono";
-			this.telefono.ReadOnly = true;
 			// 
 			// label1
 			// 
@@ -125,6 +99,31 @@
 			this.txtRFC.TabIndex = 4;
 			this.txtRFC.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtRFC_KeyDown);
 			// 
+			// id
+			// 
+			this.id.HeaderText = "Id";
+			this.id.Name = "id";
+			this.id.ReadOnly = true;
+			// 
+			// nombre
+			// 
+			this.nombre.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+			this.nombre.HeaderText = "Nombre";
+			this.nombre.Name = "nombre";
+			this.nombre.ReadOnly = true;
+			// 
+			// rfc
+			// 
+			this.rfc.HeaderText = "RFC";
+			this.rfc.Name = "rfc";
+			this.rfc.ReadOnly = true;
+			// 
+			// telefono
+			// 
+			this.telefono.HeaderText = "Telefono";
+			this.telefono.Name = "telefono";
+			this.telefono.ReadOnly = true;
+			// 
 			// Busca_cliente
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -147,13 +146,13 @@
 		#endregion
 
 		private System.Windows.Forms.DataGridView dtClientes;
-		private System.Windows.Forms.DataGridViewTextBoxColumn id;
-		private System.Windows.Forms.DataGridViewTextBoxColumn nombre;
-		private System.Windows.Forms.DataGridViewTextBoxColumn rfc;
-		private System.Windows.Forms.DataGridViewTextBoxColumn telefono;
 		private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.Label label2;
 		private System.Windows.Forms.TextBox txtNombre;
 		private System.Windows.Forms.TextBox txtRFC;
+		private System.Windows.Forms.DataGridViewTextBoxColumn id;
+		private System.Windows.Forms.DataGridViewTextBoxColumn nombre;
+		private System.Windows.Forms.DataGridViewTextBoxColumn rfc;
+		private System.Windows.Forms.DataGridViewTextBoxColumn telefono;
 	}
 }

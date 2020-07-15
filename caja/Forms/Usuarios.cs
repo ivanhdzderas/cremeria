@@ -40,7 +40,8 @@ namespace caja.Forms
 			Form_usuario.id = 0;
 			Form_usuario usu = new Form_usuario();
 
-			usu.Show(this);
+			usu.ShowDialog();
+			carga();
 		}
 
 		private void dtUsuarios_CellDoubleClick(object sender, DataGridViewCellEventArgs e)

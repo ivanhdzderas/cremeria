@@ -58,8 +58,6 @@
 			this.txtNproductos = new System.Windows.Forms.TextBox();
 			this.metroToolTip1 = new MetroFramework.Components.MetroToolTip();
 			this.label6 = new System.Windows.Forms.Label();
-			this.label7 = new System.Windows.Forms.Label();
-			this.txtDescuento = new System.Windows.Forms.TextBox();
 			this.txtSubtotal = new System.Windows.Forms.TextBox();
 			this.label8 = new System.Windows.Forms.Label();
 			this.txtIva = new System.Windows.Forms.TextBox();
@@ -68,7 +66,6 @@
 			this.label10 = new System.Windows.Forms.Label();
 			this.txtTotal = new System.Windows.Forms.TextBox();
 			this.printDocument1 = new System.Drawing.Printing.PrintDocument();
-			this.lbClient = new System.Windows.Forms.Label();
 			this.label11 = new System.Windows.Forms.Label();
 			this.label12 = new System.Windows.Forms.Label();
 			this.txtcIva = new System.Windows.Forms.TextBox();
@@ -89,6 +86,11 @@
 			this.button2 = new System.Windows.Forms.Button();
 			this.button1 = new System.Windows.Forms.Button();
 			this.button9 = new System.Windows.Forms.Button();
+			this.lbClient = new System.Windows.Forms.Label();
+			this.txtFolio = new System.Windows.Forms.TextBox();
+			this.label7 = new System.Windows.Forms.Label();
+			this.dtFecha = new System.Windows.Forms.DateTimePicker();
+			this.label14 = new System.Windows.Forms.Label();
 			((System.ComponentModel.ISupportInitialize)(this.dtProductos)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
 			this.SuspendLayout();
@@ -171,7 +173,10 @@
 			this.dtProductos.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
 			this.dtProductos.Name = "dtProductos";
 			this.dtProductos.Size = new System.Drawing.Size(1311, 367);
-			this.dtProductos.TabIndex = 5;
+			this.dtProductos.TabIndex = 8;
+			this.dtProductos.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtProductos_CellContentClick);
+			this.dtProductos.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtProductos_CellEndEdit);
+			this.dtProductos.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dtProductos_CellMouseDoubleClick);
 			this.dtProductos.RowsRemoved += new System.Windows.Forms.DataGridViewRowsRemovedEventHandler(this.dtProductos_RowsRemoved);
 			// 
 			// id_producto
@@ -253,9 +258,10 @@
 			this.txtCodigo.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
 			this.txtCodigo.Name = "txtCodigo";
 			this.txtCodigo.Size = new System.Drawing.Size(180, 29);
-			this.txtCodigo.TabIndex = 1;
+			this.txtCodigo.TabIndex = 2;
 			this.metroToolTip1.SetToolTip(this.txtCodigo, "F3 Buscar producto");
 			this.txtCodigo.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox1_KeyDown);
+			this.txtCodigo.Leave += new System.EventHandler(this.txtCodigo_Leave);
 			// 
 			// txtCantidad
 			// 
@@ -264,7 +270,7 @@
 			this.txtCantidad.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
 			this.txtCantidad.Name = "txtCantidad";
 			this.txtCantidad.Size = new System.Drawing.Size(114, 29);
-			this.txtCantidad.TabIndex = 2;
+			this.txtCantidad.TabIndex = 3;
 			this.txtCantidad.TextChanged += new System.EventHandler(this.txtCantidad_TextChanged);
 			this.txtCantidad.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtCantidad_KeyDown_1);
 			this.txtCantidad.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCantidad_KeyPress);
@@ -281,7 +287,7 @@
 			this.txtDescripcion.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
 			this.txtDescripcion.Name = "txtDescripcion";
 			this.txtDescripcion.Size = new System.Drawing.Size(416, 22);
-			this.txtDescripcion.TabIndex = 3;
+			this.txtDescripcion.TabIndex = 4;
 			this.metroToolTip1.SetToolTip(this.txtDescripcion, "F3 Buscar producto");
 			this.txtDescripcion.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox3_KeyDown);
 			// 
@@ -295,7 +301,7 @@
 			this.txtImporte.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
 			this.txtImporte.Name = "txtImporte";
 			this.txtImporte.Size = new System.Drawing.Size(148, 22);
-			this.txtImporte.TabIndex = 5;
+			this.txtImporte.TabIndex = 7;
 			// 
 			// label5
 			// 
@@ -319,7 +325,7 @@
 			this.txtNproductos.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
 			this.txtNproductos.Name = "txtNproductos";
 			this.txtNproductos.Size = new System.Drawing.Size(91, 22);
-			this.txtNproductos.TabIndex = 7;
+			this.txtNproductos.TabIndex = 20;
 			// 
 			// metroToolTip1
 			// 
@@ -339,30 +345,6 @@
 			this.label6.TabIndex = 8;
 			this.label6.Text = "Subtotal";
 			// 
-			// label7
-			// 
-			this.label7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.label7.AutoSize = true;
-			this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label7.Location = new System.Drawing.Point(1075, 53);
-			this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-			this.label7.Name = "label7";
-			this.label7.Size = new System.Drawing.Size(101, 24);
-			this.label7.TabIndex = 9;
-			this.label7.Text = "Descuento";
-			// 
-			// txtDescuento
-			// 
-			this.txtDescuento.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.txtDescuento.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.txtDescuento.Location = new System.Drawing.Point(1028, 82);
-			this.txtDescuento.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-			this.txtDescuento.Name = "txtDescuento";
-			this.txtDescuento.Size = new System.Drawing.Size(148, 29);
-			this.txtDescuento.TabIndex = 10;
-			this.txtDescuento.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtDescuento_KeyDown);
-			this.txtDescuento.Leave += new System.EventHandler(this.txtDescuento_Leave);
-			// 
 			// txtSubtotal
 			// 
 			this.txtSubtotal.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -373,7 +355,7 @@
 			this.txtSubtotal.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
 			this.txtSubtotal.Name = "txtSubtotal";
 			this.txtSubtotal.Size = new System.Drawing.Size(148, 22);
-			this.txtSubtotal.TabIndex = 11;
+			this.txtSubtotal.TabIndex = 22;
 			// 
 			// label8
 			// 
@@ -397,7 +379,7 @@
 			this.txtIva.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
 			this.txtIva.Name = "txtIva";
 			this.txtIva.Size = new System.Drawing.Size(148, 22);
-			this.txtIva.TabIndex = 13;
+			this.txtIva.TabIndex = 25;
 			// 
 			// label9
 			// 
@@ -419,7 +401,7 @@
 			this.txtTdescuento.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
 			this.txtTdescuento.Name = "txtTdescuento";
 			this.txtTdescuento.Size = new System.Drawing.Size(148, 29);
-			this.txtTdescuento.TabIndex = 15;
+			this.txtTdescuento.TabIndex = 10;
 			this.txtTdescuento.TextChanged += new System.EventHandler(this.txtTdescuento_TextChanged);
 			// 
 			// label10
@@ -444,17 +426,7 @@
 			this.txtTotal.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
 			this.txtTotal.Name = "txtTotal";
 			this.txtTotal.Size = new System.Drawing.Size(148, 22);
-			this.txtTotal.TabIndex = 17;
-			// 
-			// lbClient
-			// 
-			this.lbClient.AutoSize = true;
-			this.lbClient.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.lbClient.Location = new System.Drawing.Point(124, 12);
-			this.lbClient.Name = "lbClient";
-			this.lbClient.Size = new System.Drawing.Size(70, 24);
-			this.lbClient.TabIndex = 23;
-			this.lbClient.Text = "label11";
+			this.txtTotal.TabIndex = 26;
 			// 
 			// label11
 			// 
@@ -487,7 +459,7 @@
 			this.txtcIva.Location = new System.Drawing.Point(1179, 529);
 			this.txtcIva.Name = "txtcIva";
 			this.txtcIva.Size = new System.Drawing.Size(148, 22);
-			this.txtcIva.TabIndex = 30;
+			this.txtcIva.TabIndex = 23;
 			// 
 			// txtsIva
 			// 
@@ -498,7 +470,7 @@
 			this.txtsIva.Location = new System.Drawing.Point(1179, 564);
 			this.txtsIva.Name = "txtsIva";
 			this.txtsIva.Size = new System.Drawing.Size(148, 22);
-			this.txtsIva.TabIndex = 31;
+			this.txtsIva.TabIndex = 24;
 			// 
 			// cbPu
 			// 
@@ -509,14 +481,14 @@
 			this.cbPu.Location = new System.Drawing.Point(847, 84);
 			this.cbPu.Name = "cbPu";
 			this.cbPu.Size = new System.Drawing.Size(174, 22);
-			this.cbPu.TabIndex = 33;
+			this.cbPu.TabIndex = 6;
 			// 
 			// txtidcliente
 			// 
 			this.txtidcliente.Location = new System.Drawing.Point(18, 10);
 			this.txtidcliente.Name = "txtidcliente";
 			this.txtidcliente.Size = new System.Drawing.Size(100, 26);
-			this.txtidcliente.TabIndex = 36;
+			this.txtidcliente.TabIndex = 1;
 			this.txtidcliente.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtidcliente_KeyDown);
 			this.txtidcliente.Leave += new System.EventHandler(this.txtidcliente_Leave);
 			// 
@@ -542,7 +514,7 @@
 			this.txtIdAtiende.Location = new System.Drawing.Point(141, 539);
 			this.txtIdAtiende.Name = "txtIdAtiende";
 			this.txtIdAtiende.Size = new System.Drawing.Size(93, 26);
-			this.txtIdAtiende.TabIndex = 38;
+			this.txtIdAtiende.TabIndex = 9;
 			this.txtIdAtiende.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtIdAtiende_KeyDown);
 			// 
 			// lbAtiende
@@ -562,7 +534,7 @@
 			this.button8.Location = new System.Drawing.Point(725, 599);
 			this.button8.Name = "button8";
 			this.button8.Size = new System.Drawing.Size(95, 80);
-			this.button8.TabIndex = 40;
+			this.button8.TabIndex = 18;
 			this.button8.Text = "Cnl Ticket";
 			this.button8.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
 			this.button8.UseVisualStyleBackColor = true;
@@ -575,7 +547,7 @@
 			this.button7.Location = new System.Drawing.Point(624, 599);
 			this.button7.Name = "button7";
 			this.button7.Size = new System.Drawing.Size(95, 80);
-			this.button7.TabIndex = 35;
+			this.button7.TabIndex = 17;
 			this.button7.Text = "Transfer.";
 			this.button7.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
 			this.button7.UseVisualStyleBackColor = true;
@@ -588,7 +560,7 @@
 			this.button6.Location = new System.Drawing.Point(523, 599);
 			this.button6.Name = "button6";
 			this.button6.Size = new System.Drawing.Size(95, 80);
-			this.button6.TabIndex = 34;
+			this.button6.TabIndex = 16;
 			this.button6.Text = "Retiro";
 			this.button6.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
 			this.button6.UseVisualStyleBackColor = true;
@@ -603,7 +575,7 @@
 			this.btnVer.Location = new System.Drawing.Point(756, 84);
 			this.btnVer.Name = "btnVer";
 			this.btnVer.Size = new System.Drawing.Size(74, 29);
-			this.btnVer.TabIndex = 25;
+			this.btnVer.TabIndex = 5;
 			this.btnVer.Text = "Ver";
 			this.btnVer.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
 			this.btnVer.UseVisualStyleBackColor = true;
@@ -616,10 +588,11 @@
 			this.button5.Location = new System.Drawing.Point(422, 599);
 			this.button5.Name = "button5";
 			this.button5.Size = new System.Drawing.Size(95, 80);
-			this.button5.TabIndex = 22;
+			this.button5.TabIndex = 15;
 			this.button5.Text = "Cliente";
 			this.button5.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
 			this.button5.UseVisualStyleBackColor = true;
+			this.button5.Click += new System.EventHandler(this.button5_Click);
 			// 
 			// button4
 			// 
@@ -628,7 +601,7 @@
 			this.button4.Location = new System.Drawing.Point(321, 599);
 			this.button4.Name = "button4";
 			this.button4.Size = new System.Drawing.Size(95, 80);
-			this.button4.TabIndex = 21;
+			this.button4.TabIndex = 14;
 			this.button4.Text = "Reimprimir";
 			this.button4.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
 			this.button4.UseVisualStyleBackColor = true;
@@ -642,7 +615,7 @@
 			this.button3.Location = new System.Drawing.Point(220, 599);
 			this.button3.Name = "button3";
 			this.button3.Size = new System.Drawing.Size(95, 80);
-			this.button3.TabIndex = 20;
+			this.button3.TabIndex = 13;
 			this.button3.Text = "Producto";
 			this.button3.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
 			this.button3.UseVisualStyleBackColor = true;
@@ -656,7 +629,7 @@
 			this.button2.Location = new System.Drawing.Point(119, 599);
 			this.button2.Name = "button2";
 			this.button2.Size = new System.Drawing.Size(95, 80);
-			this.button2.TabIndex = 19;
+			this.button2.TabIndex = 12;
 			this.button2.Text = "Limpiar";
 			this.button2.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
 			this.button2.UseVisualStyleBackColor = true;
@@ -672,7 +645,7 @@
 			this.button1.Location = new System.Drawing.Point(18, 599);
 			this.button1.Name = "button1";
 			this.button1.Size = new System.Drawing.Size(95, 80);
-			this.button1.TabIndex = 18;
+			this.button1.TabIndex = 11;
 			this.button1.Text = "Cobrar";
 			this.button1.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
 			this.button1.UseVisualStyleBackColor = true;
@@ -684,17 +657,68 @@
 			this.button9.Location = new System.Drawing.Point(826, 599);
 			this.button9.Name = "button9";
 			this.button9.Size = new System.Drawing.Size(95, 80);
-			this.button9.TabIndex = 41;
+			this.button9.TabIndex = 19;
 			this.button9.Text = "Ver Ticket";
 			this.button9.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
 			this.button9.UseVisualStyleBackColor = true;
 			this.button9.Click += new System.EventHandler(this.button9_Click);
+			// 
+			// lbClient
+			// 
+			this.lbClient.AutoSize = true;
+			this.lbClient.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.lbClient.Location = new System.Drawing.Point(124, 12);
+			this.lbClient.Name = "lbClient";
+			this.lbClient.Size = new System.Drawing.Size(70, 24);
+			this.lbClient.TabIndex = 23;
+			this.lbClient.Text = "label11";
+			// 
+			// txtFolio
+			// 
+			this.txtFolio.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+			this.txtFolio.Location = new System.Drawing.Point(357, 502);
+			this.txtFolio.Name = "txtFolio";
+			this.txtFolio.Size = new System.Drawing.Size(100, 26);
+			this.txtFolio.TabIndex = 21;
+			// 
+			// label7
+			// 
+			this.label7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+			this.label7.AutoSize = true;
+			this.label7.Location = new System.Drawing.Point(300, 506);
+			this.label7.Name = "label7";
+			this.label7.Size = new System.Drawing.Size(43, 20);
+			this.label7.TabIndex = 43;
+			this.label7.Text = "Folio";
+			// 
+			// dtFecha
+			// 
+			this.dtFecha.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.dtFecha.Enabled = false;
+			this.dtFecha.Location = new System.Drawing.Point(1208, 12);
+			this.dtFecha.Name = "dtFecha";
+			this.dtFecha.Size = new System.Drawing.Size(127, 26);
+			this.dtFecha.TabIndex = 44;
+			// 
+			// label14
+			// 
+			this.label14.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.label14.AutoSize = true;
+			this.label14.Location = new System.Drawing.Point(1148, 16);
+			this.label14.Name = "label14";
+			this.label14.Size = new System.Drawing.Size(54, 20);
+			this.label14.TabIndex = 45;
+			this.label14.Text = "Fecha";
 			// 
 			// caja
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(1347, 717);
+			this.Controls.Add(this.label14);
+			this.Controls.Add(this.dtFecha);
+			this.Controls.Add(this.label7);
+			this.Controls.Add(this.txtFolio);
 			this.Controls.Add(this.button9);
 			this.Controls.Add(this.button8);
 			this.Controls.Add(this.lbAtiende);
@@ -722,8 +746,6 @@
 			this.Controls.Add(this.txtIva);
 			this.Controls.Add(this.label8);
 			this.Controls.Add(this.txtSubtotal);
-			this.Controls.Add(this.txtDescuento);
-			this.Controls.Add(this.label7);
 			this.Controls.Add(this.label6);
 			this.Controls.Add(this.txtNproductos);
 			this.Controls.Add(this.label5);
@@ -766,8 +788,6 @@
         private System.Windows.Forms.TextBox txtNproductos;
 		private MetroFramework.Components.MetroToolTip metroToolTip1;
 		private System.Windows.Forms.Label label6;
-		private System.Windows.Forms.Label label7;
-		private System.Windows.Forms.TextBox txtDescuento;
 		private System.Windows.Forms.TextBox txtSubtotal;
 		private System.Windows.Forms.Label label8;
 		private System.Windows.Forms.TextBox txtIva;
@@ -781,7 +801,6 @@
 		private System.Windows.Forms.Button button3;
 		private System.Windows.Forms.Button button4;
 		private System.Windows.Forms.Button button5;
-		private System.Windows.Forms.Label lbClient;
 		private System.Windows.Forms.Button btnVer;
 		private System.Windows.Forms.Label label11;
 		private System.Windows.Forms.Label label12;
@@ -790,7 +809,7 @@
 		private System.Windows.Forms.TextBox cbPu;
 		private System.Windows.Forms.Button button6;
 		private System.Windows.Forms.Button button7;
-		private System.Windows.Forms.TextBox txtidcliente;
+		public System.Windows.Forms.TextBox txtidcliente;
 		private System.Windows.Forms.ErrorProvider errorProvider1;
 		private System.Windows.Forms.Label lbAtiende;
 		private System.Windows.Forms.TextBox txtIdAtiende;
@@ -806,5 +825,10 @@
 		private System.Windows.Forms.DataGridViewTextBoxColumn grabado;
 		private System.Windows.Forms.DataGridViewTextBoxColumn costo;
 		private System.Windows.Forms.Button button9;
+		private System.Windows.Forms.Label lbClient;
+		private System.Windows.Forms.Label label7;
+		private System.Windows.Forms.TextBox txtFolio;
+		private System.Windows.Forms.DateTimePicker dtFecha;
+		private System.Windows.Forms.Label label14;
 	}
 }

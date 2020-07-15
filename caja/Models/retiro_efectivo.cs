@@ -13,16 +13,22 @@ namespace caja.Models
 		public double Monto { get; set; }
 		public int Usuario { get; set; }
 		public string Fecha { get; set; }
+		public int Id_proveedor { get; set; }
+		public double Monto_proveedor { get; set; }
 		public retiro_efectivo(
 			int id,
 			double monto,
 			int usuario,
-			string fecha
+			string fecha,
+			int id_proveedor,
+			double monto_proveedor
 			) {
 			Id = id;
 			Monto = monto;
 			Usuario = usuario;
 			Fecha = fecha;
+			Id_proveedor = id_proveedor;
+			Monto_proveedor = monto_proveedor;
 		}
 
 		public retiro_efectivo() { }
@@ -33,18 +39,20 @@ namespace caja.Models
 				data.GetInt16("id"),
 				data.GetDouble("monto"),
 				data.GetInt16("usuario"),
-				data.GetString("fecha")
+				data.GetString("fecha"),
+				data.GetInt16("id_proveedor"),
+				data.GetDouble("monto_proveedor")
 				);
 			return item;
 		}
 		public void createRetiro()
 		{
-			string query = "insert into retiros (monto, usuario, fecha) values ('" + this.Monto + "', '" + this.Usuario + "', NOW())";
+			string query = "insert into retiros (monto, usuario, fecha, id_proveedor, monto_proveedor) values ('" + this.Monto + "', '" + this.Usuario + "', NOW(), '" + this.Id_proveedor + "', '" + this.Monto_proveedor + "')";
 			object result = runQuery(query);
 		}
 		public List<retiro_efectivo> get_retirosbyuser(int user)
 		{
-			string query = "select id, monto, usuario, fecha from retiros where usuario='" + user.ToString() + "'";
+			string query = "select id, monto, usuario, fecha, id_proveedor, monto_proveedor from retiros where usuario='" + user.ToString() + "'";
 			MySqlDataReader data = runQuery(query);
 			List<retiro_efectivo> result = new List<retiro_efectivo>();
 			if (data.HasRows)
@@ -59,7 +67,7 @@ namespace caja.Models
 		}
 		public List<retiro_efectivo> get_lastretiro(int user)
 		{
-			string query = "select id, monto, usuario, fecha from retiros where usuario='" + user.ToString() + "' order by id desc";
+			string query = "select id, monto, usuario, fecha,id_proveedor, monto_proveedor from retiros where usuario='" + user.ToString() + "' order by id desc";
 			MySqlDataReader data = runQuery(query);
 			List<retiro_efectivo> result = new List<retiro_efectivo>();
 			if (data.HasRows)
@@ -76,7 +84,7 @@ namespace caja.Models
 		public List<retiro_efectivo> get_retirostoday()
 		{
 			string fecha=DateTime.Now.ToString("yyyy-MM-dd");
-			string query = "select id, monto, usuario, fecha from retiros where fecha like '%" + fecha + "%'";
+			string query = "select id, monto, usuario, fecha,id_proveedor, monto_proveedor from retiros where fecha like '%" + fecha + "%'";
 			MySqlDataReader data = runQuery(query);
 			List<retiro_efectivo> result = new List<retiro_efectivo>();
 			if (data.HasRows)

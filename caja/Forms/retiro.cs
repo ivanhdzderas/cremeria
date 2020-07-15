@@ -27,10 +27,15 @@ namespace caja.Forms
 
 		private void button2_Click(object sender, EventArgs e)
 		{
+			
+			
 			retiro_efectivo retiros = new retiro_efectivo();
 			retiros.Monto = suma;
 			retiros.Usuario = usuario;
+			retiros.Monto_proveedor = Convert.ToDouble(txtMonto.Text);
+			retiros.Id_proveedor = Convert.ToInt16(txtIdproveedor.Text);
 			retiros.createRetiro();
+			
 			List<retiro_efectivo> reti = retiros.get_lastretiro(usuario);
 
 			det_retiro detalle = new det_retiro();
@@ -85,9 +90,38 @@ namespace caja.Forms
 
 		private void retiro_Load(object sender, EventArgs e)
 		{
+			txtIdproveedor.AutoCompleteCustomSource = cargadatos();
+			txtIdproveedor.AutoCompleteMode = AutoCompleteMode.Suggest;
+			txtIdproveedor.AutoCompleteSource = AutoCompleteSource.CustomSource;
 
+
+			txtProveedor.AutoCompleteCustomSource = cargadatos2();
+			txtProveedor.AutoCompleteMode = AutoCompleteMode.Suggest;
+			txtProveedor.AutoCompleteSource = AutoCompleteSource.CustomSource;
+		}
+		private AutoCompleteStringCollection cargadatos()
+		{
+			AutoCompleteStringCollection datos = new AutoCompleteStringCollection();
+			Providers proveedores = new Providers();
+			List<Providers> result = proveedores.getProviders();
+			foreach (Providers item in result)
+			{
+				datos.Add(item.Id.ToString());
+			}
+			return datos;
 		}
 
+		private AutoCompleteStringCollection cargadatos2()
+		{
+			AutoCompleteStringCollection datos = new AutoCompleteStringCollection();
+			Providers proveedores = new Providers();
+			List<Providers> result = proveedores.getProviders();
+			foreach (Providers item in result)
+			{
+				datos.Add(item.Name);
+			}
+			return datos;
+		}
 		private void num500_ValueChanged(object sender, EventArgs e)
 		{
 			calcula();
@@ -111,6 +145,40 @@ namespace caja.Forms
 		private void num20_ValueChanged(object sender, EventArgs e)
 		{
 			calcula();
+		}
+
+		private void txtIdproveedor_KeyDown(object sender, KeyEventArgs e)
+		{
+			if (e.KeyCode == Keys.Enter)
+			{
+				if (txtIdproveedor.Text != "")
+				{
+					Providers proveedores = new Providers();
+					List<Providers> proveedor = proveedores.getProviderbyId(Convert.ToInt16(txtIdproveedor.Text));
+					if (proveedor.Count > 0)
+					{
+						txtProveedor.Text = proveedor[0].Name;
+					}
+				}
+			}
+		}
+
+		private void txtProveedor_KeyDown(object sender, KeyEventArgs e)
+		{
+			if (e.KeyCode == Keys.Enter)
+			{
+				Providers proveedores = new Providers();
+				List<Providers> proveedor = proveedores.getProviderbyNombreabsolute(txtProveedor.Text);
+				if (proveedor.Count > 0)
+				{
+					txtIdproveedor.Text = proveedor[0].Id.ToString();
+				}
+			}
+		}
+
+		private void groupBox3_Enter(object sender, EventArgs e)
+		{
+
 		}
 	}
 }

@@ -39,8 +39,11 @@ namespace caja
 
         private void caja_Load(object sender, EventArgs e)
         {
+            dtFecha.Format = DateTimePickerFormat.Custom;
+            dtFecha.CustomFormat = "yyyy-MM-dd";
+
             txtCodigo.AutoCompleteCustomSource = cargadatos();
-            txtCodigo.AutoCompleteMode = AutoCompleteMode.Suggest;
+            txtCodigo.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
             txtCodigo.AutoCompleteSource = AutoCompleteSource.CustomSource;
 
 
@@ -50,9 +53,11 @@ namespace caja
 
 
             txtIdAtiende.AutoCompleteCustomSource = carga_atiende();
-            txtIdAtiende.AutoCompleteMode = AutoCompleteMode.Suggest;
+            txtIdAtiende.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
             txtIdAtiende.AutoCompleteSource = AutoCompleteSource.CustomSource;
 
+
+            get_folio();
 
             cancelado = false;
             Client cliente = new Client();
@@ -63,7 +68,7 @@ namespace caja
             }
 
             txtCodigo.Focus();
-            txtDescuento.Text = "0";
+           
             txtTdescuento.Text = "0";
             DataGridViewCellStyle style = new DataGridViewCellStyle();
             style.Font = new Font(this.Font,  FontStyle.Bold);
@@ -75,8 +80,6 @@ namespace caja
 
             txtImporte.TextAlign = HorizontalAlignment.Right;
             txtCantidad.TextAlign = HorizontalAlignment.Right;
-            txtDescuento.TextAlign = HorizontalAlignment.Right;
-
             txtSubtotal.TextAlign = HorizontalAlignment.Right;
             txtTdescuento.TextAlign = HorizontalAlignment.Right;
             txtIva.TextAlign = HorizontalAlignment.Right;
@@ -86,7 +89,20 @@ namespace caja
             cbPu.TextAlign = HorizontalAlignment.Right;
 
         }
-
+        private void get_folio()
+        {
+            Models.Tickets ticket = new Models.Tickets();
+            List<Models.Tickets> tic = ticket.get_folio();
+            if (tic.Count > 0)
+            {
+                txtFolio.Text = (tic[0].Id + 1).ToString();
+            }
+            else
+            {
+                txtFolio.Text = "1";
+            }
+            
+        }
         private AutoCompleteStringCollection cargadatos()
         {
             AutoCompleteStringCollection datos = new AutoCompleteStringCollection();
@@ -105,7 +121,7 @@ namespace caja
             List<Users> result = usuarios.getUsers();
             foreach (Users item in result)
             {
-                datos.Add(item.Id.ToString());
+                datos.Add(item.Nombre.ToString());
             }
             return datos;
         }
@@ -184,6 +200,14 @@ namespace caja
         }
         private void textBox1_KeyDown(object sender, KeyEventArgs e)
         {
+            if (e.KeyCode == Keys.Right)
+            {
+                txtCantidad.Focus();
+            }
+            if (e.KeyCode == Keys.Down)
+            {
+                dtProductos.Focus();
+            }
             if (e.KeyCode == Keys.F12)
             {
                 button1.PerformClick();
@@ -234,7 +258,7 @@ namespace caja
 
                             }
                             txtImporte.Text = (Convert.ToDouble(cbPu.Text) * Convert.ToDouble(txtCantidad.Text)).ToString();
-                            txtDescuento.Text = "0";
+                            
                             txtCantidad.Focus();
                             btnVer.Enabled = true;
                         }
@@ -276,7 +300,7 @@ namespace caja
 
                             }
                             txtImporte.Text = (Convert.ToDouble(cbPu.Text) * Convert.ToDouble(txtCantidad.Text)).ToString();
-                            txtDescuento.Text = "0";
+                            
                             txtCantidad.Focus();
                             btnVer.Enabled = true;
                         }
@@ -317,33 +341,25 @@ namespace caja
             calcula();
         }
 
-        private void txtDescuento_Leave(object sender, EventArgs e)
-        {
-            if (txtDescuento.Text != "")
-            {
-                double subtotal = Convert.ToDouble(txtCantidad.Text) * Convert.ToDouble(cbPu.Text);
-                double importe = (subtotal - Convert.ToDouble(txtDescuento.Text));
-                txtImporte.Text = string.Format("{0:#,0.00}", importe);
-                txtDescuento.Text = string.Format("{0:#,0.00}", Convert.ToDouble(txtDescuento.Text));
-            }
-        }
+       
 
         private void txtDescuento_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
+               
+
                 Product producto = new Product();
                 List<Product> prod = producto.getProductById(Convert.ToInt16(id)) ;
                 string grabado = prod[0].Sale_tax;
                 double costo = prod[0].Cost;
                 grabado = grabado.Replace("IVA ", "");
-                dtProductos.Rows.Add(id, txtCodigo.Text, txtCantidad.Text, txtDescripcion.Text, string.Format("{0:#,0.00}", Convert.ToDouble(cbPu.Text)), string.Format("{0:#,0.00}", Convert.ToDouble(txtDescuento.Text)), string.Format("{0:#,0.00}", Convert.ToDouble(txtImporte.Text)), grabado, costo);
+                dtProductos.Rows.Add(id, txtCodigo.Text, txtCantidad.Text, txtDescripcion.Text, string.Format("{0:#,0.00}", Convert.ToDouble(cbPu.Text)), string.Format("{0:#,0.00}", Convert.ToDouble(0)), string.Format("{0:#,0.00}", Convert.ToDouble(txtImporte.Text)), grabado, costo);
                 txtCodigo.Text = "";
                 txtCantidad.Text = "";
                 txtDescripcion.Text = "";
                 cbPu.Text = "0.00";
                 txtImporte.Text = "";
-                txtDescuento.Text = "";
                 calcula();
                 btnVer.Enabled = false;
                 txtCodigo.Focus();
@@ -365,7 +381,6 @@ namespace caja
             txtDescripcion.Text = "";
             cbPu.Text = "0.00";
             txtImporte.Text = "";
-            txtDescuento.Text = "";
             metodo = "";
             pagado = 0;
 
@@ -420,7 +435,6 @@ namespace caja
                
             }
             txtImporte.Text = (Convert.ToDouble(cbPu.Text) * Convert.ToDouble(txtCantidad.Text)).ToString();
-            txtDescuento.Text = "0";
  
 
            
@@ -563,7 +577,7 @@ namespace caja
             {
                 if (folio_ticket == 0)
                 {
-                    pago.Id_ticket = lista[0].Id;
+                    pago.Id_ticket = Convert.ToInt16(txtFolio.Text);
                 }
                 else
                 {
@@ -580,8 +594,8 @@ namespace caja
 
             if (folio_ticket == 0)
             {
-                id = lista[0].Id.ToString();
-                detalle.Id_ticket = lista[0].Id;
+                id = txtFolio.Text;
+                detalle.Id_ticket = Convert.ToInt16(txtFolio.Text);
             }
             else
             {
@@ -617,7 +631,7 @@ namespace caja
                 kardex.Id = 0;
                 if (folio_ticket == 0)
                 {
-                    kardex.Id_documento = Convert.ToInt16(lista[0].Id);
+                    kardex.Id_documento = Convert.ToInt16(txtFolio.Text);
                 }
                 else
                 {
@@ -627,7 +641,7 @@ namespace caja
                 kardex.CreateKardex();
                 if (folio_ticket == 0)
                 {
-                    List<Kardex> numeracion = kardex.getidKardex(prod[0].Id, Convert.ToInt16(lista[0].Id), "V");
+                    List<Kardex> numeracion = kardex.getidKardex(prod[0].Id, Convert.ToInt16(txtFolio.Text), "V");
                     afecta.Disminuye(numeracion[0].Id);
                 }
                 else
@@ -646,7 +660,7 @@ namespace caja
             printDocument1.PrinterSettings = ps;
             printDocument1.Print();
             limpiar();
-
+            get_folio();
             aviso_retiro();
         }
         private void aviso_retiro()
@@ -693,6 +707,14 @@ namespace caja
         {
             Busca_cliente busca = new Busca_cliente();
             busca.ShowDialog();
+            txtidcliente.Text = id_cliente.ToString();
+            Models.Client clientes = new Models.Client();
+            List<Models.Client> cliente = clientes.getClientbyId(id_cliente);
+            if (cliente.Count > 0)
+            {
+                lbClient.Text = "Cliente: " + cliente[0].Name + ", RFC: " + cliente[0].RFC;
+            }
+            
         }
 
         private void btnVer_Click(object sender, EventArgs e)
@@ -854,6 +876,43 @@ namespace caja
 
         private void txtCantidad_KeyDown_1(object sender, KeyEventArgs e)
         {
+            if (e.KeyCode == Keys.Left)
+            {
+                txtCodigo.Focus();
+            }
+            if (e.KeyCode == Keys.Right)
+            {
+                if (btnVer.Enabled == true)
+                {
+                    btnVer.Focus();
+                }
+                else
+                {
+                    dtProductos.Focus();
+                }
+            }
+            if (e.KeyCode == Keys.Down)
+            {
+                dtProductos.Focus();
+            }
+            if (e.KeyCode== Keys.F2)
+            {
+                string precio = Interaction.InputBox("Ingrese nuevo precio", "Cancelar");
+                Models.Product productos = new Models.Product();
+                List<Models.Product> producto = productos.getProductById(Convert.ToInt32(id));
+                if (producto.Count > 0)
+                {
+                    if (Convert.ToDouble(precio) <= producto[0].Cost)
+                    {
+                        MessageBox.Show("no es posible aceptar el nuevo precio");
+                    }
+                    else
+                    {
+                        cbPu.Text = precio;
+                    }
+
+                }
+            }
             if (e.KeyCode == Keys.Enter)
             {
                 if (txtCantidad.Text != "")
@@ -866,13 +925,12 @@ namespace caja
                     double costo = prod[0].Cost;
                     string grabado = prod[0].Sale_tax;
                     grabado = grabado.Replace("IVA ", "");
-                    dtProductos.Rows.Add(id, txtCodigo.Text, txtCantidad.Text, txtDescripcion.Text, string.Format("{0:#,0.00}", Convert.ToDouble(cbPu.Text)), string.Format("{0:#,0.00}", Convert.ToDouble(txtDescuento.Text)), string.Format("{0:#,0.00}", Convert.ToDouble(txtImporte.Text)), grabado, costo);
+                    dtProductos.Rows.Add(id, txtCodigo.Text, txtCantidad.Text, txtDescripcion.Text, string.Format("{0:#,0.00}", Convert.ToDouble(cbPu.Text)), string.Format("{0:#,0.00}", Convert.ToDouble(0)), string.Format("{0:#,0.00}", Convert.ToDouble(txtImporte.Text)), grabado, costo);
                     txtCodigo.Text = "";
                     txtCantidad.Text = "";
                     txtDescripcion.Text = "";
                     cbPu.Text = "0.00";
                     txtImporte.Text = "";
-                    txtDescuento.Text = "";
                     calcula();
                     btnVer.Enabled = false;
                     txtCodigo.Focus();
@@ -1049,29 +1107,33 @@ namespace caja
 
         private void txtidcliente_Leave(object sender, EventArgs e)
         {
-            bool error = false;
-            Client clientes = new Client();
-            List<Client> cliente = clientes.getClientbyId(Convert.ToInt16(txtidcliente.Text));
-            if (cliente.Count > 0)
+            if (txtidcliente.Text != "")
             {
-                lbClient.Text = "Cliente: " + cliente[0].Name + ", RFC: " + cliente[0].RFC;
-                txtCodigo.Focus();
-            }
-            else
-            {
-                error = true;
-            }
+                bool error = false;
+                Client clientes = new Client();
+                List<Client> cliente = clientes.getClientbyId(Convert.ToInt16(txtidcliente.Text));
+                if (cliente.Count > 0)
+                {
+                    lbClient.Text = "Cliente: " + cliente[0].Name + ", RFC: " + cliente[0].RFC;
+                    txtCodigo.Focus();
+                }
+                else
+                {
+                    error = true;
+                }
 
 
-            if (error == true)
-            {
-                errorProvider1.SetError(txtidcliente, "No se encontro numero de cliente");
-                txtidcliente.Focus();
+                if (error == true)
+                {
+                    errorProvider1.SetError(txtidcliente, "No se encontro numero de cliente");
+                    txtidcliente.Focus();
+                }
+                else
+                {
+                    errorProvider1.Clear();
+                }
             }
-            else
-            {
-                errorProvider1.Clear();
-            }
+            
         }
 
         private void txtIdAtiende_KeyDown(object sender, KeyEventArgs e)
@@ -1080,16 +1142,27 @@ namespace caja
             if (e.KeyCode == Keys.Enter)
             {
                 Users usuarios = new Users();
-                List<Users> usuario = usuarios.getUserbyid(Convert.ToInt16(txtIdAtiende.Text));
+                List<Users> usuario = usuarios.getUserbyname(txtIdAtiende.Text); 
                 
                 if (usuario.Count > 0)
                 {
+                    txtIdAtiende.Text = usuario[0].Id.ToString();
                     lbAtiende.Text = usuario[0].Nombre;
                     txtCodigo.Focus();
                 }
                 else
                 {
-                    error = true;
+                    usuario = usuarios.getUserbyid(Convert.ToInt16(txtIdAtiende.Text)); ;
+                    if (usuario.Count > 0)
+                    {
+                        
+                        lbAtiende.Text = usuario[0].Nombre;
+                    }
+                    else
+                    {
+                         error = true;
+                    }
+                   
                 }
 
                 if (error == true)
@@ -1210,5 +1283,139 @@ namespace caja
             }
                 
         }
+
+        private void txtCodigo_Leave(object sender, EventArgs e)
+        {
+            if (txtCodigo.Text != "")
+            {
+                string CODIGOABUSCAR;
+                string contenido = txtCodigo.Text;
+                if (contenido.Contains("*"))
+                {
+                    string[] cantidades = contenido.Split('*');
+
+                    CODIGOABUSCAR = cantidades[1];
+                    txtCantidad.Text = cantidades[0];
+                    Product producto = new Product();
+                    List<Product> result = producto.getProductByCodeAbsolute(CODIGOABUSCAR);
+                    if (result.Count > 0)
+                    {
+                        foreach (Product item in result)
+                        {
+                            id = item.Id.ToString();
+                            txtCodigo.Text = item.Code1;
+                            txtDescripcion.Text = item.Description;
+                            if (item.Max_p1 >= Convert.ToDouble(txtCantidad.Text))
+                            {
+                                cbPu.Text = (string.Format("{0:#,0.00}", item.Price1));
+                            }
+                            else if (item.Max_p2 >= Convert.ToDouble(txtCantidad.Text))
+                            {
+                                cbPu.Text = (string.Format("{0:#,0.00}", item.Price2));
+                            }
+                            else if (item.Max_p3 >= Convert.ToDouble(txtCantidad.Text))
+                            {
+                                cbPu.Text = (string.Format("{0:#,0.00}", item.Price3));
+                            }
+                            else if (item.Max_p4 >= Convert.ToDouble(txtCantidad.Text))
+                            {
+                                cbPu.Text = (string.Format("{0:#,0.00}", item.Price4));
+                            }
+                            else if (item.Max_p5 >= Convert.ToDouble(txtCantidad.Text))
+                            {
+                                cbPu.Text = (string.Format("{0:#,0.00}", item.Price5));
+                            }
+
+                        }
+                        txtImporte.Text = (Convert.ToDouble(cbPu.Text) * Convert.ToDouble(txtCantidad.Text)).ToString();
+                        txtCantidad.Focus();
+                        btnVer.Enabled = true;
+                    }
+
+                }
+                else
+                {
+                    CODIGOABUSCAR = txtCodigo.Text;
+                    Product producto = new Product();
+                    List<Product> result = producto.getProductByCodeAbsolute(CODIGOABUSCAR);
+                    txtCantidad.Text = "1";
+                    if (result.Count > 0)
+                    {
+                        foreach (Product item in result)
+                        {
+                            id = item.Id.ToString();
+                            txtCodigo.Text = item.Code1;
+                            txtDescripcion.Text = item.Description;
+                            if (item.Max_p1 >= Convert.ToDouble(txtCantidad.Text))
+                            {
+                                cbPu.Text = (string.Format("{0:#,0.00}", item.Price1));
+                            }
+                            else if (item.Max_p2 >= Convert.ToDouble(txtCantidad.Text))
+                            {
+                                cbPu.Text = (string.Format("{0:#,0.00}", item.Price2));
+                            }
+                            else if (item.Max_p3 >= Convert.ToDouble(txtCantidad.Text))
+                            {
+                                cbPu.Text = (string.Format("{0:#,0.00}", item.Price3));
+                            }
+                            else if (item.Max_p4 >= Convert.ToDouble(txtCantidad.Text))
+                            {
+                                cbPu.Text = (string.Format("{0:#,0.00}", item.Price4));
+                            }
+                            else if (item.Max_p5 >= Convert.ToDouble(txtCantidad.Text))
+                            {
+                                cbPu.Text = (string.Format("{0:#,0.00}", item.Price5));
+                            }
+
+                        }
+                        txtImporte.Text = (Convert.ToDouble(cbPu.Text) * Convert.ToDouble(txtCantidad.Text)).ToString();
+                        txtCantidad.Focus();
+                        btnVer.Enabled = true;
+                    }
+
+                }
+            }
+            
+        }
+        static double porcentaje_anterior;
+        private void dtProductos_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
+            Product productos = new Product();
+            List<Product> producto = productos.getProductById(Convert.ToInt16(dtProductos.Rows[e.RowIndex].Cells["id_producto"].Value));
+
+            double p_u = Convert.ToDouble(dtProductos.Rows[e.RowIndex].Cells["p_unitario"].Value);
+            double cantidad = Convert.ToDouble(dtProductos.Rows[e.RowIndex].Cells["Cantidad"].Value);
+            double cantidad_pre = producto[0].Cost * cantidad;
+            double semitotal = (p_u * cantidad);
+            double porcentaje = (semitotal/100) * Convert.ToDouble(dtProductos.Rows[e.RowIndex].Cells["descuento"].Value);
+            double ultimo = (semitotal - porcentaje);
+            if (ultimo <= cantidad_pre)
+            {
+                MessageBox.Show("no es posible aplicar ese descuento");
+                dtProductos.Rows[e.RowIndex].Cells["descuento"].Value =porcentaje_anterior.ToString();
+            }
+            else
+            {
+                dtProductos.Rows[e.RowIndex].Cells["importe"].Value = (semitotal - porcentaje).ToString();
+                calcula();
+                porcentaje_anterior = 0;
+            }
+           
+        }
+
+        private void dtProductos_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            producto.Codigo = dtProductos.Rows[e.RowIndex].Cells["id_producto"].Value.ToString();
+            producto Producto = new producto();
+            Producto.Show(this);
+        }
+
+        private void dtProductos_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+            porcentaje_anterior = Convert.ToDouble(dtProductos.Rows[e.RowIndex].Cells["descuento"].Value);
+        }
+
+        
     }
 }

@@ -67,6 +67,21 @@ namespace caja.Models
 			}
 			return result;
 		}
+		public List<Users> getUserbyname(string name)
+		{
+			string query = "select id_usuario, nombre, usser, pass, tipo from tbausuario where nombre='" + name + "'";
+			MySqlDataReader data = runQuery(query);
+			List<Users> result = new List<Users>();
+			if (data.HasRows)
+			{
+				while (data.Read())
+				{
+					Users item = buildUser(data);
+					result.Add(item);
+				}
+			}
+			return result;
+		}
 		public List<Users> getInsertUser(string usuario, string pass) {
 			string query = "select id_usuario, nombre, usser, pass, tipo from tbausuario where usser='" + usuario + "' and pass='" + pass + "'";
 			MySqlDataReader data = runQuery(query);

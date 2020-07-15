@@ -70,6 +70,7 @@ namespace caja.Forms
 						dtClientes.Rows.Add(item.Id, item.Name, item.RFC, item.Tel);
 					}
 				}
+				dtClientes.Focus();
 			}
 		}
 
@@ -79,6 +80,7 @@ namespace caja.Forms
 			DataGridViewRow selectedRow = dtClientes.Rows[selectedrowindex];
 			string codigo = Convert.ToString(selectedRow.Cells["id"].Value);
 			caja.id_cliente = Convert.ToInt16(codigo);
+			
 			this.Close();
 		}
 	}

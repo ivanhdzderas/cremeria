@@ -34,18 +34,18 @@ namespace caja.Forms
             cbMpago.Items.Add("Efectivo");
             cbMpago.Items.Add("Transferencia");
             cbMpago.SelectedIndex = 2;
-
+            txtRecibido.Focus();
         }
 
 		
        
         private void calcula() {
-            double restantes = 0;
-            double total = Convert.ToDouble(lbCobrar.Text);
-            double recibido = 0;
+            decimal restantes = 0;
+            decimal total = Convert.ToDecimal(lbCobrar.Text);
+            decimal recibido = 0;
             if (txtRecibido.Text != "")
             {
-                recibido = Convert.ToDouble(txtRecibido.Text);
+                recibido = Convert.ToDecimal(txtRecibido.Text);
             }
             
 
@@ -97,8 +97,9 @@ namespace caja.Forms
 
         private void txtRecibido_TextChanged(object sender, EventArgs e)
         {
+            
             txtRecibido.Text = string.Format("{0:#,0.00}", txtRecibido.Text);
-            calcula();
+            
         }
 
         private void cbMpago_SelectedIndexChanged(object sender, EventArgs e)
@@ -132,9 +133,12 @@ namespace caja.Forms
 
         private void txtRecibido_KeyDown(object sender, KeyEventArgs e)
         {
+            
             if (e.KeyCode == Keys.Enter)
             {
-                btnCobrar.PerformClick();
+                calcula();
+                btnCobrar.Focus();
+                //btnCobrar.PerformClick();
             }
         }
     }

@@ -30,13 +30,13 @@
         {
 			this.components = new System.ComponentModel.Container();
 			this.dtgClientes = new System.Windows.Forms.DataGridView();
-			this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.rfc = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.label1 = new System.Windows.Forms.Label();
 			this.txtBuscar = new System.Windows.Forms.TextBox();
 			this.button1 = new System.Windows.Forms.Button();
 			this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+			this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.rfc = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			((System.ComponentModel.ISupportInitialize)(this.dtgClientes)).BeginInit();
 			this.SuspendLayout();
 			// 
@@ -59,24 +59,6 @@
 			this.dtgClientes.TabIndex = 0;
 			this.dtgClientes.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtgClientes_CellDoubleClick);
 			// 
-			// id
-			// 
-			this.id.HeaderText = "Id";
-			this.id.Name = "id";
-			this.id.ReadOnly = true;
-			// 
-			// nombre
-			// 
-			this.nombre.HeaderText = "Nombre";
-			this.nombre.Name = "nombre";
-			this.nombre.ReadOnly = true;
-			// 
-			// rfc
-			// 
-			this.rfc.HeaderText = "RFC";
-			this.rfc.Name = "rfc";
-			this.rfc.ReadOnly = true;
-			// 
 			// label1
 			// 
 			this.label1.AutoSize = true;
@@ -98,7 +80,6 @@
 			// 
 			// button1
 			// 
-			this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
 			this.button1.Location = new System.Drawing.Point(12, 26);
 			this.button1.Name = "button1";
 			this.button1.Size = new System.Drawing.Size(75, 23);
@@ -111,6 +92,25 @@
 			// 
 			this.contextMenuStrip1.Name = "contextMenuStrip1";
 			this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
+			// 
+			// id
+			// 
+			this.id.HeaderText = "Id";
+			this.id.Name = "id";
+			this.id.ReadOnly = true;
+			// 
+			// nombre
+			// 
+			this.nombre.HeaderText = "Nombre";
+			this.nombre.Name = "nombre";
+			this.nombre.ReadOnly = true;
+			// 
+			// rfc
+			// 
+			this.rfc.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+			this.rfc.HeaderText = "RFC";
+			this.rfc.Name = "rfc";
+			this.rfc.ReadOnly = true;
 			// 
 			// clientes
 			// 
@@ -133,12 +133,12 @@
         #endregion
 
         private System.Windows.Forms.DataGridView dtgClientes;
-        private System.Windows.Forms.DataGridViewTextBoxColumn id;
-        private System.Windows.Forms.DataGridViewTextBoxColumn nombre;
-        private System.Windows.Forms.DataGridViewTextBoxColumn rfc;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox txtBuscar;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
-    }
+		private System.Windows.Forms.DataGridViewTextBoxColumn id;
+		private System.Windows.Forms.DataGridViewTextBoxColumn nombre;
+		private System.Windows.Forms.DataGridViewTextBoxColumn rfc;
+	}
 }

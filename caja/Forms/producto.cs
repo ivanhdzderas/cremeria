@@ -632,6 +632,10 @@ namespace caja
 
         private void textBox14_Leave(object sender, EventArgs e)
         {
+            if (txtPrice2.Text == "")
+            {
+                txtPrice2.Text = "0.00";
+            }
             if (Convert.ToDouble(txtPrice2.Text) == 0.00)
             {
                 txtPrice2.Text = "0.00";
@@ -646,6 +650,10 @@ namespace caja
 
         private void textBox15_Leave(object sender, EventArgs e)
         {
+            if (txtPrice3.Text == "")
+            {
+                txtPrice2.Text = "0.00";
+            }
             if (Convert.ToDouble(txtPrice3.Text) == 0.00)
             {
                 txtPrice3.Text = "0.00";
@@ -660,6 +668,10 @@ namespace caja
 
         private void textBox16_Leave(object sender, EventArgs e)
         {
+            if (txtPrice3.Text == "")
+            {
+                txtPrice3.Text = "0.00";
+            }
             if (Convert.ToDouble(txtPrice4.Text) == 0.00)
             {
                 txtPrice4.Text = "0.00";
@@ -674,6 +686,10 @@ namespace caja
 
         private void textBox17_Leave(object sender, EventArgs e)
         {
+            if (txtPrice5.Text == "")
+            {
+                txtPrice5.Text = "0.00";
+            }
             if (Convert.ToDouble(txtPrice5.Text) == 0.00)
             {
                 txtPrice5.Text = "0.00";
