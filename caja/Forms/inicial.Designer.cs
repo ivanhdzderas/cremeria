@@ -74,6 +74,7 @@
 			this.imageList1 = new System.Windows.Forms.ImageList(this.components);
 			this.Menu = new System.Windows.Forms.ToolStrip();
 			this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
+			this.toolStripButton7 = new System.Windows.Forms.ToolStripButton();
 			this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
 			this.toolStripButton3 = new System.Windows.Forms.ToolStripButton();
 			this.toolStripButton5 = new System.Windows.Forms.ToolStripButton();
@@ -88,7 +89,6 @@
 			this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.printToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.printPreviewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.toolStripButton7 = new System.Windows.Forms.ToolStripButton();
 			this.menuStrip.SuspendLayout();
 			this.statusStrip.SuspendLayout();
 			this.Menu.SuspendLayout();
@@ -447,6 +447,16 @@
 			this.toolStripButton1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
 			this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
 			// 
+			// toolStripButton7
+			// 
+			this.toolStripButton7.Image = global::caja.Properties.Resources.basket_error;
+			this.toolStripButton7.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+			this.toolStripButton7.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.toolStripButton7.Name = "toolStripButton7";
+			this.toolStripButton7.Size = new System.Drawing.Size(98, 22);
+			this.toolStripButton7.Text = "Devoluciones";
+			this.toolStripButton7.Click += new System.EventHandler(this.toolStripButton7_Click);
+			// 
 			// toolStripButton2
 			// 
 			this.toolStripButton2.Image = global::caja.Properties.Resources.group;
@@ -577,16 +587,6 @@
 			this.printPreviewToolStripMenuItem.Name = "printPreviewToolStripMenuItem";
 			this.printPreviewToolStripMenuItem.Size = new System.Drawing.Size(206, 22);
 			this.printPreviewToolStripMenuItem.Text = "&Vista previa de impresión";
-			// 
-			// toolStripButton7
-			// 
-			this.toolStripButton7.Image = global::caja.Properties.Resources.basket_error;
-			this.toolStripButton7.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-			this.toolStripButton7.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.toolStripButton7.Name = "toolStripButton7";
-			this.toolStripButton7.Size = new System.Drawing.Size(98, 22);
-			this.toolStripButton7.Text = "Devoluciones";
-			this.toolStripButton7.Click += new System.EventHandler(this.toolStripButton7_Click);
 			// 
 			// inicial
 			// 

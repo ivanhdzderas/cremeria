@@ -8,14 +8,14 @@ namespace caja.Models
 	{
 		public int Id { get; set; }
 		public int Id_producto {get;set;}
-		public int Cantidad { get; set; }
+		public double Cantidad { get; set; }
 		public string Caducidad { get; set; }
 		public string Lote { get; set; }
 		public int Id_compra { get; set; }
 		public Caducidades(
 			int id,
 			int id_producto,
-			int cantidad,
+			double cantidad,
 			string caducidad,
 			string lote	,
 			int id_compra	
@@ -35,7 +35,7 @@ namespace caja.Models
 			Caducidades item = new Caducidades(
 				data.GetInt16("id"),
 				data.GetInt16("id_producto"),
-				data.GetInt16("cantidad"),
+				data.GetDouble("cantidad"),
 				data.GetString("caducidad"),
 				data.GetString("lote"),
 				data.GetInt16("id_compra")

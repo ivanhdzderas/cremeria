@@ -60,12 +60,7 @@ namespace caja
             get_folio();
 
             cancelado = false;
-            Client cliente = new Client();
-            List<Client> clien = cliente.getClientbyRFC("XAXX010101000");
-            if (clien.Count > 0) {
-                lbClient.Text = "Cliente: " + clien[0].Name + ", RFC: "+ clien[0].RFC;
-                txtidcliente.Text = clien[0].Id.ToString();
-            }
+            default_cliente();
 
             txtCodigo.Focus();
            
@@ -88,6 +83,16 @@ namespace caja
             txtsIva.TextAlign = HorizontalAlignment.Right;
             cbPu.TextAlign = HorizontalAlignment.Right;
 
+        }
+        private void default_cliente()
+        {
+            Client cliente = new Client();
+            List<Client> clien = cliente.getClientbyRFC("XAXX010101000");
+            if (clien.Count > 0)
+            {
+                lbClient.Text = "Cliente: " + clien[0].Name + ", RFC: " + clien[0].RFC;
+                txtidcliente.Text = clien[0].Id.ToString();
+            }
         }
         private void get_folio()
         {
@@ -663,6 +668,7 @@ namespace caja
             printDocument1.PrinterSettings = ps;
             printDocument1.Print();
             limpiar();
+            default_cliente();
             get_folio();
             aviso_retiro();
         }
@@ -1254,15 +1260,42 @@ namespace caja
 
         private void button9_Click(object sender, EventArgs e)
         {
-            autentificar cb = new autentificar();
-            cb.origen = "ver";
-            cancelado = false;
-            cb.Owner = this;
-            cb.ShowDialog();
-            if (cancelado == false)
+            if (button9.Text == "Regresar")
             {
-                ver_ticket();
+                lbCancelado.Visible = false;
+                txtIdAtiende.Enabled = true;
+                txtidcliente.Enabled = true;
+                txtCodigo.Enabled = true;
+                txtCantidad.Enabled = true;
+                txtTdescuento.Enabled = true;
+                button1.Enabled = true;
+                button2.Enabled = true;
+                button3.Enabled = true;
+                button4.Enabled = true;
+                button5.Enabled = true;
+                button6.Enabled = true;
+                button7.Enabled = true;
+                button8.Enabled = true;
+                dtProductos.AllowUserToDeleteRows = true;
+                button9.Text = "Ver Ticket";
+                dtProductos.Rows.Clear();
+                default_cliente();
+                txtIdAtiende.Text = "";
+                txtCodigo.Focus();
             }
+            else
+            {
+                autentificar cb = new autentificar();
+                cb.origen = "ver";
+                cancelado = false;
+                cb.Owner = this;
+                cb.ShowDialog();
+                if (cancelado == false)
+                {
+                    ver_ticket();
+                }
+            }
+           
         }
         public void ver_ticket()
         {
@@ -1270,6 +1303,48 @@ namespace caja
             if (folio != "")
             {
                 folio_ticket = Convert.ToInt16(folio);
+                Tickets tic = new Tickets();
+                List<Tickets> tick = tic.getTicketsbyId(folio_ticket);
+
+                txtidcliente.Text = tick[0].Id_cliente.ToString();
+
+                if (tick[0].Status== "C")
+                {
+                    lbCancelado.Visible = true;
+                    txtIdAtiende.Enabled = false;
+                    txtidcliente.Enabled = false;
+                    txtCodigo.Enabled = false;
+                    txtCantidad.Enabled = false;
+                    txtTdescuento.Enabled = false;
+                    button1.Enabled = false;
+                    button2.Enabled = false;
+                    button3.Enabled = false;
+                    button4.Enabled = false;
+                    button5.Enabled = false;
+                    button6.Enabled = false;
+                    button7.Enabled = false;
+                    button8.Enabled = false;
+
+                    button9.Text = "Regresar";
+                    dtProductos.AllowUserToDeleteRows = false;
+                }
+                else
+                {
+                    button9.Text = "Regresar";
+                }
+                Client clientes = new Client();
+                List<Client> cliente = clientes.getClientbyId(tick[0].Id_cliente);
+                lbClient.Text = "Cliente: " + cliente[0].Name + ", RFC: " + cliente[0].RFC;
+                txtIdAtiende.Text = tick[0].Atienda.ToString();
+
+                Users usuarios = new Users();
+                List<Users> usuario = usuarios.getUserbyname(txtIdAtiende.Text);
+
+                if (usuario.Count > 0)
+                {
+                    lbAtiende.Text = usuario[0].Nombre;
+                }
+
                 Dettickets detallados = new Dettickets();
                 List<Dettickets> detalle = detallados.getDetalles(Convert.ToInt16(folio));
                 Product producto = new Product();

@@ -8,6 +8,8 @@ using System.Text;
 using System.Xml;
 using System.Windows.Forms;
 using caja.Models;
+using Microsoft.VisualBasic;
+
 namespace caja.Forms
 {
 	public partial class Form_compras : Form
@@ -328,21 +330,25 @@ namespace caja.Forms
 			Caducidades Caducida = new Caducidades();
 			Caducida.Id = 0;
 			Caducida.Id_compra = resultado[0].Id;
-			int nuevo = 0;
+			double nuevo = 0;
 			foreach (DataGridViewRow row in dtProductos.Rows)
 			{
-				detalles.Cantidad = Convert.ToInt16(row.Cells["cantidad"].Value.ToString());
-				detalles.Id_producto = Convert.ToInt16(row.Cells["id_producto"].Value.ToString());
-				detalles.P_u = Convert.ToInt16(row.Cells["p_u"].Value.ToString());
-				detalles.Total = Convert.ToInt16(row.Cells["total"].Value.ToString());
-				detalles.createPurchases();
+				
 				List<Product> prod = producto.getProductById(Convert.ToInt16(row.Cells["id_producto"].Value.ToString()));
+
 				nuevo = Convert.ToInt16(row.Cells["cantidad"].Value.ToString());
 				while (prod[0].Parent != "0")
 				{
 					nuevo = nuevo * Convert.ToInt16(prod[0].C_unidad);
 					prod = producto.getProductById(Convert.ToInt16(prod[0].Parent));
 				}
+
+				
+				detalles.Cantidad = Convert.ToInt16(row.Cells["cantidad"].Value.ToString());
+				detalles.Id_producto = Convert.ToInt16(row.Cells["id_producto"].Value.ToString());
+				detalles.P_u = Convert.ToInt16(row.Cells["p_u"].Value.ToString());
+				detalles.Total = Convert.ToInt16(row.Cells["total"].Value.ToString());
+				detalles.createPurchases();
 
 				Caducida.Id_producto = prod[0].Id;
 				Caducida.Caducidad = row.Cells["caducidad"].Value.ToString();
