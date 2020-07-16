@@ -107,6 +107,7 @@
 			this.cantidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.tabPage3 = new System.Windows.Forms.TabPage();
 			this.groupBox3 = new System.Windows.Forms.GroupBox();
+			this.label54 = new System.Windows.Forms.Label();
 			this.max_p3ct = new System.Windows.Forms.NumericUpDown();
 			this.max_p2ct = new System.Windows.Forms.NumericUpDown();
 			this.max_p1ct = new System.Windows.Forms.NumericUpDown();
@@ -169,7 +170,8 @@
 			this.butSave = new System.Windows.Forms.Button();
 			this.label6 = new System.Windows.Forms.Label();
 			this.txtDescripcion = new System.Windows.Forms.TextBox();
-			this.label54 = new System.Windows.Forms.Label();
+			this.label55 = new System.Windows.Forms.Label();
+			this.txtDevoluciones = new System.Windows.Forms.TextBox();
 			this.tabControl1.SuspendLayout();
 			this.tabPage1.SuspendLayout();
 			this.groupBox1.SuspendLayout();
@@ -209,6 +211,8 @@
 			// 
 			// tabPage1
 			// 
+			this.tabPage1.Controls.Add(this.txtDevoluciones);
+			this.tabPage1.Controls.Add(this.label55);
 			this.tabPage1.Controls.Add(this.chkLote);
 			this.tabPage1.Controls.Add(this.txtdias);
 			this.tabPage1.Controls.Add(this.label51);
@@ -300,7 +304,7 @@
 			// txtMaximo
 			// 
 			this.txtMaximo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.txtMaximo.Location = new System.Drawing.Point(583, 145);
+			this.txtMaximo.Location = new System.Drawing.Point(583, 171);
 			this.txtMaximo.Name = "txtMaximo";
 			this.txtMaximo.Size = new System.Drawing.Size(100, 20);
 			this.txtMaximo.TabIndex = 49;
@@ -309,7 +313,7 @@
 			// txtMinimo
 			// 
 			this.txtMinimo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.txtMinimo.Location = new System.Drawing.Point(583, 119);
+			this.txtMinimo.Location = new System.Drawing.Point(583, 145);
 			this.txtMinimo.Name = "txtMinimo";
 			this.txtMinimo.Size = new System.Drawing.Size(100, 20);
 			this.txtMinimo.TabIndex = 48;
@@ -319,7 +323,7 @@
 			// 
 			this.label28.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.label28.AutoSize = true;
-			this.label28.Location = new System.Drawing.Point(534, 148);
+			this.label28.Location = new System.Drawing.Point(534, 174);
 			this.label28.Name = "label28";
 			this.label28.Size = new System.Drawing.Size(43, 13);
 			this.label28.TabIndex = 47;
@@ -329,7 +333,7 @@
 			// 
 			this.label27.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.label27.AutoSize = true;
-			this.label27.Location = new System.Drawing.Point(537, 122);
+			this.label27.Location = new System.Drawing.Point(537, 148);
 			this.label27.Name = "label27";
 			this.label27.Size = new System.Drawing.Size(40, 13);
 			this.label27.TabIndex = 46;
@@ -357,7 +361,7 @@
 			// cboCompra
 			// 
 			this.cboCompra.FormattingEnabled = true;
-			this.cboCompra.Location = new System.Drawing.Point(583, 198);
+			this.cboCompra.Location = new System.Drawing.Point(583, 224);
 			this.cboCompra.Name = "cboCompra";
 			this.cboCompra.Size = new System.Drawing.Size(121, 21);
 			this.cboCompra.TabIndex = 43;
@@ -365,7 +369,7 @@
 			// cboVenta
 			// 
 			this.cboVenta.FormattingEnabled = true;
-			this.cboVenta.Location = new System.Drawing.Point(583, 171);
+			this.cboVenta.Location = new System.Drawing.Point(583, 197);
 			this.cboVenta.Name = "cboVenta";
 			this.cboVenta.Size = new System.Drawing.Size(121, 21);
 			this.cboVenta.TabIndex = 42;
@@ -373,7 +377,7 @@
 			// label26
 			// 
 			this.label26.AutoSize = true;
-			this.label26.Location = new System.Drawing.Point(463, 201);
+			this.label26.Location = new System.Drawing.Point(463, 227);
 			this.label26.Name = "label26";
 			this.label26.Size = new System.Drawing.Size(114, 13);
 			this.label26.TabIndex = 41;
@@ -382,7 +386,7 @@
 			// label25
 			// 
 			this.label25.AutoSize = true;
-			this.label25.Location = new System.Drawing.Point(471, 174);
+			this.label25.Location = new System.Drawing.Point(471, 200);
 			this.label25.Name = "label25";
 			this.label25.Size = new System.Drawing.Size(106, 13);
 			this.label25.TabIndex = 40;
@@ -976,6 +980,15 @@
 			this.groupBox3.Size = new System.Drawing.Size(744, 235);
 			this.groupBox3.TabIndex = 4;
 			this.groupBox3.TabStop = false;
+			// 
+			// label54
+			// 
+			this.label54.AutoSize = true;
+			this.label54.Location = new System.Drawing.Point(660, 96);
+			this.label54.Name = "label54";
+			this.label54.Size = new System.Drawing.Size(43, 13);
+			this.label54.TabIndex = 40;
+			this.label54.Text = "Maximo";
 			// 
 			// max_p3ct
 			// 
@@ -1591,14 +1604,22 @@
 			this.txtDescripcion.Size = new System.Drawing.Size(418, 20);
 			this.txtDescripcion.TabIndex = 12;
 			// 
-			// label54
+			// label55
 			// 
-			this.label54.AutoSize = true;
-			this.label54.Location = new System.Drawing.Point(660, 96);
-			this.label54.Name = "label54";
-			this.label54.Size = new System.Drawing.Size(43, 13);
-			this.label54.TabIndex = 40;
-			this.label54.Text = "Maximo";
+			this.label55.AutoSize = true;
+			this.label55.Location = new System.Drawing.Point(505, 122);
+			this.label55.Name = "label55";
+			this.label55.Size = new System.Drawing.Size(72, 13);
+			this.label55.TabIndex = 56;
+			this.label55.Text = "Devoluciones";
+			// 
+			// txtDevoluciones
+			// 
+			this.txtDevoluciones.Enabled = false;
+			this.txtDevoluciones.Location = new System.Drawing.Point(583, 119);
+			this.txtDevoluciones.Name = "txtDevoluciones";
+			this.txtDevoluciones.Size = new System.Drawing.Size(100, 20);
+			this.txtDevoluciones.TabIndex = 57;
 			// 
 			// producto
 			// 
@@ -1784,5 +1805,7 @@
 		private System.Windows.Forms.NumericUpDown max_p2ct;
 		private System.Windows.Forms.NumericUpDown max_p1ct;
 		private System.Windows.Forms.Label label54;
+		private System.Windows.Forms.TextBox txtDevoluciones;
+		private System.Windows.Forms.Label label55;
 	}
 }

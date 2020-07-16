@@ -145,3 +145,4 @@ C:\Users\anton\source\repos\caja\caja\obj\Debug\caja.Forms.Reportes.Ganancias.re
 C:\Users\anton\source\repos\caja\caja\obj\Debug\caja.Forms.Tickets_a_facturar.resources
 C:\Users\anton\source\repos\caja\caja\obj\Debug\caja.Forms.Tickets_terminar.resources
 C:\Users\anton\source\repos\caja\caja\obj\Debug\caja.Forms.clientes_detallado.resources
+C:\Users\anton\source\repos\caja\caja\obj\Debug\caja.Forms.devoluciones.resources

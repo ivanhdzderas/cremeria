@@ -6,7 +6,7 @@ namespace caja.Models
 {
     public class Product : ConnectDB
     {
-        private string mac_query = "select id,id_parent,c_unidad,  descripcion,sku,medida_sat, codigo, codigo2, codigo3, codigo4, codigo5, cantidad, grupo, marca, unidad, precio1, precio2, precio3, precio4, precio5, utilidad1, utilidad2, utilidad3, utilidad4, utilidad5, costo, activo, codigo_sat, impuesto_venta, impuesto_compra, descuento, monto_descuento, minimo, maximo,dias_alerta, lote, max_p1, max_p2, max_p3, max_p4, max_p5   from tbaproductos";
+        private string mac_query = "select id,id_parent,c_unidad,  descripcion,sku,medida_sat, codigo, codigo2, codigo3, codigo4, codigo5, cantidad,devolucion, grupo, marca, unidad, precio1, precio2, precio3, precio4, precio5, utilidad1, utilidad2, utilidad3, utilidad4, utilidad5, costo, activo, codigo_sat, impuesto_venta, impuesto_compra, descuento, monto_descuento, minimo, maximo,dias_alerta, lote, max_p1, max_p2, max_p3, max_p4, max_p5   from tbaproductos";
 
         public int Id { get; set; }
         public string Description { get; set; }
@@ -16,6 +16,7 @@ namespace caja.Models
         public string Code4 { get; set; }
         public string Code5 { get; set; }
         public double Existencia { get; set; }
+        public double Devoluciones { get; set; }
         public string Group { get; set; }
         public string Brand { get; set; }
         public string Unit { get; set; }
@@ -65,6 +66,7 @@ namespace caja.Models
             string code4,
             string code5,
             double existencia,
+            double devoluciones,
             string group,
             string brand,
             string unit,
@@ -109,6 +111,7 @@ namespace caja.Models
             Code4 = code4;
             Code5 = code5;
             Existencia = existencia;
+            Devoluciones = devoluciones;
             Group = group;
             Brand = brand;
             Unit = unit;
@@ -160,8 +163,14 @@ namespace caja.Models
                 conector_web.runQuery_web(query);
             }
         }
+        public void update_devoluciones()
+        {
+            string query = "update tbaproductos set devolucion='" + this.Devoluciones + "' where id='" + this.Id + "'  ";
+            Object result = runQuery(query);
+           
+        }
         public void createProduct() {
-            string query = "INSERT INTO tbaproductos (codigo, descripcion, costo, codigo2, codigo3, codigo4, codigo5, precio1, precio2, precio3, precio4, precio5, utilidad1, utilidad2, utilidad3, utilidad4, utilidad5, cantidad, unidad, grupo, marca, activo,codigo_sat,sku,medida_sat,impuesto_venta,impuesto_compra,descuento,monto_descuento,minimo,maximo,id_parent, c_unidad,dias_alerta, lote, max_p1,max_p2, max_p3,max_p4,max_p5)";
+            string query = "INSERT INTO tbaproductos (codigo, descripcion, costo, codigo2, codigo3, codigo4, codigo5, precio1, precio2, precio3, precio4, precio5, utilidad1, utilidad2, utilidad3, utilidad4, utilidad5, cantidad, devolucion, unidad, grupo, marca, activo,codigo_sat,sku,medida_sat,impuesto_venta,impuesto_compra,descuento,monto_descuento,minimo,maximo,id_parent, c_unidad,dias_alerta, lote, max_p1,max_p2, max_p3,max_p4,max_p5)";
             query += "values (";
             query += "'" + this.Code1 + "', ";
             query += "'" + this.Description + "', ";
@@ -180,6 +189,7 @@ namespace caja.Models
             query += "'" + this.Utility3 + "', ";
             query += "'" + this.Utility4 + "', ";
             query += "'" + this.Utility5 + "', ";
+            query += "'0', ";
             query += "'0', ";
             query += "'" + this.Unit + "', ";
             query += "'" + this.Group + "', ";
@@ -279,6 +289,7 @@ namespace caja.Models
                 data.GetString("codigo4"),
                 data.GetString("codigo5"),
                 data.GetDouble("cantidad"),
+                data.GetDouble("devolucion"),
                 data.GetString("grupo"),
                 data.GetString("marca"),
                 data.GetString("unidad"),
@@ -488,7 +499,7 @@ namespace caja.Models
 
         public List<Product> getCaducProducts()
         {
-            string query = "select tbaproductos.id,tbaproductos.id_parent,tbaproductos.c_unidad,  tbaproductos.descripcion,tbaproductos.sku,tbaproductos.medida_sat, tbaproductos.codigo, tbaproductos.codigo2, tbaproductos.codigo3, tbaproductos.codigo4, tbaproductos.codigo5, tbaproductos.cantidad, tbaproductos.grupo, tbaproductos.marca, tbaproductos.unidad, tbaproductos.precio1, tbaproductos.precio2, tbaproductos.precio3, tbaproductos.precio4, tbaproductos.precio5, tbaproductos.utilidad1, tbaproductos.utilidad2, tbaproductos.utilidad3, tbaproductos.utilidad4, tbaproductos.utilidad5, tbaproductos.costo, tbaproductos.activo, tbaproductos.codigo_sat, tbaproductos.impuesto_venta, tbaproductos.impuesto_compra, tbaproductos.descuento, tbaproductos.monto_descuento, tbaproductos.minimo, tbaproductos.maximo,tbaproductos.dias_alerta, tbaproductos.lote   from tbaproductos inner join tbacaducidad on tbaproductos.id=tbacaducidad.id_producto where TIMESTAMPDIFF(DAY, tbacaducidad.caducidad, NOW())<=tbaproductos.dias_alerta";
+            string query = "select tbaproductos.id,tbaproductos.id_parent,tbaproductos.c_unidad,  tbaproductos.descripcion,tbaproductos.sku,tbaproductos.medida_sat, tbaproductos.codigo, tbaproductos.codigo2, tbaproductos.codigo3, tbaproductos.codigo4, tbaproductos.codigo5, tbaproductos.cantidad,tbaproductos.devolucion, tbaproductos.grupo, tbaproductos.marca, tbaproductos.unidad, tbaproductos.precio1, tbaproductos.precio2, tbaproductos.precio3, tbaproductos.precio4, tbaproductos.precio5, tbaproductos.utilidad1, tbaproductos.utilidad2, tbaproductos.utilidad3, tbaproductos.utilidad4, tbaproductos.utilidad5, tbaproductos.costo, tbaproductos.activo, tbaproductos.codigo_sat, tbaproductos.impuesto_venta, tbaproductos.impuesto_compra, tbaproductos.descuento, tbaproductos.monto_descuento, tbaproductos.minimo, tbaproductos.maximo,tbaproductos.dias_alerta, tbaproductos.lote   from tbaproductos inner join tbacaducidad on tbaproductos.id=tbacaducidad.id_producto where TIMESTAMPDIFF(DAY, tbacaducidad.caducidad, NOW())<=tbaproductos.dias_alerta";
             MySqlDataReader data = runQuery(query);
             List<Product> result = new List<Product>();
 

@@ -145,7 +145,17 @@ namespace caja.Forms
                     }
                     else
                     {
-                        usuario.Pass = resultado;
+
+                        List<Users> get = usuario.getUserbyid(id);
+                        if (get[0].Pass == txtContra.Text)
+                        {
+                            usuario.Pass = txtContra.Text;
+                        }
+                        else
+                        {
+                            usuario.Pass = resultado;
+                        }
+                        
                     }
                     usuario.saveUser();
 

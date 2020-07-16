@@ -289,6 +289,7 @@ namespace caja
                     txtPrice4.Text = item.Price4.ToString();
                     txtPrice5.Text = item.Price5.ToString();
                     txtExistencia.Text = item.Existencia.ToString();
+                    txtDevoluciones.Text = item.Devoluciones.ToString();
                     cboMarca.SelectedValue = item.Brand;
 
                     CallRecursive(tvGrupos, item.Group);
@@ -842,6 +843,7 @@ namespace caja
                 txtCodigo4.Text,
                 txtCodigo5.Text,
                 0,
+                0,
                 grupo,
                 cboMarca.SelectedValue.ToString(),
                 cboUnidad.SelectedValue.ToString(),
@@ -903,6 +905,7 @@ namespace caja
                     "",
                     "",
                     "",
+                    0,
                     0,
                     tvGrupos.SelectedNode.Tag.ToString(),
                     cboMarca.SelectedValue.ToString(),
@@ -968,6 +971,7 @@ namespace caja
                        "",
                        "",
                        "",
+                       0,
                        0,
                        grupo,
                        cboMarca.SelectedValue.ToString(),

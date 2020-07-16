@@ -383,6 +383,9 @@ namespace caja
             txtImporte.Text = "";
             metodo = "";
             pagado = 0;
+            txtIdAtiende.Text = "";
+            lbAtiende.Text = "";
+            txtidcliente.Text = "";
 
             calcula();
             txtCodigo.Focus();

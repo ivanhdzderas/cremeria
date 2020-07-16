@@ -92,6 +92,18 @@ namespace caja.Forms
 									MessageBox.Show("El usuario no tiene permiso de ver Tickets", "Usuario invalido", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
 								}
 							}
+							if (origen== "Devollucion")
+							{
+								if (Convert.ToBoolean(permiso[0].Cancelar_ticket) == true)
+								{
+									devoluciones.id_usuario = result[0].Id;
+									this.Close();
+								}
+								else
+								{
+									MessageBox.Show("El usuario no tiene permiso para devoluciones", "Usuario invalido", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+								}
+							}
 						}
 					}
 					else

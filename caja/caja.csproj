@@ -239,6 +239,12 @@
     <Compile Include="Forms\configuracion.Designer.cs">
       <DependentUpon>configuracion.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\devoluciones.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\devoluciones.Designer.cs">
+      <DependentUpon>devoluciones.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Facturas.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -474,12 +480,14 @@
     <Compile Include="Models\Detallado_ticket.cs" />
     <Compile Include="Models\Dettickets.cs" />
     <Compile Include="Models\det_ajustes.cs" />
+    <Compile Include="Models\det_devolution.cs" />
     <Compile Include="Models\Det_entradas.cs" />
     <Compile Include="Models\Det_facturas.cs" />
     <Compile Include="Models\Det_pagos.cs" />
     <Compile Include="Models\det_retiro.cs" />
     <Compile Include="Models\Det_salidas.cs" />
     <Compile Include="Models\Det_transfers.cs" />
+    <Compile Include="Models\Devolutions.cs" />
     <Compile Include="Models\Export_excel.cs" />
     <Compile Include="Models\Export_pdf.cs" />
     <Compile Include="Models\Facturas.cs" />
@@ -563,6 +571,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\configuracion.resx">
       <DependentUpon>configuracion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\devoluciones.resx">
+      <DependentUpon>devoluciones.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Facturas.resx">
       <DependentUpon>Facturas.cs</DependentUpon>
@@ -718,6 +729,7 @@
   <ItemGroup>
     <Content Include="Assets\action_stop.gif" />
     <Content Include="Assets\application_form.png" />
+    <None Include="Assets\basket_error.png" />
     <Content Include="Assets\box.png" />
     <Content Include="Assets\cart.png" />
     <Content Include="Assets\close.png" />
