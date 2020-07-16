@@ -110,7 +110,7 @@ namespace caja
         Image imagenCerado;
         public static string nombre;
         public static Boolean exit;
-
+        public static string tipo_usuario;
        
         private void inicial_Load(object sender, EventArgs e)
         {
@@ -535,6 +535,7 @@ namespace caja
            
         }
         public static Boolean cancelado = false;
+        
         private void toolStripButton6_Click(object sender, EventArgs e)
         {
             
@@ -546,6 +547,10 @@ namespace caja
                     CerrarCaja cerr = new CerrarCaja();
                     cerr.Owner = this;
                     cerr.ShowDialog();
+                    if (exit == true)
+                    {
+                        this.Close();
+                    }
 
                 }
                 if (cancelado == false) {

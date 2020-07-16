@@ -88,6 +88,7 @@ namespace caja.Forms
 			corte.Diferencia = Convert.ToDouble(lbDiferencia.Text);
 			corte.Id_usuario = Convert.ToInt16(inicial.id_usario);
 			corte.end_caja();
+			inicial.exit = true;
 			this.Close();
 		}
 

@@ -60,6 +60,7 @@ namespace caja
                         }
                         inicial.id_usario = result[0].Id.ToString();
                         inicial.nombre = result[0].Nombre;
+                        inicial.tipo_usuario = result[0].Tipo;
                         this.Close();
                     }
                     else

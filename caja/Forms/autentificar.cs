@@ -84,7 +84,7 @@ namespace caja.Forms
 							{
 								if (Convert.ToBoolean(permiso[0].Cancelar_ticket) == true)
 								{
-
+									caja.autorizado = true;
 									this.Close();
 								}
 								else

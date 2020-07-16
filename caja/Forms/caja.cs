@@ -32,6 +32,7 @@ namespace caja
         public int Atendio=0;
 
         public int folio_ticket = 0;
+        public static Boolean autorizado=false;
         public caja()
         {
             InitializeComponent();
@@ -62,7 +63,7 @@ namespace caja
             cancelado = false;
             default_cliente();
 
-            txtCodigo.Focus();
+            
            
             txtTdescuento.Text = "0";
             DataGridViewCellStyle style = new DataGridViewCellStyle();
@@ -82,6 +83,7 @@ namespace caja
             txtcIva.TextAlign = HorizontalAlignment.Right;
             txtsIva.TextAlign = HorizontalAlignment.Right;
             cbPu.TextAlign = HorizontalAlignment.Right;
+            txtCodigo.Focus();
 
         }
         private void default_cliente()
@@ -112,7 +114,7 @@ namespace caja
         {
             AutoCompleteStringCollection datos = new AutoCompleteStringCollection();
                 Product producto = new Product();
-                List<Product> result = producto.getProductByCodeAbsolute(txtCodigo.Text);
+                List<Product> result = producto.getProducts();
                 foreach(Product item in result)
                 {
                     datos.Add(item.Code1);
@@ -203,8 +205,31 @@ namespace caja
            
             txtTotal.Text = string.Format("{0:#,0.00}", total);
         }
+        public static int contador = 0;
         private void textBox1_KeyDown(object sender, KeyEventArgs e)
         {
+            
+            if (e.KeyCode == Keys.Escape)
+            {
+                if (contador == 2)
+                {
+                    contador = 0;
+                    button2.PerformClick();
+                }
+                else
+                {
+                    contador = contador + 1;
+                    txtCodigo.Text = "";
+                    txtCantidad.Text = "";
+                    txtDescripcion.Text = "";
+                    btnVer.Enabled = false;
+                    cbPu.Text = "";
+                    txtImporte.Text = "";
+                    id = "";
+                    txtCodigo.Focus();
+                }
+                
+            }
             if (e.KeyCode == Keys.Right)
             {
                 txtCantidad.Focus();
@@ -223,7 +248,7 @@ namespace caja
                 string CODIGOABUSCAR;
                 if (e.KeyCode == Keys.Enter)
                 {
-                   
+                    contador = 0;
                     string contenido = txtCodigo.Text;
                     if (contenido.Contains("*"))
                     {
@@ -393,6 +418,8 @@ namespace caja
             txtidcliente.Text = "";
 
             calcula();
+            default_cliente();
+            get_folio();
             txtCodigo.Focus();
         }
         private void button2_Click(object sender, EventArgs e)
@@ -543,6 +570,7 @@ namespace caja
             
         }
         public void guardar() {
+            autorizado = false;
             Tickets ticket = new Tickets(
                 0,
                 Convert.ToInt16(txtidcliente.Text),
@@ -885,6 +913,28 @@ namespace caja
 
         private void txtCantidad_KeyDown_1(object sender, KeyEventArgs e)
         {
+            if (e.KeyCode == Keys.Escape)
+            {
+                if (contador == 2)
+                {
+                    contador = 0;
+                    button2.PerformClick();
+                }
+                else
+                {
+                    contador = contador + 1;
+                    txtCodigo.Text = "";
+                    txtCantidad.Text = "";
+                    txtDescripcion.Text = "";
+                    btnVer.Enabled = false;
+                    cbPu.Text = "";
+                    txtImporte.Text = "";
+                    id = "";
+                    txtCodigo.Focus();
+                }
+               
+
+            }
             if (e.KeyCode == Keys.Left)
             {
                 txtCodigo.Focus();
@@ -897,7 +947,14 @@ namespace caja
                 }
                 else
                 {
-                    dtProductos.Focus();
+                    if (dtProductos.Rows.Count > 0)
+                    {
+                        dtProductos.Focus();
+                    }
+                    else
+                    {
+                        txtIdAtiende.Focus();
+                    }
                 }
             }
             if (e.KeyCode == Keys.Down)
@@ -935,11 +992,13 @@ namespace caja
                     string grabado = prod[0].Sale_tax;
                     grabado = grabado.Replace("IVA ", "");
                     dtProductos.Rows.Add(id, txtCodigo.Text, txtCantidad.Text, txtDescripcion.Text, string.Format("{0:#,0.00}", Convert.ToDouble(cbPu.Text)), string.Format("{0:#,0.00}", Convert.ToDouble(0)), string.Format("{0:#,0.00}", Convert.ToDouble(txtImporte.Text)), grabado, costo);
+                    
                     txtCodigo.Text = "";
                     txtCantidad.Text = "";
                     txtDescripcion.Text = "";
                     cbPu.Text = "0.00";
                     txtImporte.Text = "";
+                    txtCodigo.AutoCompleteCustomSource = cargadatos();
                     calcula();
                     btnVer.Enabled = false;
                     txtCodigo.Focus();
@@ -983,7 +1042,7 @@ namespace caja
             {
                 if (txtCantidad.Text.Trim() != "0")
                 {
-                    if (id is null) { }
+                    if (id =="" || id is null) { }
                     else
                     {
                         Product productos = new Product();
@@ -1147,6 +1206,32 @@ namespace caja
 
         private void txtIdAtiende_KeyDown(object sender, KeyEventArgs e)
         {
+            if (e.KeyCode== Keys.Up)
+            {
+                if (dtProductos.Rows.Count > 0)
+                {
+                    dtProductos.Focus();
+                }
+                else
+                {
+                    txtCantidad.Focus();
+                }
+            }
+            if (e.KeyCode == Keys.Right)
+            {
+                button1.Focus();
+            }
+            if (e.KeyCode == Keys.Left)
+            {
+                if (dtProductos.Rows.Count > 0)
+                {
+                    dtProductos.Focus();
+                }
+                else
+                {
+                    txtCantidad.Focus();
+                }
+            }
             bool error = false;
             if (e.KeyCode == Keys.Enter)
             {
@@ -1494,6 +1579,184 @@ namespace caja
             porcentaje_anterior = Convert.ToDouble(dtProductos.Rows[e.RowIndex].Cells["descuento"].Value);
         }
 
-        
+        private void txtFolio_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Left)
+            {
+                if (inicial.tipo_usuario != "Admin")
+                {
+                    if (autorizado == true)
+                    {
+                        ticket_buscar("menos");
+                    }
+                    else
+                    {
+                        autentificar cb = new autentificar();
+                        cb.origen = "ver";
+                        cancelado = false;
+                        cb.Owner = this;
+                        cb.ShowDialog();
+                        if (autorizado == true)
+                        {
+                            ticket_buscar("menos");
+                        }
+                            
+                        
+                    }
+                   
+                }
+                else
+                {
+                    
+                    ticket_buscar("menos");
+                }
+            }
+
+            if (e.KeyCode==Keys.Right)
+            {
+                if (inicial.tipo_usuario != "Admin")
+                {
+                    if (autorizado == true)
+                    {
+                        ticket_buscar("mas");
+                    }
+                    else
+                    {
+                        autentificar cb = new autentificar();
+                        cb.origen = "ver";
+                        cancelado = false;
+                        cb.Owner = this;
+                        cb.ShowDialog();
+                        if (autorizado == true)
+                        {
+                            ticket_buscar("menos");
+                        }
+                    }
+                   
+                }
+                else
+                {
+                    ticket_buscar("mas");
+                }
+            }
+        }
+        private void ticket_buscar(string tipo)
+        {
+            int folio_actual = Convert.ToInt16(txtFolio.Text);
+            int folio_buscar = 0;
+            if (tipo == "menos")
+            {
+                folio_buscar = folio_actual - 1;
+            }
+            else
+            {
+                folio_buscar = folio_actual + 1;
+            }
+            folio_ticket = Convert.ToInt16(folio_buscar);
+            Tickets tic = new Tickets();
+            List<Tickets> tick = tic.getTicketsbyId(folio_ticket);
+            if (tick.Count > 0)
+            {
+                txtidcliente.Text = tick[0].Id_cliente.ToString();
+
+                if (tick[0].Status == "C")
+                {
+                    lbCancelado.Visible = true;
+                    txtIdAtiende.Enabled = false;
+                    txtidcliente.Enabled = false;
+                    txtCodigo.Enabled = false;
+                    txtCantidad.Enabled = false;
+                    txtTdescuento.Enabled = false;
+                    button1.Enabled = false;
+                    button2.Enabled = false;
+                    button3.Enabled = false;
+                    button4.Enabled = false;
+                    button5.Enabled = false;
+                    button6.Enabled = false;
+                    button7.Enabled = false;
+                    button8.Enabled = false;
+
+                    button9.Text = "Regresar";
+                    dtProductos.AllowUserToDeleteRows = false;
+                }
+                else
+                {
+                    button9.Text = "Regresar";
+                }
+                Client clientes = new Client();
+                List<Client> cliente = clientes.getClientbyId(tick[0].Id_cliente);
+                lbClient.Text = "Cliente: " + cliente[0].Name + ", RFC: " + cliente[0].RFC;
+                txtIdAtiende.Text = tick[0].Atienda.ToString();
+
+                Users usuarios = new Users();
+                List<Users> usuario = usuarios.getUserbyname(txtIdAtiende.Text);
+
+                if (usuario.Count > 0)
+                {
+                    lbAtiende.Text = usuario[0].Nombre;
+                }
+
+                Dettickets detallados = new Dettickets();
+                List<Dettickets> detalle = detallados.getDetalles(Convert.ToInt16(folio_buscar));
+                Product producto = new Product();
+                dtProductos.Rows.Clear();
+                foreach (Dettickets item in detalle)
+                {
+
+                    List<Product> prod = producto.getProductById(Convert.ToInt16(item.Id_producto));
+                    string grabado = prod[0].Sale_tax;
+                    double costo = prod[0].Cost;
+                    grabado = grabado.Replace("IVA ", "");
+                    dtProductos.Rows.Add(item.Id_producto, prod[0].Code1, item.Cantidad, prod[0].Description, string.Format("{0:#,0.00}", Convert.ToDouble(item.Pu)), string.Format("{0:#,0.00}", Convert.ToDouble(item.Descuento)), string.Format("{0:#,0.00}", Convert.ToDouble(item.Total)), grabado, costo);
+                    calcula();
+                }
+                txtFolio.Text = folio_buscar.ToString();
+            }else if(tick.Count==0 && tipo == "mas")
+            {
+                lbCancelado.Visible = false;
+                txtIdAtiende.Enabled = true;
+                txtidcliente.Enabled = true;
+                txtCodigo.Enabled = true;
+                txtCantidad.Enabled = true;
+                txtTdescuento.Enabled = true;
+                button1.Enabled = true;
+                button2.Enabled = true;
+                button3.Enabled = true;
+                button4.Enabled = true;
+                button5.Enabled = true;
+                button6.Enabled = true;
+                button7.Enabled = true;
+                button8.Enabled = true;
+                dtProductos.AllowUserToDeleteRows = true;
+                button9.Text = "Ver Ticket";
+                dtProductos.Rows.Clear();
+                default_cliente();
+                txtIdAtiende.Text = "";
+                txtCodigo.Focus();
+                get_folio();
+            }
+
+            
+            
+        }
+
+        private void dtProductos_KeyDown(object sender, KeyEventArgs e)
+        {
+            int valor = dtProductos.CurrentRow.Index;
+            if (e.KeyCode == Keys.Up)
+            {
+                if (valor == 0)
+                {
+                    txtCantidad.Focus();
+                }
+            }
+            if (e.KeyCode == Keys.Down)
+            {
+                if (valor == (dtProductos.Rows.Count-1))
+                {
+                    txtIdAtiende.Focus();
+                }
+            }
+        }
     }
 }
