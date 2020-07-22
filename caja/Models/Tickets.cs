@@ -64,7 +64,7 @@ namespace caja.Models
 		{
 			string query = "insert into tbatickets (id_cliente, fecha, subtotal, descuento, iva, total, status, c_iva, s_iva, id_usuario, atendio, a_facturar) values (";
 			query += "'" + this.Id_cliente + "', ";
-			query += "'" + this.Fecha + "', ";
+			query += "NOW(), ";
 			query += "'" + this.Subtotal + "', ";
 			query += "'" + this.Descuento + "', ";
 			query += "'" + this.Iva + "', ";

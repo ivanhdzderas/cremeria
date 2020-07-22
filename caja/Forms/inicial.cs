@@ -12,6 +12,7 @@ using caja.Forms;
 using caja.Forms.Inventario;
 using System.Runtime.InteropServices;
 using caja.Models;
+using Microsoft.VisualBasic.Devices;
 
 namespace caja
 {
@@ -40,27 +41,9 @@ namespace caja
             childForm.Show();
         }
 
-        private void OpenFile(object sender, EventArgs e)
-        {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
-            openFileDialog.Filter = "Archivos de texto (*.txt)|*.txt|Todos los archivos (*.*)|*.*";
-            if (openFileDialog.ShowDialog(this) == DialogResult.OK)
-            {
-                string FileName = openFileDialog.FileName;
-            }
-        }
+       
 
-        private void SaveAsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            SaveFileDialog saveFileDialog = new SaveFileDialog();
-            saveFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
-            saveFileDialog.Filter = "Archivos de texto (*.txt)|*.txt|Todos los archivos (*.*)|*.*";
-            if (saveFileDialog.ShowDialog(this) == DialogResult.OK)
-            {
-                string FileName = saveFileDialog.FileName;
-            }
-        }
+        
 
         private void ExitToolsStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -72,11 +55,7 @@ namespace caja
 
 
 
-        private void CascadeToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            LayoutMdi(MdiLayout.Cascade);
-        }
-
+       
         private void TileVerticalToolStripMenuItem_Click(object sender, EventArgs e)
         {
             LayoutMdi(MdiLayout.TileVertical);
@@ -136,72 +115,84 @@ namespace caja
             else
             {
                 Cortes cort = new Cortes();
-                List<Cortes> existe = cort.getnoclose(Convert.ToInt16(id_usario));
-
-                if (cajero == true)
+                using (cort)
                 {
-                    if (existe.Count > 0)
-                    {
+                    List<Cortes> existe = cort.getnoclose(Convert.ToInt16(id_usario));
 
+                    if (cajero == true)
+                    {
+                        if (existe.Count > 0)
+                        {
+
+                        }
+                        else
+                        {
+                            AbreCaja caja = new AbreCaja();
+                            caja.Owner = this;
+                            caja.ShowDialog();
+                        }
+
+                    }
+                }
+                   
+                
+              
+
+                Permisos permiso = new Permisos();
+                using (permiso)
+                {
+                    List<Permisos> permisos = permiso.getPermiso(Convert.ToInt16(id_usario));
+
+
+
+                    if (Convert.ToBoolean(permisos[0].Mod_cli) == false)
+                    {
+                        clientesToolStripMenuItem.Visible = false;
+                        toolStripButton2.Visible = false;
+                    }
+
+
+                    if (Convert.ToBoolean(permisos[0].Del_prod) == true
+                        || Convert.ToBoolean(permisos[0].Mod_prod) == true
+                        || Convert.ToBoolean(permisos[0].Nuevo_prod) == true
+                        || Convert.ToBoolean(permisos[0].Ver_minimos) == true
+                        || Convert.ToBoolean(permisos[0].Ver_mov_inv) == true
+
+                        )
+                    {
+                        inventarioToolStripMenuItem.Visible = true;
                     }
                     else
                     {
-                        AbreCaja caja = new AbreCaja();
-                        caja.Owner = this;
-                        caja.ShowDialog();
+                        inventarioToolStripMenuItem.Visible = false;
                     }
+                    if (Convert.ToBoolean(permisos[0].Cobrar_ticket) == true
+                        || Convert.ToBoolean(permisos[0].Cancelar_ticket) == true
 
+                        )
+                    {
+                        cajaMenu.Enabled = true;
+                        toolStripButton1.Visible = true;
+                    }
+                    else
+                    {
+                        cajaMenu.Enabled = false;
+                        toolStripButton1.Visible = false;
+                    }
+                    facturasToolStripMenuItem.Enabled = true;
+                    catalogoMenu.Enabled = true;
+                    movimientosToolStripMenuItem.Enabled = true;
+                    toolStripMenuItem1.Enabled = true;
+                    reportesToolStripMenuItem.Enabled = true;
+
+                    panel1.Visible = true;
+                    Menu.Visible = true;
+                    configuracionToolStripMenuItem.Enabled = true;
+                    Bienvenido.Text = "Bienvenido: " + nombre;
                 }
-
-                Permisos permiso = new Permisos();
-                List<Permisos> permisos = permiso.getPermiso(Convert.ToInt16(id_usario));
-               
-
-
-                if (Convert.ToBoolean(permisos[0].Mod_cli) == false)
-                {
-                    clientesToolStripMenuItem.Visible = false;
-                    toolStripButton2.Visible = false;
-                }
-
-
-                if (Convert.ToBoolean(permisos[0].Del_prod) == true
-                    || Convert.ToBoolean(permisos[0].Mod_prod) == true
-                    || Convert.ToBoolean(permisos[0].Nuevo_prod) == true
-                    || Convert.ToBoolean(permisos[0].Ver_minimos) == true
-                    || Convert.ToBoolean(permisos[0].Ver_mov_inv) == true
-
-                    )
-                {
-                    inventarioToolStripMenuItem.Visible = true;
-                }
-                else
-                {
-                    inventarioToolStripMenuItem.Visible = false;
-                }
-                if (Convert.ToBoolean(permisos[0].Cobrar_ticket) == true
-                    || Convert.ToBoolean(permisos[0].Cancelar_ticket) == true
-
-                    )
-                {
-                    cajaMenu.Enabled = true;
-                    toolStripButton1.Visible = true;
-                }
-                else
-                {
-                    cajaMenu.Enabled = false;
-                    toolStripButton1.Visible = false;
-                }
-                facturasToolStripMenuItem.Enabled = true;
-                catalogoMenu.Enabled = true;
-                movimientosToolStripMenuItem.Enabled = true;
-                toolStripMenuItem1.Enabled = true;
-                reportesToolStripMenuItem.Enabled = true;
-
-                panel1.Visible = true;
-                Menu.Visible = true;
-                configuracionToolStripMenuItem.Enabled = true;
-                Bienvenido.Text = "Bienvenido: " + nombre;
+                    
+                
+                
                 busca_caducos();
                 busca_pagos();
             }
@@ -211,11 +202,17 @@ namespace caja
         public void busca_pagos()
         {
             Models.Compras compras = new Models.Compras();
-            List<Models.Compras> compra = compras.getCompras_sin_pagar();
-            if (compra.Count > 0)
+            using (compras)
             {
-                noticacion("Proximos pagos a proveedores", "Tiene pagos por caducar");
+                List<Models.Compras> compra = compras.getCompras_sin_pagar();
+                if (compra.Count > 0)
+                {
+                    noticacion("Proximos pagos a proveedores", "Tiene pagos por caducar");
+                }
             }
+                
+            
+           
         }
         public void noticacion(string Titulo, string texto) {
             notifyIcon1.Text = "Notificaciones";
@@ -227,11 +224,19 @@ namespace caja
         }
         public void busca_caducos()
         {
+
             Product producto = new Product();
-            List<Product> cad = producto.getCaducProducts();
-            if (cad.Count > 0) {
-                noticacion("Proximos productos caducos", "Tiene produtos por caducar");
+            using (producto)
+            {
+                List<Product> cad = producto.getCaducProducts();
+                if (cad.Count > 0)
+                {
+                    noticacion("Proximos productos caducos", "Tiene produtos por caducar");
+                }
             }
+                
+            
+           
 
         }
 
@@ -1274,6 +1279,19 @@ namespace caja
                 Home.TabPages[ultimo].Controls.Add(fc);
                 Home.SelectTab(tabName);
             }
+        }
+
+        private void toolStripButton8_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process calc = new System.Diagnostics.Process { StartInfo = { FileName = @"calc.exe" } };
+            calc.Start();
+            calc.WaitForExit();
+        }
+
+        private void toolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            About nostros = new About();
+            nostros.Show();
         }
     }
 }

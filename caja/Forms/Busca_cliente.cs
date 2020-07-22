@@ -25,12 +25,19 @@ namespace caja.Forms
 		private void Clientes() {
 			dtClientes.Rows.Clear();
 			Client cliente = new Client();
-			List<Client> cli = cliente.getClients();
-			if (cli.Count > 0) {
-				foreach (Client item in cli) {
-					dtClientes.Rows.Add(item.Id, item.Name, item.RFC, item.Tel);
+			using (cliente)
+			{
+				List<Client> cli = cliente.getClients();
+				if (cli.Count > 0)
+				{
+					foreach (Client item in cli)
+					{
+						dtClientes.Rows.Add(item.Id, item.Name, item.RFC, item.Tel);
+					}
 				}
+
 			}
+			
 		}
 
 		private void dtClientes_KeyDown(object sender, KeyEventArgs e)
@@ -50,12 +57,18 @@ namespace caja.Forms
 			if (e.KeyCode == Keys.Enter) {
 				dtClientes.Rows.Clear();
 				Client clients = new Client();
-				List<Client> result = clients.getClientbyRFC(txtRFC.Text);
-				if (result.Count > 0) {
-					foreach (Client item in result) {
-						dtClientes.Rows.Add(item.Id, item.Name, item.RFC, item.Tel);
+				using (clients)
+				{
+					List<Client> result = clients.getClientbyRFC(txtRFC.Text);
+					if (result.Count > 0)
+					{
+						foreach (Client item in result)
+						{
+							dtClientes.Rows.Add(item.Id, item.Name, item.RFC, item.Tel);
+						}
 					}
 				}
+				
 			}
 		}
 
@@ -64,13 +77,19 @@ namespace caja.Forms
 			if (e.KeyCode == Keys.Enter) {
 				dtClientes.Rows.Clear();
 				Client clients = new Client();
-				List<Client> result = clients.getClientbyName(txtNombre.Text);
-				if (result.Count > 0) {
-					foreach (Client item in result) {
-						dtClientes.Rows.Add(item.Id, item.Name, item.RFC, item.Tel);
+				using (clients)
+				{
+					List<Client> result = clients.getClientbyName(txtNombre.Text);
+					if (result.Count > 0)
+					{
+						foreach (Client item in result)
+						{
+							dtClientes.Rows.Add(item.Id, item.Name, item.RFC, item.Tel);
+						}
 					}
+					dtClientes.Focus();
 				}
-				dtClientes.Focus();
+				
 			}
 		}
 

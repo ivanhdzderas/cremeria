@@ -36,27 +36,38 @@ namespace caja.Forms
 		private void devolucion()
 		{
 			Devolutions devolucion = new Devolutions();
-			devolucion.Fecha = dtFecha.Text + " 00:00:00";
-			devolucion.Autorizo = id_usuario;
-			devolucion.Total = Convert.ToDouble(txtTotal.Text);
-			devolucion.create();
-			List<Devolutions> devo = devolucion.get_lastdevocion(dtFecha.Text + " 00:00:00", id_usuario, Convert.ToDouble(txtTotal.Text));
-
-			det_devolution detalles = new det_devolution();
-			detalles.Id_devolucion = devo[0].Id;
-
-			Product productos = new Product();
-			foreach (DataGridViewRow row in dtProductos.Rows)
+			using (devolucion)
 			{
-				detalles.Cantidad = Convert.ToDouble(row.Cells["cantidad"].Value.ToString());
-				detalles.Id_producto = Convert.ToInt16(row.Cells["id"].Value.ToString());
-				detalles.Pu = Convert.ToDouble(row.Cells["pu"].Value.ToString());
-				detalles.create_det();
+				devolucion.Fecha = dtFecha.Text + " 00:00:00";
+				devolucion.Autorizo = id_usuario;
+				devolucion.Total = Convert.ToDouble(txtTotal.Text);
+				devolucion.create();
+				List<Devolutions> devo = devolucion.get_lastdevocion(dtFecha.Text + " 00:00:00", id_usuario, Convert.ToDouble(txtTotal.Text));
 
-				productos.Id= Convert.ToInt16(row.Cells["id"].Value.ToString());
-				List<Product> produ = productos.getProductById(Convert.ToInt16(row.Cells["id"].Value.ToString()));
-				productos.Devoluciones=produ[0].Devoluciones+ Convert.ToDouble(row.Cells["cantidad"].Value.ToString());
-				productos.update_devoluciones();
+				det_devolution detalles = new det_devolution();
+				using (detalles)
+				{
+					detalles.Id_devolucion = devo[0].Id;
+
+					Product productos = new Product();
+					foreach (DataGridViewRow row in dtProductos.Rows)
+					{
+						detalles.Cantidad = Convert.ToDouble(row.Cells["cantidad"].Value.ToString());
+						detalles.Id_producto = Convert.ToInt16(row.Cells["id"].Value.ToString());
+						detalles.Pu = Convert.ToDouble(row.Cells["pu"].Value.ToString());
+						detalles.create_det();
+						using (productos)
+						{
+							productos.Id = Convert.ToInt16(row.Cells["id"].Value.ToString());
+							List<Product> produ = productos.getProductById(Convert.ToInt16(row.Cells["id"].Value.ToString()));
+							productos.Devoluciones = produ[0].Devoluciones + Convert.ToDouble(row.Cells["cantidad"].Value.ToString());
+							productos.update_devoluciones();
+						}
+						
+					}
+				}
+				
+
 			}
 
 			limpiar();
@@ -91,11 +102,15 @@ namespace caja.Forms
 		{
 			AutoCompleteStringCollection datos = new AutoCompleteStringCollection();
 			Product producto = new Product();
-			List<Product> result = producto.getProducts();
-			foreach (Product item in result)
+			using (producto)
 			{
-				datos.Add(item.Code1);
+				List<Product> result = producto.getProducts();
+				foreach (Product item in result)
+				{
+					datos.Add(item.Code1);
+				}
 			}
+			
 			return datos;
 		}
 
@@ -103,11 +118,15 @@ namespace caja.Forms
 		{
 			AutoCompleteStringCollection datos = new AutoCompleteStringCollection();
 			Product producto = new Product();
-			List<Product> result = producto.getProducts();
-			foreach (Product item in result)
+			using (producto)
 			{
-				datos.Add(item.Description);
+				List<Product> result = producto.getProducts();
+				foreach (Product item in result)
+				{
+					datos.Add(item.Description);
+				}
 			}
+			
 			return datos;
 		}
 
@@ -116,14 +135,18 @@ namespace caja.Forms
 			if (e.KeyCode == Keys.Enter)
 			{
 				Product producto = new Product();
-				List<Product> result = producto.getProductByCodeAbsolute(txtCodigo.Text);
-				if (result.Count > 0)
+				using (producto)
 				{
-					txtDescripcion.Text = result[0].Description;
-					txtPrecio.Text = result[0].Price1.ToString();
-					Id = result[0].Id.ToString();
-					txtCantidad.Focus();
+					List<Product> result = producto.getProductByCodeAbsolute(txtCodigo.Text);
+					if (result.Count > 0)
+					{
+						txtDescripcion.Text = result[0].Description;
+						txtPrecio.Text = result[0].Price1.ToString();
+						Id = result[0].Id.ToString();
+						txtCantidad.Focus();
+					}
 				}
+				
 			}
 		}
 
@@ -132,14 +155,18 @@ namespace caja.Forms
 			if (e.KeyCode == Keys.Enter)
 			{
 				Product producto = new Product();
-				List<Product> result = producto.getProductByDescription(txtDescripcion.Text);
-				if (result.Count > 0)
+				using (producto)
 				{
-					txtCodigo.Text = result[0].Code1;
-					txtPrecio.Text = result[0].Price1.ToString();
-					Id = result[0].Id.ToString();
-					txtCantidad.Focus();
+					List<Product> result = producto.getProductByDescription(txtDescripcion.Text);
+					if (result.Count > 0)
+					{
+						txtCodigo.Text = result[0].Code1;
+						txtPrecio.Text = result[0].Price1.ToString();
+						Id = result[0].Id.ToString();
+						txtCantidad.Focus();
+					}
 				}
+				
 			}
 		}
 

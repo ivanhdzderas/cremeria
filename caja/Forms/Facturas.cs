@@ -24,5 +24,10 @@ namespace caja.Forms
 
 			Facturas.Show(this);
 		}
+
+		private void Facturas_Load(object sender, EventArgs e)
+		{
+
+		}
 	}
 }

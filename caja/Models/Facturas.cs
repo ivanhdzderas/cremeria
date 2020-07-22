@@ -21,7 +21,7 @@ namespace caja.Models
 		public string Estado { get; set; }
 		public string Pago { get; set; }
 		public  string Xml { get; set; }
-		public string Id_invoi { get; set; }
+
 
 		public Facturas(
 			int id,
@@ -35,8 +35,7 @@ namespace caja.Models
 			string uuid,
 			string estado,
 			string pago,
-			string xml,
-			string id_invoi
+			string xml
 			)
 		{
 			Id = id;
@@ -51,7 +50,6 @@ namespace caja.Models
 			Estado = estado;
 			Pago = pago;
 			Xml = xml;
-			Id_invoi = id_invoi;
 		}
 
 		public Facturas() { }
@@ -69,15 +67,14 @@ namespace caja.Models
 				data.GetString("uuid"),
 				data.GetString("estado"),
 				data.GetString("pago"),
-				data.GetString("xml"),
-				data.GetString("id_invoice")
+				data.GetString("xml")
 				);
 			return item;
 		}
 
 		public void create()
 		{
-			string query = "INSERT INTO tbafacturas (folio,serie,id_cliente,subtotal,total,cadena_original,sello,uuid,status,pago,xml,id_invoice)VALUES(";
+			string query = "INSERT INTO tbafacturas (folio,serie,id_cliente,subtotal,total,cadena_original,sello,uuid,status,pago,xml)VALUES(";
 			query += "'" + this.Folio + "', ";
 			query += "'" + this.Serie + "', ";
 			query += "'" + this.Cliente + "', ";
@@ -88,11 +85,10 @@ namespace caja.Models
 			query += "'" + this.Uuid + "', ";
 			query += "'" + this.Estado + "', ";
 			query += "'" + this.Pago + "', ";
-			query += "'" + this.Xml + "', ";
-			query += "'" + this.Id_invoi + "')";
+			query += "'" + this.Xml + "', )";
 			object result = runQuery(query);
 		}
-		string maq_query= "SELECT id,folio,serie,id_cliente,subtotal,total,cadena_original,sello,uuid,status,pago,xml,id_invoice FROM tbafacturas";
+		string maq_query= "SELECT id,folio,serie,id_cliente,subtotal,total,cadena_original,sello,uuid,status,pago,xml FROM tbafacturas";
 		public List<Facturas> get_factura()
 		{
 			string query = maq_query;

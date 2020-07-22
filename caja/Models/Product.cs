@@ -155,14 +155,21 @@ namespace caja.Models
         }
         public void update_inventary() {
             string query = "update tbaproductos set cantidad='" + this.Existencia + "' where id='" + this.Id + "'  ";
-            Object result = runQuery(query);
+            using (runQuery(query))
+            {
+
+            }
+           
             
         }
         public void update_devoluciones()
         {
             string query = "update tbaproductos set devolucion='" + this.Devoluciones + "' where id='" + this.Id + "'  ";
-            Object result = runQuery(query);
-           
+            using (runQuery(query))
+            {
+
+            }
+
         }
         public void createProduct() {
             string query = "INSERT INTO tbaproductos (codigo, descripcion, costo, codigo2, codigo3, codigo4, codigo5, precio1, precio2, precio3, precio4, precio5, utilidad1, utilidad2, utilidad3, utilidad4, utilidad5, cantidad, devolucion, unidad, grupo, marca, activo,codigo_sat,sku,medida_sat,impuesto_venta,impuesto_compra,descuento,monto_descuento,minimo,maximo,id_parent, c_unidad,dias_alerta, lote, max_p1,max_p2, max_p3,max_p4,max_p5)";
@@ -210,9 +217,12 @@ namespace caja.Models
             query += "'" + this.Max_p5 + "'";
             query += ");";
 
-            Object result = runQuery(query);
-           
-           
+            using (runQuery(query))
+            {
+
+            }
+
+
 
 
         }
@@ -260,8 +270,11 @@ namespace caja.Models
             query += "max_p5='" + this.Max_p5 + "' ";
             query += "where id='" + this.Id + "'";
 
-            Object result = runQuery(query);
-            
+            using (runQuery(query))
+            {
+
+            }
+
         }
 
         private Product buildProduct(MySqlDataReader data) {
@@ -318,118 +331,129 @@ namespace caja.Models
         {
             string query = mac_query + " where codigo = '" + codigo + "' order by LENGTH(codigo) , codigo";
             MySqlDataReader data = runQuery(query);
-            List<Product> result = new List<Product>();
-            if (data.HasRows)
+            using (data)
             {
-                while (data.Read())
+                List<Product> result = new List<Product>();
+                if (data.HasRows)
                 {
-                    Product item = buildProduct(data);
-                    result.Add(item);
+                    while (data.Read())
+                    {
+                        Product item = buildProduct(data);
+                        result.Add(item);
+                    }
                 }
+                return result;
             }
-            return result;
+           
+           
         }
         public List<Product> getMinProduct()
         {
             string query = mac_query + " where minimo <= cantidad order by LENGTH(codigo) , codigo";
             MySqlDataReader data = runQuery(query);
-            List<Product> result = new List<Product>();
-            if (data.HasRows)
+            using (data)
             {
-                while (data.Read())
+                List<Product> result = new List<Product>();
+                if (data.HasRows)
                 {
-                    Product item = buildProduct(data);
-                    result.Add(item);
+                    while (data.Read())
+                    {
+                        Product item = buildProduct(data);
+                        result.Add(item);
+                    }
                 }
+                return result;
             }
-            return result;
         }
         public List<Product> getProductById(int id)
         {
             string query = mac_query + " where id = '" + id + "' order by LENGTH(codigo) , codigo";
             MySqlDataReader data = runQuery(query);
-            List<Product> result = new List<Product>();
-
-            if (data.HasRows)
+            using (data)
             {
-                while (data.Read())
+                List<Product> result = new List<Product>();
+                if (data.HasRows)
                 {
-                    Product item = buildProduct(data);
-                    result.Add(item);
-
+                    while (data.Read())
+                    {
+                        Product item = buildProduct(data);
+                        result.Add(item);
+                    }
                 }
+                return result;
             }
-
-            return result;
 
         }
         public List<Product> getProduct(int parent) {
             string query = mac_query + " where id_parent='" + parent.ToString() + "' order by LENGTH(codigo) , codigo";
             MySqlDataReader data = runQuery(query);
-            List<Product> result = new List<Product>();
-
-            if (data.HasRows)
+            using (data)
             {
-                while (data.Read())
+                List<Product> result = new List<Product>();
+                if (data.HasRows)
                 {
-                    Product item = buildProduct(data);
-                    result.Add(item);
-
+                    while (data.Read())
+                    {
+                        Product item = buildProduct(data);
+                        result.Add(item);
+                    }
                 }
+                return result;
             }
-
-            return result;
         }
         public List<Product> getProductByDescription(string description)
         {
             string query = mac_query + " where descripcion like '%" + description + "%' order by LENGTH(codigo) , codigo";
             MySqlDataReader data = runQuery(query);
-            List<Product> result = new List<Product>();
-
-            if (data.HasRows)
+            using (data)
             {
-                while (data.Read())
+                List<Product> result = new List<Product>();
+                if (data.HasRows)
                 {
-                    Product item = buildProduct(data);
-                    result.Add(item);
-
+                    while (data.Read())
+                    {
+                        Product item = buildProduct(data);
+                        result.Add(item);
+                    }
                 }
+                return result;
             }
-
-            return result;
 
         }
         public List<Product> getProductNoSub() {
             string query = mac_query + " where id_parent=0 order by LENGTH(codigo) , codigo";
             MySqlDataReader data = runQuery(query);
-            List<Product> result = new List<Product>();
-
-            if (data.HasRows)
+            using (data)
             {
-                while (data.Read())
+                List<Product> result = new List<Product>();
+                if (data.HasRows)
                 {
-                    Product item = buildProduct(data);
-                    result.Add(item);
-
+                    while (data.Read())
+                    {
+                        Product item = buildProduct(data);
+                        result.Add(item);
+                    }
                 }
+                return result;
             }
-
-            return result;
         }
         public List<Product> getProductByCode(string code)
         {
             string query = mac_query + " where (codigo like '%" + code + "%' or codigo2 like '%" + code + "%' or codigo3 like '%" + code + "%' or codigo4 like '%" + code + "%' or codigo5 like '%" + code + "%' or sku like '%" + code + "%') order by LENGTH(codigo) , codigo";
             MySqlDataReader data = runQuery(query);
-            List<Product> result = new List<Product>();
-            if (data.HasRows)
+            using (data)
             {
-                while (data.Read())
+                List<Product> result = new List<Product>();
+                if (data.HasRows)
                 {
-                    Product item = buildProduct(data);
-                    result.Add(item);
+                    while (data.Read())
+                    {
+                        Product item = buildProduct(data);
+                        result.Add(item);
+                    }
                 }
+                return result;
             }
-            return result;
         }
 
 
@@ -437,68 +461,74 @@ namespace caja.Models
         {
             string query = mac_query + " where (codigo='" + code + "' or codigo2='" + code + "' or codigo3='" + code + "' or codigo4='" + code + "' or codigo5='" + code + "' or sku='" + code + "') order by LENGTH(codigo) , codigo";
             MySqlDataReader data = runQuery(query);
-            List<Product> result = new List<Product>();
-            if (data.HasRows)
+            using (data)
             {
-                while (data.Read())
+                List<Product> result = new List<Product>();
+                if (data.HasRows)
                 {
-                    Product item = buildProduct(data);
-                    result.Add(item);
+                    while (data.Read())
+                    {
+                        Product item = buildProduct(data);
+                        result.Add(item);
+                    }
                 }
+                return result;
             }
-            return result;
         }
 
         public List<Product> getProductByigualCode(string code)
         {
             string query = mac_query + " where (codigo = '" + code + "' or codigo2 = '" + code + "' or codigo3 like '%" + code + "%' or codigo4 = '" + code + "' or codigo5 = '" + code + "' or sku='" + code + "') order by LENGTH(codigo) , codigo";
             MySqlDataReader data = runQuery(query);
-            List<Product> result = new List<Product>();
-            if (data.HasRows)
+            using (data)
             {
-                while (data.Read())
+                List<Product> result = new List<Product>();
+                if (data.HasRows)
                 {
-                    Product item = buildProduct(data);
-                    result.Add(item);
+                    while (data.Read())
+                    {
+                        Product item = buildProduct(data);
+                        result.Add(item);
+                    }
                 }
+                return result;
             }
-            return result;
         }
         public  List<Product> getProducts() {
             string query = mac_query;
             MySqlDataReader data = runQuery(query);
-            List<Product> result = new List<Product>();
-
-            if (data.HasRows)
+            using (data)
             {
-                while (data.Read())
+                List<Product> result = new List<Product>();
+                if (data.HasRows)
                 {
-                    Product item = buildProduct(data);
-                    result.Add(item);
-
+                    while (data.Read())
+                    {
+                        Product item = buildProduct(data);
+                        result.Add(item);
+                    }
                 }
+                return result;
             }
-
-            return result;
         }
 
         public List<Product> getCaducProducts()
         {
             string query = "select tbaproductos.id,tbaproductos.id_parent,tbaproductos.c_unidad,  tbaproductos.descripcion,tbaproductos.sku,tbaproductos.medida_sat, tbaproductos.codigo, tbaproductos.codigo2, tbaproductos.codigo3, tbaproductos.codigo4, tbaproductos.codigo5, tbaproductos.cantidad,tbaproductos.devolucion, tbaproductos.grupo, tbaproductos.marca, tbaproductos.unidad, tbaproductos.precio1, tbaproductos.precio2, tbaproductos.precio3, tbaproductos.precio4, tbaproductos.precio5, tbaproductos.utilidad1, tbaproductos.utilidad2, tbaproductos.utilidad3, tbaproductos.utilidad4, tbaproductos.utilidad5, tbaproductos.costo, tbaproductos.activo, tbaproductos.codigo_sat, tbaproductos.impuesto_venta, tbaproductos.impuesto_compra, tbaproductos.descuento, tbaproductos.monto_descuento, tbaproductos.minimo, tbaproductos.maximo,tbaproductos.dias_alerta, tbaproductos.lote   from tbaproductos inner join tbacaducidad on tbaproductos.id=tbacaducidad.id_producto where TIMESTAMPDIFF(DAY, tbacaducidad.caducidad, NOW())<=tbaproductos.dias_alerta";
             MySqlDataReader data = runQuery(query);
-            List<Product> result = new List<Product>();
-
-            if (data.HasRows)
+            using (data)
             {
-                while (data.Read())
+                List<Product> result = new List<Product>();
+                if (data.HasRows)
                 {
-                    Product item = buildProduct(data);
-                    result.Add(item);
-
+                    while (data.Read())
+                    {
+                        Product item = buildProduct(data);
+                        result.Add(item);
+                    }
                 }
+                return result;
             }
-
-            return result;
         }
 
     }

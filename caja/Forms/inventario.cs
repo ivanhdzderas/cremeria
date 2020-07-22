@@ -21,12 +21,16 @@ namespace caja
         {
             dataGridView1.Rows.Clear();
             Product product = new Product();
-            List<Product> result = product.getProductNoSub();
-
-            foreach (Product item in result)
+            using (product)
             {
-                dataGridView1.Rows.Add(item.Id,item.Code1, item.Code2, item.Code3, item.Code4, item.Code5, item.Description, (item.Existencia+item.Devoluciones), item.Price1, item.Price2, item.Price2, item.Price4, item.Price5);
+                List<Product> result = product.getProductNoSub();
+
+                foreach (Product item in result)
+                {
+                    dataGridView1.Rows.Add(item.Id, item.Code1, item.Code2, item.Code3, item.Code4, item.Code5, item.Description, (item.Existencia + item.Devoluciones), item.Price1, item.Price2, item.Price2, item.Price4, item.Price5);
+                }
             }
+           
           
         }
         private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -63,13 +67,17 @@ namespace caja
 
 
                     Product product = new Product();
-                    List<Product> result = product.getProductByDescription(bus_descripcion);
-
-                    foreach (Product item in result)
+                    using (product)
                     {
-                        dataGridView1.Rows.Add(item.Id, item.Code1, item.Code2, item.Code3, item.Code4, item.Code5, item.Description, (item.Existencia + item.Devoluciones), item.Price1, item.Price2, item.Price2, item.Price4, item.Price5);
+                        List<Product> result = product.getProductByDescription(bus_descripcion);
 
+                        foreach (Product item in result)
+                        {
+                            dataGridView1.Rows.Add(item.Id, item.Code1, item.Code2, item.Code3, item.Code4, item.Code5, item.Description, (item.Existencia + item.Devoluciones), item.Price1, item.Price2, item.Price2, item.Price4, item.Price5);
+
+                        }
                     }
+                    
 
                 }
                 
@@ -89,13 +97,17 @@ namespace caja
                     dataGridView1.Rows.Clear();
                     string codigo_buscar = textBox2.Text;
                     Product product = new Product();
-                    List<Product> result = product.getProductByCode(codigo_buscar);
-
-                    foreach (Product item in result)
+                    using (product)
                     {
-                        dataGridView1.Rows.Add(item.Id, item.Code1, item.Code2, item.Code3, item.Code4, item.Code5, item.Description, (item.Existencia+item.Devoluciones), item.Price1, item.Price2, item.Price2, item.Price4, item.Price5);
-                        
+                        List<Product> result = product.getProductByCode(codigo_buscar);
+
+                        foreach (Product item in result)
+                        {
+                            dataGridView1.Rows.Add(item.Id, item.Code1, item.Code2, item.Code3, item.Code4, item.Code5, item.Description, (item.Existencia + item.Devoluciones), item.Price1, item.Price2, item.Price2, item.Price4, item.Price5);
+
+                        }
                     }
+                   
                 }
                 
             }
@@ -106,12 +118,16 @@ namespace caja
             dataGridView1.Rows.Clear();
             string codigo_buscar = textBox2.Text;
             Product product = new Product();
-            List<Product> result = product.getCaducProducts();
-
-            foreach (Product item in result)
+            using (product)
             {
-                dataGridView1.Rows.Add(item.Code1, item.Code2, item.Code3, item.Code4, item.Code5, item.Description, item.Description, item.Price1, item.Price2, item.Price2, item.Price4, item.Price5);
+                List<Product> result = product.getCaducProducts();
+
+                foreach (Product item in result)
+                {
+                    dataGridView1.Rows.Add(item.Code1, item.Code2, item.Code3, item.Code4, item.Code5, item.Description, item.Description, item.Price1, item.Price2, item.Price2, item.Price4, item.Price5);
+                }
             }
+           
         }
 
         private void button3_Click(object sender, EventArgs e)

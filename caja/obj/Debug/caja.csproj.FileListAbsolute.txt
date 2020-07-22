@@ -6,7 +6,6 @@ C:\Users\anton\source\repos\caja\caja\bin\Debug\caja.exe.config
 C:\Users\anton\source\repos\caja\caja\bin\Debug\caja.exe
 C:\Users\anton\source\repos\caja\caja\bin\Debug\caja.pdb
 C:\Users\anton\source\repos\caja\caja\bin\Debug\BouncyCastle.Crypto.dll
-C:\Users\anton\source\repos\caja\caja\bin\Debug\Facturapi.dll
 C:\Users\anton\source\repos\caja\caja\bin\Debug\Google.Protobuf.dll
 C:\Users\anton\source\repos\caja\caja\bin\Debug\iTextSharp.dll
 C:\Users\anton\source\repos\caja\caja\bin\Debug\MetroFramework.Design.dll
@@ -146,3 +145,8 @@ C:\Users\anton\source\repos\caja\caja\obj\Debug\caja.Forms.Tickets_a_facturar.re
 C:\Users\anton\source\repos\caja\caja\obj\Debug\caja.Forms.Tickets_terminar.resources
 C:\Users\anton\source\repos\caja\caja\obj\Debug\caja.Forms.clientes_detallado.resources
 C:\Users\anton\source\repos\caja\caja\obj\Debug\caja.Forms.devoluciones.resources
+C:\Users\anton\source\repos\caja\caja\bin\Debug\caja.exe.manifest
+C:\Users\anton\source\repos\caja\caja\bin\Debug\caja.application
+C:\Users\anton\source\repos\caja\caja\obj\Debug\caja.exe.manifest
+C:\Users\anton\source\repos\caja\caja\obj\Debug\caja.application
+C:\Users\anton\source\repos\caja\caja\bin\Debug\CFDI3_VB.dll

@@ -20,11 +20,15 @@ namespace caja
             dtgClientes.Rows.Clear();
 
             Client client = new Client();
-            List<Client> result = client.getClients();
-
-            foreach (Client item in result) {
-                dtgClientes.Rows.Add(item.Id, item.Name, item.RFC);
+            using (client)
+            {
+                List<Client> result = client.getClients();
+                foreach (Client item in result)
+                {
+                    dtgClientes.Rows.Add(item.Id, item.Name, item.RFC);
+                }
             }
+            
 
         }
         private void button1_Click(object sender, EventArgs e)
@@ -58,16 +62,15 @@ namespace caja
                 {
                     dtgClientes.Rows.Clear();
                     string bus_descripcion = txtBuscar.Text;
-
-
                     Client clien = new Client();
-                    List<Client> result = clien.getClientbyName(bus_descripcion);
-
-                    foreach (Client item in result)
+                    using (clien)
                     {
-                        dtgClientes.Rows.Add(item.Id, item.Name, item.RFC);
+                        List<Client> result = clien.getClientbyName(bus_descripcion);
+                        foreach (Client item in result)
+                        {
+                            dtgClientes.Rows.Add(item.Id, item.Name, item.RFC);
+                        }
                     }
-
                 }
 
             }

@@ -37,21 +37,29 @@ namespace caja.Forms
 		{
 			
 			Tickets ticket = new Tickets();
-			List<Tickets> lista = ticket.getbyUser(Convert.ToInt16(inicial.id_usario));
-			double total = 0;
-			Cortes cortes = new Cortes();
-			List<Cortes> ultimo = cortes.getnoclose(Convert.ToInt16(inicial.id_usario));
-			foreach (Cortes item in ultimo) {
-				total += item.Caja_inicial;
-			}
+			using (ticket)
+			{
+				List<Tickets> lista = ticket.getbyUser(Convert.ToInt16(inicial.id_usario));
+				double total = 0;
+				Cortes cortes = new Cortes();
+				using (cortes)
+				{
+					List<Cortes> ultimo = cortes.getnoclose(Convert.ToInt16(inicial.id_usario));
+					foreach (Cortes item in ultimo)
+					{
+						total += item.Caja_inicial;
+					}
 
-			foreach (Tickets item in lista) {
-				total += item.Total;
+					foreach (Tickets item in lista)
+					{
+						total += item.Total;
+					}
+					lbEsperado.Text = string.Format("{0:#,0.00}", total);
+					txtReal.TextAlign = HorizontalAlignment.Right;
+					txtReal.Text = "0.00";
+					calcula();
+				}
 			}
-			lbEsperado.Text= string.Format("{0:#,0.00}", total);
-			txtReal.TextAlign = HorizontalAlignment.Right;
-			txtReal.Text = "0.00";
-			calcula();
 		}
 
 		private void txtReal_KeyPress(object sender, KeyPressEventArgs e)
@@ -84,10 +92,13 @@ namespace caja.Forms
 		private void button1_Click(object sender, EventArgs e)
 		{
 			Cortes corte = new Cortes();
-			corte.Caja_fin = Convert.ToDouble(txtReal.Text);
-			corte.Diferencia = Convert.ToDouble(lbDiferencia.Text);
-			corte.Id_usuario = Convert.ToInt16(inicial.id_usario);
-			corte.end_caja();
+			using (corte)
+			{
+				corte.Caja_fin = Convert.ToDouble(txtReal.Text);
+				corte.Diferencia = Convert.ToDouble(lbDiferencia.Text);
+				corte.Id_usuario = Convert.ToInt16(inicial.id_usario);
+				corte.end_caja();
+			}
 			inicial.exit = true;
 			this.Close();
 		}

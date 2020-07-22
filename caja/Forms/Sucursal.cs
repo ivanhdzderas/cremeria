@@ -31,14 +31,20 @@ namespace caja.Forms
 			table.Rows.Add(row);
 
 			Offices oficinas = new Offices();
-			List<Offices> oficina = oficinas.GetOffices();
-			foreach (Offices ofi in oficina)
+			using (oficinas)
 			{
-				row = table.NewRow();
-				row["Text"] = ofi.Name;
-				row["Value"] = ofi.Id;
-				table.Rows.Add(row);
+				List<Offices> oficina = oficinas.GetOffices();
+				foreach (Offices ofi in oficina)
+				{
+					row = table.NewRow();
+					row["Text"] = ofi.Name;
+					row["Value"] = ofi.Id;
+					table.Rows.Add(row);
+				}
 			}
+				
+			
+			
 			cbOficinas.BindingContext = new BindingContext();
 			cbOficinas.DataSource = table;
 			cbOficinas.DisplayMember = "Text";

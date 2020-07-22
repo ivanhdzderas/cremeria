@@ -31,14 +31,18 @@ namespace caja
             table.Rows.Add(row);
             // cboMarca.Items.Clear();
             Marcas marca = new Marcas();
-            List<Marcas> result = marca.getMarcas();
-            foreach (Marcas item in result)
+            using (marca)
             {
-                row = table.NewRow();
-                row["Text"] = item.Marca;
-                row["Value"] = item.Id;
-                table.Rows.Add(row);
+                List<Marcas> result = marca.getMarcas();
+                foreach (Marcas item in result)
+                {
+                    row = table.NewRow();
+                    row["Text"] = item.Marca;
+                    row["Value"] = item.Id;
+                    table.Rows.Add(row);
+                }
             }
+            
             cboMarca.BindingContext = new BindingContext();
             cboMarca.DataSource = table;
             cboMarca.DisplayMember = "Text";
@@ -52,30 +56,34 @@ namespace caja
             if (SubProducto != null)
             {
                 Product sub = new Product();
-                List<Product> item = sub.getProduct(Convert.ToInt32(SubProducto));
-                if (item.Any() == true)
+                using (sub)
                 {
-                    chkCarton.Checked = true;
-                    foreach (Product prod in item)
+                    List<Product> item = sub.getProduct(Convert.ToInt32(SubProducto));
+                    if (item.Any() == true)
                     {
-                        SubSubProducto = prod.Id.ToString();
-                        txtCodigoCarton.Text = prod.Code1;
-                        txtSkuCarton.Text = prod.Sku;
-                        txtDescripcionCarton.Text = prod.Description;
-                        txtCostoCarton.Text = prod.Cost.ToString();
-                        txtUtilidad1Ct.Text = prod.Utility1.ToString();
-                        txtUtilidad2Ct.Text = prod.Utility2.ToString();
-                        txtUtilidad3Ct.Text = prod.Utility3.ToString();
+                        chkCarton.Checked = true;
+                        foreach (Product prod in item)
+                        {
+                            SubSubProducto = prod.Id.ToString();
+                            txtCodigoCarton.Text = prod.Code1;
+                            txtSkuCarton.Text = prod.Sku;
+                            txtDescripcionCarton.Text = prod.Description;
+                            txtCostoCarton.Text = prod.Cost.ToString();
+                            txtUtilidad1Ct.Text = prod.Utility1.ToString();
+                            txtUtilidad2Ct.Text = prod.Utility2.ToString();
+                            txtUtilidad3Ct.Text = prod.Utility3.ToString();
 
-                        txtPrecio1Ct.Text = prod.Price1.ToString();
-                        txtPrecio2Ct.Text = prod.Price2.ToString();
-                        txtPrecio3Ct.Text = prod.Price3.ToString();
-                        max_p1ct.Value = prod.Max_p1;
-                        max_p2ct.Value = prod.Max_p2;
-                        max_p3ct.Value = prod.Max_p3;
-                        txtp_carton.Text = prod.C_unidad;
+                            txtPrecio1Ct.Text = prod.Price1.ToString();
+                            txtPrecio2Ct.Text = prod.Price2.ToString();
+                            txtPrecio3Ct.Text = prod.Price3.ToString();
+                            max_p1ct.Value = prod.Max_p1;
+                            max_p2ct.Value = prod.Max_p2;
+                            max_p3ct.Value = prod.Max_p3;
+                            txtp_carton.Text = prod.C_unidad;
+                        }
                     }
                 }
+                
             }
             
 
@@ -87,103 +95,123 @@ namespace caja
             tvGrupos.SelectedImageIndex = 1;
 
             Groups grupos = new Groups();
-            List<Groups> grupo = grupos.getGroupsonly();
-            foreach (Groups item in grupo)
+            using (grupos)
             {
-                TreeNode nodo = new TreeNode(item.Group.ToString());
-                nodo.Tag = item.Id.ToString();
-                nodo.ImageIndex = 0;
-                tvGrupos.Nodes.Add(nodo);
+                List<Groups> grupo = grupos.getGroupsonly();
+                foreach (Groups item in grupo)
+                {
+                    TreeNode nodo = new TreeNode(item.Group.ToString());
+                    nodo.Tag = item.Id.ToString();
+                    nodo.ImageIndex = 0;
+                    tvGrupos.Nodes.Add(nodo);
 
-                generarNodes(item.Id, nodo);
+                    generarNodes(item.Id, nodo);
+                }
             }
+            
             tvGrupos.ExpandAll();
         }
         public void generarNodes(int parentId, TreeNode parentNode)
         {
             Groups grupo = new Groups();
-            List<Groups> sub = grupo.getSubgrups(parentId);
-            TreeNode childNode;
-            foreach (Groups item in sub)
+            using (grupo)
             {
-                if (parentNode == null)
+                List<Groups> sub = grupo.getSubgrups(parentId);
+                TreeNode childNode;
+                foreach (Groups item in sub)
                 {
-                    childNode = tvGrupos.Nodes.Add(item.Group);
-                    childNode.Tag = item.Id.ToString();
-                    childNode.ImageIndex = 0;
-                }
-                else
-                {
-                    childNode = parentNode.Nodes.Add(item.Group);
-                    childNode.Tag = item.Id.ToString();
-                    childNode.ImageIndex = 0;
-                    generarNodes(item.Id, childNode);
+                    if (parentNode == null)
+                    {
+                        childNode = tvGrupos.Nodes.Add(item.Group);
+                        childNode.Tag = item.Id.ToString();
+                        childNode.ImageIndex = 0;
+                    }
+                    else
+                    {
+                        childNode = parentNode.Nodes.Add(item.Group);
+                        childNode.Tag = item.Id.ToString();
+                        childNode.ImageIndex = 0;
+                        generarNodes(item.Id, childNode);
+                    }
                 }
             }
+            
         }
         private void carga_kardex() {
             Kardex historia = new Kardex();
-            List<Kardex> result = historia.getKardex(Convert.ToInt16(Codigo));
-            foreach (Kardex item in result) {
-                string id = item.Id.ToString();
-                string fecha = item.Fecha;
-                string folio_documento = item.Id_documento.ToString();
-                string antes = item.Antes.ToString();
-                string cantidad = item.Cantidad.ToString();
-                string tipo = "";
-                switch (item.Tipo) {
-                    case "E":
-                        tipo = "Entrada";
-                        break;
-                    case "S":
-                        tipo = "Salida";
-                        break;
-                    case "A":
-                        tipo = "Ajuste";
-                        break;
-                    case "V":
-                        tipo = "Venta";
-                        break;
-                    case "T":
-                        tipo = "Traspaso";
-                        break;
-                    case "C":
-                        tipo = "Compra";
-                        break;
-                    case "D":
-                        tipo = "Ticket";
-                        break;
+            using (historia)
+            {
+                List<Kardex> result = historia.getKardex(Convert.ToInt16(Codigo));
+                foreach (Kardex item in result)
+                {
+                    string id = item.Id.ToString();
+                    string fecha = item.Fecha;
+                    string folio_documento = item.Id_documento.ToString();
+                    string antes = item.Antes.ToString();
+                    string cantidad = item.Cantidad.ToString();
+                    string tipo = "";
+                    switch (item.Tipo)
+                    {
+                        case "E":
+                            tipo = "Entrada";
+                            break;
+                        case "S":
+                            tipo = "Salida";
+                            break;
+                        case "A":
+                            tipo = "Ajuste";
+                            break;
+                        case "V":
+                            tipo = "Venta";
+                            break;
+                        case "T":
+                            tipo = "Traspaso";
+                            break;
+                        case "C":
+                            tipo = "Compra";
+                            break;
+                        case "D":
+                            tipo = "Ticket";
+                            break;
+                    }
+                    dtKardex.Rows.Add(id, fecha, tipo, folio_documento, antes, cantidad);
                 }
-                dtKardex.Rows.Add(id, fecha, tipo, folio_documento, antes, cantidad);
             }
+            
         }
         public void carga_pack(int id)
         {
             
             Product sub = new Product();
-            List<Product> item = sub.getProduct(id);
-            if (item.Any()==true) {
-                chkCaja.Checked = true;
-                foreach (Product prod in item) {
-                    SubProducto = prod.Id.ToString();
-                    txtCodigoCaja.Text = prod.Code1;
-                    txtSkuCaja.Text = prod.Sku;
-                    txtDescripcionCaja.Text = prod.Description;
-                    txtCostoCaja.Text = prod.Cost.ToString();
-                    txtUtilidad1C.Text = prod.Utility1.ToString();
-                    txtUtilidad2C.Text = prod.Utility2.ToString();
-                    txtUtilidad3C.Text = prod.Utility3.ToString();
+            using (sub)
+            {
+                List<Product> item = sub.getProduct(id);
+                if (item.Any() == true)
+                {
+                    chkCaja.Checked = true;
+                    foreach (Product prod in item)
+                    {
+                        SubProducto = prod.Id.ToString();
+                        txtCodigoCaja.Text = prod.Code1;
+                        txtSkuCaja.Text = prod.Sku;
+                        txtDescripcionCaja.Text = prod.Description;
+                        txtCostoCaja.Text = prod.Cost.ToString();
+                        txtUtilidad1C.Text = prod.Utility1.ToString();
+                        txtUtilidad2C.Text = prod.Utility2.ToString();
+                        txtUtilidad3C.Text = prod.Utility3.ToString();
 
-                    txtPrecio1C.Text = prod.Price1.ToString();
-                    txtPrecio2C.Text = prod.Price2.ToString();
-                    txtPrecio3C.Text = prod.Price3.ToString();
-                    max_p1c.Value = prod.Max_p1;
-                    max_p2c.Value = prod.Max_p2;
-                    max_p3c.Value = prod.Max_p3;
+                        txtPrecio1C.Text = prod.Price1.ToString();
+                        txtPrecio2C.Text = prod.Price2.ToString();
+                        txtPrecio3C.Text = prod.Price3.ToString();
+                        max_p1c.Value = prod.Max_p1;
+                        max_p2c.Value = prod.Max_p2;
+                        max_p3c.Value = prod.Max_p3;
 
-                    txtPCaja.Text = prod.C_unidad;
+                        txtPCaja.Text = prod.C_unidad;
+                    }
                 }
             }
+            
         
         }
         private void CallRecursive(TreeView treeView, string selector)
@@ -268,60 +296,64 @@ namespace caja
             if (Codigo != "")
             {
                 Product product = new Product();
-                List<Product> result = product.getProductById(Convert.ToInt32(Codigo));
+                
+                    List<Product> result = product.getProductById(Convert.ToInt32(Codigo));
 
-                foreach (Product item in result) {
-                    txtCodigo1.Text = item.Code1;
-                    txtCodigo2.Text = item.Code2;
-                    txtCodigo3.Text = item.Code3;
-                    txtCodigo4.Text = item.Code4;
-                    txtCodigo5.Text = item.Code5;
-                    txtDescripcion.Text = item.Description;
-                    txtCosto.Text = item.Cost.ToString();
-                    txtPercentPrice1.Text = item.Utility1.ToString();
-                    txtPercentPrice2.Text = item.Utility2.ToString();
-                    txtPercentPrice3.Text = item.Utility3.ToString();
-                    txtPercentPrice4.Text = item.Utility4.ToString();
-                    txtPercentPrice5.Text = item.Utility5.ToString();
-                    txtPrice1.Text = item.Price1.ToString();
-                    txtPrice2.Text = item.Price2.ToString();
-                    txtPrice3.Text = item.Price3.ToString();
-                    txtPrice4.Text = item.Price4.ToString();
-                    txtPrice5.Text = item.Price5.ToString();
-                    txtExistencia.Text = item.Existencia.ToString();
-                    txtDevoluciones.Text = item.Devoluciones.ToString();
-                    cboMarca.SelectedValue = item.Brand;
-
-                    CallRecursive(tvGrupos, item.Group);
-
-
-                    cboUnidad.SelectedValue = item.Unit;
-                    txtSAT.Text = item.Code_sat;
-                    txtUnidadSat.Text = item.Medida_sat;
-                    txtMinimo.Text = item.Min.ToString();
-                    txtMaximo.Text = item.Max.ToString();
-                    chkDescuento.Checked = Convert.ToBoolean(item.Discount);
-                    txtDescuento.Text = item.Mount_discount.ToString();
-
-                    if (Convert.ToBoolean(item.Discount) == true)
+                    foreach (Product item in result)
                     {
-                        txtDescuento.Enabled = false;
+                        txtCodigo1.Text = item.Code1;
+                        txtCodigo2.Text = item.Code2;
+                        txtCodigo3.Text = item.Code3;
+                        txtCodigo4.Text = item.Code4;
+                        txtCodigo5.Text = item.Code5;
+                        txtDescripcion.Text = item.Description;
+                        txtCosto.Text = item.Cost.ToString();
+                        txtPercentPrice1.Text = item.Utility1.ToString();
+                        txtPercentPrice2.Text = item.Utility2.ToString();
+                        txtPercentPrice3.Text = item.Utility3.ToString();
+                        txtPercentPrice4.Text = item.Utility4.ToString();
+                        txtPercentPrice5.Text = item.Utility5.ToString();
+                        txtPrice1.Text = item.Price1.ToString();
+                        txtPrice2.Text = item.Price2.ToString();
+                        txtPrice3.Text = item.Price3.ToString();
+                        txtPrice4.Text = item.Price4.ToString();
+                        txtPrice5.Text = item.Price5.ToString();
+                        txtExistencia.Text = item.Existencia.ToString();
+                        txtDevoluciones.Text = item.Devoluciones.ToString();
+                        cboMarca.SelectedValue = item.Brand;
+
+                        CallRecursive(tvGrupos, item.Group);
+
+
+                        cboUnidad.SelectedValue = item.Unit;
+                        txtSAT.Text = item.Code_sat;
+                        txtUnidadSat.Text = item.Medida_sat;
+                        txtMinimo.Text = item.Min.ToString();
+                        txtMaximo.Text = item.Max.ToString();
+                        chkDescuento.Checked = Convert.ToBoolean(item.Discount);
+                        txtDescuento.Text = item.Mount_discount.ToString();
+
+                        if (Convert.ToBoolean(item.Discount) == true)
+                        {
+                            txtDescuento.Enabled = false;
+                        }
+                        else
+                        {
+                            txtDescuento.Enabled = true;
+                        }
+                        chkLote.Checked = Convert.ToBoolean(item.Lote);
+                        max_p1.Value = item.Max_p1;
+                        max_p2.Value = item.Max_p2;
+                        max_p3.Value = item.Max_p3;
+                        max_p4.Value = item.Max_p4;
+                        max_p5.Value = item.Max_p5;
+                        txtdias.Text = item.Dias_alerta.ToString();
+                        carga_pack(Convert.ToUInt16(Codigo));
+                        carga_box();
+                        carga_kardex();
                     }
-                    else
-                    {
-                        txtDescuento.Enabled = true;
-                    }
-                    chkLote.Checked = Convert.ToBoolean(item.Lote);
-                    max_p1.Value = item.Max_p1;
-                    max_p2.Value = item.Max_p2;
-                    max_p3.Value = item.Max_p3;
-                    max_p4.Value = item.Max_p4;
-                    max_p5.Value = item.Max_p5;
-                    txtdias.Text = item.Dias_alerta.ToString();
-                    carga_pack(Convert.ToUInt16(Codigo));
-                    carga_box();
-                    carga_kardex();
-                }
+                
+                
             }
             
            
@@ -881,17 +913,23 @@ namespace caja
 
                 if (Codigo == "")
                 {
-                    product.createProduct();
-                    List<Product> result = product.getProductByCode(txtCodigo1.Text);
-                    foreach (Product item in result)
-                    {
-                        Codigo = item.Id.ToString();
-                    }
+                    
+                        product.createProduct();
+                        List<Product> result = product.getProductByCode(txtCodigo1.Text);
+                        foreach (Product item in result)
+                        {
+                            Codigo = item.Id.ToString();
+                        }
+                    
+                   
                 }
                 else
                 {
-                    product.Id = Convert.ToInt32(Codigo);
-                    product.saveProduct();
+                    
+                        product.Id = Convert.ToInt32(Codigo);
+                        product.saveProduct();
+                    
+                   
                 }
 
                 if (chkCaja.Checked == true)
@@ -944,17 +982,23 @@ namespace caja
 
                     if (Codigo == "")
                     {
-                        subproduct.createProduct();
-                        List<Product> result = product.getProductByCode(txtCodigo1.Text);
-                        foreach (Product item in result)
-                        {
-                            SubProducto = item.Id.ToString();
-                        }
+                        
+                            subproduct.createProduct();
+                            List<Product> result = product.getProductByCode(txtCodigo1.Text);
+                            foreach (Product item in result)
+                            {
+                                SubProducto = item.Id.ToString();
+                            }
+                        
+                        
                     }
                     else
                     {
-                        subproduct.Id = Convert.ToInt16(SubProducto);
-                        subproduct.saveProduct();
+                        
+                            subproduct.Id = Convert.ToInt16(SubProducto);
+                            subproduct.saveProduct();
+                        
+                        
                     }
 
 
@@ -1009,12 +1053,18 @@ namespace caja
                        );
                     if (Codigo == "")
                     {
-                        subsub.createProduct();
+                        
+                            subsub.createProduct();
+                        
+                        
                     }
                     else
                     {
-                        subsub.Id = Convert.ToInt16(SubSubProducto);
-                        subsub.saveProduct();
+                       
+                            subsub.Id = Convert.ToInt16(SubSubProducto);
+                            subsub.saveProduct();
+                        
+                        
                     }
 
                 }
@@ -1041,7 +1091,10 @@ namespace caja
                     0,
                     myValue.ToString()
                     );
-                marca.createMarca();
+                
+                    marca.createMarca();
+                
+               
                 carga_marcas();
                 cboMarca.Text = myValue.ToString();
                 

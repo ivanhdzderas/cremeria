@@ -12,20 +12,21 @@
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
-    <PublishUrl>publish\</PublishUrl>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>\\192.168.1.60\sistema\</PublishUrl>
     <Install>true</Install>
-    <InstallFrom>Disk</InstallFrom>
-    <UpdateEnabled>false</UpdateEnabled>
+    <InstallFrom>Unc</InstallFrom>
+    <UpdateEnabled>true</UpdateEnabled>
     <UpdateMode>Foreground</UpdateMode>
     <UpdateInterval>7</UpdateInterval>
     <UpdateIntervalUnits>Days</UpdateIntervalUnits>
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationRevision>37</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
+    <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -50,12 +51,25 @@
   <PropertyGroup>
     <ApplicationIcon>icon.ico</ApplicationIcon>
   </PropertyGroup>
+  <PropertyGroup>
+    <ManifestCertificateThumbprint>927685A61A475957172AE80F944BF09482439F5E</ManifestCertificateThumbprint>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestKeyFile>caja_TemporaryKey.pfx</ManifestKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateManifests>true</GenerateManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignManifests>true</SignManifests>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="BouncyCastle.Crypto, Version=1.8.5.0, Culture=neutral, PublicKeyToken=0e99375e54769942">
       <HintPath>..\packages\BouncyCastle.1.8.5\lib\BouncyCastle.Crypto.dll</HintPath>
     </Reference>
-    <Reference Include="Facturapi, Version=1.1.1.1030, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Facturapi.1.1.1.1030\lib\net45\Facturapi.dll</HintPath>
+    <Reference Include="CFDI3_VB, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>.\CFDI3_VB.dll</HintPath>
     </Reference>
     <Reference Include="Google.Protobuf, Version=3.11.4.0, Culture=neutral, PublicKeyToken=a7d26565bac4d604, processorArchitecture=MSIL">
       <HintPath>..\packages\Google.Protobuf.3.11.4\lib\net45\Google.Protobuf.dll</HintPath>
@@ -134,6 +148,8 @@
     <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.6.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.7.0\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
     </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Transactions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -491,10 +507,6 @@
     <Compile Include="Models\Export_excel.cs" />
     <Compile Include="Models\Export_pdf.cs" />
     <Compile Include="Models\Facturas.cs" />
-    <Compile Include="Models\Factura\items.cs" />
-    <Compile Include="Models\Factura\local_taxes.cs" />
-    <Compile Include="Models\Factura\Productos.cs" />
-    <Compile Include="Models\Factura\Taxes_productos.cs" />
     <Compile Include="Models\Folios.cs" />
     <Compile Include="Models\Forma_pago.cs" />
     <Compile Include="Models\Fpagos.cs" />
@@ -697,6 +709,7 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <EmbeddedResource Include="Reports\caja.rdlc" />
+    <None Include="caja_TemporaryKey.pfx" />
     <None Include="packages.config" />
     <None Include="Properties\DataSources\caja.Models.Reports.Encaja.datasource" />
     <None Include="Properties\DataSources\caja.Models.Reports.Ventas.datasource" />
@@ -731,6 +744,7 @@
     <Content Include="Assets\application_form.png" />
     <None Include="Assets\basket_error.png" />
     <Content Include="Assets\box.png" />
+    <None Include="Assets\calculator.png" />
     <Content Include="Assets\cart.png" />
     <Content Include="Assets\close.png" />
     <Content Include="Assets\coins.png" />
@@ -752,7 +766,6 @@
     <Content Include="Assets\save.png" />
     <Content Include="Assets\user.png" />
     <Content Include="Assets\vision.png" />
-    <Content Include="facturapi.ico" />
     <Content Include="icon.ico" />
     <Content Include="logo.ico" />
     <Content Include="SqlServerTypes\readme.htm" />
@@ -768,6 +781,9 @@
     <Content Include="SqlServerTypes\x86\SqlServerSpatial140.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

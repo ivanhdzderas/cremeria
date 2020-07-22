@@ -29,23 +29,27 @@ namespace caja.Forms
 			if (id != 0)
 			{
 				Offices oficinas = new Offices();
-				List<Offices> oficina = oficinas.GetOfficesbyid(id);
-				txtNombre.Text = oficina[0].Name;
-				txtDomicilio.Text = oficina[0].Domicilio;
-				txtTelefono.Text = oficina[0].Telefono;
-				txtServidor.Text = oficina[0].Servidor;
-				txtCone.Text = oficina[0].Connection;
-				txtNotas.Text = oficina[0].Notas;
+				using (oficinas)
+				{
+					List<Offices> oficina = oficinas.GetOfficesbyid(id);
+					txtNombre.Text = oficina[0].Name;
+					txtDomicilio.Text = oficina[0].Domicilio;
+					txtTelefono.Text = oficina[0].Telefono;
+					txtServidor.Text = oficina[0].Servidor;
+					txtCone.Text = oficina[0].Connection;
+					txtNotas.Text = oficina[0].Notas;
 
-				txtFacturacion.Text = oficina[0].Factura;
-				txtRfc.Text = oficina[0].Rfc;
-				txtInterior.Text = oficina[0].Interior;
-				txtExterior.Text = oficina[0].Exterior;
-				txtCalle.Text = oficina[0].Calle;
-				txtColonia.Text = oficina[0].Colonia;
-				txtCp.Text = oficina[0].Cp;
-				txtMunicipio.Text = oficina[0].Municipio;
-				txtEstado.Text = oficina[0].Estado;
+					txtFacturacion.Text = oficina[0].Factura;
+					txtRfc.Text = oficina[0].Rfc;
+					txtInterior.Text = oficina[0].Interior;
+					txtExterior.Text = oficina[0].Exterior;
+					txtCalle.Text = oficina[0].Calle;
+					txtColonia.Text = oficina[0].Colonia;
+					txtCp.Text = oficina[0].Cp;
+					txtMunicipio.Text = oficina[0].Municipio;
+					txtEstado.Text = oficina[0].Estado;
+				}
+				
 			}
 			else
 			{
@@ -71,30 +75,34 @@ namespace caja.Forms
 		private void button1_Click(object sender, EventArgs e)
 		{
 			Offices oficinas = new Offices();
-			oficinas.Name = txtNombre.Text;
-			oficinas.Domicilio = txtDomicilio.Text;
-			oficinas.Telefono = txtTelefono.Text;
-			oficinas.Servidor = txtServidor.Text;
-			oficinas.Connection = txtCone.Text;
-			oficinas.Notas = txtNotas.Text;
-			oficinas.Factura = txtFacturacion.Text;
-			oficinas.Rfc = txtRfc.Text;
-			oficinas.Interior = txtInterior.Text;
-			oficinas.Exterior = txtExterior.Text;
-			oficinas.Calle = txtCalle.Text;
-			oficinas.Colonia = txtColonia.Text;
-			oficinas.Cp = txtCp.Text;
-			oficinas.Municipio = txtMunicipio.Text;
-			oficinas.Estado = txtEstado.Text;
-			if (id != 0)
+			using (oficinas)
 			{
-				oficinas.Id = id;
-				oficinas.SaveOffice();
+				oficinas.Name = txtNombre.Text;
+				oficinas.Domicilio = txtDomicilio.Text;
+				oficinas.Telefono = txtTelefono.Text;
+				oficinas.Servidor = txtServidor.Text;
+				oficinas.Connection = txtCone.Text;
+				oficinas.Notas = txtNotas.Text;
+				oficinas.Factura = txtFacturacion.Text;
+				oficinas.Rfc = txtRfc.Text;
+				oficinas.Interior = txtInterior.Text;
+				oficinas.Exterior = txtExterior.Text;
+				oficinas.Calle = txtCalle.Text;
+				oficinas.Colonia = txtColonia.Text;
+				oficinas.Cp = txtCp.Text;
+				oficinas.Municipio = txtMunicipio.Text;
+				oficinas.Estado = txtEstado.Text;
+				if (id != 0)
+				{
+					oficinas.Id = id;
+					oficinas.SaveOffice();
+				}
+				else
+				{
+					oficinas.CreateOffice();
+				}
 			}
-			else
-			{
-				oficinas.CreateOffice();
-			}
+			
 			this.Close();
 		}
 

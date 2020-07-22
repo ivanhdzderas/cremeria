@@ -50,11 +50,16 @@ namespace caja.Forms
 		{
 			AutoCompleteStringCollection datos = new AutoCompleteStringCollection();
 			Client clientes = new Client();
-			List<Client> client = clientes.getClients();
-			foreach (Client item in client)
+			using (clientes)
 			{
-				datos.Add(item.Id.ToString());
+				List<Client> client = clientes.getClients();
+				foreach (Client item in client)
+				{
+					datos.Add(item.Id.ToString());
+				}
+
 			}
+			
 			return datos;
 
 			
@@ -64,11 +69,15 @@ namespace caja.Forms
 		{
 			AutoCompleteStringCollection datos = new AutoCompleteStringCollection();
 			Client clientes = new Client();
-			List<Client> client = clientes.getClients();
-			foreach (Client item in client)
+			using (clientes)
 			{
-				datos.Add(item.Name);
+				List<Client> client = clientes.getClients();
+				foreach (Client item in client)
+				{
+					datos.Add(item.Name);
+				}
 			}
+			
 			return datos;
 		}
 
@@ -77,15 +86,23 @@ namespace caja.Forms
 			if (e.KeyCode == Keys.Enter)
 			{
 				Client clientes = new Client();
-				List<Client> client = clientes.getClientbyId(Convert.ToInt16(txtIdCliente.Text));
-				txtCliente.Text = client[0].Name;
-				Tickets ticket = new Tickets();
-				List<Models.Tickets> tic = ticket.getbyclient(txtIdCliente.Text);
-				dtTickets.Rows.Clear();
-				foreach (Tickets item in tic)
+				using (clientes)
 				{
-					dtTickets.Rows.Add(item.Id, item.Id, item.Fecha, item.Total);
+					List<Client> client = clientes.getClientbyId(Convert.ToInt16(txtIdCliente.Text));
+					txtCliente.Text = client[0].Name;
+					Tickets ticket = new Tickets();
+					using (ticket)
+					{
+						List<Models.Tickets> tic = ticket.getbyclient(txtIdCliente.Text);
+						dtTickets.Rows.Clear();
+						foreach (Tickets item in tic)
+						{
+							dtTickets.Rows.Add(item.Id, item.Id, item.Fecha, item.Total);
+						}
+					}
+					
 				}
+				
 			}
 		}
 
@@ -94,15 +111,23 @@ namespace caja.Forms
 			if (e.KeyCode == Keys.Enter)
 			{
 				Client clientes = new Client();
-				List<Client> client = clientes.getClientbyName(txtCliente.Text);
-				txtIdCliente.Text = client[0].Id.ToString();
-				Tickets ticket = new Tickets();
-				List<Models.Tickets> tic = ticket.getbyclient(txtIdCliente.Text);
-				dtTickets.Rows.Clear();
-				foreach (Tickets item in tic)
+				using (clientes)
 				{
-					dtTickets.Rows.Add(item.Id, item.Id, item.Fecha, item.Total);
+					List<Client> client = clientes.getClientbyName(txtCliente.Text);
+					txtIdCliente.Text = client[0].Id.ToString();
+					Tickets ticket = new Tickets();
+					using (ticket)
+					{
+						List<Models.Tickets> tic = ticket.getbyclient(txtIdCliente.Text);
+						dtTickets.Rows.Clear();
+						foreach (Tickets item in tic)
+						{
+							dtTickets.Rows.Add(item.Id, item.Id, item.Fecha, item.Total);
+						}
+					}
+					
 				}
+				
 			}
 		}
 	}

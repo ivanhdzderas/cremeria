@@ -48,7 +48,10 @@ namespace caja.Models
 			query += "'" + this.Total + "', ";
 			query += "'" + this.Notas + "', ";
 			query += "'" + this.Estado + "') ";
-			object result = runQuery(query);
+			using (runQuery(query))
+			{
+
+			}
 		}
 
 		public List<Ajuste> getAjustes() {

@@ -25,14 +25,18 @@ namespace caja.Forms
 		public void carga() {
 			dtUsuarios.Rows.Clear();
 			Users usuario = new Users();
-			List<Users> usuarios = usuario.getUsers();
-			if (usuarios.Count > 0)
+			using (usuario)
 			{
-				foreach (Users item in usuarios)
+				List<Users> usuarios = usuario.getUsers();
+				if (usuarios.Count > 0)
 				{
-					dtUsuarios.Rows.Add(item.Id, item.Nombre, item.User ,item.Tipo);
+					foreach (Users item in usuarios)
+					{
+						dtUsuarios.Rows.Add(item.Id, item.Nombre, item.User, item.Tipo);
+					}
 				}
 			}
+				
 		}
 
 		private void button1_Click(object sender, EventArgs e)

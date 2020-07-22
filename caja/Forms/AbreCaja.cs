@@ -14,9 +14,15 @@ namespace caja.Forms
 		private void button1_Click(object sender, EventArgs e)
 		{
 			Cortes corto = new Cortes();
-			corto.Id_usuario = Convert.ToInt16(inicial.id_usario);
-			corto.Caja_inicial = Convert.ToDouble(txtEfectivo.Text);
-			corto.start_caja();
+			using (corto)
+			{
+				corto.Id_usuario = Convert.ToInt16(inicial.id_usario);
+				corto.Caja_inicial = Convert.ToDouble(txtEfectivo.Text);
+				corto.start_caja();
+			}
+				
+			
+			
 			this.Close();
 		}
 

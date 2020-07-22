@@ -50,25 +50,36 @@ namespace caja
             else
             {
                 Users usuarios = new Users();
-                List<Users> result = usuarios.getUser(usuario);
-                using (MD5 md5Hash = MD5.Create())
+
+                using (usuarios)
                 {
-                    if ((Forms.intercambios.VerifyMd5Hash(md5Hash, contra, result[0].Pass)) || (contra==result[0].Pass))
+                    List<Users> result = usuarios.getUser(usuario);
+
+
+                    using (MD5 md5Hash = MD5.Create())
                     {
-                        if (result[0].Tipo == "Cajero") {
-                            inicial.cajero = true;
+                        if ((Forms.intercambios.VerifyMd5Hash(md5Hash, contra, result[0].Pass)) || (contra == result[0].Pass))
+                        {
+                            if (result[0].Tipo == "Cajero")
+                            {
+                                inicial.cajero = true;
+                            }
+                            inicial.id_usario = result[0].Id.ToString();
+                            inicial.nombre = result[0].Nombre;
+                            inicial.tipo_usuario = result[0].Tipo;
+                            this.Close();
                         }
-                        inicial.id_usario = result[0].Id.ToString();
-                        inicial.nombre = result[0].Nombre;
-                        inicial.tipo_usuario = result[0].Tipo;
-                        this.Close();
+                        else
+                        {
+
+                            MessageBox.Show("Usuario y/o contraseña invalidos");
+                        }
                     }
-                    else
-                    {
-                       
-                        MessageBox.Show("Usuario y/o contraseña invalidos");
-                    }
-                }           
+                }
+                    
+                
+                
+
             }
         }
 

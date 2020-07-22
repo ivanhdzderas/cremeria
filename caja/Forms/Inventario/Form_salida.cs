@@ -33,27 +33,43 @@ namespace caja.Forms.Inventario
 			else
 			{
 				Inv_out inv_out = new Inv_out();
-				List<Inv_out> data = inv_out.getListabyId(folio);
-				foreach (Inv_out item in data)
+				using (inv_out)
 				{
-					txtFolio.Text = folio;
-					txtTotal.Text = item.Total.ToString();
-					dtFecha.Text = item.Date.ToString();
-
-				}
-
-				Product producto = new Product();
-
-				Det_salidas detalles = new Det_salidas();
-				List<Det_salidas> det = detalles.getDet_salidas(Convert.ToInt16(folio));
-				foreach (Det_salidas item in det)
-				{
-					List<Product> det_producto = producto.getProductById(item.Id_producto);
-					foreach (Product res in det_producto)
+					List<Inv_out> data = inv_out.getListabyId(folio);
+					foreach (Inv_out item in data)
 					{
-						dtProductos.Rows.Add(item.Id_producto, res.Code1, item.Cantidad, res.Description, item.P_u, item.Total.ToString());
+						txtFolio.Text = folio;
+						txtTotal.Text = item.Total.ToString();
+						dtFecha.Text = item.Date.ToString();
+
 					}
 				}
+					
+				
+
+
+				Product producto = new Product();
+				Det_salidas detalles = new Det_salidas();
+				using (detalles)
+				{
+					List<Det_salidas> det = detalles.getDet_salidas(Convert.ToInt16(folio));
+					foreach (Det_salidas item in det)
+					{
+						using (producto) {
+							List<Product> det_producto = producto.getProductById(item.Id_producto);
+							foreach (Product res in det_producto)
+							{
+								dtProductos.Rows.Add(item.Id_producto, res.Code1, item.Cantidad, res.Description, item.P_u, item.Total.ToString());
+							}
+						}
+						
+
+
+					}
+				}
+					
+				
+				
 				txtCantidad.Enabled = false;
 				txtCodigo.Enabled = false;
 				txtDescripcion.Enabled = false;
@@ -72,14 +88,20 @@ namespace caja.Forms.Inventario
 				busca.ShowDialog();
 
 				Product producto = new Product();
-				List<Product> result = producto.getProductById(intercambios.Id_producto);
-				foreach (Product item in result)
+				using (producto)
 				{
-					id = item.Id.ToString();
-					txtCodigo.Text = item.Code1;
-					txtDescripcion.Text = item.Description;
-					txtCosto.Text = item.Cost.ToString();
+					List<Product> result = producto.getProductById(intercambios.Id_producto);
+					foreach (Product item in result)
+					{
+						id = item.Id.ToString();
+						txtCodigo.Text = item.Code1;
+						txtDescripcion.Text = item.Description;
+						txtCosto.Text = item.Cost.ToString();
+					}
 				}
+					
+				
+				
 				button1.Focus();
 			}
 			if (e.KeyCode == Keys.Enter)
@@ -107,14 +129,20 @@ namespace caja.Forms.Inventario
 				busca.ShowDialog();
 
 				Product producto = new Product();
-				List<Product> result = producto.getProductById(intercambios.Id_producto);
-				foreach (Product item in result)
+				using (producto)
 				{
-					id = item.Id.ToString();
-					txtCodigo.Text = item.Code1;
-					txtDescripcion.Text = item.Description;
-					txtCosto.Text = item.Cost.ToString();
+					List<Product> result = producto.getProductById(intercambios.Id_producto);
+					foreach (Product item in result)
+					{
+						id = item.Id.ToString();
+						txtCodigo.Text = item.Code1;
+						txtDescripcion.Text = item.Description;
+						txtCosto.Text = item.Cost.ToString();
+					}
 				}
+					
+				
+				
 				button1.Focus();
 			}
 			if (e.KeyCode == Keys.Enter)
@@ -180,35 +208,60 @@ namespace caja.Forms.Inventario
 
 			if (folio == "0")
 			{
-				salida.createInv_out();
-				List<Inv_out> result = salida.getListabyAll(dtFecha.Text + " 00:00:00", Convert.ToDouble(txtTotal.Text));
-				folio = result[0].Id.ToString();
-				det.Id_salida = Convert.ToInt16(folio);
-				foreach (DataGridViewRow row in dtProductos.Rows)
+				using (salida)
 				{
-					det.Cantidad = Convert.ToInt16(row.Cells["cantidad"].Value.ToString());
-					det.Id_producto = Convert.ToInt16(row.Cells["id_producto"].Value.ToString());
-					det.P_u = Convert.ToDouble(row.Cells["p_u"].Value.ToString());
-					det.Total = Convert.ToDouble(row.Cells["total"].Value.ToString());
-					det.craeteDet_salida();
-					List<Product> prod = producto.getProductById(Convert.ToInt16(row.Cells["id_producto"].Value.ToString()));
-					nuevo = Convert.ToInt16(row.Cells["cantidad"].Value.ToString());
-					while (prod[0].Parent != "0")
+					salida.createInv_out();
+					List<Inv_out> result = salida.getListabyAll(dtFecha.Text + " 00:00:00", Convert.ToDouble(txtTotal.Text));
+					folio = result[0].Id.ToString();
+
+					det.Id_salida = Convert.ToInt16(folio);
+					foreach (DataGridViewRow row in dtProductos.Rows)
 					{
-						nuevo = nuevo * Convert.ToInt16(prod[0].C_unidad);
-						prod = producto.getProductById(Convert.ToInt16(prod[0].Parent));
+						det.Cantidad = Convert.ToInt16(row.Cells["cantidad"].Value.ToString());
+						det.Id_producto = Convert.ToInt16(row.Cells["id_producto"].Value.ToString());
+						det.P_u = Convert.ToDouble(row.Cells["p_u"].Value.ToString());
+						det.Total = Convert.ToDouble(row.Cells["total"].Value.ToString());
+						using (det)
+						{
+							det.craeteDet_salida();
+							using (producto)
+							{
+								List<Product> prod = producto.getProductById(Convert.ToInt16(row.Cells["id_producto"].Value.ToString()));
+								nuevo = Convert.ToInt16(row.Cells["cantidad"].Value.ToString());
+								while (prod[0].Parent != "0")
+								{
+									nuevo = nuevo * Convert.ToInt16(prod[0].C_unidad);
+									prod = producto.getProductById(Convert.ToInt16(prod[0].Parent));
+								}
+								kardex.Fecha = Convert.ToDateTime(dtFecha.Text).ToString();
+								kardex.Id_producto = prod[0].Id;
+								kardex.Tipo = "S";
+								kardex.Cantidad = nuevo;
+								kardex.Antes = prod[0].Existencia;
+								kardex.Id = 0;
+								kardex.Id_documento = Convert.ToInt16(folio);
+								using (kardex)
+								{
+									kardex.CreateKardex();
+									List<Kardex> numeracion = kardex.getidKardex(prod[0].Id, Convert.ToInt16(folio), "S");
+									using (afecta)
+									{
+										afecta.Disminuye(numeracion[0].Id);
+									}
+									
+								}
+								
+							}
+							
+						}
+
 					}
-					kardex.Fecha = Convert.ToDateTime(dtFecha.Text).ToString();
-					kardex.Id_producto = prod[0].Id;
-					kardex.Tipo = "S";
-					kardex.Cantidad = nuevo;
-					kardex.Antes = prod[0].Existencia;
-					kardex.Id = 0;
-					kardex.Id_documento = Convert.ToInt16(folio);
-					kardex.CreateKardex();
-					List<Kardex> numeracion = kardex.getidKardex(prod[0].Id, Convert.ToInt16(folio), "S");
-					afecta.Disminuye(numeracion[0].Id);
 				}
+					
+					
+					
+				
+				
 
 			}
 			if (Entrada == "")

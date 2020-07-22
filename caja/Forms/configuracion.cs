@@ -162,50 +162,54 @@ namespace caja.Forms
 
 
             Configuration config = new Configuration();
-            List<Configuration> item = config.getConfiguration();
-            Id = item[0].Id;
-            txtRazon.Text = item[0].Razon_social;
-            txtComercial.Text = item[0].Nombre_comercial;
-            txtRFC.Text = item[0].RFC;
-            txtCalle.Text = item[0].Calle;
-            txtExterior.Text = item[0].No_ext;
-            txtInterior.Text = item[0].No_int;
-            txtColonia.Text = item[0].Colonia;
-            txtPoblacion.Text = item[0].Municipio;
-            txtEstado.Text = item[0].Estado;
-            txtPais.Text = item[0].Pais;
-            txtTelefono.Text = item[0].Telefono;
-            txtRegimen.Text = item[0].Regimen;
-            txtSerie.Text = item[0].Serie;
-            txtFolio.Text = item[0].Folio.ToString();
-            txtRuta.Text = item[0].Ruta_factura;
-            txtLogo.Text = item[0].Logo;
-            txtPieTicket.Text = item[0].Pie_ticket;
-            if (File.Exists(txtLogo.Text)) {
-                pbLogo.Image = Image.FromFile(txtLogo.Text);
-            }
-            txtLogoTicket.Text = item[0].Logo_ticket;
-            if (File.Exists(txtLogoTicket.Text)) {
-                pbLogoTicket.Image = Image.FromFile(txtLogoTicket.Text);
-            }
-            txtKey.Text = item[0].Key;
-            txtCer.Text = item[0].Cer;
-            txtContra.Text = item[0].Pass;
-            txtEmail.Text = item[0].Email;
-            chkSsl.Checked = Convert.ToBoolean(item[0].Ssl);
-            txtPassEmail.Text = item[0].Contra_smtp;
-            cbProveedor.SelectedValue = item[0].Proveedor;
-            txtSmtp.Text = item[0].Smtp_serv;
-            txtSmtpPort.Text = item[0].Smtp_Port.ToString();
-            txtCuerpo.Text = item[0].Cuerpo_email;
-            chkticket.Checked = Convert.ToBoolean(item[0].Tipo_Impre);
-            cbImpresora.SelectedValue = item[0].Impresora;
-            cbImpreReportes.SelectedValue = item[0].Impresora_reportes;
-            txtRutas.Text = item[0].Ruta_reportes;
+            using (config)
+            {
+                List<Configuration> item = config.getConfiguration();
+                Id = item[0].Id;
+                txtRazon.Text = item[0].Razon_social;
+                txtComercial.Text = item[0].Nombre_comercial;
+                txtRFC.Text = item[0].RFC;
+                txtCalle.Text = item[0].Calle;
+                txtExterior.Text = item[0].No_ext;
+                txtInterior.Text = item[0].No_int;
+                txtColonia.Text = item[0].Colonia;
+                txtPoblacion.Text = item[0].Municipio;
+                txtEstado.Text = item[0].Estado;
+                txtPais.Text = item[0].Pais;
+                txtTelefono.Text = item[0].Telefono;
+                txtRegimen.Text = item[0].Regimen;
+                txtSerie.Text = item[0].Serie;
+                txtFolio.Text = item[0].Folio.ToString();
+                txtRuta.Text = item[0].Ruta_factura;
+                txtLogo.Text = item[0].Logo;
+                txtPieTicket.Text = item[0].Pie_ticket;
+                if (File.Exists(txtLogo.Text))
+                {
+                    pbLogo.Image = Image.FromFile(txtLogo.Text);
+                }
+                txtLogoTicket.Text = item[0].Logo_ticket;
+                if (File.Exists(txtLogoTicket.Text))
+                {
+                    pbLogoTicket.Image = Image.FromFile(txtLogoTicket.Text);
+                }
+                txtKey.Text = item[0].Key;
+                txtCer.Text = item[0].Cer;
+                txtContra.Text = item[0].Pass;
+                txtEmail.Text = item[0].Email;
+                chkSsl.Checked = Convert.ToBoolean(item[0].Ssl);
+                txtPassEmail.Text = item[0].Contra_smtp;
+                cbProveedor.SelectedValue = item[0].Proveedor;
+                txtSmtp.Text = item[0].Smtp_serv;
+                txtSmtpPort.Text = item[0].Smtp_Port.ToString();
+                txtCuerpo.Text = item[0].Cuerpo_email;
+                chkticket.Checked = Convert.ToBoolean(item[0].Tipo_Impre);
+                cbImpresora.SelectedValue = item[0].Impresora;
+                cbImpreReportes.SelectedValue = item[0].Impresora_reportes;
+                txtRutas.Text = item[0].Ruta_reportes;
 
-            txtCredito.Text = item[0].Credito.ToString();
-            txtDebito.Text = item[0].Debito.ToString();
-           
+                txtCredito.Text = item[0].Credito.ToString();
+                txtDebito.Text = item[0].Debito.ToString();
+            }
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -287,32 +291,41 @@ namespace caja.Forms
                 "",
                 0,0
                 );
-
-            config.updateEmpresa();
+            using (config)
+            {
+                config.updateEmpresa();
+            }
             MessageBox.Show("Actualización exitosa");
         }
 
         private void button4_Click(object sender, EventArgs e)
         {
             Configuration config = new Configuration();
-            config.Id = Id;
-            config.Serie = txtSerie.Text;
-            config.Folio = Convert.ToInt16(txtFolio.Text);
-            string ruta = txtRuta.Text;
-            config.Ruta_factura = ruta.Replace("\\","/");
-            config.updateFactura();
+            using (config)
+            {
+                config.Id = Id;
+                config.Serie = txtSerie.Text;
+                config.Folio = Convert.ToInt16(txtFolio.Text);
+                string ruta = txtRuta.Text;
+                config.Ruta_factura = ruta.Replace("\\", "/");
+                config.updateFactura();
+            }
             MessageBox.Show("Actualización exitosa");
         }
 
         private void button5_Click(object sender, EventArgs e)
         {
             Configuration config = new Configuration();
-            config.Id = Id;
-            string logo = txtLogo.Text;
-            string logo_ticket = txtLogoTicket.Text;
-            config.Logo = logo.Replace("\\", "/");
-            config.Logo_ticket = logo_ticket.Replace("\\", "/");
-            config.updateLogo();
+            using (config)
+            {
+                config.Id = Id;
+                string logo = txtLogo.Text;
+                string logo_ticket = txtLogoTicket.Text;
+                config.Logo = logo.Replace("\\", "/");
+                config.Logo_ticket = logo_ticket.Replace("\\", "/");
+                config.updateLogo();
+            }
+            
             MessageBox.Show("Actualización exitosa");
         }
 
@@ -321,26 +334,35 @@ namespace caja.Forms
             string strkey = txtKey.Text;
             string strcer = txtCer.Text;
             Configuration config = new Configuration();
-            config.Id = Id;
-            config.Key =strkey.Replace("\\", "/");
-            config.Cer= strcer.Replace("\\", "/");
-            config.Pass = txtContra.Text;
-            config.updateCertified();
+            using (config)
+            {
+                config.Id = Id;
+                config.Key = strkey.Replace("\\", "/");
+                config.Cer = strcer.Replace("\\", "/");
+                config.Pass = txtContra.Text;
+                config.updateCertified();
+
+            }
+            
             MessageBox.Show("Actualización exitosa");
         }
 
         private void button7_Click(object sender, EventArgs e)
         {
             Configuration config = new Configuration();
-            config.Id = Id;
-            config.Email = txtEmail.Text;
-            config.Contra_smtp = txtPassEmail.Text;
-            config.Proveedor = cbProveedor.SelectedValue.ToString();
-            config.Ssl = Convert.ToInt16(chkSsl.Checked);
-            config.Smtp_serv = txtSmtp.Text;
-            config.Smtp_Port = Convert.ToInt16(txtSmtpPort.Text);
-            config.Cuerpo_email = txtCuerpo.Text;
-            config.updateEmail();
+            using (config)
+            {
+                config.Id = Id;
+                config.Email = txtEmail.Text;
+                config.Contra_smtp = txtPassEmail.Text;
+                config.Proveedor = cbProveedor.SelectedValue.ToString();
+                config.Ssl = Convert.ToInt16(chkSsl.Checked);
+                config.Smtp_serv = txtSmtp.Text;
+                config.Smtp_Port = Convert.ToInt16(txtSmtpPort.Text);
+                config.Cuerpo_email = txtCuerpo.Text;
+                config.updateEmail();
+            }
+            
             MessageBox.Show("Actualización exitosa");
         }
 
@@ -352,7 +374,6 @@ namespace caja.Forms
                 {
                     case "YAHOO":
                         txtSmtpPort.Text = "465";
-
                         break;
                     case "HOTMAIL":
                         txtSmtpPort.Text = "587";
@@ -389,12 +410,16 @@ namespace caja.Forms
         private void button8_Click(object sender, EventArgs e)
         {
             Configuration config = new Configuration();
-            config.Id = Id;
-            config.Tipo_Impre = Convert.ToInt16(chkticket.Checked);
-            config.Impresora = cbImpresora.SelectedValue.ToString();
-            config.Impresora_reportes = cbImpreReportes.SelectedValue.ToString();
-            config.Pie_ticket = txtPieTicket.Text;
-            config.updateImpresoras();
+            using (config)
+            {
+                config.Id = Id;
+                config.Tipo_Impre = Convert.ToInt16(chkticket.Checked);
+                config.Impresora = cbImpresora.SelectedValue.ToString();
+                config.Impresora_reportes = cbImpreReportes.SelectedValue.ToString();
+                config.Pie_ticket = txtPieTicket.Text;
+                config.updateImpresoras();
+            }
+            
             MessageBox.Show("Actualización exitosa");
         }
 
@@ -414,10 +439,14 @@ namespace caja.Forms
             if (txtRutas.Text != "")
             {
                 Configuration config = new Configuration();
-                config.Id = Id;
-                string ruta = txtRutas.Text;
-                config.Ruta_reportes = ruta.Replace("\\", "/");
-                config.update_reportes();
+                using (config)
+                {
+                    config.Id = Id;
+                    string ruta = txtRutas.Text;
+                    config.Ruta_reportes = ruta.Replace("\\", "/");
+                    config.update_reportes();
+                }
+                
                 MessageBox.Show("Actualización exitosa");
             }
             else
@@ -431,10 +460,14 @@ namespace caja.Forms
         private void button11_Click(object sender, EventArgs e)
         {
             Configuration configuracion = new Configuration();
-            configuracion.Id = Id;
-            configuracion.Credito = Convert.ToDouble(txtCredito.Text);
-            configuracion.Debito = Convert.ToDouble(txtDebito.Text);
-            configuracion.updatecomisiones();
+            using (configuracion)
+            {
+                configuracion.Id = Id;
+                configuracion.Credito = Convert.ToDouble(txtCredito.Text);
+                configuracion.Debito = Convert.ToDouble(txtDebito.Text);
+                configuracion.updatecomisiones();
+            }
+            
             MessageBox.Show("Actualizacion exitosa");
         }
 

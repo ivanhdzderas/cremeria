@@ -37,10 +37,13 @@ namespace caja.Forms
 		{
 			AutoCompleteStringCollection datos = new AutoCompleteStringCollection();
 			Models.Product producto = new Models.Product();
-			List<Models.Product> result = producto.getProducts();
-			foreach (Models.Product item in result)
+			using (producto)
 			{
-				datos.Add(item.Code1);
+				List<Models.Product> result = producto.getProducts();
+				foreach (Models.Product item in result)
+				{
+					datos.Add(item.Code1);
+				}
 			}
 			return datos;
 		}
@@ -48,10 +51,13 @@ namespace caja.Forms
 		{
 			AutoCompleteStringCollection datos = new AutoCompleteStringCollection();
 			Models.Client clientes = new Models.Client();
-			List<Models.Client> result = clientes.getClients();
-			foreach (Models.Client item in result)
+			using (clientes)
 			{
-				datos.Add(item.Id.ToString());
+				List<Models.Client> result = clientes.getClients();
+				foreach (Models.Client item in result)
+				{
+					datos.Add(item.Id.ToString());
+				}
 			}
 			return datos;
 		}
@@ -60,10 +66,13 @@ namespace caja.Forms
 		{
 			AutoCompleteStringCollection datos = new AutoCompleteStringCollection();
 			Models.Client clientes = new Models.Client();
-			List<Models.Client> result = clientes.getClients();
-			foreach (Models.Client item in result)
+			using (clientes)
 			{
-				datos.Add(item.Name);
+				List<Models.Client> result = clientes.getClients();
+				foreach (Models.Client item in result)
+				{
+					datos.Add(item.Name);
+				}
 			}
 			return datos;
 		}
@@ -73,12 +82,16 @@ namespace caja.Forms
 			if (e.KeyCode == Keys.Enter)
 			{
 				Models.Client clientes = new Models.Client();
-				List<Models.Client> cliente = clientes.getClientbyName(txtCliente.Text);
-				if (cliente.Count > 0)
+				using (clientes)
 				{
-					txtIdcliente.Text = cliente[0].Id.ToString();
-					dtFechaInicio.Focus();
+					List<Models.Client> cliente = clientes.getClientbyName(txtCliente.Text);
+					if (cliente.Count > 0)
+					{
+						txtIdcliente.Text = cliente[0].Id.ToString();
+						dtFechaInicio.Focus();
+					}
 				}
+				
 			}
 		}
 
@@ -87,12 +100,16 @@ namespace caja.Forms
 			if (e.KeyCode == Keys.Enter)
 			{
 				Models.Client clientes = new Models.Client();
-				List<Models.Client> cliente = clientes.getClientbyId(Convert.ToInt16(txtIdcliente.Text));
-				if (cliente.Count > 0)
+				using (clientes)
 				{
-					txtCliente.Text = cliente[0].Name;
-					dtFechaInicio.Focus();
+					List<Models.Client> cliente = clientes.getClientbyId(Convert.ToInt16(txtIdcliente.Text));
+					if (cliente.Count > 0)
+					{
+						txtCliente.Text = cliente[0].Name;
+						dtFechaInicio.Focus();
+					}
 				}
+				
 			}
 		}
 
@@ -111,17 +128,21 @@ namespace caja.Forms
 			{
 				double total = 0;
 				Models.Detallado_ticket detalle = new Models.Detallado_ticket();
-				List<Models.Detallado_ticket> det = detalle.get_detallado(dtFechaInicio.Text, dtFechaFinal.Text, Convert.ToInt16(txtIdcliente.Text));
-				if (det.Count > 0)
+				using (detalle)
 				{
-					foreach (Models.Detallado_ticket item in det)
+					List<Models.Detallado_ticket> det = detalle.get_detallado(dtFechaInicio.Text, dtFechaFinal.Text, Convert.ToInt16(txtIdcliente.Text));
+					if (det.Count > 0)
 					{
-						dtDetallado.Rows.Add(item.Folio, item.Fecha, item.Cantidad, "[ " + item.Codigo + " ] " + item.Descripcion, item.Total);
-						total += item.Total;
-					}
+						foreach (Models.Detallado_ticket item in det)
+						{
+							dtDetallado.Rows.Add(item.Folio, item.Fecha, item.Cantidad, "[ " + item.Codigo + " ] " + item.Descripcion, item.Total);
+							total += item.Total;
+						}
 
+					}
+					lbTotal.Text = "Total: " + total;
 				}
-				lbTotal.Text = "Total: " + total;
+				
 			}
 			
 		}

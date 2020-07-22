@@ -26,11 +26,15 @@ namespace caja.Forms
 		{
 			dtOficinas.Rows.Clear();
 			Offices oficinas = new Offices();
-			List<Offices> lista = oficinas.GetOffices();
-			foreach (Offices item in lista)
+			using (oficinas)
 			{
-				dtOficinas.Rows.Add(item.Id, item.Name, item.Telefono, item.Domicilio);
+				List<Offices> lista = oficinas.GetOffices();
+				foreach (Offices item in lista)
+				{
+					dtOficinas.Rows.Add(item.Id, item.Name, item.Telefono, item.Domicilio);
+				}
 			}
+			
 		}
 
 		private void button1_Click(object sender, EventArgs e)

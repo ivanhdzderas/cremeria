@@ -81,6 +81,7 @@
 			this.toolStripButton4 = new System.Windows.Forms.ToolStripButton();
 			this.btnCorteTurno = new System.Windows.Forms.ToolStripButton();
 			this.toolStripButton6 = new System.Windows.Forms.ToolStripButton();
+			this.toolStripButton8 = new System.Windows.Forms.ToolStripButton();
 			this.panel1 = new System.Windows.Forms.Panel();
 			this.Home = new System.Windows.Forms.TabControl();
 			this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
@@ -107,7 +108,7 @@
             this.configuracionToolStripMenuItem});
 			this.menuStrip.Location = new System.Drawing.Point(0, 0);
 			this.menuStrip.Name = "menuStrip";
-			this.menuStrip.Size = new System.Drawing.Size(632, 24);
+			this.menuStrip.Size = new System.Drawing.Size(770, 24);
 			this.menuStrip.TabIndex = 0;
 			this.menuStrip.Text = "MenuStrip";
 			// 
@@ -361,7 +362,6 @@
 			this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
 			this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(206, 22);
 			this.saveAsToolStripMenuItem.Text = "Guardar &como";
-			this.saveAsToolStripMenuItem.Click += new System.EventHandler(this.SaveAsToolStripMenuItem_Click);
 			// 
 			// toolStripSeparator4
 			// 
@@ -392,7 +392,7 @@
             this.Bienvenido});
 			this.statusStrip.Location = new System.Drawing.Point(0, 431);
 			this.statusStrip.Name = "statusStrip";
-			this.statusStrip.Size = new System.Drawing.Size(632, 22);
+			this.statusStrip.Size = new System.Drawing.Size(770, 22);
 			this.statusStrip.TabIndex = 2;
 			this.statusStrip.Text = "StatusStrip";
 			// 
@@ -429,10 +429,11 @@
             this.toolStripButton5,
             this.toolStripButton4,
             this.btnCorteTurno,
-            this.toolStripButton6});
+            this.toolStripButton6,
+            this.toolStripButton8});
 			this.Menu.Location = new System.Drawing.Point(0, 24);
 			this.Menu.Name = "Menu";
-			this.Menu.Size = new System.Drawing.Size(632, 25);
+			this.Menu.Size = new System.Drawing.Size(770, 25);
 			this.Menu.TabIndex = 4;
 			this.Menu.Text = "toolStrip1";
 			this.Menu.Visible = false;
@@ -512,14 +513,23 @@
 			this.toolStripButton6.Text = "Salir";
 			this.toolStripButton6.Click += new System.EventHandler(this.toolStripButton6_Click);
 			// 
+			// toolStripButton8
+			// 
+			this.toolStripButton8.Image = global::caja.Properties.Resources.calculator;
+			this.toolStripButton8.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.toolStripButton8.Name = "toolStripButton8";
+			this.toolStripButton8.Size = new System.Drawing.Size(90, 22);
+			this.toolStripButton8.Text = "Calculadora";
+			this.toolStripButton8.Click += new System.EventHandler(this.toolStripButton8_Click);
+			// 
 			// panel1
 			// 
 			this.panel1.Controls.Add(this.Home);
 			this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.panel1.Location = new System.Drawing.Point(0, 49);
+			this.panel1.Location = new System.Drawing.Point(0, 24);
 			this.panel1.Name = "panel1";
 			this.panel1.RightToLeft = System.Windows.Forms.RightToLeft.No;
-			this.panel1.Size = new System.Drawing.Size(632, 382);
+			this.panel1.Size = new System.Drawing.Size(770, 407);
 			this.panel1.TabIndex = 5;
 			this.panel1.Visible = false;
 			// 
@@ -530,7 +540,7 @@
 			this.Home.Location = new System.Drawing.Point(0, 0);
 			this.Home.Name = "Home";
 			this.Home.SelectedIndex = 0;
-			this.Home.Size = new System.Drawing.Size(632, 382);
+			this.Home.Size = new System.Drawing.Size(770, 407);
 			this.Home.TabIndex = 0;
 			this.Home.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.Home_DrawItem);
 			this.Home.MouseClick += new System.Windows.Forms.MouseEventHandler(this.Home_MouseDown);
@@ -560,7 +570,6 @@
 			this.openToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
 			this.openToolStripMenuItem.Size = new System.Drawing.Size(206, 22);
 			this.openToolStripMenuItem.Text = "&Abrir";
-			this.openToolStripMenuItem.Click += new System.EventHandler(this.OpenFile);
 			// 
 			// saveToolStripMenuItem
 			// 
@@ -592,7 +601,7 @@
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(632, 453);
+			this.ClientSize = new System.Drawing.Size(770, 453);
 			this.Controls.Add(this.panel1);
 			this.Controls.Add(this.Menu);
 			this.Controls.Add(this.statusStrip);
@@ -676,6 +685,7 @@
 		private System.Windows.Forms.ToolStripMenuItem ticketsPorPagarToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem ventaPorClienteDetalladoToolStripMenuItem;
 		private System.Windows.Forms.ToolStripButton toolStripButton7;
+		private System.Windows.Forms.ToolStripButton toolStripButton8;
 	}
 }
 

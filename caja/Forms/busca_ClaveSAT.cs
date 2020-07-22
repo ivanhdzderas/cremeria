@@ -18,10 +18,14 @@ namespace caja.Forms
         private void carga(){
             dgClaveSat.Rows.Clear();
             SAT_prod sat_prod = new SAT_prod();
-            List<SAT_prod> result = sat_prod.getSat_prod();
-            foreach (SAT_prod item in result) {
-                dgClaveSat.Rows.Add(item.Code, item.Description);
-            }
+            using (sat_prod)
+            {
+                List<SAT_prod> result = sat_prod.getSat_prod();
+                foreach (SAT_prod item in result)
+                {
+                    dgClaveSat.Rows.Add(item.Code, item.Description);
+                }
+            }    
         }
 
         private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
@@ -30,12 +34,15 @@ namespace caja.Forms
             {
                 dgClaveSat.Rows.Clear();
                 SAT_prod sat_prod = new SAT_prod();
-                List<SAT_prod> result = sat_prod.getSat_prodbyDescription(txtSearch.Text);
-                foreach (SAT_prod item in result)
+                using (sat_prod)
                 {
-                    dgClaveSat.Rows.Add(item.Code, item.Description);
-                }
-                dgClaveSat.Focus();
+                    List<SAT_prod> result = sat_prod.getSat_prodbyDescription(txtSearch.Text);
+                    foreach (SAT_prod item in result)
+                    {
+                        dgClaveSat.Rows.Add(item.Code, item.Description);
+                    }
+                    dgClaveSat.Focus();
+                }  
             }
         }
 

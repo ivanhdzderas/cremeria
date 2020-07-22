@@ -32,37 +32,48 @@ namespace caja.Forms
 			tvGrupos.Nodes.Clear();
 			
 			Groups grupos = new Groups();
-			List<Groups> grupo = grupos.getGroupsonly();
-			foreach (Groups item in grupo) {
-				TreeNode nodo = new TreeNode(item.Group.ToString());
-				nodo.Tag = item.Id.ToString();
-				nodo.ImageIndex = 0;
-				tvGrupos.Nodes.Add(nodo);
-				generarNodes(item.Id, nodo);
+			using (grupos)
+			{
+				List<Groups> grupo = grupos.getGroupsonly();
+				foreach (Groups item in grupo)
+				{
+					TreeNode nodo = new TreeNode(item.Group.ToString());
+					nodo.Tag = item.Id.ToString();
+					nodo.ImageIndex = 0;
+					tvGrupos.Nodes.Add(nodo);
+					generarNodes(item.Id, nodo);
+				}
 			}
+			
 			tvGrupos.ExpandAll();
 		}
 		public void generarNodes(int parentId, TreeNode parentNode) {
 			Groups grupo = new Groups();
-			List<Groups> sub = grupo.getSubgrups(parentId);
-			TreeNode childNode;
-			foreach (Groups item in sub) {
-				if (parentNode == null)
+			using (grupo)
+			{
+				List<Groups> sub = grupo.getSubgrups(parentId);
+				TreeNode childNode;
+				foreach (Groups item in sub)
 				{
-					TreeNode nodo = new TreeNode(item.Group.ToString());
-;
+					if (parentNode == null)
+					{
+						TreeNode nodo = new TreeNode(item.Group.ToString());
+						;
 
-					childNode = tvGrupos.Nodes.Add(item.Group);
-					childNode.Tag = item.Id.ToString();
-					childNode.ImageIndex = 0;
-				}
-				else {
-					childNode = parentNode.Nodes.Add(item.Group);
-					childNode.Tag = item.Id.ToString();
-					childNode.ImageIndex = 0;
-					generarNodes(item.Id, childNode);
+						childNode = tvGrupos.Nodes.Add(item.Group);
+						childNode.Tag = item.Id.ToString();
+						childNode.ImageIndex = 0;
+					}
+					else
+					{
+						childNode = parentNode.Nodes.Add(item.Group);
+						childNode.Tag = item.Id.ToString();
+						childNode.ImageIndex = 0;
+						generarNodes(item.Id, childNode);
+					}
 				}
 			}
+			
 		}
 
 		private void carga_cbtodos() {
@@ -79,14 +90,18 @@ namespace caja.Forms
 			table.Rows.Add(row);
 			// cboMarca.Items.Clear();
 			Groups grup = new Groups();
-			List<Groups> result = grup.getGroup();
-			foreach (Groups item in result)
+			using (grup)
 			{
-				row = table.NewRow();
-				row["Text"] = item.Group;
-				row["Value"] = item.Id;
-				table.Rows.Add(row);
+				List<Groups> result = grup.getGroup();
+				foreach (Groups item in result)
+				{
+					row = table.NewRow();
+					row["Text"] = item.Group;
+					row["Value"] = item.Id;
+					table.Rows.Add(row);
+				}
 			}
+			
 			cbTodos.BindingContext = new BindingContext();
 			cbTodos.DataSource = table;
 			cbTodos.DisplayMember = "Text";
@@ -99,12 +114,17 @@ namespace caja.Forms
 
 
 			Groups grupo = new Groups();
-			List<Groups> grup = grupo.getGroupbyId(e.Node.Tag.ToString());
-			foreach (Groups item in grup) {
-				txtNombre.Text = item.Group;
-				cbTodos.SelectedValue = item.Master;
-				idGrupo.Text = item.Id.ToString();
+			using (grupo)
+			{
+				List<Groups> grup = grupo.getGroupbyId(e.Node.Tag.ToString());
+				foreach (Groups item in grup)
+				{
+					txtNombre.Text = item.Group;
+					cbTodos.SelectedValue = item.Master;
+					idGrupo.Text = item.Id.ToString();
+				}
 			}
+			
 		
 		}
 
@@ -123,7 +143,11 @@ namespace caja.Forms
 				txtNombre.Text,
 				Convert.ToInt16(cbTodos.SelectedValue)
 				) ;
-			grupos.createGroup();
+			using (grupos)
+			{
+				grupos.createGroup();
+			}
+			
 			carga();
 			carga_cbtodos();
 			idGrupo.Text = "";

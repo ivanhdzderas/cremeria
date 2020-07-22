@@ -18,10 +18,17 @@ namespace caja.Forms
         private void carga() {
             dgUnidadSat.Rows.Clear();
             Unidad_Sat unidad_sat = new Unidad_Sat();
-            List<Unidad_Sat> result = unidad_sat.getUnidadSat();
-            foreach (Unidad_Sat item in result) {
-                dgUnidadSat.Rows.Add(item.Code, item.Description);
+            using (unidad_sat)
+            {
+                List<Unidad_Sat> result = unidad_sat.getUnidadSat();
+                foreach (Unidad_Sat item in result)
+                {
+                    dgUnidadSat.Rows.Add(item.Code, item.Description);
+                }
             }
+                
+            
+            
         }
 
         private void txtSearch_KeyPress(object sender, KeyPressEventArgs e)
@@ -30,12 +37,15 @@ namespace caja.Forms
             {
                 dgUnidadSat.Rows.Clear();
                 Unidad_Sat unidad_sat = new Unidad_Sat();
-                List<Unidad_Sat> result = unidad_sat.getUnidadSatByDescripton(txtSearch.Text);
-                foreach (Unidad_Sat item in result)
+                using (unidad_sat)
                 {
-                    dgUnidadSat.Rows.Add(item.Code, item.Description);
+                    List<Unidad_Sat> result = unidad_sat.getUnidadSatByDescripton(txtSearch.Text);
+                    foreach (Unidad_Sat item in result)
+                    {
+                        dgUnidadSat.Rows.Add(item.Code, item.Description);
+                    }
+                    dgUnidadSat.Focus();
                 }
-                dgUnidadSat.Focus();
             }
         }
 

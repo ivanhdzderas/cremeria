@@ -39,13 +39,16 @@ namespace caja.Forms
 				busca_producto busca = new busca_producto();
 				busca.ShowDialog();
 				Product producto = new Product();
-				List<Product> result = producto.getProductById(intercambios.Id_producto);
-				foreach (Product item in result)
+				using (producto)
 				{
-					id = item.Id.ToString();
-					txtCodigo.Text = item.Code1;
-					txtDescripcion.Text = item.Description;
-					txtpu.Text = item.Cost.ToString();
+					List<Product> result = producto.getProductById(intercambios.Id_producto);
+					foreach (Product item in result)
+					{
+						id = item.Id.ToString();
+						txtCodigo.Text = item.Code1;
+						txtDescripcion.Text = item.Description;
+						txtpu.Text = item.Cost.ToString();
+					}
 				}
 				txtpu.Focus();
 			}
@@ -84,13 +87,16 @@ namespace caja.Forms
 				busca_producto busca = new busca_producto();
 				busca.ShowDialog();
 				Product producto = new Product();
-				List<Product> result = producto.getProductById(intercambios.Id_producto);
-				foreach (Product item in result)
+				using (producto)
 				{
-					id = item.Id.ToString();
-					txtCodigo.Text = item.Code1;
-					txtDescripcion.Text = item.Description;
-					txtpu.Text = item.Cost.ToString();
+					List<Product> result = producto.getProductById(intercambios.Id_producto);
+					foreach (Product item in result)
+					{
+						id = item.Id.ToString();
+						txtCodigo.Text = item.Code1;
+						txtDescripcion.Text = item.Description;
+						txtpu.Text = item.Cost.ToString();
+					}
 				}
 				txtpu.Focus();
 			}
@@ -140,22 +146,27 @@ namespace caja.Forms
 			string Cadu = "";
 			Boolean pasa = false;
 			Product producto = new Product();
-			
-			List<Product> item = producto.getProductById(Convert.ToInt16(id));
-			if (Convert.ToBoolean(item[0].Lote) == true) {
+			using (producto)
+			{
+				List<Product> item = producto.getProductById(Convert.ToInt16(id));
+				if (Convert.ToBoolean(item[0].Lote) == true)
+				{
 
-				while (pasa == false) {
-					Caducidad caduci = new Caducidad();
-					caduci.ShowDialog();
-					Lote = intercambios.Lote;
-					Cadu = intercambios.Caducidad;
-					if (!string.IsNullOrEmpty(Lote) || !string.IsNullOrEmpty(Cadu))  
+					while (pasa == false)
 					{
-						pasa = true;
+						Caducidad caduci = new Caducidad();
+						caduci.ShowDialog();
+						Lote = intercambios.Lote;
+						Cadu = intercambios.Caducidad;
+						if (!string.IsNullOrEmpty(Lote) || !string.IsNullOrEmpty(Cadu))
+						{
+							pasa = true;
+						}
 					}
+
 				}
-				
 			}
+			
 
 			double total1 = (Convert.ToDouble(txtCantidad.Text) * Convert.ToDouble(txtpu.Text));
 			dtProductos.Rows.Add(id, txtCodigo.Text, txtCantidad.Text, txtDescripcion.Text, txtpu.Text, total1.ToString(), Lote, Cadu);
@@ -180,27 +191,33 @@ namespace caja.Forms
 			carga_proveedor();
 			if (folio != "0") {
 				Models.Compras compra = new Models.Compras();
-				List<Models.Compras> resultado = compra.getCompraByid(Convert.ToInt16(folio));
-				foreach (Models.Compras item in resultado) {
-					cbProveedor.SelectedText = item.Proveedor;
-					txtFolio.Text = item.Folio_doc;
-					dtFecha.Text = item.Fecha;
-					dtFechaDoc.Text = item.Fecha_doc;
-					txttotal.Text = item.Total.ToString();
-					txtiva.Text = item.Iva.ToString();
-					txtdescuento.Text = item.Descuento.ToString();
-					txtSubtotal.Text = item.Subtotal.ToString();
-					if (item.Pagado == "SI") {
-						chkContado.Checked = true;
-					}
-					else
+				using (compra)
+				{
+					List<Models.Compras> resultado = compra.getCompraByid(Convert.ToInt16(folio));
+					foreach (Models.Compras item in resultado)
 					{
-						chkContado.Checked = false;
-					}
+						cbProveedor.SelectedText = item.Proveedor;
+						txtFolio.Text = item.Folio_doc;
+						dtFecha.Text = item.Fecha;
+						dtFechaDoc.Text = item.Fecha_doc;
+						txttotal.Text = item.Total.ToString();
+						txtiva.Text = item.Iva.ToString();
+						txtdescuento.Text = item.Descuento.ToString();
+						txtSubtotal.Text = item.Subtotal.ToString();
+						if (item.Pagado == "SI")
+						{
+							chkContado.Checked = true;
+						}
+						else
+						{
+							chkContado.Checked = false;
+						}
 
-					if (chkContado.Checked == false) {
-						txtdias.Text = item.Dias.ToString();
-						dtVencimiento.Text = item.Fecha_credito;
+						if (chkContado.Checked == false)
+						{
+							txtdias.Text = item.Dias.ToString();
+							dtVencimiento.Text = item.Fecha_credito;
+						}
 					}
 				}
 				Product producto = new Product();
@@ -208,20 +225,37 @@ namespace caja.Forms
 				Caducidades caducidades = new Caducidades();
 				string master = "0";
 				int id_prod = 0;
-				List<Purchases> resu = detalle.getPurchases(Convert.ToInt16(folio));
-				foreach (Purchases va in resu) {
-					List<Product> prod = producto.getProductById(va.Id_producto);
-					master = prod[0].Parent;
-					id_prod = prod[0].Id;
-					while (master != "0") {
-						List<Product> encontrado = producto.getProductById(Convert.ToInt16(master));
-						master = encontrado[0].Parent;
-						id_prod = encontrado[0].Id;
-					}
+				using (detalle)
+				{
+					List<Purchases> resu = detalle.getPurchases(Convert.ToInt16(folio));
+					foreach (Purchases va in resu)
+					{
+						using (producto)
+						{
+							List<Product> prod = producto.getProductById(va.Id_producto);
+							master = prod[0].Parent;
+							id_prod = prod[0].Id;
+							while (master != "0")
+							{
+								List<Product> encontrado = producto.getProductById(Convert.ToInt16(master));
+								master = encontrado[0].Parent;
+								id_prod = encontrado[0].Id;
+							}
+							using (caducidades)
+							{
+								List<Caducidades> cadu = caducidades.GetCaducidadesbyCompra(Convert.ToInt16(folio), id_prod);
+								dtProductos.Rows.Add(va.Id_producto, va.Cantidad, prod[0].Code1, prod[0].Description, va.P_u, va.Total, cadu[0].Lote, cadu[0].Caducidad);
 
-					List<Caducidades> cadu = caducidades.GetCaducidadesbyCompra(Convert.ToInt16(folio),id_prod);
-					dtProductos.Rows.Add(va.Id_producto,va.Cantidad, prod[0].Code1,prod[0].Description, va.P_u, va.Total, cadu[0].Lote, cadu[0].Caducidad );
+							}
+
+						}
+
+
+					}
 				}
+					
+				
+				
 				txtFolio.Enabled = false;
 				button1.Enabled = false;
 				toolStripButton2.Enabled = false;
@@ -244,8 +278,6 @@ namespace caja.Forms
 		public void carga_proveedor() {
 			cbProveedor.DataSource = null;
 			cbProveedor.Items.Clear();
-			Providers prov = new Providers();
-			List<Providers> data = prov.getProviders();
 			DataTable table = new DataTable();
 			DataRow row;
 			table.Columns.Add("Text", typeof(string));
@@ -254,13 +286,22 @@ namespace caja.Forms
 			row["Text"] = "";
 			row["Value"] = "";
 			table.Rows.Add(row);
-			foreach (Providers item in data)
+			Providers prov = new Providers();
+			using (prov)
 			{
-				row = table.NewRow();
-				row["Text"] = item.Name;
-				row["Value"] = item.Id;
-				table.Rows.Add(row);
+				List<Providers> data = prov.getProviders();
+
+				foreach (Providers item in data)
+				{
+					row = table.NewRow();
+					row["Text"] = item.Name;
+					row["Value"] = item.Id;
+					table.Rows.Add(row);
+				}
 			}
+				
+			
+			
 			cbProveedor.BindingContext = new BindingContext();
 			cbProveedor.DataSource = table;
 			cbProveedor.DisplayMember = "Text";
@@ -319,54 +360,77 @@ namespace caja.Forms
 				Convert.ToDouble(txttotal.Text),
 				Convert.ToDouble(txtdescuento.Text)
 				);
-			compra.crateCompra();
-			List<Models.Compras> resultado = compra.GetlastCompras(dtFecha.Text + " 00:00:00", dtFechaDoc.Text + " 00:00:00", txtNumero.Text, Convert.ToDouble(txttotal.Text));
-			Purchases detalles = new Purchases();
-			detalles.Id = 0;
-			detalles.Id_compra = resultado[0].Id;
-			Kardex kardex = new Kardex();
-			Product producto = new Product();
-			Afecta_inv afecta = new Afecta_inv();
-			Caducidades Caducida = new Caducidades();
-			Caducida.Id = 0;
-			Caducida.Id_compra = resultado[0].Id;
-			double nuevo = 0;
-			foreach (DataGridViewRow row in dtProductos.Rows)
+			using (compra)
 			{
-				
-				List<Product> prod = producto.getProductById(Convert.ToInt16(row.Cells["id_producto"].Value.ToString()));
-
-				nuevo = Convert.ToInt16(row.Cells["cantidad"].Value.ToString());
-				while (prod[0].Parent != "0")
+				compra.crateCompra();
+				List<Models.Compras> resultado = compra.GetlastCompras(dtFecha.Text + " 00:00:00", dtFechaDoc.Text + " 00:00:00", txtNumero.Text, Convert.ToDouble(txttotal.Text));
+				Purchases detalles = new Purchases();
+				detalles.Id = 0;
+				detalles.Id_compra = resultado[0].Id;
+				Kardex kardex = new Kardex();
+				Product producto = new Product();
+				Afecta_inv afecta = new Afecta_inv();
+				Caducidades Caducida = new Caducidades();
+				Caducida.Id = 0;
+				Caducida.Id_compra = resultado[0].Id;
+				double nuevo = 0;
+				foreach (DataGridViewRow row in dtProductos.Rows)
 				{
-					nuevo = nuevo * Convert.ToInt16(prod[0].C_unidad);
-					prod = producto.getProductById(Convert.ToInt16(prod[0].Parent));
+					using (producto)
+					{
+						List<Product> prod = producto.getProductById(Convert.ToInt16(row.Cells["id_producto"].Value.ToString()));
+
+						nuevo = Convert.ToInt16(row.Cells["cantidad"].Value.ToString());
+						while (prod[0].Parent != "0")
+						{
+							nuevo = nuevo * Convert.ToInt16(prod[0].C_unidad);
+							prod = producto.getProductById(Convert.ToInt16(prod[0].Parent));
+						}
+
+
+						detalles.Cantidad = Convert.ToInt16(row.Cells["cantidad"].Value.ToString());
+						detalles.Id_producto = Convert.ToInt16(row.Cells["id_producto"].Value.ToString());
+						detalles.P_u = Convert.ToInt16(row.Cells["p_u"].Value.ToString());
+						detalles.Total = Convert.ToInt16(row.Cells["total"].Value.ToString());
+						using (detalles)
+						{
+							detalles.createPurchases();
+							Caducida.Id_producto = prod[0].Id;
+							Caducida.Caducidad = row.Cells["caducidad"].Value.ToString();
+							Caducida.Lote = row.Cells["lote"].Value.ToString();
+							Caducida.Cantidad = nuevo;
+							using (caducidad)
+							{
+								Caducida.createCaducidad();
+								
+							}
+							kardex.Fecha = Convert.ToDateTime(dtFecha.Text).ToString();
+							kardex.Id_producto = prod[0].Id;
+							kardex.Tipo = "C";
+							kardex.Cantidad = nuevo;
+							kardex.Antes = prod[0].Existencia;
+							kardex.Id = 0;
+							kardex.Id_documento = Convert.ToInt16(resultado[0].Id);
+							using (kardex)
+							{
+								kardex.CreateKardex();
+								List<Kardex> numeracion = kardex.getidKardex(prod[0].Id, Convert.ToInt16(resultado[0].Id), "C");
+								using (afecta)
+								{
+									afecta.Agrega(numeracion[0].Id);
+								}
+								
+							}
+							
+
+						}
+						
+					}
 				}
-
-				
-				detalles.Cantidad = Convert.ToInt16(row.Cells["cantidad"].Value.ToString());
-				detalles.Id_producto = Convert.ToInt16(row.Cells["id_producto"].Value.ToString());
-				detalles.P_u = Convert.ToInt16(row.Cells["p_u"].Value.ToString());
-				detalles.Total = Convert.ToInt16(row.Cells["total"].Value.ToString());
-				detalles.createPurchases();
-
-				Caducida.Id_producto = prod[0].Id;
-				Caducida.Caducidad = row.Cells["caducidad"].Value.ToString();
-				Caducida.Lote= row.Cells["lote"].Value.ToString();
-				Caducida.Cantidad = nuevo;
-				Caducida.createCaducidad();
-
-				kardex.Fecha = Convert.ToDateTime(dtFecha.Text).ToString();
-				kardex.Id_producto = prod[0].Id;
-				kardex.Tipo = "C";
-				kardex.Cantidad = nuevo;
-				kardex.Antes = prod[0].Existencia;
-				kardex.Id = 0;
-				kardex.Id_documento = Convert.ToInt16(resultado[0].Id);
-				kardex.CreateKardex();
-				List<Kardex> numeracion = kardex.getidKardex(prod[0].Id, Convert.ToInt16(resultado[0].Id), "C");
-				afecta.Agrega(numeracion[0].Id);
 			}
+				
+			
+			
 			this.Close();
 		}
 
@@ -453,60 +517,64 @@ namespace caja.Forms
 				string clave = "";
 				double sumatoria = 0;
 				Providers proveedor = new Providers();
-				List<Providers> resultado = proveedor.getProviderbyRFC(RFC);
-				if (resultado.Count > 0)
+				using (proveedor)
 				{
-					cbProveedor.SelectedValue = resultado[0].Id;
-					txtNumero.Text = resultado[0].Id.ToString();
+					List<Providers> resultado = proveedor.getProviderbyRFC(RFC);
+					if (resultado.Count > 0)
+					{
+						cbProveedor.SelectedValue = resultado[0].Id;
+						txtNumero.Text = resultado[0].Id.ToString();
+					}
+					else
+					{
+						proveedor.Id = 0;
+						proveedor.RFC = emisor.Attributes.GetNamedItem("Rfc").Value;
+						proveedor.Name = emisor.Attributes.GetNamedItem("Nombre").Value;
+						proveedor.createProvider();
+						resultado = proveedor.getProviderbyRFC(RFC);
+						carga_proveedor();
+						cbProveedor.SelectedValue = resultado[0].Id;
+						txtNumero.Text = resultado[0].Id.ToString();
+					}
 				}
-				else {
-					proveedor.Id = 0;
-					proveedor.RFC = emisor.Attributes.GetNamedItem("Rfc").Value;
-					proveedor.Name = emisor.Attributes.GetNamedItem("Nombre").Value;
-					proveedor.createProvider();
-					resultado = proveedor.getProviderbyRFC(RFC);
-					carga_proveedor();
-					cbProveedor.SelectedValue = resultado[0].Id;
-					txtNumero.Text = resultado[0].Id.ToString();
-				}
-
 				foreach (XmlNode conceptos in CFDI.GetElementsByTagName("cfdi:Conceptos").Item(0).ChildNodes) {
 
 					clave = conceptos.Attributes.GetNamedItem("NoIdentificacion").Value;
-					List<Product> bucador = prod.getProductByigualCode(clave);
-					if (bucador.Count > 0)
+					using (prod)
 					{
-						sumatoria = Convert.ToDouble(conceptos.Attributes.GetNamedItem("Cantidad").Value) * Convert.ToDouble(conceptos.Attributes.GetNamedItem("ValorUnitario").Value);
-						dtProductos.Rows.Add(bucador[0].Id, bucador[0].Code1, conceptos.Attributes.GetNamedItem("Cantidad").Value, bucador[0].Description, conceptos.Attributes.GetNamedItem("ValorUnitario").Value, sumatoria);
-					}
-					else {
-						DialogResult is_new = MessageBox.Show("El producto no fue encontrado, ¿Es nuevo?","Producto no encontrado",MessageBoxButtons.YesNo);
-						if (is_new == DialogResult.Yes)
+						List<Product> bucador = prod.getProductByigualCode(clave);
+						if (bucador.Count > 0)
 						{
-							
-							producto.Codigo = "";
-							producto Producto = new producto();
-							
-							Producto.txtCodigo1.Text = clave;
-							Producto.txtDescripcion.Text= conceptos.Attributes.GetNamedItem("Descripcion").Value;
-							Producto.txtCosto.Text= conceptos.Attributes.GetNamedItem("ValorUnitario").Value;
-							Producto.txtUnidadSat.Text= conceptos.Attributes.GetNamedItem("ClaveUnidad").Value;
-							Producto.txtSAT.Text= conceptos.Attributes.GetNamedItem("ClaveProdServ").Value;
-							Producto.Owner = this;
-							Producto.ShowDialog();
-
-							bucador = prod.getProductByigualCode(clave);
 							sumatoria = Convert.ToDouble(conceptos.Attributes.GetNamedItem("Cantidad").Value) * Convert.ToDouble(conceptos.Attributes.GetNamedItem("ValorUnitario").Value);
 							dtProductos.Rows.Add(bucador[0].Id, bucador[0].Code1, conceptos.Attributes.GetNamedItem("Cantidad").Value, bucador[0].Description, conceptos.Attributes.GetNamedItem("ValorUnitario").Value, sumatoria);
 						}
-						else if (is_new == DialogResult.No) {
-							MessageBox.Show("No se agregara el producto","Advertencia",MessageBoxButtons.OK,MessageBoxIcon.Warning);
+						else
+						{
+							DialogResult is_new = MessageBox.Show("El producto no fue encontrado, ¿Es nuevo?", "Producto no encontrado", MessageBoxButtons.YesNo);
+							if (is_new == DialogResult.Yes)
+							{
+
+								producto.Codigo = "";
+								producto Producto = new producto();
+
+								Producto.txtCodigo1.Text = clave;
+								Producto.txtDescripcion.Text = conceptos.Attributes.GetNamedItem("Descripcion").Value;
+								Producto.txtCosto.Text = conceptos.Attributes.GetNamedItem("ValorUnitario").Value;
+								Producto.txtUnidadSat.Text = conceptos.Attributes.GetNamedItem("ClaveUnidad").Value;
+								Producto.txtSAT.Text = conceptos.Attributes.GetNamedItem("ClaveProdServ").Value;
+								Producto.Owner = this;
+								Producto.ShowDialog();
+
+								bucador = prod.getProductByigualCode(clave);
+								sumatoria = Convert.ToDouble(conceptos.Attributes.GetNamedItem("Cantidad").Value) * Convert.ToDouble(conceptos.Attributes.GetNamedItem("ValorUnitario").Value);
+								dtProductos.Rows.Add(bucador[0].Id, bucador[0].Code1, conceptos.Attributes.GetNamedItem("Cantidad").Value, bucador[0].Description, conceptos.Attributes.GetNamedItem("ValorUnitario").Value, sumatoria);
+							}
+							else if (is_new == DialogResult.No)
+							{
+								MessageBox.Show("No se agregara el producto", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+							}
 						}
 					}
-					
-					
-
-
 				}
 				calcula();
 

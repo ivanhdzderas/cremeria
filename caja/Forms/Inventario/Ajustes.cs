@@ -24,10 +24,15 @@ namespace caja.Forms.Inventario
 		public void carga() {
 			dtAjustes.Rows.Clear();
 			Ajuste ajuste = new Ajuste();
-			List < Ajuste > resultado= ajuste.getAjustes();
-			foreach (Ajuste item in resultado) {
-				dtAjustes.Rows.Add(item.Id, item.Fecha, item.Total);
+			using (ajuste)
+			{
+				List<Ajuste> resultado = ajuste.getAjustes();
+				foreach (Ajuste item in resultado)
+				{
+					dtAjustes.Rows.Add(item.Id, item.Fecha, item.Total);
+				}
 			}
+			
 		}
 
 		private void button1_Click(object sender, EventArgs e)

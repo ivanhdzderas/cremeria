@@ -49,7 +49,7 @@
 			this.btnCancelar.Margin = new System.Windows.Forms.Padding(5);
 			this.btnCancelar.Name = "btnCancelar";
 			this.btnCancelar.Size = new System.Drawing.Size(108, 103);
-			this.btnCancelar.TabIndex = 1;
+			this.btnCancelar.TabIndex = 5;
 			this.btnCancelar.Text = "Cancelar";
 			this.btnCancelar.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
 			this.btnCancelar.UseVisualStyleBackColor = true;
@@ -62,7 +62,7 @@
 			this.btnCobrar.Margin = new System.Windows.Forms.Padding(5);
 			this.btnCobrar.Name = "btnCobrar";
 			this.btnCobrar.Size = new System.Drawing.Size(108, 103);
-			this.btnCobrar.TabIndex = 0;
+			this.btnCobrar.TabIndex = 4;
 			this.btnCobrar.Text = "Cobrar";
 			this.btnCobrar.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
 			this.btnCobrar.UseVisualStyleBackColor = true;
@@ -95,7 +95,7 @@
 			this.chkFactura.Location = new System.Drawing.Point(20, 191);
 			this.chkFactura.Name = "chkFactura";
 			this.chkFactura.Size = new System.Drawing.Size(149, 24);
-			this.chkFactura.TabIndex = 15;
+			this.chkFactura.TabIndex = 3;
 			this.chkFactura.Text = "Necesita Factura";
 			this.chkFactura.UseVisualStyleBackColor = true;
 			// 
@@ -140,7 +140,7 @@
 			this.txtRecibido.Location = new System.Drawing.Point(149, 150);
 			this.txtRecibido.Name = "txtRecibido";
 			this.txtRecibido.Size = new System.Drawing.Size(100, 26);
-			this.txtRecibido.TabIndex = 22;
+			this.txtRecibido.TabIndex = 1;
 			this.txtRecibido.TextChanged += new System.EventHandler(this.txtRecibido_TextChanged);
 			this.txtRecibido.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtRecibido_KeyDown);
 			// 
@@ -159,7 +159,7 @@
 			this.cbMpago.Location = new System.Drawing.Point(149, 116);
 			this.cbMpago.Name = "cbMpago";
 			this.cbMpago.Size = new System.Drawing.Size(121, 28);
-			this.cbMpago.TabIndex = 24;
+			this.cbMpago.TabIndex = 2;
 			this.cbMpago.SelectedIndexChanged += new System.EventHandler(this.cbMpago_SelectedIndexChanged);
 			// 
 			// cobro

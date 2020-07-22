@@ -19,10 +19,15 @@ namespace caja.Forms.Inventario
 		public void carga() {
 			dgvEntradas.Rows.Clear();
 			Inv_in inv = new Inv_in();
-			List<Inv_in> result = inv.getLista();
-			foreach (Inv_in item in result) {
-				dgvEntradas.Rows.Add(item.Date, item.Id, item.Status);
+			using (inv)
+			{
+				List<Inv_in> result = inv.getLista();
+				foreach (Inv_in item in result)
+				{
+					dgvEntradas.Rows.Add(item.Date, item.Id, item.Status);
+				}
 			}
+			
 		}
 
 		private void button1_Click(object sender, EventArgs e)

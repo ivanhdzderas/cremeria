@@ -26,10 +26,15 @@ namespace caja.Forms.Inventario
 		public void carga() {
 			dtSalidas.Rows.Clear();
 			Inv_out inv = new Inv_out();
-			List<Inv_out> result = inv.getLista();
-			foreach (Inv_out item in result) {
-				dtSalidas.Rows.Add(item.Date, item.Id, item.Status);
+			using (inv)
+			{
+				List<Inv_out> result = inv.getLista();
+				foreach (Inv_out item in result)
+				{
+					dtSalidas.Rows.Add(item.Date, item.Id, item.Status);
+				}
 			}
+			
 		}
 
 		private void button1_Click(object sender, EventArgs e)

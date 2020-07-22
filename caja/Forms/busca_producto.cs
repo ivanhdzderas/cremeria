@@ -14,14 +14,22 @@ namespace caja.Forms
 		private void busca_producto_Load(object sender, EventArgs e)
 		{
 			carga();
+			txtCodigo.Focus();
 		}
 		public void carga() {
 			dtProductos.Rows.Clear();
 			Product producto = new Product();
-			List<Product> result = producto.getProducts();
-			foreach (Product item in result) {
-				dtProductos.Rows.Add(item.Id, item.Code1, item.Code2, item.Code3, item.Code4, item.Code5, item.Description, item.Price1, item.Price2, item.Price3, item.Price4, item.Price5);
+			using (producto)
+			{
+				List<Product> result = producto.getProducts();
+				foreach (Product item in result)
+				{
+					dtProductos.Rows.Add(item.Id, item.Code1, item.Code2, item.Code3, item.Code4, item.Code5, item.Description, item.Price1, item.Price2, item.Price3, item.Price4, item.Price5);
+				}
 			}
+				
+			
+			
 		}
 
 		private void txtCodigo_KeyDown(object sender, KeyEventArgs e)
@@ -36,11 +44,15 @@ namespace caja.Forms
 				{
 					dtProductos.Rows.Clear();
 					Product producto = new Product();
-					List<Product> result = producto.getProductByCode(txtCodigo.Text);
-					foreach (Product item in result)
+					using (producto)
 					{
-						dtProductos.Rows.Add(item.Id, item.Code1, item.Code2, item.Code3, item.Code4, item.Code5, item.Description, item.Price1, item.Price2, item.Price3, item.Price4, item.Price5);
+						List<Product> result = producto.getProductByCode(txtCodigo.Text);
+						foreach (Product item in result)
+						{
+							dtProductos.Rows.Add(item.Id, item.Code1, item.Code2, item.Code3, item.Code4, item.Code5, item.Description, item.Price1, item.Price2, item.Price3, item.Price4, item.Price5);
+						}
 					}
+					
 				}
 				
 				dtProductos.Focus();
@@ -59,15 +71,18 @@ namespace caja.Forms
 				{
 					dtProductos.Rows.Clear();
 					Product producto = new Product();
-					List<Product> result = producto.getProductByDescription(txtDescripcion.Text);
-					foreach (Product item in result)
+					using (producto)
 					{
-						dtProductos.Rows.Add(item.Id ,item.Code1, item.Code2, item.Code3, item.Code4, item.Code5, item.Description, item.Price1, item.Price2, item.Price3, item.Price4, item.Price5);
-					}
-				}
-				
-				dtProductos.Focus();
-			}
+						List<Product> result = producto.getProductByDescription(txtDescripcion.Text);
+						foreach (Product item in result)
+						{
+							dtProductos.Rows.Add(item.Id, item.Code1, item.Code2, item.Code3, item.Code4, item.Code5, item.Description, item.Price1, item.Price2, item.Price3, item.Price4, item.Price5);
+						}
+					}	
+				}	
+			}		
+			dtProductos.Focus();
+			
 		}
 
 		private void dtProductos_KeyDown(object sender, KeyEventArgs e)

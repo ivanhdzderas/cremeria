@@ -27,7 +27,7 @@ namespace caja.Forms
 		private void cobro_Load(object sender, EventArgs e)
 		{
             lbResta.Text = string.Format("{0:#,0.00}", deberia_ser);
-            txtRecibido.Focus();
+     
             lbCobrar.Text = lbResta.Text;
             cbMpago.Items.Add("Tarjeta de Debito");
             cbMpago.Items.Add("Tarjeta de Credito");
@@ -50,6 +50,11 @@ namespace caja.Forms
             
 
             restantes = total - recibido;
+            if (restantes < total)
+            {
+                label5.Text = "Cambio ";
+                restantes = restantes * -1;
+            }
             lbResta.Text = string.Format("{0:#,0.00}", restantes);
         }
        
@@ -74,16 +79,12 @@ namespace caja.Forms
             else
             {
                 caja.pagado = Convert.ToDouble(txtRecibido.Text);
+
                 caja.metodo = cbMpago.Text;
                 caja.factura = Convert.ToBoolean(chkFactura.Checked);
                 this.Close();
 
             }
-           
-
-
-           
-             
             
         }
 
@@ -105,30 +106,28 @@ namespace caja.Forms
         private void cbMpago_SelectedIndexChanged(object sender, EventArgs e)
         {
             Models.Configuration configuracion = new Models.Configuration();
-            List<Models.Configuration> config = configuracion.getConfiguration();
-            switch (cbMpago.Text)
+            using (configuracion)
             {
-                case "Tarjeta de Debito":
+                List<Models.Configuration> config = configuracion.getConfiguration();
+                switch (cbMpago.Text)
+                {
+                    case "Tarjeta de Debito":
+                        double nuevo_total = deberia_ser + ((deberia_ser / 100) * config[0].Debito);
+                        lbCobrar.Text = string.Format("{0:#,0.00}", nuevo_total);
+                        calcula();
+                        break;
+                    case "Tarjeta de Credito":
 
-
-                    double nuevo_total = deberia_ser + ((deberia_ser / 100) * config[0].Debito);
-                    lbCobrar.Text = string.Format("{0:#,0.00}", nuevo_total);
-                    calcula();
-                    break;
-                case "Tarjeta de Credito":
-
-                    double nuevo_total2 = deberia_ser + ((deberia_ser / 100) * config[0].Credito);
-                    lbCobrar.Text = string.Format("{0:#,0.00}", nuevo_total2);
-                    calcula();
-                    break;
-                default:
-                    lbCobrar.Text= string.Format("{0:#,0.00}", deberia_ser);
-                    calcula();
-                    break;
-
+                        double nuevo_total2 = deberia_ser + ((deberia_ser / 100) * config[0].Credito);
+                        lbCobrar.Text = string.Format("{0:#,0.00}", nuevo_total2);
+                        calcula();
+                        break;
+                    default:
+                        lbCobrar.Text = string.Format("{0:#,0.00}", deberia_ser);
+                        calcula();
+                        break;
+                }
             }
-
-
         }
 
         private void txtRecibido_KeyDown(object sender, KeyEventArgs e)

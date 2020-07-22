@@ -32,24 +32,45 @@ namespace caja.Forms.Inventario
 			}
 			else {
 				Inv_in inv_in = new Inv_in();
-				List<Inv_in> data = inv_in.getListabyId(folio);
-				foreach (Inv_in item in data) {
-					txtFolio.Text = folio;
-					txtTotal.Text = item.Total.ToString();
-					dtFecha.Text = item.Date.ToString();
+				using (inv_in)
+				{
+					List<Inv_in> data = inv_in.getListabyId(folio);
+					foreach (Inv_in item in data)
+					{
+						txtFolio.Text = folio;
+						txtTotal.Text = item.Total.ToString();
+						dtFecha.Text = item.Date.ToString();
 
-				}
-
-				Product producto = new Product();
-
-				Det_entradas detalles = new Det_entradas();
-				List<Det_entradas> det = detalles.getDet_entradas(Convert.ToInt16(folio));
-				foreach (Det_entradas item in det) {
-					List<Product> det_producto= producto.getProductById(item.Id_producto);
-					foreach (Product res in det_producto) {
-						dtProductos.Rows.Add(item.Id_producto, res.Code1, item.Cantidad,res.Description, item.P_u, item.Total.ToString());
 					}
 				}
+					
+				
+				
+
+				Product producto = new Product();
+				Det_entradas detalles = new Det_entradas();
+				using (detalles)
+				{
+					List<Det_entradas> det = detalles.getDet_entradas(Convert.ToInt16(folio));
+					foreach (Det_entradas item in det)
+					{
+						using (producto)
+						{
+							List<Product> det_producto = producto.getProductById(item.Id_producto);
+							foreach (Product res in det_producto)
+							{
+								dtProductos.Rows.Add(item.Id_producto, res.Code1, item.Cantidad, res.Description, item.P_u, item.Total.ToString());
+							}
+						}
+						
+
+
+					}
+				}
+					
+				
+				
+				
 
 				txtCantidad.Enabled = false;
 				txtCodigo.Enabled = false;
@@ -74,14 +95,20 @@ namespace caja.Forms.Inventario
 				busca.ShowDialog();
 
 				Product producto = new Product();
-				List<Product> result = producto.getProductById(intercambios.Id_producto);
-				foreach (Product item in result)
+				using (producto)
 				{
-					id = item.Id.ToString();
-					txtCodigo.Text = item.Code1;
-					txtDescripcion.Text = item.Description;
-					txtCosto.Text = item.Cost.ToString();
+					List<Product> result = producto.getProductById(intercambios.Id_producto);
+					foreach (Product item in result)
+					{
+						id = item.Id.ToString();
+						txtCodigo.Text = item.Code1;
+						txtDescripcion.Text = item.Description;
+						txtCosto.Text = item.Cost.ToString();
+					}
 				}
+					
+				
+				
 				button1.Focus();
 			}
 			if (e.KeyCode == Keys.Enter)
@@ -138,34 +165,60 @@ namespace caja.Forms.Inventario
 		
 			if (folio == "0")
 			{
-				entrada.createInv_in();
-				List<Inv_in> result=entrada.getListabyAll(dtFecha.Text + " 00:00:00", Convert.ToDouble(txtTotal.Text));
-				folio = result[0].Id.ToString();
-				det.Id_entrada = Convert.ToInt16(folio);
-				foreach (DataGridViewRow row in dtProductos.Rows)
+				using (entrada)
 				{
-					det.Cantidad = Convert.ToInt16(row.Cells["cantidad"].Value.ToString());
-					det.Id_producto = Convert.ToInt16(row.Cells["id_producto"].Value.ToString());
-					det.P_u = Convert.ToDouble(row.Cells["p_u"].Value.ToString());
-					det.Total = Convert.ToDouble(row.Cells["total"].Value.ToString());
-					det.craeteDet_entrada();
-					List<Product> prod = producto.getProductById(Convert.ToInt16(row.Cells["id_producto"].Value.ToString()));
-					nuevo = Convert.ToInt16(row.Cells["cantidad"].Value.ToString());
-					while (prod[0].Parent != "0") {
-						nuevo = nuevo * Convert.ToInt16(prod[0].C_unidad);
-						prod = producto.getProductById(Convert.ToInt16(prod[0].Parent));
+					entrada.createInv_in();
+					List<Inv_in> result = entrada.getListabyAll(dtFecha.Text + " 00:00:00", Convert.ToDouble(txtTotal.Text));
+					folio = result[0].Id.ToString();
+
+					det.Id_entrada = Convert.ToInt16(folio);
+					foreach (DataGridViewRow row in dtProductos.Rows)
+					{
+						det.Cantidad = Convert.ToInt16(row.Cells["cantidad"].Value.ToString());
+						det.Id_producto = Convert.ToInt16(row.Cells["id_producto"].Value.ToString());
+						det.P_u = Convert.ToDouble(row.Cells["p_u"].Value.ToString());
+						det.Total = Convert.ToDouble(row.Cells["total"].Value.ToString());
+						using (det)
+						{
+							det.craeteDet_entrada();
+							using (producto)
+							{
+								List<Product> prod = producto.getProductById(Convert.ToInt16(row.Cells["id_producto"].Value.ToString()));
+								nuevo = Convert.ToInt16(row.Cells["cantidad"].Value.ToString());
+								while (prod[0].Parent != "0")
+								{
+									nuevo = nuevo * Convert.ToInt16(prod[0].C_unidad);
+									prod = producto.getProductById(Convert.ToInt16(prod[0].Parent));
+								}
+								kardex.Fecha = Convert.ToDateTime(dtFecha.Text).ToString();
+								kardex.Id_producto = prod[0].Id;
+								kardex.Tipo = "E";
+								kardex.Cantidad = nuevo;
+								kardex.Antes = prod[0].Existencia;
+								kardex.Id = 0;
+								kardex.Id_documento = Convert.ToInt16(folio);
+								using (kardex)
+								{
+									kardex.CreateKardex();
+									List<Kardex> numeracion = kardex.getidKardex(prod[0].Id, Convert.ToInt16(folio), "E");
+									using (afecta)
+									{
+										afecta.Agrega(numeracion[0].Id);
+									}
+									
+								}
+								
+							}
+							
+						}
+						
 					}
-					kardex.Fecha = Convert.ToDateTime(dtFecha.Text).ToString();
-					kardex.Id_producto = prod[0].Id;
-					kardex.Tipo = "E";
-					kardex.Cantidad = nuevo;
-					kardex.Antes = prod[0].Existencia;
-					kardex.Id = 0;
-					kardex.Id_documento = Convert.ToInt16(folio);
-					kardex.CreateKardex();
-					List<Kardex> numeracion = kardex.getidKardex(prod[0].Id, Convert.ToInt16(folio), "E");
-					afecta.Agrega(numeracion[0].Id);					
+
 				}
+
+
+
+
 
 			}
 			if (Entrada == "") {
@@ -197,14 +250,20 @@ namespace caja.Forms.Inventario
 				busca.ShowDialog();
 
 				Product producto = new Product();
-				List<Product> result = producto.getProductById(intercambios.Id_producto);
-				foreach (Product item in result)
+				using (producto)
 				{
-					id = item.Id.ToString();
-					txtCodigo.Text = item.Code1;
-					txtDescripcion.Text = item.Description;
-					txtCosto.Text = item.Cost.ToString();
+					List<Product> result = producto.getProductById(intercambios.Id_producto);
+					foreach (Product item in result)
+					{
+						id = item.Id.ToString();
+						txtCodigo.Text = item.Code1;
+						txtDescripcion.Text = item.Description;
+						txtCosto.Text = item.Cost.ToString();
+					}
 				}
+					
+				
+				
 				button1.Focus();
 			}
 			if (e.KeyCode == Keys.Enter)

@@ -26,12 +26,15 @@ namespace caja.Forms
 		{
 			AutoCompleteStringCollection datos = new AutoCompleteStringCollection();
 			Offices oficinas = new Offices();
-
-			List<Offices> oficina = oficinas.GetOffices();
-			foreach (Offices item in oficina)
+			using (oficinas)
 			{
-				datos.Add(item.Id.ToString());
+				List<Offices> oficina = oficinas.GetOffices();
+				foreach (Offices item in oficina)
+				{
+					datos.Add(item.Id.ToString());
+				}
 			}
+			
 			return datos;
 		}
 
@@ -39,11 +42,15 @@ namespace caja.Forms
 		{
 			AutoCompleteStringCollection datos = new AutoCompleteStringCollection();
 			Offices oficinas = new Offices();
-			List<Offices> oficina = oficinas.GetOffices();
-			foreach (Offices item in oficina)
+			using (oficinas)
 			{
-				datos.Add(item.Name);
+				List<Offices> oficina = oficinas.GetOffices();
+				foreach (Offices item in oficina)
+				{
+					datos.Add(item.Name);
+				}
 			}
+			
 			return datos;
 		}
 
@@ -52,15 +59,19 @@ namespace caja.Forms
 			if (e.KeyCode == Keys.Enter)
 			{
 				Offices oficinas = new Offices();
-				List<Offices> oficina = oficinas.GetOfficesbyid(Convert.ToInt16(txtIdSucursal.Text));
-				txtSucursal.Text = oficina[0].Name;
-
-				Transfers traspasos = new Transfers();
-				List<Transfers> traspaso = traspasos.getTransferbysucursal(Convert.ToInt16(txtIdSucursal.Text));
-				foreach(Transfers item in traspaso)
+				using (oficinas)
 				{
-					dtTrasferencias.Rows.Add(item.Id, item.Folio, item.Fecha, item.Total);
+					List<Offices> oficina = oficinas.GetOfficesbyid(Convert.ToInt16(txtIdSucursal.Text));
+					txtSucursal.Text = oficina[0].Name;
+
+					Transfers traspasos = new Transfers();
+					List<Transfers> traspaso = traspasos.getTransferbysucursal(Convert.ToInt16(txtIdSucursal.Text));
+					foreach (Transfers item in traspaso)
+					{
+						dtTrasferencias.Rows.Add(item.Id, item.Folio, item.Fecha, item.Total);
+					}
 				}
+				
 			}
 		}
 

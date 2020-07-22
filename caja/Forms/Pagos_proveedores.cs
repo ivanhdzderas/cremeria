@@ -26,13 +26,17 @@ namespace caja.Forms
 		{
 			dtPagos.Rows.Clear();
 			Pagos_compras pagos = new Pagos_compras();
-			List<Pagos_compras> pago = pagos.getcompras();
-			Models.Compras compras = new Models.Compras();
-			foreach(Pagos_compras item in pago)
+			using (pagos)
 			{
-				List<Models.Compras> compra = compras.getCompraByid(item.Id_compra);
-				dtPagos.Rows.Add(item.Id, item.Fecha, compra[0].Proveedor, item.Monto);
+				List<Pagos_compras> pago = pagos.getcompras();
+				Models.Compras compras = new Models.Compras();
+				foreach (Pagos_compras item in pago)
+				{
+					List<Models.Compras> compra = compras.getCompraByid(item.Id_compra);
+					dtPagos.Rows.Add(item.Id, item.Fecha, compra[0].Proveedor, item.Monto);
+				}
 			}
+			
 		}
 
 		private void button1_Click(object sender, EventArgs e)

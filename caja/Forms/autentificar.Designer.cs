@@ -105,6 +105,7 @@
 			this.MinimizeBox = false;
 			this.Name = "autentificar";
 			this.Text = "Autentificar";
+			this.Load += new System.EventHandler(this.autentificar_Load);
 			this.ResumeLayout(false);
 			this.PerformLayout();
 

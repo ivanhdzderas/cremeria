@@ -37,14 +37,18 @@ namespace caja
                     txtNotas.Text,
                     txtEmail.Text
                     );
-                if (id == "0")
+                using (client)
                 {
-                    client.createClient();
+                    if (id == "0")
+                    {
+                        client.createClient();
+                    }
+                    else
+                    {
+                        client.saveClient();
+                    }
                 }
-                else
-                {
-                    client.saveClient();
-                }
+               
                 this.Close();
             }
             else
@@ -74,21 +78,26 @@ namespace caja
             }
             else {
                 Client client = new Client();
-                List<Client> result = client.getClientbyId(Convert.ToInt16(id));
-                foreach (Client item in result) {
-                    txtNombre.Text = item.Name;
-                    txtRFC.Text = item.RFC;
-                    txtCalle.Text = item.Street;
-                    txtNumExt.Text = item.Ext_number;
-                    txtNumInt.Text = item.Int_number;
-                    txtColonia.Text = item.Col;
-                    txtCp.Text = item.Cp;
-                    txtEstado.Text = item.State;
-                    txtMunicipio.Text = item.Muni;
-                    txtTelefono.Text = item.Tel;
-                    txtNotas.Text = item.Note;
-                    txtEmail.Text = item.Email;
+                using (client)
+                {
+                    List<Client> result = client.getClientbyId(Convert.ToInt16(id));
+                    foreach (Client item in result)
+                    {
+                        txtNombre.Text = item.Name;
+                        txtRFC.Text = item.RFC;
+                        txtCalle.Text = item.Street;
+                        txtNumExt.Text = item.Ext_number;
+                        txtNumInt.Text = item.Int_number;
+                        txtColonia.Text = item.Col;
+                        txtCp.Text = item.Cp;
+                        txtEstado.Text = item.State;
+                        txtMunicipio.Text = item.Muni;
+                        txtTelefono.Text = item.Tel;
+                        txtNotas.Text = item.Note;
+                        txtEmail.Text = item.Email;
+                    }
                 }
+                
             }
            
         }

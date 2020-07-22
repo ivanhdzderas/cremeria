@@ -25,10 +25,15 @@ namespace caja.Forms
 		public void carga() {
 			dtCompras.Rows.Clear();
 			Models.Compras funcompra = new Models.Compras();
-			List<Models.Compras> result = funcompra.GetCompras();
-			foreach (Models.Compras item in result) {
-				dtCompras.Rows.Add(item.Id, item.Proveedor, item.Fecha,item.Total);			
+			using (funcompra)
+			{
+				List<Models.Compras> result = funcompra.GetCompras();
+				foreach (Models.Compras item in result)
+				{
+					dtCompras.Rows.Add(item.Id, item.Proveedor, item.Fecha, item.Total);
+				}
 			}
+			
 		}
 
 		private void btnNuevo_Click(object sender, EventArgs e)

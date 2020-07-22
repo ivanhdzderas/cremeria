@@ -27,12 +27,17 @@ namespace caja.Forms
 		private AutoCompleteStringCollection cargadatos()
 		{
 			AutoCompleteStringCollection datos = new AutoCompleteStringCollection();
+			
 			Models.Product producto = new Models.Product();
-			List<Models.Product> result = producto.getProductByCodeAbsolute(txtCodigo.Text);
-			foreach (Models.Product item in result)
+			using (producto)
 			{
-				datos.Add(item.Code1);
+				List<Models.Product> result = producto.getProductByCodeAbsolute(txtCodigo.Text);
+				foreach (Models.Product item in result)
+				{
+					datos.Add(item.Code1);
+				}
 			}
+			
 			return datos;
 		}
 
@@ -41,13 +46,17 @@ namespace caja.Forms
 			if (e.KeyCode == Keys.Enter)
 			{
 				Models.Product productos = new Models.Product();
-				List<Models.Product> producto = productos.getProductByCode(txtCodigo.Text);
-				if (producto.Count > 0)
+				using (productos)
 				{
-					txtDescripcion.Text = producto[0].Description;
-					id_producto = producto[0].Id;
-					txtCantidad.Focus();
+					List<Models.Product> producto = productos.getProductByCode(txtCodigo.Text);
+					if (producto.Count > 0)
+					{
+						txtDescripcion.Text = producto[0].Description;
+						id_producto = producto[0].Id;
+						txtCantidad.Focus();
+					}
 				}
+				
 
 			}
 		}
@@ -111,22 +120,25 @@ namespace caja.Forms
 				double nuevo;
 				foreach (DataGridViewRow row in dtPoroductos.Rows)
 				{
-
-					List<Models.Product> prod = productos.getProductById(Convert.ToInt16(row.Cells["id"].Value.ToString()));
-					double antes_inventario = prod[0].Existencia;
-				
-
-					nuevo = Convert.ToInt16(row.Cells["cantidad"].Value.ToString());
-					while (prod[0].Parent != "0")
+					using (productos)
 					{
-						nuevo = nuevo * Convert.ToInt16(prod[0].C_unidad);
-						prod = productos.getProductById(Convert.ToInt16(prod[0].Parent));
-					}
-					double nuevo_inventario = antes_inventario + nuevo;
+						List<Models.Product> prod = productos.getProductById(Convert.ToInt16(row.Cells["id"].Value.ToString()));
+						double antes_inventario = prod[0].Existencia;
 
-					productos.Existencia = nuevo_inventario;
-					productos.Id = Convert.ToInt16(row.Cells["id"].Value.ToString());
-					productos.update_inventary();
+
+						nuevo = Convert.ToInt16(row.Cells["cantidad"].Value.ToString());
+						while (prod[0].Parent != "0")
+						{
+							nuevo = nuevo * Convert.ToInt16(prod[0].C_unidad);
+							prod = productos.getProductById(Convert.ToInt16(prod[0].Parent));
+						}
+						double nuevo_inventario = antes_inventario + nuevo;
+
+						productos.Existencia = nuevo_inventario;
+						productos.Id = Convert.ToInt16(row.Cells["id"].Value.ToString());
+						productos.update_inventary();
+					}
+					
 
 					
 					

@@ -47,85 +47,107 @@ namespace caja.Models
 			query += "'" + this.User + "', ";
 			query += "'" + this.Pass + "', ";
 			query += "'" + this.Tipo + "') ";
-			object rsult = runQuery(query);
+			using (runQuery(query))
+			{
+
+			}
 		}
 		public void saveUser() {
 			string query = "update tbausuario set nombre='" + this.Nombre + "', usser='" + this.User + "', pass='" + this.Pass + "', tipo='" + this.Tipo + "' where id_usuario='" + this.Id + "'";
-			object result = runQuery(query);
+			using (runQuery(query))
+			{
+
+			}
 		}
 		public List<Users> getUser(string user) {
+			
 			string query = "select id_usuario, nombre, usser, pass, tipo from tbausuario where usser='" + user + "'";
 			MySqlDataReader data = runQuery(query);
-			List<Users> result = new List<Users>();
-			if (data.HasRows)
+			using (data)
 			{
-				while (data.Read())
+				List<Users> result = new List<Users>();
+				if (data.HasRows)
 				{
-					Users item = buildUser(data);
-					result.Add(item);
+					while (data.Read())
+					{
+						Users item = buildUser(data);
+						result.Add(item);
+					}
 				}
+				return result;
 			}
-			return result;
 		}
 		public List<Users> getUserbyname(string name)
 		{
 			string query = "select id_usuario, nombre, usser, pass, tipo from tbausuario where nombre='" + name + "'";
 			MySqlDataReader data = runQuery(query);
-			List<Users> result = new List<Users>();
-			if (data.HasRows)
+			using (data)
 			{
-				while (data.Read())
+				List<Users> result = new List<Users>();
+				if (data.HasRows)
 				{
-					Users item = buildUser(data);
-					result.Add(item);
+					while (data.Read())
+					{
+						Users item = buildUser(data);
+						result.Add(item);
+					}
 				}
+				return result;
 			}
-			return result;
 		}
 		public List<Users> getInsertUser(string usuario, string pass) {
 			string query = "select id_usuario, nombre, usser, pass, tipo from tbausuario where usser='" + usuario + "' and pass='" + pass + "'";
 			MySqlDataReader data = runQuery(query);
-			List<Users> result = new List<Users>();
-			if (data.HasRows)
+			using (data)
 			{
-				while (data.Read())
+				List<Users> result = new List<Users>();
+				if (data.HasRows)
 				{
-					Users item = buildUser(data);
-					result.Add(item);
+					while (data.Read())
+					{
+						Users item = buildUser(data);
+						result.Add(item);
+					}
 				}
+				return result;
 			}
-			return result;
 		}
 		public List<Users> getUsers()
 		{
 			string query = "select id_usuario, nombre, usser, pass, tipo from tbausuario ";
 			MySqlDataReader data = runQuery(query);
-			List<Users> result = new List<Users>();
-			if (data.HasRows)
+			using (data)
 			{
-				while (data.Read())
+				List<Users> result = new List<Users>();
+				if (data.HasRows)
 				{
-					Users item = buildUser(data);
-					result.Add(item);
+					while (data.Read())
+					{
+						Users item = buildUser(data);
+						result.Add(item);
+					}
 				}
+				return result;
 			}
-			return result;
 		}
 
 		public List<Users> getUserbyid(int id)
 		{
 			string query = "select id_usuario, nombre, usser, pass, tipo from tbausuario where id_usuario='" + id.ToString() + "'";
 			MySqlDataReader data = runQuery(query);
-			List<Users> result = new List<Users>();
-			if (data.HasRows)
+			using (data)
 			{
-				while (data.Read())
+				List<Users> result = new List<Users>();
+				if (data.HasRows)
 				{
-					Users item = buildUser(data);
-					result.Add(item);
+					while (data.Read())
+					{
+						Users item = buildUser(data);
+						result.Add(item);
+					}
 				}
+				return result;
 			}
-			return result;
 		}
 	}
 }

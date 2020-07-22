@@ -13,12 +13,16 @@ namespace caja.Forms
         public void carga() {
 
             Providers prov = new Providers();
-            List<Providers> result = prov.getProviders();
-
-            foreach (Providers item in result)
+            using (prov)
             {
-                dtgProveedores.Rows.Add(item.Id, item.Name, item.RFC, item.Tel);
+                List<Providers> result = prov.getProviders();
+
+                foreach (Providers item in result)
+                {
+                    dtgProveedores.Rows.Add(item.Id, item.Name, item.RFC, item.Tel);
+                }
             }
+           
         }
 		private void txtBuscar_KeyDown(object sender, KeyEventArgs e)
 		{
@@ -36,12 +40,16 @@ namespace caja.Forms
 
 
                     Providers prov = new Providers();
-                    List<Providers> result = prov.getProviderbyNombre(bus_descripcion);
-
-                    foreach (Providers item in result)
+                    using (prov)
                     {
-                        dtgProveedores.Rows.Add(item.Id, item.Name, item.RFC, item.Tel);
+                        List<Providers> result = prov.getProviderbyNombre(bus_descripcion);
+
+                        foreach (Providers item in result)
+                        {
+                            dtgProveedores.Rows.Add(item.Id, item.Name, item.RFC, item.Tel);
+                        }
                     }
+                    
 
                 }
 

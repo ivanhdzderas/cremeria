@@ -10,21 +10,27 @@ namespace caja.Models
             databaseConnection.Close();
         }
         private MySqlDataReader OpenConnection(string query) {
-            if (databaseConnection.State == System.Data.ConnectionState.Open)
-            {
-                databaseConnection.Close();
-            }
+
+            
+
+                if (databaseConnection.State == System.Data.ConnectionState.Open)
+                {
+                    databaseConnection.Close();
+                }
             databaseConnection.Open();
 
             MySqlCommand commandDatabase = new MySqlCommand(query, databaseConnection);
+            
             commandDatabase.CommandTimeout = 60;
+            
             return commandDatabase.ExecuteReader();
         }
 
         public MySqlDataReader runQuery(string query) {
             try
             {
-                return OpenConnection(query);
+               
+                    return OpenConnection(query);
             }
             catch (Exception ex)
             { 

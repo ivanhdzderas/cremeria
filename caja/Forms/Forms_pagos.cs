@@ -24,11 +24,13 @@ namespace caja.Forms
 			dtfecha.Format = DateTimePickerFormat.Custom;
 			dtfecha.CustomFormat = "yyyy-MM-dd"; 
 			Folios folios = new Folios();
-			List<Folios> item = folios.getFolios();
-
-
-			lbFolio.Text = item[0].Pagos.ToString();
+			using (folios)
+			{
+				List<Folios> item = folios.getFolios();
+				lbFolio.Text = item[0].Pagos.ToString();
+			}
 			
+
 			txtCodigo.AutoCompleteCustomSource = cargadatos();
 			txtCodigo.AutoCompleteMode = AutoCompleteMode.Suggest;
 			txtCodigo.AutoCompleteSource = AutoCompleteSource.CustomSource;
@@ -56,22 +58,30 @@ namespace caja.Forms
 		{
 			AutoCompleteStringCollection datos = new AutoCompleteStringCollection();
 			Providers proveedores = new Providers();
-			List<Providers> result = proveedores.getProviders();
-			foreach (Providers item in result)
+			using (proveedores)
 			{
-				datos.Add(item.Id.ToString());
+				List<Providers> result = proveedores.getProviders();
+				foreach (Providers item in result)
+				{
+					datos.Add(item.Id.ToString());
+				}
 			}
+			
 			return datos;
 		}
 		private AutoCompleteStringCollection carga_proveedor2()
 		{
 			AutoCompleteStringCollection datos = new AutoCompleteStringCollection();
 			Providers proveedores = new Providers();
-			List<Providers> result = proveedores.getProviders();
-			foreach (Providers item in result)
+			using (proveedores)
 			{
-				datos.Add(item.Name);
+				List<Providers> result = proveedores.getProviders();
+				foreach (Providers item in result)
+				{
+					datos.Add(item.Name);
+				}
 			}
+			
 			return datos;
 		}
 
@@ -79,22 +89,31 @@ namespace caja.Forms
 		{
 			AutoCompleteStringCollection datos = new AutoCompleteStringCollection();
 			Fpagos pagos = new Fpagos();
-			List<Fpagos> result = pagos.getpagos();
-			foreach (Fpagos item in result)
+			using (pagos)
 			{
-				datos.Add(item.Id.ToString());
+				List<Fpagos> result = pagos.getpagos();
+				foreach (Fpagos item in result)
+				{
+					datos.Add(item.Id.ToString());
+				}
 			}
+			
 			return datos;
 		}
 		private AutoCompleteStringCollection cargadatos2()
 		{
 			AutoCompleteStringCollection datos = new AutoCompleteStringCollection();
 			Fpagos pagos = new Fpagos();
-			List<Fpagos> result = pagos.getpagos();
-			foreach (Fpagos item in result)
+			using (pagos)
 			{
-				datos.Add(item.Fpago);
+				List<Fpagos> result = pagos.getpagos();
+				foreach (Fpagos item in result)
+				{
+					datos.Add(item.Fpago);
+				}
+
 			}
+			
 			return datos;
 		}
 
@@ -105,8 +124,12 @@ namespace caja.Forms
 				if (txtCodigo.Text != "")
 				{
 					Fpagos pagos = new Fpagos();
-					List<Fpagos> result = pagos.getpagosbyid(string.Format("{0:00}", Convert.ToInt16(txtCodigo.Text)));
-					txtDescripcion.Text = result[0].Fpago;
+					using (pagos)
+					{
+						List<Fpagos> result = pagos.getpagosbyid(string.Format("{0:00}", Convert.ToInt16(txtCodigo.Text)));
+						txtDescripcion.Text = result[0].Fpago;
+					}
+					
 
 				}
 			}
@@ -119,8 +142,12 @@ namespace caja.Forms
 				if (txtDescripcion.Text != "")
 				{
 					Fpagos pagos = new Fpagos();
-					List<Fpagos> result = pagos.getpagosbydescripcion(txtDescripcion.Text);
-					txtCodigo.Text = string.Format("{0:00}", Convert.ToInt16(result[0].Id));
+					using (pagos)
+					{
+						List<Fpagos> result = pagos.getpagosbydescripcion(txtDescripcion.Text);
+						txtCodigo.Text = string.Format("{0:00}", Convert.ToInt16(result[0].Id));
+					}
+					
 				}
 			}
 		}
@@ -132,13 +159,16 @@ namespace caja.Forms
 				if (txtidproveedor.Text != "")
 				{
 					Providers proveedores = new Providers();
-					List<Providers> result = proveedores.getProviderbyId(Convert.ToInt16(txtidproveedor.Text));
-					if (result.Count > 0)
-					{
-						txtproveedor.Text = result[0].Name;
-						cbFacturas.Enabled = true;
-						carga_facturas();
+					using (proveedores) {
+						List<Providers> result = proveedores.getProviderbyId(Convert.ToInt16(txtidproveedor.Text));
+						if (result.Count > 0)
+						{
+							txtproveedor.Text = result[0].Name;
+							cbFacturas.Enabled = true;
+							carga_facturas();
+						}
 					}
+					
 				}
 			}
 		}
@@ -154,15 +184,19 @@ namespace caja.Forms
 			row["Value"] = "";
 			table.Rows.Add(row);
 			Models.Compras compras = new Models.Compras();
-			List<Models.Compras> compra = compras.getCompra_sin_pagar(txtidproveedor.Text);
-			foreach (Models.Compras item in compra)
+			using (compras)
 			{
-				cbFacturas.Items.Add(item.Folio_doc);
-				row = table.NewRow();
-				row["Text"] = item.Folio_doc;
-				row["Value"] = item.Id.ToString();
-				table.Rows.Add(row);
+				List<Models.Compras> compra = compras.getCompra_sin_pagar(txtidproveedor.Text);
+				foreach (Models.Compras item in compra)
+				{
+					cbFacturas.Items.Add(item.Folio_doc);
+					row = table.NewRow();
+					row["Text"] = item.Folio_doc;
+					row["Value"] = item.Id.ToString();
+					table.Rows.Add(row);
+				}
 			}
+			
 
 			cbFacturas.BindingContext = new BindingContext();
 			cbFacturas.DataSource = table;
@@ -181,13 +215,17 @@ namespace caja.Forms
 				if (txtproveedor.Text != "")
 				{
 					Providers proveedores = new Providers();
-					List<Providers> result = proveedores.getProviderbyNombreabsolute(txtproveedor.Text);
-					if (result.Count > 0)
+					using (proveedores)
 					{
-						txtidproveedor.Text = result[0].Id.ToString();
-						cbFacturas.Enabled = true;
-						carga_facturas();
+						List<Providers> result = proveedores.getProviderbyNombreabsolute(txtproveedor.Text);
+						if (result.Count > 0)
+						{
+							txtidproveedor.Text = result[0].Id.ToString();
+							cbFacturas.Enabled = true;
+							carga_facturas();
+						}
 					}
+					
 				}
 			}
 		}
@@ -203,28 +241,42 @@ namespace caja.Forms
 			if (validar_campo())
 			{
 				Pagos_compras pagos = new Pagos_compras();
-				pagos.Id_compra = Convert.ToInt16(lbFolio.Text);
-				pagos.Fpago = Convert.ToInt16(txtCodigo.Text);
-				pagos.Folio_pago = txtFolio.Text;
-				pagos.Fecha_pago = dtfecha.Text + " 00:00:00";
-				pagos.Monto = Convert.ToDouble(lbTotal.Text);
-				pagos.create_pago();
-
-				List<Pagos_compras> lista = pagos.getcomprabyfolio(lbFolio.Text);
-
-				Det_pagos det_pagos = new Det_pagos();
-				det_pagos.Id_pago = Convert.ToInt16(lbFolio.Text);
-
-			    Models.Compras compras = new Models.Compras();
-				
-				foreach (DataGridViewRow row in dtpagos.Rows)
+				using (pagos)
 				{
-					det_pagos.Id_compra = Convert.ToInt16(row.Cells["id"].Value.ToString());
-					det_pagos.createPago();
+					pagos.Id_compra = Convert.ToInt16(lbFolio.Text);
+					pagos.Fpago = Convert.ToInt16(txtCodigo.Text);
+					pagos.Folio_pago = txtFolio.Text;
+					pagos.Fecha_pago = dtfecha.Text + " 00:00:00";
+					pagos.Monto = Convert.ToDouble(lbTotal.Text);
+					pagos.create_pago();
+					using (pagos)
+					{
+						List<Pagos_compras> lista = pagos.getcomprabyfolio(lbFolio.Text);
 
-					compras.Id= Convert.ToInt16(row.Cells["id"].Value.ToString());
-					compras.pagar();
+						Det_pagos det_pagos = new Det_pagos();
+						det_pagos.Id_pago = Convert.ToInt16(lbFolio.Text);
+
+						Models.Compras compras = new Models.Compras();
+
+						foreach (DataGridViewRow row in dtpagos.Rows)
+						{
+							using (det_pagos)
+							{
+								det_pagos.Id_compra = Convert.ToInt16(row.Cells["id"].Value.ToString());
+								det_pagos.createPago();
+							}
+
+							using (compras)
+							{
+								compras.Id = Convert.ToInt16(row.Cells["id"].Value.ToString());
+								compras.pagar();
+							}
+							
+						}
+					}
+					
 				}
+				
 				this.Close();
 			}
 		}
@@ -283,8 +335,12 @@ namespace caja.Forms
 			else
 			{
 				Models.Compras compras = new Models.Compras();
-				List<Models.Compras> compra = compras.getCompraByid(Convert.ToInt16(cbFacturas.SelectedValue));
-				dtpagos.Rows.Add(compra[0].Id, compra[0].Folio_doc,compra[0].Fecha_doc,compra[0].Total);
+				using (compras)
+				{
+					List<Models.Compras> compra = compras.getCompraByid(Convert.ToInt16(cbFacturas.SelectedValue));
+					dtpagos.Rows.Add(compra[0].Id, compra[0].Folio_doc, compra[0].Fecha_doc, compra[0].Total);
+				}
+				
 				calcula();
 			}
 		}
