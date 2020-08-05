@@ -14,7 +14,7 @@ namespace caja.Forms
 		private void busca_producto_Load(object sender, EventArgs e)
 		{
 			carga();
-			txtCodigo.Focus();
+			
 		}
 		public void carga() {
 			dtProductos.Rows.Clear();
@@ -24,16 +24,20 @@ namespace caja.Forms
 				List<Product> result = producto.getProducts();
 				foreach (Product item in result)
 				{
-					dtProductos.Rows.Add(item.Id, item.Code1, item.Code2, item.Code3, item.Code4, item.Code5, item.Description, item.Price1, item.Price2, item.Price3, item.Price4, item.Price5);
+					dtProductos.Rows.Add(item.Id, item.Code1, item.Description, item.Price1, item.Price2);
 				}
 			}
-				
-			
-			
+			txtCodigo.Focus();
+
+
 		}
 
 		private void txtCodigo_KeyDown(object sender, KeyEventArgs e)
 		{
+			if (e.KeyCode == Keys.Right || e.KeyCode==Keys.Left)
+			{
+				txtDescripcion.Focus();
+			}
 			if (e.KeyCode == Keys.Enter)
 			{
 				if (txtCodigo.Text == "")
@@ -49,7 +53,7 @@ namespace caja.Forms
 						List<Product> result = producto.getProductByCode(txtCodigo.Text);
 						foreach (Product item in result)
 						{
-							dtProductos.Rows.Add(item.Id, item.Code1, item.Code2, item.Code3, item.Code4, item.Code5, item.Description, item.Price1, item.Price2, item.Price3, item.Price4, item.Price5);
+							dtProductos.Rows.Add(item.Id, item.Code1, item.Description, item.Price1, item.Price2);
 						}
 					}
 					
@@ -61,6 +65,10 @@ namespace caja.Forms
 
 		private void txtDescripcion_KeyDown(object sender, KeyEventArgs e)
 		{
+			if (e.KeyCode == Keys.Right || e.KeyCode == Keys.Left)
+			{
+				txtCodigo.Focus();
+			}
 			if (e.KeyCode == Keys.Enter)
 			{
 				if (txtDescripcion.Text == "")
@@ -76,12 +84,13 @@ namespace caja.Forms
 						List<Product> result = producto.getProductByDescription(txtDescripcion.Text);
 						foreach (Product item in result)
 						{
-							dtProductos.Rows.Add(item.Id, item.Code1, item.Code2, item.Code3, item.Code4, item.Code5, item.Description, item.Price1, item.Price2, item.Price3, item.Price4, item.Price5);
+							dtProductos.Rows.Add(item.Id, item.Code1,  item.Description, item.Price1, item.Price2);
 						}
 					}	
-				}	
+				}
+				dtProductos.Focus();
 			}		
-			dtProductos.Focus();
+			
 			
 		}
 
@@ -95,6 +104,17 @@ namespace caja.Forms
 				intercambios.Id_producto = Convert.ToInt16(valor);
 				this.Close();
 			}
+		}
+
+		private void dtProductos_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
+		{
+			int i = dtProductos.CurrentRow.Index;
+			string valor = dtProductos.Rows[i].Cells["id"].Value.ToString();
+
+			intercambios.Id_producto = Convert.ToInt16(valor);
+			this.Close();
+
+
 		}
 	}
 }

@@ -32,9 +32,6 @@
 			this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.codigo = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.codigo2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.codigo3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.codigo4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.codigo5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.descripcion = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.existencia = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.precio1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -64,9 +61,6 @@
             this.id,
             this.codigo,
             this.codigo2,
-            this.codigo3,
-            this.codigo4,
-            this.codigo5,
             this.descripcion,
             this.existencia,
             this.precio1,
@@ -100,26 +94,9 @@
 			this.codigo2.Name = "codigo2";
 			this.codigo2.ReadOnly = true;
 			// 
-			// codigo3
-			// 
-			this.codigo3.HeaderText = "Codigo 3";
-			this.codigo3.Name = "codigo3";
-			this.codigo3.ReadOnly = true;
-			// 
-			// codigo4
-			// 
-			this.codigo4.HeaderText = "Codigo 4";
-			this.codigo4.Name = "codigo4";
-			this.codigo4.ReadOnly = true;
-			// 
-			// codigo5
-			// 
-			this.codigo5.HeaderText = "Codigo 5";
-			this.codigo5.Name = "codigo5";
-			this.codigo5.ReadOnly = true;
-			// 
 			// descripcion
 			// 
+			this.descripcion.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
 			this.descripcion.HeaderText = "Descripcion";
 			this.descripcion.Name = "descripcion";
 			this.descripcion.ReadOnly = true;
@@ -163,7 +140,7 @@
 			// label1
 			// 
 			this.label1.AutoSize = true;
-			this.label1.Location = new System.Drawing.Point(12, 33);
+			this.label1.Location = new System.Drawing.Point(221, 42);
 			this.label1.Name = "label1";
 			this.label1.Size = new System.Drawing.Size(63, 13);
 			this.label1.TabIndex = 1;
@@ -171,9 +148,8 @@
 			// 
 			// label2
 			// 
-			this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.label2.AutoSize = true;
-			this.label2.Location = new System.Drawing.Point(472, 33);
+			this.label2.Location = new System.Drawing.Point(12, 42);
 			this.label2.Name = "label2";
 			this.label2.Size = new System.Drawing.Size(40, 13);
 			this.label2.TabIndex = 2;
@@ -183,7 +159,7 @@
 			// 
 			this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.textBox1.Location = new System.Drawing.Point(78, 30);
+			this.textBox1.Location = new System.Drawing.Point(287, 39);
 			this.textBox1.Name = "textBox1";
 			this.textBox1.Size = new System.Drawing.Size(380, 20);
 			this.textBox1.TabIndex = 3;
@@ -191,8 +167,7 @@
 			// 
 			// textBox2
 			// 
-			this.textBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.textBox2.Location = new System.Drawing.Point(518, 30);
+			this.textBox2.Location = new System.Drawing.Point(58, 39);
 			this.textBox2.Name = "textBox2";
 			this.textBox2.Size = new System.Drawing.Size(157, 20);
 			this.textBox2.TabIndex = 4;
@@ -261,20 +236,17 @@
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn id;
-        private System.Windows.Forms.DataGridViewTextBoxColumn codigo;
-        private System.Windows.Forms.DataGridViewTextBoxColumn codigo2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn codigo3;
-        private System.Windows.Forms.DataGridViewTextBoxColumn codigo4;
-        private System.Windows.Forms.DataGridViewTextBoxColumn codigo5;
-        private System.Windows.Forms.DataGridViewTextBoxColumn descripcion;
-        private System.Windows.Forms.DataGridViewTextBoxColumn existencia;
-        private System.Windows.Forms.DataGridViewTextBoxColumn precio1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn precio2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn precio3;
-        private System.Windows.Forms.DataGridViewTextBoxColumn precio4;
-        private System.Windows.Forms.DataGridViewTextBoxColumn precio5;
         private System.Windows.Forms.Button button2;
 		private System.Windows.Forms.Button button3;
+		private System.Windows.Forms.DataGridViewTextBoxColumn id;
+		private System.Windows.Forms.DataGridViewTextBoxColumn codigo;
+		private System.Windows.Forms.DataGridViewTextBoxColumn codigo2;
+		private System.Windows.Forms.DataGridViewTextBoxColumn descripcion;
+		private System.Windows.Forms.DataGridViewTextBoxColumn existencia;
+		private System.Windows.Forms.DataGridViewTextBoxColumn precio1;
+		private System.Windows.Forms.DataGridViewTextBoxColumn precio2;
+		private System.Windows.Forms.DataGridViewTextBoxColumn precio3;
+		private System.Windows.Forms.DataGridViewTextBoxColumn precio4;
+		private System.Windows.Forms.DataGridViewTextBoxColumn precio5;
 	}
 }

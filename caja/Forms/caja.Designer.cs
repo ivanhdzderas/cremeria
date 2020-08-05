@@ -92,6 +92,8 @@
 			this.dtFecha = new System.Windows.Forms.DateTimePicker();
 			this.label14 = new System.Windows.Forms.Label();
 			this.lbCancelado = new System.Windows.Forms.Label();
+			this.label15 = new System.Windows.Forms.Label();
+			this.txtLineas = new System.Windows.Forms.TextBox();
 			((System.ComponentModel.ISupportInitialize)(this.dtProductos)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
 			this.SuspendLayout();
@@ -175,7 +177,7 @@
 			this.dtProductos.Name = "dtProductos";
 			this.dtProductos.Size = new System.Drawing.Size(1311, 367);
 			this.dtProductos.TabIndex = 8;
-			this.dtProductos.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtProductos_CellContentClick);
+			this.dtProductos.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtProductos_CellEndEdit);
 			this.dtProductos.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtProductos_CellEndEdit);
 			this.dtProductos.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dtProductos_CellMouseDoubleClick);
 			this.dtProductos.RowsRemoved += new System.Windows.Forms.DataGridViewRowsRemovedEventHandler(this.dtProductos_RowsRemoved);
@@ -193,7 +195,6 @@
 			this.Codigo.DefaultCellStyle = dataGridViewCellStyle1;
 			this.Codigo.HeaderText = "Código";
 			this.Codigo.Name = "Codigo";
-			this.Codigo.ReadOnly = true;
 			// 
 			// Cantidad
 			// 
@@ -219,7 +220,6 @@
 			this.p_unitario.DefaultCellStyle = dataGridViewCellStyle4;
 			this.p_unitario.HeaderText = "Unitario";
 			this.p_unitario.Name = "p_unitario";
-			this.p_unitario.ReadOnly = true;
 			this.p_unitario.Width = 150;
 			// 
 			// descuento
@@ -238,7 +238,6 @@
 			this.importe.DefaultCellStyle = dataGridViewCellStyle6;
 			this.importe.HeaderText = "Importe";
 			this.importe.Name = "importe";
-			this.importe.ReadOnly = true;
 			this.importe.Width = 150;
 			// 
 			// grabado
@@ -404,7 +403,8 @@
 			this.txtTdescuento.Name = "txtTdescuento";
 			this.txtTdescuento.Size = new System.Drawing.Size(148, 29);
 			this.txtTdescuento.TabIndex = 10;
-			this.txtTdescuento.TextChanged += new System.EventHandler(this.txtTdescuento_TextChanged);
+			this.txtTdescuento.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtTdescuento_KeyDown);
+			this.txtTdescuento.Leave += new System.EventHandler(this.txtTdescuento_Leave);
 			// 
 			// label10
 			// 
@@ -422,8 +422,8 @@
 			// 
 			this.txtTotal.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
 			this.txtTotal.BorderStyle = System.Windows.Forms.BorderStyle.None;
-			this.txtTotal.Enabled = false;
-			this.txtTotal.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.txtTotal.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.txtTotal.ForeColor = System.Drawing.Color.Red;
 			this.txtTotal.Location = new System.Drawing.Point(1179, 679);
 			this.txtTotal.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
 			this.txtTotal.Name = "txtTotal";
@@ -683,7 +683,7 @@
 			// txtFolio
 			// 
 			this.txtFolio.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-			this.txtFolio.Location = new System.Drawing.Point(357, 502);
+			this.txtFolio.Location = new System.Drawing.Point(321, 499);
 			this.txtFolio.Name = "txtFolio";
 			this.txtFolio.Size = new System.Drawing.Size(100, 26);
 			this.txtFolio.TabIndex = 21;
@@ -693,7 +693,7 @@
 			// 
 			this.label7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
 			this.label7.AutoSize = true;
-			this.label7.Location = new System.Drawing.Point(300, 506);
+			this.label7.Location = new System.Drawing.Point(264, 503);
 			this.label7.Name = "label7";
 			this.label7.Size = new System.Drawing.Size(43, 20);
 			this.label7.TabIndex = 43;
@@ -724,18 +724,39 @@
 			this.lbCancelado.AutoSize = true;
 			this.lbCancelado.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.lbCancelado.ForeColor = System.Drawing.Color.Red;
-			this.lbCancelado.Location = new System.Drawing.Point(614, 499);
+			this.lbCancelado.Location = new System.Drawing.Point(614, 529);
 			this.lbCancelado.Name = "lbCancelado";
 			this.lbCancelado.Size = new System.Drawing.Size(333, 55);
 			this.lbCancelado.TabIndex = 46;
 			this.lbCancelado.Text = "CANCELADO";
 			this.lbCancelado.Visible = false;
 			// 
+			// label15
+			// 
+			this.label15.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+			this.label15.AutoSize = true;
+			this.label15.Location = new System.Drawing.Point(440, 503);
+			this.label15.Name = "label15";
+			this.label15.Size = new System.Drawing.Size(105, 20);
+			this.label15.TabIndex = 47;
+			this.label15.Text = "No. Registros";
+			// 
+			// txtLineas
+			// 
+			this.txtLineas.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+			this.txtLineas.Enabled = false;
+			this.txtLineas.Location = new System.Drawing.Point(551, 500);
+			this.txtLineas.Name = "txtLineas";
+			this.txtLineas.Size = new System.Drawing.Size(100, 26);
+			this.txtLineas.TabIndex = 48;
+			// 
 			// caja
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(1347, 717);
+			this.Controls.Add(this.txtLineas);
+			this.Controls.Add(this.label15);
 			this.Controls.Add(this.lbCancelado);
 			this.Controls.Add(this.label14);
 			this.Controls.Add(this.dtFecha);
@@ -837,6 +858,13 @@
 		private System.Windows.Forms.TextBox txtIdAtiende;
 		private System.Windows.Forms.Label label13;
 		private System.Windows.Forms.Button button8;
+		private System.Windows.Forms.Button button9;
+		private System.Windows.Forms.Label lbClient;
+		private System.Windows.Forms.Label label7;
+		private System.Windows.Forms.TextBox txtFolio;
+		private System.Windows.Forms.DateTimePicker dtFecha;
+		private System.Windows.Forms.Label label14;
+		private System.Windows.Forms.Label lbCancelado;
 		private System.Windows.Forms.DataGridViewTextBoxColumn id_producto;
 		private System.Windows.Forms.DataGridViewTextBoxColumn Codigo;
 		private System.Windows.Forms.DataGridViewTextBoxColumn Cantidad;
@@ -846,12 +874,7 @@
 		private System.Windows.Forms.DataGridViewTextBoxColumn importe;
 		private System.Windows.Forms.DataGridViewTextBoxColumn grabado;
 		private System.Windows.Forms.DataGridViewTextBoxColumn costo;
-		private System.Windows.Forms.Button button9;
-		private System.Windows.Forms.Label lbClient;
-		private System.Windows.Forms.Label label7;
-		private System.Windows.Forms.TextBox txtFolio;
-		private System.Windows.Forms.DateTimePicker dtFecha;
-		private System.Windows.Forms.Label label14;
-		private System.Windows.Forms.Label lbCancelado;
+		private System.Windows.Forms.TextBox txtLineas;
+		private System.Windows.Forms.Label label15;
 	}
 }

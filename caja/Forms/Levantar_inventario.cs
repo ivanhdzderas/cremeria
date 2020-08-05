@@ -43,6 +43,7 @@ namespace caja.Forms
 
 		private void txtCodigo_KeyDown(object sender, KeyEventArgs e)
 		{
+			Boolean encontrado = false;
 			if (e.KeyCode == Keys.Enter)
 			{
 				Models.Product productos = new Models.Product();
@@ -51,12 +52,37 @@ namespace caja.Forms
 					List<Models.Product> producto = productos.getProductByCode(txtCodigo.Text);
 					if (producto.Count > 0)
 					{
-						txtDescripcion.Text = producto[0].Description;
-						id_producto = producto[0].Id;
-						txtCantidad.Focus();
+						if (producto.Count > 0)
+						{
+							txtDescripcion.Text = producto[0].Description;
+							id_producto = producto[0].Id;
+							txtCantidad.Text = "1";
+						}
+
+						foreach (DataGridViewRow row in dtPoroductos.Rows)
+						{
+							if (row.Cells["id"].Value.ToString() == id_producto.ToString())
+							{
+								encontrado = true;
+								row.Cells["cantidad"].Value = Convert.ToInt16(row.Cells["cantidad"].Value) + 1;
+								break;
+							}
+						}
+						if (encontrado == false)
+						{
+							dtPoroductos.Rows.Add(id_producto, txtCodigo.Text, txtDescripcion.Text, "1");
+						}
 					}
+					else
+					{
+						MessageBox.Show("No se encontro producto", "Producto", MessageBoxButtons.OK, MessageBoxIcon.Error);
+					}
+					
 				}
-				
+				txtCantidad.Text = "";
+				txtDescripcion.Text = "";
+				txtCodigo.Text = "";
+				txtCodigo.Focus();
 
 			}
 		}
@@ -147,6 +173,11 @@ namespace caja.Forms
 				MessageBox.Show("Efectuado con exito");
 				txtCodigo.Focus();
 			}
+		}
+
+		private void dtPoroductos_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+		{
+			txtCodigo.Focus();
 		}
 	}
 }

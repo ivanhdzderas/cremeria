@@ -85,7 +85,7 @@ namespace caja.Models
 			query += "'" + this.Uuid + "', ";
 			query += "'" + this.Estado + "', ";
 			query += "'" + this.Pago + "', ";
-			query += "'" + this.Xml + "', )";
+			query += "'" + this.Xml + "' )";
 			object result = runQuery(query);
 		}
 		string maq_query= "SELECT id,folio,serie,id_cliente,subtotal,total,cadena_original,sello,uuid,status,pago,xml FROM tbafacturas";

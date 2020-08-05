@@ -54,7 +54,7 @@ namespace caja.Models
 
 		}
 		public void start_caja() {
-			string query = "insert into tbacortes (id_usuario, fecha, caja_inicial, fecha_corte) values ('" + this.Id_usuario + "', NOW(), '" + this.Caja_inicial + "', NOW())";
+			string query = "insert into tbacortes (id_usuario, fecha, caja_inicial) values ('" + this.Id_usuario + "', NOW(), '" + this.Caja_inicial + "')";
 			object result = runQuery(query);
 		}
 

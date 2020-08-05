@@ -22,62 +22,188 @@ namespace caja.Forms.Reportes
 
 		private void Cierre_caja_Load(object sender, EventArgs e)
 		{
-			Venta_grupo venta_grupos = new Venta_grupo();
-			using (venta_grupos)
+			Finicial.Format = DateTimePickerFormat.Custom;
+			Finicial.CustomFormat = "yyyy-MM-dd";
+			Ffinal.Format = DateTimePickerFormat.Custom;
+			Ffinal.CustomFormat = "yyyy-MM-dd";
+
+
+
+		}
+
+		private void button1_Click(object sender, EventArgs e)
+		{
+			Models.Reports.Tickets diario = new Models.Reports.Tickets();
+			Models.retiro_efectivo retiros = new Models.retiro_efectivo();
+			Models.Reports.Totales totales = new Models.Reports.Totales();
+			Models.Reports.Encaja encaja = new Models.Reports.Encaja();
+			Models.Reports.Retiro_proveedores retiro_proveedores = new Models.Reports.Retiro_proveedores();
+			Models.Providers proveedores = new Models.Providers();
+			Models.Cortes cortes = new Models.Cortes();
+			Models.Reports.Retiro_efectivo retiro_efectivo = new Models.Reports.Retiro_efectivo();
+			Models.Reports.Mas_vendidos mas_vedidos = new Models.Reports.Mas_vendidos();
+			using (diario)
 			{
-				List<Venta_grupo> item = venta_grupos.get_ventas();
-				ReportDataSource datasource = new ReportDataSource("VentaGrupo", item);
-				Ventas general = new Ventas();
-				general.Efectivo = 0;
-				general.Tarjeta = 0;
-				general.Total = 0;
-
-				this.reportViewer1.LocalReport.ReportEmbeddedResource = "caja.Reports.caja.rdlc";
-				this.reportViewer1.LocalReport.DataSources.Clear();
-				this.reportViewer1.LocalReport.DataSources.Add(datasource);
-
-				Encaja en_encaja = new Encaja();
-				Tickets ticket = new Tickets();
-				using (ticket)
+				using (retiros)
 				{
-					List<Tickets> lista = ticket.getbyUser(Convert.ToInt16(inicial.id_usario));
-					double total = 0;
-					Cortes cortes = new Cortes();
 					using (cortes)
 					{
-						List<Cortes> ultimo = cortes.getnoclose(Convert.ToInt16(inicial.id_usario));
-						if (ultimo.Count > 0)
+						using (proveedores)
 						{
-							en_encaja.Fondo = Convert.ToDouble(ultimo[0].Caja_inicial);
-							foreach (Tickets it in lista)
+							using (mas_vedidos)
 							{
-								total += it.Total;
-							}
-							en_encaja.Efectivo = total;
-							en_encaja.Entrada = 0;
-							en_encaja.Abonos = 0;
-							en_encaja.Salidas = 0;
-							en_encaja.Total = (total + ultimo[0].Caja_inicial);
-						}
-						List<Encaja> enca = new List<Encaja>();
-						enca.Add(en_encaja);
-						List<Ventas> vent = new List<Ventas>();
-						vent.Add(general);
-						general = null;
-						en_encaja = null;
-						ReportDataSource ven = new ReportDataSource("Ventas", vent);
-						ReportDataSource data = new ReportDataSource("Aldia", enca);
-						this.reportViewer1.LocalReport.DataSources.Add(data);
-						this.reportViewer1.LocalReport.DataSources.Add(ven);
-						this.reportViewer1.RefreshReport();
-					}
-					
-				}
-				
-			}
-			
 
-			
+								if (chkDetallado.Checked == false)
+								{
+									this.reportViewer1.LocalReport.ReportEmbeddedResource = "caja.Reports.corte.rdlc";
+									this.reportViewer1.LocalReport.DataSources.Clear();
+
+
+
+									List<Models.Reports.Tickets> reporte = diario.get_tickets(Finicial.Text, Ffinal.Text);
+
+									List<Models.Reports.Mas_vendidos> lista_vendidos = mas_vedidos.get_masvendidos(Finicial.Text, Ffinal.Text);
+									ReportDataSource datasource = new ReportDataSource("Mas_vendidos", lista_vendidos);
+
+
+									this.reportViewer1.LocalReport.DataSources.Add(datasource);
+
+									foreach (Models.Reports.Tickets item in reporte)
+									{
+										totales.Ganancias = totales.Ganancias + item.Ganancias;
+										totales.Total = totales.Total + item.Total;
+									}
+
+									List<Models.Reports.Totales> tot = new List<Models.Reports.Totales>();
+									tot.Add(totales);
+									ReportDataSource ven = new ReportDataSource("Totales", tot);
+									this.reportViewer1.LocalReport.DataSources.Add(ven);
+
+									List<Models.Cortes> no_cerrado = cortes.getnoclose(Convert.ToInt16(inicial.id_usario));
+									if (no_cerrado.Count > 0)
+									{
+										encaja.Fondo = no_cerrado[0].Caja_inicial;
+									}
+									else
+									{
+										encaja.Fondo = 0;
+									}
+
+
+
+
+									List<Models.retiro_efectivo> ret = retiros.get_retirostoday();
+									foreach (Models.retiro_efectivo item in ret)
+									{
+										if (item.Id_proveedor == 0)
+										{
+											retiro_efectivo.Monto = item.Monto;
+											encaja.Retiros = encaja.Retiros + item.Monto;
+										}
+										else
+										{
+											List<Models.Providers> proveedor = proveedores.getProviderbyId(item.Id_proveedor);
+											retiro_proveedores.Proveedor = proveedor[0].Name;
+											retiro_proveedores.Monto = item.Monto_proveedor;
+										}
+									}
+									List<Models.Reports.Retiro_efectivo> reti = new List<Models.Reports.Retiro_efectivo>();
+									List<Models.Reports.Retiro_proveedores> lista_retiro_proveedores = new List<Models.Reports.Retiro_proveedores>();
+									lista_retiro_proveedores.Add(retiro_proveedores);
+									ReportDataSource prov = new ReportDataSource("Proveedores", lista_retiro_proveedores);
+									this.reportViewer1.LocalReport.DataSources.Add(prov);
+									reti.Add(retiro_efectivo);
+									ReportDataSource rettt = new ReportDataSource("retiro_efectivo", reti);
+									this.reportViewer1.LocalReport.DataSources.Add(rettt);
+
+									List<Models.Reports.Encaja> Lista_encaja = new List<Models.Reports.Encaja>();
+									Lista_encaja.Add(encaja);
+									ReportDataSource caj = new ReportDataSource("EnCaja", Lista_encaja);
+									this.reportViewer1.LocalReport.DataSources.Add(caj);
+
+									this.reportViewer1.RefreshReport();
+								}
+								else
+								{
+									this.reportViewer1.LocalReport.ReportEmbeddedResource = "caja.Reports.corte2.rdlc";
+									this.reportViewer1.LocalReport.DataSources.Clear();
+
+
+
+									List<Models.Reports.Tickets> reporte = diario.get_tickets(Finicial.Text, Ffinal.Text);
+
+									List<Models.Reports.Mas_vendidos> lista_vendidos = mas_vedidos.get_masvendidos(Finicial.Text, Ffinal.Text);
+									ReportDataSource datasource = new ReportDataSource("Mas_vendidos", lista_vendidos);
+
+
+									this.reportViewer1.LocalReport.DataSources.Add(datasource);
+
+									ReportDataSource tickets = new ReportDataSource("Tickets",reporte);
+									this.reportViewer1.LocalReport.DataSources.Add(tickets);
+
+									foreach (Models.Reports.Tickets item in reporte)
+									{
+										totales.Ganancias = totales.Ganancias + item.Ganancias;
+										totales.Total = totales.Total + item.Total;
+									}
+
+									List<Models.Reports.Totales> tot = new List<Models.Reports.Totales>();
+									tot.Add(totales);
+									ReportDataSource ven = new ReportDataSource("Totales", tot);
+									this.reportViewer1.LocalReport.DataSources.Add(ven);
+
+									List<Models.Cortes> no_cerrado = cortes.getnoclose(Convert.ToInt16(inicial.id_usario));
+									if (no_cerrado.Count > 0)
+									{
+										encaja.Fondo = no_cerrado[0].Caja_inicial;
+									}
+									else
+									{
+										encaja.Fondo = 0;
+									}
+
+
+
+
+									List<Models.retiro_efectivo> ret = retiros.get_retirostoday();
+									foreach (Models.retiro_efectivo item in ret)
+									{
+										if (item.Id_proveedor == 0)
+										{
+											retiro_efectivo.Monto = item.Monto;
+											encaja.Retiros = encaja.Retiros + item.Monto;
+										}
+										else
+										{
+											List<Models.Providers> proveedor = proveedores.getProviderbyId(item.Id_proveedor);
+											retiro_proveedores.Proveedor = proveedor[0].Name;
+											retiro_proveedores.Monto = item.Monto_proveedor;
+										}
+									}
+									List<Models.Reports.Retiro_efectivo> reti = new List<Models.Reports.Retiro_efectivo>();
+									List<Models.Reports.Retiro_proveedores> lista_retiro_proveedores = new List<Models.Reports.Retiro_proveedores>();
+									lista_retiro_proveedores.Add(retiro_proveedores);
+									ReportDataSource prov = new ReportDataSource("Proveedores", lista_retiro_proveedores);
+									this.reportViewer1.LocalReport.DataSources.Add(prov);
+									reti.Add(retiro_efectivo);
+									ReportDataSource rettt = new ReportDataSource("retiro_efectivo", reti);
+									this.reportViewer1.LocalReport.DataSources.Add(rettt);
+
+									List<Models.Reports.Encaja> Lista_encaja = new List<Models.Reports.Encaja>();
+									Lista_encaja.Add(encaja);
+									ReportDataSource caj = new ReportDataSource("EnCaja", Lista_encaja);
+									this.reportViewer1.LocalReport.DataSources.Add(caj);
+
+									this.reportViewer1.RefreshReport();
+								}
+								
+							}
+
+							
+						}
+					}
+				}
+			}
 		}
 	}
 }

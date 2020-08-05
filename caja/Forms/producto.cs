@@ -321,7 +321,7 @@ namespace caja
                         txtExistencia.Text = item.Existencia.ToString();
                         txtDevoluciones.Text = item.Devoluciones.ToString();
                         cboMarca.SelectedValue = item.Brand;
-
+                        chkActivo.Checked = Convert.ToBoolean(item.Active);
                         CallRecursive(tvGrupos, item.Group);
 
 
@@ -348,7 +348,46 @@ namespace caja
                         max_p4.Value = item.Max_p4;
                         max_p5.Value = item.Max_p5;
                         txtdias.Text = item.Dias_alerta.ToString();
-                        carga_pack(Convert.ToUInt16(Codigo));
+
+
+                   
+
+
+                    switch (item.Buy_tax)
+                    {
+                        case "EXENTO IMPUESTOS":
+                            cboCompra.SelectedIndex = 0;
+                            break;
+                        case "IVA 11":
+                            cboCompra.SelectedIndex = 1;
+                            break;
+
+                        case "IVA 16":
+                            cboCompra.SelectedIndex = 2;
+                            break;
+                        case "IVA TASA CERO":
+                            cboCompra.SelectedIndex = 3;
+                            break;
+                    }
+
+
+                    switch (item.Sale_tax)
+                    {
+                        case "EXENTO IMPUESTOS":
+                            cboVenta.SelectedIndex = 0;
+                            break;
+                        case "IVA 11":
+                            cboVenta.SelectedIndex = 1;
+                            break;
+
+                        case "IVA 16":
+                            cboVenta.SelectedIndex = 2;
+                            break;
+                        case "IVA TASA CERO":
+                            cboVenta.SelectedIndex = 3;
+                            break;
+                    }
+                    carga_pack(Convert.ToUInt16(Codigo));
                         carga_box();
                         carga_kardex();
                     }
@@ -758,26 +797,7 @@ namespace caja
             {
                 validador = false;
             }
-            if (cboUnidad.SelectedIndex == 0 || cboUnidad.Text == "")
-            {
-                validador = false;
-            }
-            if (cboMarca.SelectedIndex == 0 || cboMarca.Text == "")
-            {
-                validador = false;
-            }
-            if (txtUnidadSat.Text == "")
-            {
-                validador = false;
-            }
-            if (txtSAT.Text == "")
-            {
-                validador = false;
-            }
-            if (tvGrupos.SelectedNode == null)
-            {
-                validador = false;
-            }
+            
             if (txtCosto.Text=="" || txtCosto.Text == "0.00")
             {
                 validador = false;
@@ -865,6 +885,30 @@ namespace caja
             }
             else
             {
+                string marca;
+                string unidad;
+               
+
+
+                if (cboMarca.SelectedIndex != 0 && cboMarca.SelectedValue!=null)
+                {
+                    marca = cboMarca.SelectedValue.ToString();
+                }
+                else
+                {
+                    marca = "";
+                }
+
+                if (cboUnidad.SelectedIndex != 0)
+                {
+                    unidad = cboUnidad.SelectedValue.ToString();
+                }
+                else
+                {
+                    unidad = "";
+                }
+
+
 
                 Product product = new Product(
                 0,
@@ -877,8 +921,8 @@ namespace caja
                 0,
                 0,
                 grupo,
-                cboMarca.SelectedValue.ToString(),
-                cboUnidad.SelectedValue.ToString(),
+                marca,
+                unidad,
                 Convert.ToDouble(txtPrice1.Text),
                 Convert.ToDouble(txtPrice2.Text),
                 Convert.ToDouble(txtPrice3.Text),
@@ -910,10 +954,10 @@ namespace caja
                 Convert.ToInt16(max_p4.Value),
                 Convert.ToInt16(max_p5.Value)
                 );
-
+                product.Active = Convert.ToInt16(chkActivo.Checked);
                 if (Codigo == "")
                 {
-                    
+                       
                         product.createProduct();
                         List<Product> result = product.getProductByCode(txtCodigo1.Text);
                         foreach (Product item in result)
@@ -979,7 +1023,7 @@ namespace caja
                     0,
                     0
                     );
-
+                    subproduct.Active = Convert.ToInt16(chkActivo.Checked);
                     if (Codigo == "")
                     {
                         
@@ -1051,6 +1095,7 @@ namespace caja
                        0,
                        0
                        );
+                    subsub.Active = Convert.ToInt16(chkActivo.Checked);
                     if (Codigo == "")
                     {
                         

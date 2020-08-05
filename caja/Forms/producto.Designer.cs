@@ -32,6 +32,8 @@
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(producto));
 			this.tabControl1 = new System.Windows.Forms.TabControl();
 			this.tabPage1 = new System.Windows.Forms.TabPage();
+			this.txtDevoluciones = new System.Windows.Forms.TextBox();
+			this.label55 = new System.Windows.Forms.Label();
 			this.chkLote = new System.Windows.Forms.CheckBox();
 			this.txtdias = new System.Windows.Forms.TextBox();
 			this.label51 = new System.Windows.Forms.Label();
@@ -170,8 +172,7 @@
 			this.butSave = new System.Windows.Forms.Button();
 			this.label6 = new System.Windows.Forms.Label();
 			this.txtDescripcion = new System.Windows.Forms.TextBox();
-			this.label55 = new System.Windows.Forms.Label();
-			this.txtDevoluciones = new System.Windows.Forms.TextBox();
+			this.chkActivo = new System.Windows.Forms.CheckBox();
 			this.tabControl1.SuspendLayout();
 			this.tabPage1.SuspendLayout();
 			this.groupBox1.SuspendLayout();
@@ -257,6 +258,23 @@
 			this.tabPage1.TabIndex = 0;
 			this.tabPage1.Text = "General";
 			this.tabPage1.UseVisualStyleBackColor = true;
+			// 
+			// txtDevoluciones
+			// 
+			this.txtDevoluciones.Enabled = false;
+			this.txtDevoluciones.Location = new System.Drawing.Point(583, 119);
+			this.txtDevoluciones.Name = "txtDevoluciones";
+			this.txtDevoluciones.Size = new System.Drawing.Size(100, 20);
+			this.txtDevoluciones.TabIndex = 57;
+			// 
+			// label55
+			// 
+			this.label55.AutoSize = true;
+			this.label55.Location = new System.Drawing.Point(505, 122);
+			this.label55.Name = "label55";
+			this.label55.Size = new System.Drawing.Size(72, 13);
+			this.label55.TabIndex = 56;
+			this.label55.Text = "Devoluciones";
 			// 
 			// chkLote
 			// 
@@ -1604,28 +1622,22 @@
 			this.txtDescripcion.Size = new System.Drawing.Size(418, 20);
 			this.txtDescripcion.TabIndex = 12;
 			// 
-			// label55
+			// chkActivo
 			// 
-			this.label55.AutoSize = true;
-			this.label55.Location = new System.Drawing.Point(505, 122);
-			this.label55.Name = "label55";
-			this.label55.Size = new System.Drawing.Size(72, 13);
-			this.label55.TabIndex = 56;
-			this.label55.Text = "Devoluciones";
-			// 
-			// txtDevoluciones
-			// 
-			this.txtDevoluciones.Enabled = false;
-			this.txtDevoluciones.Location = new System.Drawing.Point(583, 119);
-			this.txtDevoluciones.Name = "txtDevoluciones";
-			this.txtDevoluciones.Size = new System.Drawing.Size(100, 20);
-			this.txtDevoluciones.TabIndex = 57;
+			this.chkActivo.AutoSize = true;
+			this.chkActivo.Location = new System.Drawing.Point(722, 24);
+			this.chkActivo.Name = "chkActivo";
+			this.chkActivo.Size = new System.Drawing.Size(56, 17);
+			this.chkActivo.TabIndex = 30;
+			this.chkActivo.Text = "Activo";
+			this.chkActivo.UseVisualStyleBackColor = true;
 			// 
 			// producto
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(794, 575);
+			this.Controls.Add(this.chkActivo);
 			this.Controls.Add(this.txtDescripcion);
 			this.Controls.Add(this.label6);
 			this.Controls.Add(this.tabControl1);
@@ -1807,5 +1819,6 @@
 		private System.Windows.Forms.Label label54;
 		private System.Windows.Forms.TextBox txtDevoluciones;
 		private System.Windows.Forms.Label label55;
+		private System.Windows.Forms.CheckBox chkActivo;
 	}
 }

@@ -27,7 +27,7 @@ namespace caja
 
                 foreach (Product item in result)
                 {
-                    dataGridView1.Rows.Add(item.Id, item.Code1, item.Code2, item.Code3, item.Code4, item.Code5, item.Description, (item.Existencia + item.Devoluciones), item.Price1, item.Price2, item.Price2, item.Price4, item.Price5);
+                    dataGridView1.Rows.Add(item.Id, item.Code1, item.Code2, item.Description, (item.Existencia + item.Devoluciones), item.Price1, item.Price2, item.Price2, item.Price4, item.Price5);
                 }
             }
            
@@ -73,7 +73,7 @@ namespace caja
 
                         foreach (Product item in result)
                         {
-                            dataGridView1.Rows.Add(item.Id, item.Code1, item.Code2, item.Code3, item.Code4, item.Code5, item.Description, (item.Existencia + item.Devoluciones), item.Price1, item.Price2, item.Price2, item.Price4, item.Price5);
+                            dataGridView1.Rows.Add(item.Id, item.Code1, item.Code2, item.Description, (item.Existencia + item.Devoluciones), item.Price1, item.Price2, item.Price2, item.Price4, item.Price5);
 
                         }
                     }
@@ -103,7 +103,7 @@ namespace caja
 
                         foreach (Product item in result)
                         {
-                            dataGridView1.Rows.Add(item.Id, item.Code1, item.Code2, item.Code3, item.Code4, item.Code5, item.Description, (item.Existencia + item.Devoluciones), item.Price1, item.Price2, item.Price2, item.Price4, item.Price5);
+                            dataGridView1.Rows.Add(item.Id, item.Code1, item.Code2, item.Description, (item.Existencia + item.Devoluciones), item.Price1, item.Price2, item.Price2, item.Price4, item.Price5);
 
                         }
                     }
@@ -124,7 +124,7 @@ namespace caja
 
                 foreach (Product item in result)
                 {
-                    dataGridView1.Rows.Add(item.Code1, item.Code2, item.Code3, item.Code4, item.Code5, item.Description, item.Description, item.Price1, item.Price2, item.Price2, item.Price4, item.Price5);
+                    dataGridView1.Rows.Add(item.Code1, item.Code2,  item.Description, item.Description, item.Price1, item.Price2, item.Price2, item.Price4, item.Price5);
                 }
             }
            

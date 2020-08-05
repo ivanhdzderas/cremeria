@@ -42,12 +42,6 @@
 			this.folio = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.tipo = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.dtProductos = new System.Windows.Forms.DataGridView();
-			this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.cantidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.codigo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.descripcion = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.pu = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.total = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.button1 = new System.Windows.Forms.Button();
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
 			this.txtMPago = new System.Windows.Forms.TextBox();
@@ -62,6 +56,12 @@
 			this.txtSubtotal = new System.Windows.Forms.TextBox();
 			this.txtIVa = new System.Windows.Forms.TextBox();
 			this.txtTotal = new System.Windows.Forms.TextBox();
+			this.id_producto = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.cantidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.codigo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.descripcion = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.pu = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.total = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			((System.ComponentModel.ISupportInitialize)(this.dtdocumentos)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.dtProductos)).BeginInit();
 			this.groupBox1.SuspendLayout();
@@ -142,6 +142,7 @@
 			this.txtCliente.Name = "txtCliente";
 			this.txtCliente.Size = new System.Drawing.Size(406, 20);
 			this.txtCliente.TabIndex = 8;
+			this.txtCliente.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtCliente_KeyDown);
 			// 
 			// txtIdCliente
 			// 
@@ -149,6 +150,7 @@
 			this.txtIdCliente.Name = "txtIdCliente";
 			this.txtIdCliente.Size = new System.Drawing.Size(100, 20);
 			this.txtIdCliente.TabIndex = 9;
+			this.txtIdCliente.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtIdCliente_KeyDown);
 			// 
 			// dtdocumentos
 			// 
@@ -158,10 +160,10 @@
 			this.dtdocumentos.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.folio,
             this.tipo});
-			this.dtdocumentos.Location = new System.Drawing.Point(12, 320);
+			this.dtdocumentos.Location = new System.Drawing.Point(12, 294);
 			this.dtdocumentos.Name = "dtdocumentos";
 			this.dtdocumentos.ReadOnly = true;
-			this.dtdocumentos.Size = new System.Drawing.Size(249, 94);
+			this.dtdocumentos.Size = new System.Drawing.Size(249, 34);
 			this.dtdocumentos.TabIndex = 10;
 			this.dtdocumentos.Visible = false;
 			// 
@@ -182,7 +184,7 @@
 			this.dtProductos.AllowUserToAddRows = false;
 			this.dtProductos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
 			this.dtProductos.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.id,
+            this.id_producto,
             this.cantidad,
             this.codigo,
             this.descripcion,
@@ -193,44 +195,6 @@
 			this.dtProductos.ReadOnly = true;
 			this.dtProductos.Size = new System.Drawing.Size(776, 150);
 			this.dtProductos.TabIndex = 11;
-			// 
-			// id
-			// 
-			this.id.HeaderText = "id";
-			this.id.Name = "id";
-			this.id.ReadOnly = true;
-			this.id.Visible = false;
-			// 
-			// cantidad
-			// 
-			this.cantidad.HeaderText = "Cantidad";
-			this.cantidad.Name = "cantidad";
-			this.cantidad.ReadOnly = true;
-			// 
-			// codigo
-			// 
-			this.codigo.HeaderText = "Codigo";
-			this.codigo.Name = "codigo";
-			this.codigo.ReadOnly = true;
-			// 
-			// descripcion
-			// 
-			this.descripcion.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-			this.descripcion.HeaderText = "Descripcion";
-			this.descripcion.Name = "descripcion";
-			this.descripcion.ReadOnly = true;
-			// 
-			// pu
-			// 
-			this.pu.HeaderText = "P/U";
-			this.pu.Name = "pu";
-			this.pu.ReadOnly = true;
-			// 
-			// total
-			// 
-			this.total.HeaderText = "Total";
-			this.total.Name = "total";
-			this.total.ReadOnly = true;
 			// 
 			// button1
 			// 
@@ -363,11 +327,48 @@
 			this.txtTotal.Size = new System.Drawing.Size(100, 13);
 			this.txtTotal.TabIndex = 19;
 			// 
+			// id_producto
+			// 
+			this.id_producto.HeaderText = "id";
+			this.id_producto.Name = "id_producto";
+			this.id_producto.ReadOnly = true;
+			// 
+			// cantidad
+			// 
+			this.cantidad.HeaderText = "Cantidad";
+			this.cantidad.Name = "cantidad";
+			this.cantidad.ReadOnly = true;
+			// 
+			// codigo
+			// 
+			this.codigo.HeaderText = "Codigo";
+			this.codigo.Name = "codigo";
+			this.codigo.ReadOnly = true;
+			// 
+			// descripcion
+			// 
+			this.descripcion.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+			this.descripcion.HeaderText = "Descripcion";
+			this.descripcion.Name = "descripcion";
+			this.descripcion.ReadOnly = true;
+			// 
+			// pu
+			// 
+			this.pu.HeaderText = "P/U";
+			this.pu.Name = "pu";
+			this.pu.ReadOnly = true;
+			// 
+			// total
+			// 
+			this.total.HeaderText = "Total";
+			this.total.Name = "total";
+			this.total.ReadOnly = true;
+			// 
 			// Form_factura
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(800, 450);
+			this.ClientSize = new System.Drawing.Size(800, 373);
 			this.Controls.Add(this.txtTotal);
 			this.Controls.Add(this.txtIVa);
 			this.Controls.Add(this.txtSubtotal);
@@ -414,12 +415,6 @@
 		public System.Windows.Forms.TextBox txtIdCliente;
 		public System.Windows.Forms.DataGridView dtdocumentos;
 		private System.Windows.Forms.DataGridView dtProductos;
-		private System.Windows.Forms.DataGridViewTextBoxColumn id;
-		private System.Windows.Forms.DataGridViewTextBoxColumn cantidad;
-		private System.Windows.Forms.DataGridViewTextBoxColumn codigo;
-		private System.Windows.Forms.DataGridViewTextBoxColumn descripcion;
-		private System.Windows.Forms.DataGridViewTextBoxColumn pu;
-		private System.Windows.Forms.DataGridViewTextBoxColumn total;
 		private System.Windows.Forms.DataGridViewTextBoxColumn folio;
 		private System.Windows.Forms.DataGridViewTextBoxColumn tipo;
 		private System.Windows.Forms.Button button1;
@@ -436,5 +431,11 @@
 		private System.Windows.Forms.TextBox txtSubtotal;
 		private System.Windows.Forms.TextBox txtIVa;
 		private System.Windows.Forms.TextBox txtTotal;
+		private System.Windows.Forms.DataGridViewTextBoxColumn id_producto;
+		private System.Windows.Forms.DataGridViewTextBoxColumn cantidad;
+		private System.Windows.Forms.DataGridViewTextBoxColumn codigo;
+		private System.Windows.Forms.DataGridViewTextBoxColumn descripcion;
+		private System.Windows.Forms.DataGridViewTextBoxColumn pu;
+		private System.Windows.Forms.DataGridViewTextBoxColumn total;
 	}
 }

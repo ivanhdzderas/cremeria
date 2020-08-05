@@ -32,14 +32,14 @@
 			this.label2 = new System.Windows.Forms.Label();
 			this.label3 = new System.Windows.Forms.Label();
 			this.dtPoroductos = new System.Windows.Forms.DataGridView();
-			this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.codigo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.descripcion = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.cantidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.button1 = new System.Windows.Forms.Button();
 			this.txtCodigo = new System.Windows.Forms.TextBox();
 			this.txtDescripcion = new System.Windows.Forms.TextBox();
 			this.txtCantidad = new System.Windows.Forms.TextBox();
+			this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.codigo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.descripcion = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.cantidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			((System.ComponentModel.ISupportInitialize)(this.dtPoroductos)).BeginInit();
 			this.SuspendLayout();
 			// 
@@ -85,34 +85,9 @@
             this.cantidad});
 			this.dtPoroductos.Location = new System.Drawing.Point(12, 50);
 			this.dtPoroductos.Name = "dtPoroductos";
-			this.dtPoroductos.ReadOnly = true;
 			this.dtPoroductos.Size = new System.Drawing.Size(776, 223);
 			this.dtPoroductos.TabIndex = 3;
-			// 
-			// id
-			// 
-			this.id.HeaderText = "id";
-			this.id.Name = "id";
-			this.id.ReadOnly = true;
-			// 
-			// codigo
-			// 
-			this.codigo.HeaderText = "Codigo";
-			this.codigo.Name = "codigo";
-			this.codigo.ReadOnly = true;
-			// 
-			// descripcion
-			// 
-			this.descripcion.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-			this.descripcion.HeaderText = "Descripcion";
-			this.descripcion.Name = "descripcion";
-			this.descripcion.ReadOnly = true;
-			// 
-			// cantidad
-			// 
-			this.cantidad.HeaderText = "Cantidad";
-			this.cantidad.Name = "cantidad";
-			this.cantidad.ReadOnly = true;
+			this.dtPoroductos.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtPoroductos_CellEndEdit);
 			// 
 			// button1
 			// 
@@ -151,6 +126,30 @@
 			this.txtCantidad.TabIndex = 7;
 			this.txtCantidad.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtCantidad_KeyDown);
 			// 
+			// id
+			// 
+			this.id.HeaderText = "id";
+			this.id.Name = "id";
+			this.id.Visible = false;
+			// 
+			// codigo
+			// 
+			this.codigo.HeaderText = "Codigo";
+			this.codigo.Name = "codigo";
+			this.codigo.ReadOnly = true;
+			// 
+			// descripcion
+			// 
+			this.descripcion.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+			this.descripcion.HeaderText = "Descripcion";
+			this.descripcion.Name = "descripcion";
+			this.descripcion.ReadOnly = true;
+			// 
+			// cantidad
+			// 
+			this.cantidad.HeaderText = "Cantidad";
+			this.cantidad.Name = "cantidad";
+			// 
 			// Levantar_inventario
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -179,13 +178,13 @@
 		private System.Windows.Forms.Label label2;
 		private System.Windows.Forms.Label label3;
 		private System.Windows.Forms.DataGridView dtPoroductos;
-		private System.Windows.Forms.DataGridViewTextBoxColumn id;
-		private System.Windows.Forms.DataGridViewTextBoxColumn codigo;
-		private System.Windows.Forms.DataGridViewTextBoxColumn descripcion;
-		private System.Windows.Forms.DataGridViewTextBoxColumn cantidad;
 		private System.Windows.Forms.Button button1;
 		private System.Windows.Forms.TextBox txtCodigo;
 		private System.Windows.Forms.TextBox txtDescripcion;
 		private System.Windows.Forms.TextBox txtCantidad;
+		private System.Windows.Forms.DataGridViewTextBoxColumn id;
+		private System.Windows.Forms.DataGridViewTextBoxColumn codigo;
+		private System.Windows.Forms.DataGridViewTextBoxColumn descripcion;
+		private System.Windows.Forms.DataGridViewTextBoxColumn cantidad;
 	}
 }

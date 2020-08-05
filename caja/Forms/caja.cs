@@ -17,6 +17,7 @@ namespace caja
 
         public static double pagado;
         public static string metodo;
+        public static double recibido_caja;
 
         public static Boolean factura;
         public static Boolean cancelado;
@@ -34,6 +35,8 @@ namespace caja
 
         private void caja_Load(object sender, EventArgs e)
         {
+            txtTotal.ReadOnly = true;
+            txtTotal.ForeColor = Color.Red;
             dtFecha.Format = DateTimePickerFormat.Custom;
             dtFecha.CustomFormat = "yyyy-MM-dd";
 
@@ -77,6 +80,18 @@ namespace caja
             txtcIva.TextAlign = HorizontalAlignment.Right;
             txtsIva.TextAlign = HorizontalAlignment.Right;
             cbPu.TextAlign = HorizontalAlignment.Right;
+
+
+            if (inicial.tipo_usuario == "Admin")
+            {
+                dtProductos.Columns["p_unitario"].ReadOnly = false;
+                dtProductos.Columns["Codigo"].ReadOnly = false;
+            }
+            else
+            {
+                dtProductos.Columns["p_unitario"].ReadOnly = true;
+                dtProductos.Columns["Codigo"].ReadOnly = true;
+            }
             txtCodigo.Focus();
 
         }
@@ -179,7 +194,9 @@ namespace caja
             double grabado = 0;
             double sin_grabar = 0;
 
-            double descuento = Convert.ToDouble(txtTdescuento.Text);
+
+            //double descuento = Convert.ToDouble(txtTdescuento.Text);
+           
             foreach (DataGridViewRow row in dtProductos.Rows)
             {
                 cuantos = cuantos + Convert.ToDouble(row.Cells["Cantidad"].Value.ToString());
@@ -191,10 +208,10 @@ namespace caja
 
                         break;
                     case "11":
-                        once = once + ((importe - descuento) * 0.11);
+                        once = once + ((importe ) * 0.11);
                         break;
                     case "16":
-                        diezyseis = diezyseis + ((importe - descuento) * 0.16);
+                        diezyseis = diezyseis + ((importe ) * 0.16);
                         break;
                     case "TASA CERO":
 
@@ -210,13 +227,16 @@ namespace caja
                 {
                     sin_grabar = sin_grabar + Convert.ToDouble(row.Cells["importe"].Value.ToString());
                 }
+                txtLineas.Text = dtProductos.Rows.Count.ToString();
+
 
             }
+            double descuento = (importe / 100) * Convert.ToDouble(txtTdescuento.Text);
             double productos = cuantos;
             double subtotal = totales;
 
             double iva = excento + once + diezyseis + cero;
-            double total = subtotal + iva;
+            double total = (subtotal + iva)-descuento;
 
 
             txtNproductos.Text = productos.ToString();
@@ -294,25 +314,32 @@ namespace caja
                                     id = item.Id.ToString();
                                     txtCodigo.Text = item.Code1;
                                     txtDescripcion.Text = item.Description;
-                                    if (item.Max_p1 >= Convert.ToDouble(txtCantidad.Text))
+                                    if (item.Max_p1 == 0)
                                     {
                                         cbPu.Text = (string.Format("{0:#,0.00}", item.Price1));
                                     }
-                                    else if (item.Max_p2 >= Convert.ToDouble(txtCantidad.Text))
+                                    else
                                     {
-                                        cbPu.Text = (string.Format("{0:#,0.00}", item.Price2));
-                                    }
-                                    else if (item.Max_p3 >= Convert.ToDouble(txtCantidad.Text))
-                                    {
-                                        cbPu.Text = (string.Format("{0:#,0.00}", item.Price3));
-                                    }
-                                    else if (item.Max_p4 >= Convert.ToDouble(txtCantidad.Text))
-                                    {
-                                        cbPu.Text = (string.Format("{0:#,0.00}", item.Price4));
-                                    }
-                                    else if (item.Max_p5 >= Convert.ToDouble(txtCantidad.Text))
-                                    {
-                                        cbPu.Text = (string.Format("{0:#,0.00}", item.Price5));
+                                        if (item.Max_p1 >= Convert.ToDouble(txtCantidad.Text))
+                                        {
+                                            cbPu.Text = (string.Format("{0:#,0.00}", item.Price1));
+                                        }
+                                        else if (item.Max_p2 >= Convert.ToDouble(txtCantidad.Text))
+                                        {
+                                            cbPu.Text = (string.Format("{0:#,0.00}", item.Price2));
+                                        }
+                                        else if (item.Max_p3 >= Convert.ToDouble(txtCantidad.Text))
+                                        {
+                                            cbPu.Text = (string.Format("{0:#,0.00}", item.Price3));
+                                        }
+                                        else if (item.Max_p4 >= Convert.ToDouble(txtCantidad.Text))
+                                        {
+                                            cbPu.Text = (string.Format("{0:#,0.00}", item.Price4));
+                                        }
+                                        else if (item.Max_p5 >= Convert.ToDouble(txtCantidad.Text))
+                                        {
+                                            cbPu.Text = (string.Format("{0:#,0.00}", item.Price5));
+                                        }
                                     }
 
                                 }
@@ -342,25 +369,32 @@ namespace caja
                                     id = item.Id.ToString();
                                     txtCodigo.Text = item.Code1;
                                     txtDescripcion.Text = item.Description;
-                                    if (item.Max_p1 >= Convert.ToDouble(txtCantidad.Text))
+                                    if (item.Max_p1 == 0)
                                     {
                                         cbPu.Text = (string.Format("{0:#,0.00}", item.Price1));
                                     }
-                                    else if (item.Max_p2 >= Convert.ToDouble(txtCantidad.Text))
+                                    else
                                     {
-                                        cbPu.Text = (string.Format("{0:#,0.00}", item.Price2));
-                                    }
-                                    else if (item.Max_p3 >= Convert.ToDouble(txtCantidad.Text))
-                                    {
-                                        cbPu.Text = (string.Format("{0:#,0.00}", item.Price3));
-                                    }
-                                    else if (item.Max_p4 >= Convert.ToDouble(txtCantidad.Text))
-                                    {
-                                        cbPu.Text = (string.Format("{0:#,0.00}", item.Price4));
-                                    }
-                                    else if (item.Max_p5 >= Convert.ToDouble(txtCantidad.Text))
-                                    {
-                                        cbPu.Text = (string.Format("{0:#,0.00}", item.Price5));
+                                        if (item.Max_p1 >= Convert.ToDouble(txtCantidad.Text))
+                                        {
+                                            cbPu.Text = (string.Format("{0:#,0.00}", item.Price1));
+                                        }
+                                        else if (item.Max_p2 >= Convert.ToDouble(txtCantidad.Text))
+                                        {
+                                            cbPu.Text = (string.Format("{0:#,0.00}", item.Price2));
+                                        }
+                                        else if (item.Max_p3 >= Convert.ToDouble(txtCantidad.Text))
+                                        {
+                                            cbPu.Text = (string.Format("{0:#,0.00}", item.Price3));
+                                        }
+                                        else if (item.Max_p4 >= Convert.ToDouble(txtCantidad.Text))
+                                        {
+                                            cbPu.Text = (string.Format("{0:#,0.00}", item.Price4));
+                                        }
+                                        else if (item.Max_p5 >= Convert.ToDouble(txtCantidad.Text))
+                                        {
+                                            cbPu.Text = (string.Format("{0:#,0.00}", item.Price5));
+                                        }
                                     }
 
                                 }
@@ -390,35 +424,22 @@ namespace caja
                     cbPu.Focus();
                 }
             }
-
-
         }
-
-
-
         private void txtCantidad_Leave(object sender, EventArgs e)
-        {
-            
+        {   
             if (txtCantidad.Text != "" && txtCodigo.Text!="") {
-
                 txtImporte.Text = (Convert.ToDouble(cbPu.Text) * Convert.ToDouble(txtCantidad.Text)).ToString();
             }
-
         }
 
         private void dtProductos_RowsRemoved(object sender, DataGridViewRowsRemovedEventArgs e)
         {
             calcula();
         }
-
-
-
         private void txtDescuento_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
-
-
                 Product producto = new Product();
                 using (producto)
                 {
@@ -427,7 +448,6 @@ namespace caja
                     double costo = prod[0].Cost;
                     grabado = grabado.Replace("IVA ", "");
                     dtProductos.Rows.Add(id, txtCodigo.Text, txtCantidad.Text, txtDescripcion.Text, string.Format("{0:#,0.00}", Convert.ToDouble(cbPu.Text)), string.Format("{0:#,0.00}", Convert.ToDouble(0)), string.Format("{0:#,0.00}", Convert.ToDouble(txtImporte.Text)), grabado, costo);
-
                 }
                 txtCodigo.Text = "";
                     txtCantidad.Text = "";
@@ -437,19 +457,14 @@ namespace caja
                     calcula();
                     btnVer.Enabled = false;
                     txtCodigo.Focus();
-                
-                
             }
         }
 
 
 
-        private void txtTdescuento_TextChanged(object sender, EventArgs e)
-        {
-            txtTdescuento.Text = string.Format("{0:#,0.00}", Convert.ToDouble(txtTdescuento.Text));
-            calcula();
-        }
+      
         private void limpiar() {
+            txtTdescuento.Text = "0.00";
             cbPu.Text = "";
             dtProductos.Rows.Clear();
             txtCodigo.Text = "";
@@ -481,43 +496,56 @@ namespace caja
         private void buscador() {
             busca_producto busca = new busca_producto();
             busca.ShowDialog();
-            Product producto = new Product();
-            using (producto)
+            if (intercambios.Id_producto != 0)
             {
-                txtCantidad.Text = "1";
-                List<Product> result = producto.getProductById(intercambios.Id_producto);
-                foreach (Product item in result)
+                Product producto = new Product();
+                using (producto)
                 {
-                    id = item.Id.ToString();
-                    txtCodigo.Text = item.Code1;
-                    txtDescripcion.Text = item.Description;
                     txtCantidad.Text = "1";
-                    if (item.Max_p1 >= Convert.ToDouble(txtCantidad.Text))
+                    List<Product> result = producto.getProductById(intercambios.Id_producto);
+                    foreach (Product item in result)
                     {
-                        cbPu.Text = (string.Format("{0:#,0.00}", item.Price1));
+                        id = item.Id.ToString();
+                        txtCodigo.Text = item.Code1;
+                        txtDescripcion.Text = item.Description;
+                        txtCantidad.Text = "1";
+                        if (item.Max_p1 == 0)
+                        {
+                            cbPu.Text = (string.Format("{0:#,0.00}", item.Price1));
+                        }
+                        else
+                        {
+                            if (item.Max_p1 >= Convert.ToDouble(txtCantidad.Text))
+                            {
+                                cbPu.Text = (string.Format("{0:#,0.00}", item.Price1));
+                            }
+                            else if (item.Max_p2 >= Convert.ToDouble(txtCantidad.Text))
+                            {
+                                cbPu.Text = (string.Format("{0:#,0.00}", item.Price2));
+                            }
+                            else if (item.Max_p3 >= Convert.ToDouble(txtCantidad.Text))
+                            {
+                                cbPu.Text = (string.Format("{0:#,0.00}", item.Price3));
+                            }
+                            else if (item.Max_p4 >= Convert.ToDouble(txtCantidad.Text))
+                            {
+                                cbPu.Text = (string.Format("{0:#,0.00}", item.Price4));
+                            }
+                            else if (item.Max_p5 >= Convert.ToDouble(txtCantidad.Text))
+                            {
+                                cbPu.Text = (string.Format("{0:#,0.00}", item.Price5));
+                            }
+                        }
+
+                        
                     }
-                    else if (item.Max_p2 >= Convert.ToDouble(txtCantidad.Text))
-                    {
-                        cbPu.Text = (string.Format("{0:#,0.00}", item.Price2));
-                    }
-                    else if (item.Max_p3 >= Convert.ToDouble(txtCantidad.Text))
-                    {
-                        cbPu.Text = (string.Format("{0:#,0.00}", item.Price3));
-                    }
-                    else if (item.Max_p4 >= Convert.ToDouble(txtCantidad.Text))
-                    {
-                        cbPu.Text = (string.Format("{0:#,0.00}", item.Price4));
-                    }
-                    else if (item.Max_p5 >= Convert.ToDouble(txtCantidad.Text))
-                    {
-                        cbPu.Text = (string.Format("{0:#,0.00}", item.Price5));
-                    }
+                    txtImporte.Text = (Convert.ToDouble(cbPu.Text) * Convert.ToDouble(txtCantidad.Text)).ToString();
+                    txtCantidad.Text = "1";
+                    txtCantidad.Focus();
+                    btnVer.Enabled = true;
                 }
-                txtImporte.Text = (Convert.ToDouble(cbPu.Text) * Convert.ToDouble(txtCantidad.Text)).ToString();
-                txtCantidad.Text = "1";
-                txtCantidad.Focus();
-                btnVer.Enabled = true;
             }
+            
         }
         private void caja_KeyDown(object sender, KeyEventArgs e)
         {
@@ -549,7 +577,9 @@ namespace caja
                 {
                     List<Tickets> tic = ticket.getActiveTicketsbyId(Convert.ToInt16(folio));
                     txtidcliente.Text = tic[0].Id_cliente.ToString();
+                    pagado = tic[0].Recibido;
                 }
+                dtProductos.Rows.Clear();
                 Dettickets detalles = new Dettickets();
                 using (detalles)
                 {
@@ -563,7 +593,7 @@ namespace caja
                             {
                                 List<Product> lista = prod.getProductById(item.Id_producto);
 
-                                dtProductos.Rows.Add(item.Id_producto, lista[0].Code1, item.Cantidad, item.Descripcion, item.Pu, item.Descuento, item.Total, item.Grabado, item.Costo);
+                                dtProductos.Rows.Add(item.Id_producto, lista[0].Code1, item.Cantidad, item.Descripcion, item.Pu, item.Descuento+"%", item.Total, item.Grabado, item.Costo);
                                 fecha = item.Fecha;
                             }
                         }
@@ -581,6 +611,7 @@ namespace caja
                             printDocument1.Print();
                         }
                         limpiar();
+                        pagado = 0;
                     }
                     else
                     {
@@ -650,13 +681,26 @@ namespace caja
                 ticket.Id_usuario = Convert.ToInt16(inicial.id_usario);
                 ticket.Atienda = Convert.ToInt16(txtIdAtiende.Text);
                 ticket.A_facturar = Convert.ToInt16(factura);
-
-                List<Tickets> lista = ticket.getLastTicket(fecha, Convert.ToDouble(txtSubtotal.Text), Convert.ToDouble(txtTdescuento.Text), Convert.ToDouble(txtIva.Text), Convert.ToDouble(txtTotal.Text), Convert.ToInt16(txtidcliente.Text));
+                ticket.Recibido = pagado;
                 Product producto = new Product();
                 Kardex kardex = new Kardex();
                 Afecta_inv afecta = new Afecta_inv();
                 double nuevo = 0;
                 Dettickets detalle = new Dettickets();
+
+
+               
+                List<Models.Tickets> tic = ticket.get_folio();
+                if (tic.Count > 0)
+                {
+                    if ((tic[0].Id + 1) == Convert.ToInt16(txtFolio.Text)) {
+                        folio_ticket = 0;
+                    }
+                }
+                    
+                
+
+
                 if (folio_ticket == 0)
                 {
                     ticket.CreateTicket();
@@ -670,6 +714,7 @@ namespace caja
                     }
                     
                 }
+               
                 Pago_ticket pago = new Pago_ticket();
                 if (metodo == "Transferencia")
                 { }
@@ -709,7 +754,7 @@ namespace caja
                     detalle.Id_producto = Convert.ToInt16(row.Cells["id_producto"].Value.ToString());
                     detalle.Pu = Convert.ToDouble(row.Cells["p_unitario"].Value.ToString());
                     detalle.Cantidad = Convert.ToDouble(row.Cells["cantidad"].Value.ToString());
-                    detalle.Descuento = Convert.ToDouble(row.Cells["descuento"].Value.ToString());
+                    detalle.Descuento = Convert.ToDouble(row.Cells["descuento"].Value.ToString().Remove(row.Cells["descuento"].Value.ToString().Length-1));
                     detalle.Total = Convert.ToDouble(row.Cells["importe"].Value.ToString());
                     detalle.Descripcion = row.Cells["Producto"].Value.ToString();
                     detalle.Grabado = row.Cells["grabado"].Value.ToString();
@@ -721,6 +766,7 @@ namespace caja
                     using (producto)
                     {
                         List<Product> prod = producto.getProductById(Convert.ToInt16(row.Cells["id_producto"].Value.ToString()));
+                        
                         nuevo = Convert.ToDouble(row.Cells["cantidad"].Value.ToString());
                         while (prod[0].Parent != "0")
                         {
@@ -947,7 +993,7 @@ namespace caja
                     List<Models.Product> producto = productos.getProductById(Convert.ToInt32(id));
                     if (producto.Count > 0)
                     {
-                        if (Convert.ToDouble(precio) <= producto[0].Cost)
+                        if (Convert.ToDouble(precio) < producto[0].Cost)
                         {
                             MessageBox.Show("no es posible aceptar el nuevo precio");
                         }
@@ -971,7 +1017,7 @@ namespace caja
                         double costo = prod[0].Cost;
                         string grabado = prod[0].Sale_tax;
                         grabado = grabado.Replace("IVA ", "");
-                        dtProductos.Rows.Add(id, txtCodigo.Text, Convert.ToDouble(txtCantidad.Text), txtDescripcion.Text, string.Format("{0:#,0.00}", Convert.ToDouble(cbPu.Text)), string.Format("{0:#,0.00}", Convert.ToDouble(0)), string.Format("{0:#,0.00}", Convert.ToDouble(txtImporte.Text)), grabado, costo);
+                        dtProductos.Rows.Add(id, txtCodigo.Text, Convert.ToDouble(txtCantidad.Text), txtDescripcion.Text, string.Format("{0:#,0.00}", Convert.ToDouble(cbPu.Text)), string.Format("{0:#,0.00}"+"%", Convert.ToDouble(0)), string.Format("{0:#,0.00}", Convert.ToDouble(txtImporte.Text)), grabado, costo);
                     }
                     txtCodigo.Text = "";
                     txtCantidad.Text = "";
@@ -1036,25 +1082,33 @@ namespace caja
                                 List<Product> producto = productos.getProductById(Convert.ToInt16(id));
                                 if (producto.Count > 0)
                                 {
-                                    if (producto[0].Max_p1 >= Convert.ToDouble(txtCantidad.Text))
+
+                                    if (producto[0].Max_p1 == 0)
                                     {
                                         cbPu.Text = (string.Format("{0:#,0.00}", producto[0].Price1));
                                     }
-                                    else if (producto[0].Max_p2 >= Convert.ToDouble(txtCantidad.Text))
+                                    else
                                     {
-                                        cbPu.Text = (string.Format("{0:#,0.00}", producto[0].Price2));
-                                    }
-                                    else if (producto[0].Max_p3 >= Convert.ToDouble(txtCantidad.Text))
-                                    {
-                                        cbPu.Text = (string.Format("{0:#,0.00}", producto[0].Price3));
-                                    }
-                                    else if (producto[0].Max_p4 >= Convert.ToDouble(txtCantidad.Text))
-                                    {
-                                        cbPu.Text = (string.Format("{0:#,0.00}", producto[0].Price4));
-                                    }
-                                    else if (producto[0].Max_p5 >= Convert.ToDouble(txtCantidad.Text))
-                                    {
-                                        cbPu.Text = (string.Format("{0:#,0.00}", producto[0].Price5));
+                                        if (producto[0].Max_p1 >= Convert.ToDouble(txtCantidad.Text))
+                                        {
+                                            cbPu.Text = (string.Format("{0:#,0.00}", producto[0].Price1));
+                                        }
+                                        else if (producto[0].Max_p2 >= Convert.ToDouble(txtCantidad.Text))
+                                        {
+                                            cbPu.Text = (string.Format("{0:#,0.00}", producto[0].Price2));
+                                        }
+                                        else if (producto[0].Max_p3 >= Convert.ToDouble(txtCantidad.Text))
+                                        {
+                                            cbPu.Text = (string.Format("{0:#,0.00}", producto[0].Price3));
+                                        }
+                                        else if (producto[0].Max_p4 >= Convert.ToDouble(txtCantidad.Text))
+                                        {
+                                            cbPu.Text = (string.Format("{0:#,0.00}", producto[0].Price4));
+                                        }
+                                        else if (producto[0].Max_p5 >= Convert.ToDouble(txtCantidad.Text))
+                                        {
+                                            cbPu.Text = (string.Format("{0:#,0.00}", producto[0].Price5));
+                                        }
                                     }
                                 }
                             }
@@ -1461,11 +1515,15 @@ namespace caja
                         using (producto)
                         {
                             List<Product> prod = producto.getProductById(Convert.ToInt16(item.Id_producto));
-                            string grabado = prod[0].Sale_tax;
-                            double costo = prod[0].Cost;
-                            grabado = grabado.Replace("IVA ", "");
-                            dtProductos.Rows.Add(item.Id_producto, prod[0].Code1, item.Cantidad, prod[0].Description, string.Format("{0:#,0.00}", Convert.ToDouble(item.Pu)), string.Format("{0:#,0.00}", Convert.ToDouble(item.Descuento)), string.Format("{0:#,0.00}", Convert.ToDouble(item.Total)), grabado, costo);
-                            calcula();
+                            if (prod.Count > 0)
+                            {
+                                string grabado = prod[0].Sale_tax;
+                                double costo = prod[0].Cost;
+                                grabado = grabado.Replace("IVA ", "");
+                                dtProductos.Rows.Add(item.Id_producto, prod[0].Code1, item.Cantidad, prod[0].Description, string.Format("{0:#,0.00}", Convert.ToDouble(item.Pu)), string.Format("{0:#,0.00}", Convert.ToDouble(item.Descuento)), string.Format("{0:#,0.00}", Convert.ToDouble(item.Total)), grabado, costo);
+                                calcula();
+                            }
+                           
                         }
                        
                     }
@@ -1497,25 +1555,32 @@ namespace caja
                                 id = item.Id.ToString();
                                 txtCodigo.Text = item.Code1;
                                 txtDescripcion.Text = item.Description;
-                                if (item.Max_p1 >= Convert.ToDouble(txtCantidad.Text))
+                                if (item.Max_p1 == 0)
                                 {
                                     cbPu.Text = (string.Format("{0:#,0.00}", item.Price1));
                                 }
-                                else if (item.Max_p2 >= Convert.ToDouble(txtCantidad.Text))
+                                else
                                 {
-                                    cbPu.Text = (string.Format("{0:#,0.00}", item.Price2));
-                                }
-                                else if (item.Max_p3 >= Convert.ToDouble(txtCantidad.Text))
-                                {
-                                    cbPu.Text = (string.Format("{0:#,0.00}", item.Price3));
-                                }
-                                else if (item.Max_p4 >= Convert.ToDouble(txtCantidad.Text))
-                                {
-                                    cbPu.Text = (string.Format("{0:#,0.00}", item.Price4));
-                                }
-                                else if (item.Max_p5 >= Convert.ToDouble(txtCantidad.Text))
-                                {
-                                    cbPu.Text = (string.Format("{0:#,0.00}", item.Price5));
+                                    if (item.Max_p1 >= Convert.ToDouble(txtCantidad.Text))
+                                    {
+                                        cbPu.Text = (string.Format("{0:#,0.00}", item.Price1));
+                                    }
+                                    else if (item.Max_p2 >= Convert.ToDouble(txtCantidad.Text))
+                                    {
+                                        cbPu.Text = (string.Format("{0:#,0.00}", item.Price2));
+                                    }
+                                    else if (item.Max_p3 >= Convert.ToDouble(txtCantidad.Text))
+                                    {
+                                        cbPu.Text = (string.Format("{0:#,0.00}", item.Price3));
+                                    }
+                                    else if (item.Max_p4 >= Convert.ToDouble(txtCantidad.Text))
+                                    {
+                                        cbPu.Text = (string.Format("{0:#,0.00}", item.Price4));
+                                    }
+                                    else if (item.Max_p5 >= Convert.ToDouble(txtCantidad.Text))
+                                    {
+                                        cbPu.Text = (string.Format("{0:#,0.00}", item.Price5));
+                                    }
                                 }
                             }
                             txtImporte.Text = (Convert.ToDouble(cbPu.Text) * Convert.ToDouble(txtCantidad.Text)).ToString();
@@ -1539,25 +1604,32 @@ namespace caja
                                 id = item.Id.ToString();
                                 txtCodigo.Text = item.Code1;
                                 txtDescripcion.Text = item.Description;
-                                if (item.Max_p1 >= Convert.ToDouble(txtCantidad.Text))
+                                if (item.Max_p1 == 0)
                                 {
                                     cbPu.Text = (string.Format("{0:#,0.00}", item.Price1));
                                 }
-                                else if (item.Max_p2 >= Convert.ToDouble(txtCantidad.Text))
+                                else
                                 {
-                                    cbPu.Text = (string.Format("{0:#,0.00}", item.Price2));
-                                }
-                                else if (item.Max_p3 >= Convert.ToDouble(txtCantidad.Text))
-                                {
-                                    cbPu.Text = (string.Format("{0:#,0.00}", item.Price3));
-                                }
-                                else if (item.Max_p4 >= Convert.ToDouble(txtCantidad.Text))
-                                {
-                                    cbPu.Text = (string.Format("{0:#,0.00}", item.Price4));
-                                }
-                                else if (item.Max_p5 >= Convert.ToDouble(txtCantidad.Text))
-                                {
-                                    cbPu.Text = (string.Format("{0:#,0.00}", item.Price5));
+                                    if (item.Max_p1 >= Convert.ToDouble(txtCantidad.Text))
+                                    {
+                                        cbPu.Text = (string.Format("{0:#,0.00}", item.Price1));
+                                    }
+                                    else if (item.Max_p2 >= Convert.ToDouble(txtCantidad.Text))
+                                    {
+                                        cbPu.Text = (string.Format("{0:#,0.00}", item.Price2));
+                                    }
+                                    else if (item.Max_p3 >= Convert.ToDouble(txtCantidad.Text))
+                                    {
+                                        cbPu.Text = (string.Format("{0:#,0.00}", item.Price3));
+                                    }
+                                    else if (item.Max_p4 >= Convert.ToDouble(txtCantidad.Text))
+                                    {
+                                        cbPu.Text = (string.Format("{0:#,0.00}", item.Price4));
+                                    }
+                                    else if (item.Max_p5 >= Convert.ToDouble(txtCantidad.Text))
+                                    {
+                                        cbPu.Text = (string.Format("{0:#,0.00}", item.Price5));
+                                    }
                                 }
                             }
                             txtImporte.Text = (Convert.ToDouble(cbPu.Text) * Convert.ToDouble(txtCantidad.Text)).ToString();
@@ -1571,27 +1643,62 @@ namespace caja
         static double porcentaje_anterior;
         private void dtProductos_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
+            
             Product productos = new Product();
             using (productos)
             {
                 List<Product> producto = productos.getProductById(Convert.ToInt16(dtProductos.Rows[e.RowIndex].Cells["id_producto"].Value));
-                double p_u = Convert.ToDouble(dtProductos.Rows[e.RowIndex].Cells["p_unitario"].Value);
-                double cantidad = Convert.ToDouble(dtProductos.Rows[e.RowIndex].Cells["Cantidad"].Value);
-                double cantidad_pre = producto[0].Cost * cantidad;
-                double semitotal = (p_u * cantidad);
-                double porcentaje = (semitotal / 100) * Convert.ToDouble(dtProductos.Rows[e.RowIndex].Cells["descuento"].Value);
-                double ultimo = (semitotal - porcentaje);
-                if (ultimo <= cantidad_pre)
+                if (dtProductos.Rows[e.RowIndex].Cells["Codigo"].Value.ToString() == producto[0].Code1)
                 {
-                    MessageBox.Show("no es posible aplicar ese descuento");
-                    dtProductos.Rows[e.RowIndex].Cells["descuento"].Value = porcentaje_anterior.ToString();
+                    double p_u = Convert.ToDouble(dtProductos.Rows[e.RowIndex].Cells["p_unitario"].Value);
+                    double cantidad = Convert.ToDouble(dtProductos.Rows[e.RowIndex].Cells["Cantidad"].Value);
+                    double cantidad_pre = producto[0].Cost * cantidad;
+                    double semitotal = (p_u * cantidad);
+                    double porcentaje = (semitotal / 100) * Convert.ToDouble(dtProductos.Rows[e.RowIndex].Cells["descuento"].Value.ToString().Remove(dtProductos.Rows[e.RowIndex].Cells["descuento"].Value.ToString().Length-1));
+                    double ultimo = (semitotal - porcentaje);
+
+
+                    if (p_u < producto[0].Cost)
+                    {
+                        MessageBox.Show("no es posible aplicar ese descuento");
+                        dtProductos.Rows[e.RowIndex].Cells["descuento"].Value = porcentaje_anterior.ToString();
+                    }
+                    else
+                    {
+                        dtProductos.Rows[e.RowIndex].Cells["descuento"].Value = dtProductos.Rows[e.RowIndex].Cells["descuento"].Value ;
+                        dtProductos.Rows[e.RowIndex].Cells["importe"].Value = (semitotal - porcentaje).ToString();
+                        calcula();
+                        porcentaje_anterior = 0;
+                    }
+
+
+                    if (!dtProductos.Rows[e.RowIndex].Cells["descuento"].Value.ToString().Contains("%")) { 
+                        dtProductos.Rows[e.RowIndex].Cells["descuento"].Value=dtProductos.Rows[e.RowIndex].Cells["descuento"].Value.ToString() + "%";
+                    }
+
+                    if (!dtProductos.Rows[e.RowIndex].Cells["p_unitario"].Value.ToString().Contains("."))
+                    {
+                        dtProductos.Rows[e.RowIndex].Cells["p_unitario"].Value= string.Format("{0:#,0.00}", dtProductos.Rows[e.RowIndex].Cells["p_unitario"].Value.ToString());
+                    }
                 }
                 else
                 {
+                    producto = productos.getProductByCodeAbsolute(dtProductos.Rows[e.RowIndex].Cells["Codigo"].Value.ToString());
+                    dtProductos.Rows[e.RowIndex].Cells["id_producto"].Value = producto[0].Id.ToString();
+                    dtProductos.Rows[e.RowIndex].Cells["Producto"].Value = producto[0].Description;
+                    dtProductos.Rows[e.RowIndex].Cells["p_unitario"].Value = producto[0].Price1.ToString();
+
+                    double p_u = Convert.ToDouble(dtProductos.Rows[e.RowIndex].Cells["p_unitario"].Value);
+                    double cantidad = Convert.ToDouble(dtProductos.Rows[e.RowIndex].Cells["Cantidad"].Value);
+                    double cantidad_pre = producto[0].Cost * cantidad;
+                    double semitotal = (p_u * cantidad);
+                    double porcentaje = (semitotal / 100) * Convert.ToDouble(dtProductos.Rows[e.RowIndex].Cells["descuento"].Value);
+
                     dtProductos.Rows[e.RowIndex].Cells["importe"].Value = (semitotal - porcentaje).ToString();
                     calcula();
                     porcentaje_anterior = 0;
                 }
+
             }
             txtCodigo.Focus();
         }
@@ -1755,12 +1862,16 @@ namespace caja
                             using (producto)
                             {
                                 List<Product> prod = producto.getProductById(Convert.ToInt16(item.Id_producto));
-                                string grabado = prod[0].Sale_tax;
-                                double costo = prod[0].Cost;
-                                grabado = grabado.Replace("IVA ", "");
-                                dtProductos.Rows.Add(item.Id_producto, prod[0].Code1, item.Cantidad, prod[0].Description, string.Format("{0:#,0.00}", Convert.ToDouble(item.Pu)), string.Format("{0:#,0.00}", Convert.ToDouble(item.Descuento)), string.Format("{0:#,0.00}", Convert.ToDouble(item.Total)), grabado, costo);
+                                if (prod.Count > 0)
+                                {
+                                    string grabado = prod[0].Sale_tax;
+                                    double costo = prod[0].Cost;
+                                    grabado = grabado.Replace("IVA ", "");
+                                    dtProductos.Rows.Add(item.Id_producto, prod[0].Code1, item.Cantidad, prod[0].Description, string.Format("{0:#,0.00}", Convert.ToDouble(item.Pu)), string.Format("{0:#,0.00}", Convert.ToDouble(item.Descuento))+"%", string.Format("{0:#,0.00}", Convert.ToDouble(item.Total)), grabado, costo);
 
-                                calcula();
+                                    calcula();
+                                }
+                               
                             }
                            
                         }
@@ -1796,21 +1907,35 @@ namespace caja
 
         private void dtProductos_KeyDown(object sender, KeyEventArgs e)
         {
-            int valor = dtProductos.CurrentRow.Index;
-            if (e.KeyCode == Keys.Up)
+            if (dtProductos.Rows.Count > 0)
             {
-                if (valor == 0)
+                int valor = dtProductos.CurrentRow.Index;
+                if (e.KeyCode == Keys.Up)
                 {
-                    txtCantidad.Focus();
+                    if (valor == 0)
+                    {
+                        txtCantidad.Focus();
+                    }
+                }
+                if (e.KeyCode == Keys.Down)
+                {
+                    if (valor == (dtProductos.Rows.Count - 1))
+                    {
+                        txtIdAtiende.Focus();
+                    }
+                }
+                if (e.KeyCode == Keys.F2)
+                {
+                    int selectedrowindex = dtProductos.SelectedCells[0].RowIndex;
+                    DataGridViewRow selectedRow = dtProductos.Rows[selectedrowindex];
+                    selectedRow.Cells["p_unitario"].Selected = true;
                 }
             }
-            if (e.KeyCode == Keys.Down)
+            else
             {
-                if (valor == (dtProductos.Rows.Count-1))
-                {
-                    txtIdAtiende.Focus();
-                }
+                txtIdAtiende.Focus();
             }
+            
         }
 
         private void printDocument1_PrintPage(object sender, PrintPageEventArgs e)
@@ -1859,15 +1984,15 @@ namespace caja
                 {
                     List<Client> datos_cliente = cliente.getClientbyId(Convert.ToInt16(txtidcliente.Text));
                     string nombre = "Cliente: [" + datos_cliente[0].Id + "] " + datos_cliente[0].Name;
-                    y = y + 20;
+                    y = y + 25;
                     e.Graphics.DrawString(nombre, font, Brushes.Black, 0, y);
                     string rfc = "RFC: " + datos_cliente[0].RFC;
-                    y = y + 10;
+                    y = y + 15;
                     e.Graphics.DrawString(rfc, font, Brushes.Black, 0, y);
-                    y = y + 10;
+                    y = y + 15;
                     e.Graphics.DrawString(fecha, font, Brushes.Black, 0, y);
                 }
-                y = y + 10;
+                y = y + 15;
                 e.Graphics.DrawString("Folio: " + id, font, Brushes.Black, 0, y);
                 /* y = y + 10;
                 e.Graphics.DrawString("___________________________________________", font, Brushes.Black, 0, y);
@@ -1875,41 +2000,48 @@ namespace caja
                 y = y + 20;
                 e.Graphics.DrawString("Cant.", font, Brushes.Black, 50, y, format);
                 e.Graphics.DrawString("P/U.", font, Brushes.Black, 100, y, format);
-                e.Graphics.DrawString("Desc.", font, Brushes.Black, 150, y, format);
+                if (Convert.ToDouble(txtTdescuento.Text) != 0)
+                {
+                    e.Graphics.DrawString("Desc.", font, Brushes.Black, 150, y, format);
+                }
                 e.Graphics.DrawString("IMPTE.", font, Brushes.Black, 220, y, format);
                 y = y + 10;
                 e.Graphics.DrawString("___________________________________________", font, Brushes.Black, 0, y);
                 foreach (DataGridViewRow row in dtProductos.Rows)
                 {
-                    y = y + 20;
+                    y = y + 30;
                     e.Graphics.DrawString(row.Cells["Producto"].Value.ToString(), font, Brushes.Black, 10, y);
                     e.Graphics.DrawString(row.Cells["cantidad"].Value.ToString(), font, Brushes.Black, 50, y + 10, format);
                     e.Graphics.DrawString(formato(row.Cells["p_unitario"].Value.ToString()), font, Brushes.Black, 100, y + 10, format);
-                    e.Graphics.DrawString(formato(row.Cells["descuento"].Value.ToString()), font, Brushes.Black, 150, y + 10, format);
+                    if (Convert.ToDouble(row.Cells["descuento"].Value.ToString()) != 0)
+                    {
+                        e.Graphics.DrawString(formato(row.Cells["descuento"].Value.ToString()), font, Brushes.Black, 150, y + 10, format);
+                    }
+                   
                     e.Graphics.DrawString(formato(row.Cells["importe"].Value.ToString()), font, Brushes.Black, 220, y + 10, format);
                 }
-                y = y + 20;
+                y = y + 15;
                 e.Graphics.DrawString("___________________________________________", font, Brushes.Black, 0, y);
-                y = y + 10;
+                y = y + 15;
                 e.Graphics.DrawString("VENTA C/IVA", font, Brushes.Black, 150, y + 10, format);
                 e.Graphics.DrawString(txtcIva.Text, font, Brushes.Black, 220, y + 10, format);
-                y = y + 10;
+                y = y + 15;
                 e.Graphics.DrawString("VENTA S/IVA", font, Brushes.Black, 150, y + 10, format);
                 e.Graphics.DrawString(txtsIva.Text, font, Brushes.Black, 220, y + 10, format);
-                y = y + 10;
+                y = y + 15;
                 e.Graphics.DrawString("Subtotal", font, Brushes.Black, 150, y + 10, format);
                 e.Graphics.DrawString(txtSubtotal.Text, font, Brushes.Black, 220, y + 10, format);
-                y = y + 10;
+                y = y + 15;
                 e.Graphics.DrawString("Descuento", font, Brushes.Black, 150, y + 10, format);
                 e.Graphics.DrawString(txtTdescuento.Text, font, Brushes.Black, 220, y + 10, format);
-                y = y + 10;
+                y = y + 15;
                 e.Graphics.DrawString("IVA", font, Brushes.Black, 150, y + 10, format);
                 e.Graphics.DrawString(txtIva.Text, font, Brushes.Black, 220, y + 10, format);
-                y = y + 10;
+                y = y + 15;
                 e.Graphics.DrawString(txtNproductos.Text + " Articulos", font, Brushes.Black, 10, y + 10);
                 e.Graphics.DrawString("Total", font, Brushes.Black, 150, y + 10, format);
                 e.Graphics.DrawString(txtTotal.Text, font, Brushes.Black, 220, y + 10, format);
-                y = y + 10;
+                y = y + 15;
                 e.Graphics.DrawString("_____________________________", font, Brushes.Black, 140, y + 10);
                 y = y + 15;
                 /*e.Graphics.DrawString("", font, Brushes.Black, 150, y + 10, format);
@@ -1919,6 +2051,10 @@ namespace caja
                 e.Graphics.DrawString(tarjeta.ToString(), font, Brushes.Black, 220, y + 10, format);
                 y = y + 10;
                 */
+                e.Graphics.DrawString("Recibido", font, Brushes.Black, 150, y + 10, format);
+                cambio = pagado - Convert.ToDouble(txtTotal.Text);
+                e.Graphics.DrawString(string.Format("{0:#,0.00}", Convert.ToDouble(pagado.ToString())), font, Brushes.Black, 220, y + 10, format);
+                y = y + 20;
                 e.Graphics.DrawString("Cambio", font, Brushes.Black, 150, y + 10, format);
                 cambio = pagado - Convert.ToDouble(txtTotal.Text);
                 e.Graphics.DrawString(string.Format("{0:#,0.00}", Convert.ToDouble(cambio.ToString())), font, Brushes.Black, 220, y + 10, format);
@@ -1931,6 +2067,35 @@ namespace caja
                 y = y + 30;
                 e.Graphics.DrawString("___________________________________________", font, Brushes.Black, 0, y);
             }
+        }
+
+        private void txtTdescuento_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.F12)
+            {
+                button1.PerformClick();
+            }
+            if (e.KeyCode == Keys.Enter)
+            {
+                if (txtTdescuento.Text == "")
+                {
+                    txtTdescuento.Text = "0";
+                }
+                double descuento = Convert.ToDouble(txtTdescuento.Text);
+                txtTdescuento.Text = string.Format("{0:#,0.00}", descuento);
+                calcula();
+            }
+        }
+
+        private void txtTdescuento_Leave(object sender, EventArgs e)
+        {
+            if (txtTdescuento.Text == "")
+            {
+                txtTdescuento.Text = "0";
+            }
+            double descuento = Convert.ToDouble(txtTdescuento.Text);
+            txtTdescuento.Text = string.Format("{0:#,0.00}", descuento);
+            calcula();
         }
     }
 }

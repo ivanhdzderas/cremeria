@@ -27,7 +27,7 @@ namespace caja.Forms
 		private void cobro_Load(object sender, EventArgs e)
 		{
             lbResta.Text = string.Format("{0:#,0.00}", deberia_ser);
-     
+               
             lbCobrar.Text = lbResta.Text;
             cbMpago.Items.Add("Tarjeta de Debito");
             cbMpago.Items.Add("Tarjeta de Credito");
@@ -35,6 +35,10 @@ namespace caja.Forms
             cbMpago.Items.Add("Transferencia");
             cbMpago.SelectedIndex = 2;
             txtRecibido.Focus();
+            if (Convert.ToDouble(lbCobrar.Text) == 0)
+            {
+                txtRecibido.Text = "0.00";
+            }
         }
 
 		
@@ -79,7 +83,7 @@ namespace caja.Forms
             else
             {
                 caja.pagado = Convert.ToDouble(txtRecibido.Text);
-
+                
                 caja.metodo = cbMpago.Text;
                 caja.factura = Convert.ToBoolean(chkFactura.Checked);
                 this.Close();

@@ -97,5 +97,21 @@ namespace caja.Models
 			}
 			return result;
 		}
+
+		public List<retiro_efectivo> get_retiro_fecha(string fecha1, string fecha2)
+		{
+			string query = "select id, monto, usuario, fecha,id_proveedor, monto_proveedor from retiros where DATE_FORMAT(tbatickets.fecha,'%Y-%m-%d') BETWEEN '" + fecha1 + "' AND '" + fecha2 + "'";
+			MySqlDataReader data = runQuery(query);
+			List<retiro_efectivo> result = new List<retiro_efectivo>();
+			if (data.HasRows)
+			{
+				while (data.Read())
+				{
+					retiro_efectivo item = buildretiro(data);
+					result.Add(item);
+				}
+			}
+			return result;
+		}
 	}
 }

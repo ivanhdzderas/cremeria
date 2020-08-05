@@ -51,7 +51,7 @@ namespace caja.Models
 		public void CrateDetTicket()
 		{
 			string query = "insert into tbadetticket (fecha, id_ticket, id_producto, descripcion, cantidad,descuento, pu, total, grabado, costo) values (";
-			query += "'" + this.Fecha + "', ";
+			query += "NOW(), ";
 			query += "'" + this.Id_ticket + "', ";
 			query += "'" + this.Id_producto + "', ";
 			query += "'" + this.Descripcion + "', ";

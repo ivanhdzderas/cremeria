@@ -29,8 +29,7 @@ namespace caja.Models
         public MySqlDataReader runQuery(string query) {
             try
             {
-               
-                    return OpenConnection(query);
+                return OpenConnection(query);
             }
             catch (Exception ex)
             { 

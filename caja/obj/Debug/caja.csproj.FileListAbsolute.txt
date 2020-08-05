@@ -134,8 +134,6 @@ C:\Users\anton\source\repos\caja\caja\obj\Debug\caja.Forms.Traspasos_a_facturas.
 C:\Users\anton\source\repos\caja\caja\obj\Debug\caja.Forms.Usuarios.resources
 C:\Users\anton\source\repos\caja\caja\obj\Debug\caja.Properties.Resources.resources
 C:\Users\anton\source\repos\caja\caja\obj\Debug\caja.csproj.GenerateResource.cache
-C:\Users\anton\source\repos\caja\caja\obj\Debug\RdlCompile.cache
-C:\Users\anton\source\repos\caja\caja\obj\Debug\RdlCompile.compiled
 C:\Users\anton\source\repos\caja\caja\obj\Debug\caja.csproj.CopyComplete
 C:\Users\anton\source\repos\caja\caja\obj\Debug\caja.exe
 C:\Users\anton\source\repos\caja\caja\obj\Debug\caja.pdb
@@ -150,3 +148,5 @@ C:\Users\anton\source\repos\caja\caja\bin\Debug\caja.application
 C:\Users\anton\source\repos\caja\caja\obj\Debug\caja.exe.manifest
 C:\Users\anton\source\repos\caja\caja\obj\Debug\caja.application
 C:\Users\anton\source\repos\caja\caja\bin\Debug\CFDI3_VB.dll
+C:\Users\anton\source\repos\caja\caja\obj\Debug\RdlCompile.cache
+C:\Users\anton\source\repos\caja\caja\obj\Debug\RdlCompile.compiled

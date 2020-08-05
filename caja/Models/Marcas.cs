@@ -38,7 +38,7 @@ namespace caja.Models
             return item;
         }
         public List<Marcas> getMarcas() {
-            string query = "select id, marca from tbamarca";
+            string query = "select id, marca from tbamarca order by marca";
             MySqlDataReader data = runQuery(query);
             List<Marcas> result = new List<Marcas>();
 

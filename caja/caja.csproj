@@ -131,6 +131,7 @@
     <Reference Include="System.Configuration.Install" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing.Design" />
+    <Reference Include="System.EnterpriseServices" />
     <Reference Include="System.IO.Compression.FileSystem" />
     <Reference Include="System.IO.Compression.ZipFile, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\System.IO.Compression.ZipFile.4.3.0\lib\net46\System.IO.Compression.ZipFile.dll</HintPath>
@@ -151,6 +152,7 @@
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Transactions" />
+    <Reference Include="System.Web.Services" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -525,7 +527,11 @@
     <Compile Include="Models\Purchases.cs" />
     <Compile Include="Models\Reports\Encaja.cs" />
     <Compile Include="Models\Reports\Ganancias.cs" />
-    <Compile Include="Models\Reports\Ventas.cs" />
+    <Compile Include="Models\Reports\Mas_vendidos.cs" />
+    <Compile Include="Models\Reports\Retiro_efectivo.cs" />
+    <Compile Include="Models\Reports\Retiro_proveedores.cs" />
+    <Compile Include="Models\Reports\Tickets.cs" />
+    <Compile Include="Models\Reports\Totales.cs" />
     <Compile Include="Models\Reports\Venta_grupo.cs" />
     <Compile Include="Models\retiro_efectivo.cs" />
     <Compile Include="Models\SAT_prod.cs" />
@@ -539,6 +545,11 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SqlServerTypes\Loader.cs" />
+    <Compile Include="Web References\Timbrado\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Forms\About.resx">
       <DependentUpon>About.cs</DependentUpon>
     </EmbeddedResource>
@@ -708,12 +719,20 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="Reports\caja.rdlc" />
+    <EmbeddedResource Include="Reports\corte.rdlc" />
+    <EmbeddedResource Include="Reports\corte2.rdlc" />
     <None Include="caja_TemporaryKey.pfx" />
     <None Include="packages.config" />
     <None Include="Properties\DataSources\caja.Models.Reports.Encaja.datasource" />
+    <None Include="Properties\DataSources\caja.Models.Reports.Ganancias.datasource" />
+    <None Include="Properties\DataSources\caja.Models.Reports.Mas_vendidos.datasource" />
+    <None Include="Properties\DataSources\caja.Models.Reports.Retiro_efectivo.datasource" />
+    <None Include="Properties\DataSources\caja.Models.Reports.Retiro_proveedores.datasource" />
+    <None Include="Properties\DataSources\caja.Models.Reports.Tickets.datasource" />
+    <None Include="Properties\DataSources\caja.Models.Reports.Totales.datasource" />
     <None Include="Properties\DataSources\caja.Models.Reports.Ventas.datasource" />
     <None Include="Properties\DataSources\caja.Models.Reports.Venta_grupo.datasource" />
+    <None Include="Properties\DataSources\caja.Models.retiro_efectivo.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -723,6 +742,35 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="Web References\Timbrado\Application.wsdl" />
+    <None Include="Web References\Timbrado\get_pdfResponse.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Timbrado\get_result_asyncResponse.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Timbrado\query_pendingResponse.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Timbrado\quick_stampResponse.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Timbrado\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\Timbrado\sign_stampResponse.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Timbrado\stampedResponse.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Timbrado\stampResponse.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Timbrado\stamp_asyncResponse.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -784,6 +832,22 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferences Include="Web References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferenceUrl Include="https://demo-facturacion.finkok.com/servicios/soap/stamp.wsdl">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\Timbrado\</RelPath>
+      <UpdateFromURL>https://demo-facturacion.finkok.com/servicios/soap/stamp.wsdl</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>caja_Timbrado_StampSOAP</CachedSettingsPropName>
+    </WebReferenceUrl>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

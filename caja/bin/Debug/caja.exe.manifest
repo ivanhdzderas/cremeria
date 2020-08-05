@@ -55,14 +55,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="caja.exe" size="878048">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="caja.exe" size="992736">
       <assemblyIdentity name="caja" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>17W8qQDkcOakJ9IwUBYHoSYwZB5HEmj4YgMV7F0etxc=</dsig:DigestValue>
+        <dsig:DigestValue>k3eWCwQgEWlYPJfB52TnZ1LSGwvGwcePC46H9vVdtjU=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -1092,13 +1092,13 @@
       <dsig:DigestValue>8tvQWfmXVdeTp3ky85v9BPpIj1HHIEnExdOrXgkGCjw=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="caja.exe.config" size="2097">
+  <file name="caja.exe.config" size="2839">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>e1R3RLsPvkvzm6xb3QhFBjtiTg0qg2V8s4wCA5GFzVs=</dsig:DigestValue>
+      <dsig:DigestValue>bisEPK7Vn6gVBJUZEm4XD0GdSDxrEVGhlbrnqkDP8XU=</dsig:DigestValue>
     </hash>
   </file>
   <file name="icon.ico" size="203870">
