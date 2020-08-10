@@ -532,6 +532,7 @@
     <Compile Include="Models\Reports\Retiro_proveedores.cs" />
     <Compile Include="Models\Reports\Tickets.cs" />
     <Compile Include="Models\Reports\Totales.cs" />
+    <Compile Include="Models\Reports\Transferencias.cs" />
     <Compile Include="Models\Reports\Venta_grupo.cs" />
     <Compile Include="Models\retiro_efectivo.cs" />
     <Compile Include="Models\SAT_prod.cs" />
@@ -730,6 +731,7 @@
     <None Include="Properties\DataSources\caja.Models.Reports.Retiro_proveedores.datasource" />
     <None Include="Properties\DataSources\caja.Models.Reports.Tickets.datasource" />
     <None Include="Properties\DataSources\caja.Models.Reports.Totales.datasource" />
+    <None Include="Properties\DataSources\caja.Models.Reports.Transferencias.datasource" />
     <None Include="Properties\DataSources\caja.Models.Reports.Ventas.datasource" />
     <None Include="Properties\DataSources\caja.Models.Reports.Venta_grupo.datasource" />
     <None Include="Properties\DataSources\caja.Models.retiro_efectivo.datasource" />

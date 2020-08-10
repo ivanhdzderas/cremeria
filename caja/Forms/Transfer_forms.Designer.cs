@@ -56,6 +56,7 @@
 			this.btnGuardar = new System.Windows.Forms.Button();
 			this.btnCancelar = new System.Windows.Forms.Button();
 			this.lbFecha = new System.Windows.Forms.Label();
+			this.printDocument1 = new System.Drawing.Printing.PrintDocument();
 			((System.ComponentModel.ISupportInitialize)(this.nuCantidad)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.dtProductos)).BeginInit();
 			this.SuspendLayout();
@@ -300,6 +301,10 @@
 			this.lbFecha.TabIndex = 22;
 			this.lbFecha.Text = "label10";
 			// 
+			// printDocument1
+			// 
+			this.printDocument1.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(this.printDocument1_PrintPage);
+			// 
 			// Transfer_forms
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -367,5 +372,6 @@
 		public System.Windows.Forms.Button btnGuardar;
 		public System.Windows.Forms.Button btnCancelar;
 		public System.Windows.Forms.Label lbFecha;
+		public System.Drawing.Printing.PrintDocument printDocument1;
 	}
 }

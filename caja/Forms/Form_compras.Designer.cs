@@ -50,14 +50,6 @@
 			this.label3 = new System.Windows.Forms.Label();
 			this.imageList1 = new System.Windows.Forms.ImageList(this.components);
 			this.dtProductos = new System.Windows.Forms.DataGridView();
-			this.id_producto = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.codigo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.cantidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.descripcion = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.p_u = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.total = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.lote = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.caducidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.label7 = new System.Windows.Forms.Label();
 			this.label8 = new System.Windows.Forms.Label();
 			this.label9 = new System.Windows.Forms.Label();
@@ -81,6 +73,15 @@
 			this.dtVencimiento = new System.Windows.Forms.DateTimePicker();
 			this.cbProveedor = new System.Windows.Forms.ComboBox();
 			this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+			this.id_producto = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.codigo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.cantidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.descripcion = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.p_u = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.total = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.lote = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.caducidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.impuesto = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.groupBox1.SuspendLayout();
 			this.toolStrip1.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.dtProductos)).BeginInit();
@@ -290,60 +291,14 @@
             this.p_u,
             this.total,
             this.lote,
-            this.caducidad});
+            this.caducidad,
+            this.impuesto});
 			this.dtProductos.Location = new System.Drawing.Point(11, 211);
 			this.dtProductos.Name = "dtProductos";
 			this.dtProductos.Size = new System.Drawing.Size(747, 150);
 			this.dtProductos.TabIndex = 5;
 			this.dtProductos.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtProductos_CellEndEdit);
 			this.dtProductos.RowsRemoved += new System.Windows.Forms.DataGridViewRowsRemovedEventHandler(this.dtProductos_RowsRemoved);
-			// 
-			// id_producto
-			// 
-			this.id_producto.HeaderText = "id";
-			this.id_producto.Name = "id_producto";
-			this.id_producto.Visible = false;
-			// 
-			// codigo
-			// 
-			this.codigo.HeaderText = "Codigo";
-			this.codigo.Name = "codigo";
-			this.codigo.ReadOnly = true;
-			// 
-			// cantidad
-			// 
-			this.cantidad.HeaderText = "Cantidad";
-			this.cantidad.Name = "cantidad";
-			// 
-			// descripcion
-			// 
-			this.descripcion.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-			this.descripcion.HeaderText = "Descripcion";
-			this.descripcion.Name = "descripcion";
-			this.descripcion.ReadOnly = true;
-			// 
-			// p_u
-			// 
-			this.p_u.HeaderText = "P/U";
-			this.p_u.Name = "p_u";
-			// 
-			// total
-			// 
-			this.total.HeaderText = "Total";
-			this.total.Name = "total";
-			this.total.ReadOnly = true;
-			// 
-			// lote
-			// 
-			this.lote.HeaderText = "Lote";
-			this.lote.Name = "lote";
-			this.lote.ReadOnly = true;
-			// 
-			// caducidad
-			// 
-			this.caducidad.HeaderText = "Caducidad";
-			this.caducidad.Name = "caducidad";
-			this.caducidad.ReadOnly = true;
 			// 
 			// label7
 			// 
@@ -516,7 +471,7 @@
 			// label14
 			// 
 			this.label14.AutoSize = true;
-			this.label14.Location = new System.Drawing.Point(155, 93);
+			this.label14.Location = new System.Drawing.Point(85, 93);
 			this.label14.Name = "label14";
 			this.label14.Size = new System.Drawing.Size(64, 13);
 			this.label14.TabIndex = 24;
@@ -525,7 +480,7 @@
 			// 
 			// txtdias
 			// 
-			this.txtdias.Location = new System.Drawing.Point(225, 90);
+			this.txtdias.Location = new System.Drawing.Point(155, 90);
 			this.txtdias.Name = "txtdias";
 			this.txtdias.Size = new System.Drawing.Size(41, 20);
 			this.txtdias.TabIndex = 25;
@@ -535,7 +490,7 @@
 			// label15
 			// 
 			this.label15.AutoSize = true;
-			this.label15.Location = new System.Drawing.Point(317, 94);
+			this.label15.Location = new System.Drawing.Point(247, 94);
 			this.label15.Name = "label15";
 			this.label15.Size = new System.Drawing.Size(98, 13);
 			this.label15.TabIndex = 26;
@@ -544,7 +499,7 @@
 			// 
 			// dtVencimiento
 			// 
-			this.dtVencimiento.Location = new System.Drawing.Point(421, 88);
+			this.dtVencimiento.Location = new System.Drawing.Point(351, 88);
 			this.dtVencimiento.Name = "dtVencimiento";
 			this.dtVencimiento.Size = new System.Drawing.Size(139, 20);
 			this.dtVencimiento.TabIndex = 27;
@@ -554,16 +509,70 @@
 			// 
 			this.cbProveedor.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+			this.cbProveedor.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
 			this.cbProveedor.FormattingEnabled = true;
 			this.cbProveedor.Location = new System.Drawing.Point(71, 12);
 			this.cbProveedor.Name = "cbProveedor";
 			this.cbProveedor.Size = new System.Drawing.Size(401, 21);
 			this.cbProveedor.TabIndex = 28;
 			this.cbProveedor.SelectedIndexChanged += new System.EventHandler(this.cbProveedor_SelectedIndexChanged);
+			this.cbProveedor.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cbProveedor_KeyDown);
 			// 
 			// openFileDialog1
 			// 
 			this.openFileDialog1.FileName = "openFileDialog1";
+			// 
+			// id_producto
+			// 
+			this.id_producto.HeaderText = "id";
+			this.id_producto.Name = "id_producto";
+			this.id_producto.Visible = false;
+			// 
+			// codigo
+			// 
+			this.codigo.HeaderText = "Codigo";
+			this.codigo.Name = "codigo";
+			this.codigo.ReadOnly = true;
+			// 
+			// cantidad
+			// 
+			this.cantidad.HeaderText = "Cantidad";
+			this.cantidad.Name = "cantidad";
+			// 
+			// descripcion
+			// 
+			this.descripcion.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+			this.descripcion.HeaderText = "Descripcion";
+			this.descripcion.Name = "descripcion";
+			this.descripcion.ReadOnly = true;
+			// 
+			// p_u
+			// 
+			this.p_u.HeaderText = "P/U";
+			this.p_u.Name = "p_u";
+			// 
+			// total
+			// 
+			this.total.HeaderText = "Total";
+			this.total.Name = "total";
+			this.total.ReadOnly = true;
+			// 
+			// lote
+			// 
+			this.lote.HeaderText = "Lote";
+			this.lote.Name = "lote";
+			this.lote.ReadOnly = true;
+			// 
+			// caducidad
+			// 
+			this.caducidad.HeaderText = "Caducidad";
+			this.caducidad.Name = "caducidad";
+			// 
+			// impuesto
+			// 
+			this.impuesto.HeaderText = "impuesto";
+			this.impuesto.Name = "impuesto";
+			this.impuesto.Visible = false;
 			// 
 			// Form_compras
 			// 
@@ -665,5 +674,6 @@
 		private System.Windows.Forms.DataGridViewTextBoxColumn total;
 		private System.Windows.Forms.DataGridViewTextBoxColumn lote;
 		private System.Windows.Forms.DataGridViewTextBoxColumn caducidad;
+		private System.Windows.Forms.DataGridViewTextBoxColumn impuesto;
 	}
 }

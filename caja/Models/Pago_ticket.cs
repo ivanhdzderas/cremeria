@@ -32,6 +32,11 @@ namespace caja.Models
 			string query = "insert into tbapagticket (id_ticket, monto, tipo_pago) values ('" + this.Id_ticket + "', '" + this.Monto + "', '" + this.Tipo_pago + "')";
 			object result = runQuery(query);
 		}
+		public void delete_pago()
+		{
+			string query = "delete from tbapagticket where id_ticket='" + this.Id_ticket + "'";
+			object result = runQuery(query);
+		}
 		private Pago_ticket buildPago(MySqlDataReader data) {
 			Pago_ticket item = new Pago_ticket(
 				data.GetInt16("id"),

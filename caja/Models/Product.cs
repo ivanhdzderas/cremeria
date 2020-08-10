@@ -441,6 +441,7 @@ namespace caja.Models
         public List<Product> getProductByCodeAbsolute(string code)
         {
             string query = mac_query + " where  activo='1' and (codigo='" + code + "' or codigo2='" + code + "' or codigo3='" + code + "' or codigo4='" + code + "' or codigo5='" + code + "' or sku='" + code + "') order by LENGTH(codigo) , codigo";
+            
             MySqlDataReader data = runQuery(query);
             
                 List<Product> result = new List<Product>();

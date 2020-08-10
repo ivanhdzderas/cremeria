@@ -31,11 +31,11 @@
 			this.label1 = new System.Windows.Forms.Label();
 			this.txtBuscar = new System.Windows.Forms.TextBox();
 			this.dtgProveedores = new System.Windows.Forms.DataGridView();
+			this.button1 = new System.Windows.Forms.Button();
 			this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.rfc = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.tel = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.button1 = new System.Windows.Forms.Button();
 			((System.ComponentModel.ISupportInitialize)(this.dtgProveedores)).BeginInit();
 			this.SuspendLayout();
 			// 
@@ -81,6 +81,18 @@
 			this.dtgProveedores.TabIndex = 3;
 			this.dtgProveedores.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtgProveedores_CellDoubleClick);
 			// 
+			// button1
+			// 
+			this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.button1.Location = new System.Drawing.Point(644, 431);
+			this.button1.Name = "button1";
+			this.button1.Size = new System.Drawing.Size(75, 23);
+			this.button1.TabIndex = 4;
+			this.button1.Text = "Nuevo";
+			this.button1.UseVisualStyleBackColor = true;
+			this.button1.Click += new System.EventHandler(this.button1_Click);
+			// 
 			// id
 			// 
 			this.id.HeaderText = "Id";
@@ -89,6 +101,7 @@
 			// 
 			// nombre
 			// 
+			this.nombre.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
 			this.nombre.HeaderText = "Nombre";
 			this.nombre.Name = "nombre";
 			this.nombre.ReadOnly = true;
@@ -104,18 +117,6 @@
 			this.tel.HeaderText = "Telefono";
 			this.tel.Name = "tel";
 			this.tel.ReadOnly = true;
-			// 
-			// button1
-			// 
-			this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.button1.Location = new System.Drawing.Point(644, 431);
-			this.button1.Name = "button1";
-			this.button1.Size = new System.Drawing.Size(75, 23);
-			this.button1.TabIndex = 4;
-			this.button1.Text = "Nuevo";
-			this.button1.UseVisualStyleBackColor = true;
-			this.button1.Click += new System.EventHandler(this.button1_Click);
 			// 
 			// Proveedores
 			// 
@@ -140,10 +141,10 @@
 		private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.TextBox txtBuscar;
 		private System.Windows.Forms.DataGridView dtgProveedores;
+		private System.Windows.Forms.Button button1;
 		private System.Windows.Forms.DataGridViewTextBoxColumn id;
 		private System.Windows.Forms.DataGridViewTextBoxColumn nombre;
 		private System.Windows.Forms.DataGridViewTextBoxColumn rfc;
 		private System.Windows.Forms.DataGridViewTextBoxColumn tel;
-		private System.Windows.Forms.Button button1;
 	}
 }

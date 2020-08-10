@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Printing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -225,7 +227,7 @@ namespace caja.Forms
 					Product poductos = new Product();
 					foreach (DataGridViewRow row in dtProductos.Rows)
 					{
-						detalles.Cantidad = Convert.ToInt16(row.Cells["cantidad"].Value.ToString());
+						detalles.Cantidad = Convert.ToDouble(row.Cells["cantidad"].Value.ToString());
 						detalles.Id_producto = Convert.ToInt16(row.Cells["id"].Value.ToString());
 						detalles.Precio = Convert.ToDouble(row.Cells["p_u"].Value.ToString());
 						detalles.CreateDet();
@@ -238,7 +240,7 @@ namespace caja.Forms
 								kardex.Id_producto = Convert.ToInt16(row.Cells["id"].Value.ToString());
 								kardex.Tipo = "T";
 								kardex.Id_documento = ultimo[0].Id;
-								kardex.Cantidad = Convert.ToInt16(row.Cells["cantidad"].Value.ToString());
+								kardex.Cantidad = Convert.ToDouble(row.Cells["cantidad"].Value.ToString());
 								kardex.Antes = producto[0].Existencia;
 								kardex.CreateKardex();
 								
@@ -264,7 +266,7 @@ namespace caja.Forms
 
 			crea_xml();
 	
-			this.Close();
+			
 
 
 			Folios folio = new Folios();
@@ -273,20 +275,40 @@ namespace caja.Forms
 				folio.Transferencia = (Convert.ToInt16(txtFolios.Text) + 1);
 				folio.savenewTransfer();
 			}
-			
+
+			PrinterSettings ps = new PrinterSettings();
+			printDocument1.PrintController = new StandardPrintController();
+			printDocument1.PrinterSettings = ps;
+			Configuration configuracion = new Configuration();
+			using (configuracion)
+			{
+				List<Configuration> config = configuracion.getConfiguration();
+				printDocument1.PrinterSettings.PrinterName = config[0].Impresora;
+				printDocument1.PrintPage += new PrintPageEventHandler(printDocument1_PrintPage);
+				printDocument1.Print();
+
+			}
+			this.Close();
 
 
-			
+
 		}
 		private void crea_xml()
 		{
-			Transfers transferencia = new Transfers();
+			string ruta = "";
+			Configuration configuracion = new Configuration();
+			using (configuracion)
+			{
+				List<Configuration> config = configuracion.getConfiguration();
+				ruta = config[0].Ruta_factura;
+			}
+				Transfers transferencia = new Transfers();
 			using (transferencia)
 			{
 				List<Transfers> lista = transferencia.getTransferbyfolio(Convert.ToInt16(txtFolios.Text), "E");
 
 				XmlTextWriter writer;
-				writer = new XmlTextWriter("C://facturas//transferencia-" + txtFolios.Text + ".xml", Encoding.UTF8);
+				writer = new XmlTextWriter(ruta+"transferencia-" + txtFolios.Text + ".xml", Encoding.UTF8);
 				writer.Formatting = Formatting.Indented;
 				writer.WriteStartDocument();
 				writer.WriteStartElement("transferencia");
@@ -357,7 +379,89 @@ namespace caja.Forms
 
 
 		}
+		private string formato(string numero)
+		{
+			double valor = 0;
+			string resultado = "";
+			valor = Convert.ToDouble(numero);
+			resultado = valor.ToString("0.00");
+			return resultado;
+		}
+		private void printDocument1_PrintPage(object sender, PrintPageEventArgs e)
+		{
+			Configuration configuracion = new Configuration();
+			using (configuracion)
+			{
+				List<Configuration> config = configuracion.getConfiguration();
+				Font font = new Font("Verdana", 8, FontStyle.Regular);
+				int y = 70;
+				var format = new StringFormat() { Alignment = StringAlignment.Center };
 
-		
+
+				if (config[0].Logo_ticket != "")
+				{
+					if (File.Exists(config[0].Logo_ticket))
+					{
+						Image logo = Image.FromFile(config[0].Logo_ticket);
+						e.Graphics.DrawImage(logo, new Rectangle(0, 00, 250, 70));
+					}
+				}
+				y = y + 10;
+				e.Graphics.DrawString(config[0].Razon_social, font, Brushes.Black, 125, y, format);
+				y = y + 10;
+				e.Graphics.DrawString(config[0].RFC, font, Brushes.Black, 125, y, format);
+				y = y + 10;
+				string calle = config[0].Calle + " " + config[0].No_ext;
+				if (config[0].No_int != "")
+				{
+					calle += "-" + config[0].No_int;
+				}
+				e.Graphics.DrawString(calle, font, Brushes.Black, 125, y, format);
+				y = y + 10;
+				e.Graphics.DrawString(config[0].Municipio + " " + config[0].Estado, font, Brushes.Black, 125, y, format);
+				y = y + 10;
+				e.Graphics.DrawString("Telefono" + config[0].Telefono, font, Brushes.Black, 125, y, format);
+				y = y + 10;
+				e.Graphics.DrawString(config[0].Razon_social, font, Brushes.Black, 125, y, format);
+				format = new StringFormat() { Alignment = StringAlignment.Far };
+				y = y + 10;
+				e.Graphics.DrawString("___________________________________________", font, Brushes.Black, 0, y);
+				
+				y = y + 15;
+				e.Graphics.DrawString("Transferencia: " + txtFolios.Text, font, Brushes.Black, 0, y);
+				/* y = y + 10;
+                e.Graphics.DrawString("___________________________________________", font, Brushes.Black, 0, y);
+                */
+				y = y + 20;
+				e.Graphics.DrawString("Cant.", font, Brushes.Black, 50, y, format);
+				e.Graphics.DrawString("P/U.", font, Brushes.Black, 100, y, format);
+				
+				e.Graphics.DrawString("IMPTE.", font, Brushes.Black, 220, y, format);
+				y = y + 10;
+				e.Graphics.DrawString("___________________________________________", font, Brushes.Black, 0, y);
+				foreach (DataGridViewRow row in dtProductos.Rows)
+				{
+					y = y + 30;
+					e.Graphics.DrawString(row.Cells["descripcion"].Value.ToString(), font, Brushes.Black, 10, y);
+					e.Graphics.DrawString(row.Cells["cantidad"].Value.ToString(), font, Brushes.Black, 50, y + 10, format);
+					e.Graphics.DrawString(formato(row.Cells["p_u"].Value.ToString()), font, Brushes.Black, 100, y + 10, format);
+
+					e.Graphics.DrawString(formato(row.Cells["Importe"].Value.ToString()), font, Brushes.Black, 220, y + 10, format);
+				}
+				y = y + 15;
+				e.Graphics.DrawString("___________________________________________", font, Brushes.Black, 0, y);
+				y = y + 15;
+				
+				e.Graphics.DrawString("Subtotal", font, Brushes.Black, 150, y + 10, format);
+				e.Graphics.DrawString(txtSubtotal.Text, font, Brushes.Black, 220, y + 10, format);
+				
+				y = y + 40;
+				intercambios inter = new intercambios();
+				e.Graphics.DrawString(inter.enletras(txtSubtotal.Text), font, Brushes.Black, 0, y);
+				
+				y = y + 30;
+				e.Graphics.DrawString("___________________________________________", font, Brushes.Black, 0, y);
+			}
+		}
 	}
 }

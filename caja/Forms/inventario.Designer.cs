@@ -29,16 +29,6 @@
         private void InitializeComponent()
         {
 			this.dataGridView1 = new System.Windows.Forms.DataGridView();
-			this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.codigo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.codigo2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.descripcion = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.existencia = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.precio1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.precio2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.precio3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.precio4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.precio5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.label1 = new System.Windows.Forms.Label();
 			this.label2 = new System.Windows.Forms.Label();
 			this.textBox1 = new System.Windows.Forms.TextBox();
@@ -46,6 +36,14 @@
 			this.button1 = new System.Windows.Forms.Button();
 			this.button2 = new System.Windows.Forms.Button();
 			this.button3 = new System.Windows.Forms.Button();
+			this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.codigo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.codigo2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.descripcion = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.costo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.existencia = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.precio1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.precio2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
 			this.SuspendLayout();
 			// 
@@ -62,80 +60,16 @@
             this.codigo,
             this.codigo2,
             this.descripcion,
+            this.costo,
             this.existencia,
             this.precio1,
-            this.precio2,
-            this.precio3,
-            this.precio4,
-            this.precio5});
+            this.precio2});
 			this.dataGridView1.Location = new System.Drawing.Point(12, 89);
 			this.dataGridView1.Name = "dataGridView1";
 			this.dataGridView1.ReadOnly = true;
 			this.dataGridView1.Size = new System.Drawing.Size(663, 170);
 			this.dataGridView1.TabIndex = 0;
 			this.dataGridView1.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellDoubleClick);
-			// 
-			// id
-			// 
-			this.id.HeaderText = "id";
-			this.id.Name = "id";
-			this.id.ReadOnly = true;
-			this.id.Visible = false;
-			// 
-			// codigo
-			// 
-			this.codigo.HeaderText = "Codigo 1";
-			this.codigo.Name = "codigo";
-			this.codigo.ReadOnly = true;
-			// 
-			// codigo2
-			// 
-			this.codigo2.HeaderText = "Codigo 2";
-			this.codigo2.Name = "codigo2";
-			this.codigo2.ReadOnly = true;
-			// 
-			// descripcion
-			// 
-			this.descripcion.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-			this.descripcion.HeaderText = "Descripcion";
-			this.descripcion.Name = "descripcion";
-			this.descripcion.ReadOnly = true;
-			// 
-			// existencia
-			// 
-			this.existencia.HeaderText = "Existencia";
-			this.existencia.Name = "existencia";
-			this.existencia.ReadOnly = true;
-			// 
-			// precio1
-			// 
-			this.precio1.HeaderText = "Precio 1";
-			this.precio1.Name = "precio1";
-			this.precio1.ReadOnly = true;
-			// 
-			// precio2
-			// 
-			this.precio2.HeaderText = "Precio 2";
-			this.precio2.Name = "precio2";
-			this.precio2.ReadOnly = true;
-			// 
-			// precio3
-			// 
-			this.precio3.HeaderText = "Precio 3";
-			this.precio3.Name = "precio3";
-			this.precio3.ReadOnly = true;
-			// 
-			// precio4
-			// 
-			this.precio4.HeaderText = "Precio 4";
-			this.precio4.Name = "precio4";
-			this.precio4.ReadOnly = true;
-			// 
-			// precio5
-			// 
-			this.precio5.HeaderText = "Precio 5";
-			this.precio5.Name = "precio5";
-			this.precio5.ReadOnly = true;
 			// 
 			// label1
 			// 
@@ -206,6 +140,56 @@
 			this.button3.UseVisualStyleBackColor = true;
 			this.button3.Click += new System.EventHandler(this.button3_Click);
 			// 
+			// id
+			// 
+			this.id.HeaderText = "id";
+			this.id.Name = "id";
+			this.id.ReadOnly = true;
+			this.id.Visible = false;
+			// 
+			// codigo
+			// 
+			this.codigo.HeaderText = "Codigo 1";
+			this.codigo.Name = "codigo";
+			this.codigo.ReadOnly = true;
+			// 
+			// codigo2
+			// 
+			this.codigo2.HeaderText = "Codigo 2";
+			this.codigo2.Name = "codigo2";
+			this.codigo2.ReadOnly = true;
+			// 
+			// descripcion
+			// 
+			this.descripcion.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+			this.descripcion.HeaderText = "Descripcion";
+			this.descripcion.Name = "descripcion";
+			this.descripcion.ReadOnly = true;
+			// 
+			// costo
+			// 
+			this.costo.HeaderText = "Costo";
+			this.costo.Name = "costo";
+			this.costo.ReadOnly = true;
+			// 
+			// existencia
+			// 
+			this.existencia.HeaderText = "Existencia";
+			this.existencia.Name = "existencia";
+			this.existencia.ReadOnly = true;
+			// 
+			// precio1
+			// 
+			this.precio1.HeaderText = "Precio 1";
+			this.precio1.Name = "precio1";
+			this.precio1.ReadOnly = true;
+			// 
+			// precio2
+			// 
+			this.precio2.HeaderText = "Precio 2";
+			this.precio2.Name = "precio2";
+			this.precio2.ReadOnly = true;
+			// 
 			// inventario
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -242,11 +226,9 @@
 		private System.Windows.Forms.DataGridViewTextBoxColumn codigo;
 		private System.Windows.Forms.DataGridViewTextBoxColumn codigo2;
 		private System.Windows.Forms.DataGridViewTextBoxColumn descripcion;
+		private System.Windows.Forms.DataGridViewTextBoxColumn costo;
 		private System.Windows.Forms.DataGridViewTextBoxColumn existencia;
 		private System.Windows.Forms.DataGridViewTextBoxColumn precio1;
 		private System.Windows.Forms.DataGridViewTextBoxColumn precio2;
-		private System.Windows.Forms.DataGridViewTextBoxColumn precio3;
-		private System.Windows.Forms.DataGridViewTextBoxColumn precio4;
-		private System.Windows.Forms.DataGridViewTextBoxColumn precio5;
 	}
 }

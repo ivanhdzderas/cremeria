@@ -609,6 +609,7 @@ namespace caja
                             printDocument1.PrinterSettings.PrinterName = config[0].Impresora;
                             printDocument1.PrintPage += new PrintPageEventHandler(printDocument1_PrintPage);
                             printDocument1.Print();
+
                         }
                         limpiar();
                         pagado = 0;
@@ -668,7 +669,7 @@ namespace caja
             Tickets ticket = new Tickets();
             using (ticket)
             {
-                ticket.Id = 0;
+               
                 ticket.Id_cliente = Convert.ToInt16(txtidcliente.Text);
                 ticket.Fecha = fecha;
                 ticket.Subtotal = Convert.ToDouble(txtSubtotal.Text);
@@ -726,12 +727,18 @@ namespace caja
                     }
                     else
                     {
+                       
                         pago.Id_ticket = folio_ticket;
+                    }
+                    using (pago)
+                    {
+                        pago.delete_pago();
                     }
                     pago.Monto = pagado;
                     pago.Tipo_pago = metodo;
                     using (pago)
                     {
+
                         pago.CreatePago();
                     }
                     
@@ -825,7 +832,7 @@ namespace caja
             limpiar();
             default_cliente();
             get_folio();
-            aviso_retiro();
+            //aviso_retiro();
         }
         private void aviso_retiro()
         {
@@ -1120,6 +1127,7 @@ namespace caja
 
         private void button6_Click(object sender, EventArgs e)
         {
+
             autentificar cb = new autentificar();
             cb.origen = "retiro";
             cancelado = false;
@@ -1141,6 +1149,7 @@ namespace caja
             }
             
         }
+        string id_transferencia = "";
         public void transferencias()
         {
             cancelado = false;
@@ -1164,6 +1173,10 @@ namespace caja
             Transfer_forms.id_transfer = 0;
             Transfer_forms Transfer = new Transfer_forms();
 
+            Sucursal sucu = new Sucursal();
+            sucu.ShowDialog();
+
+            Transfer.Show();
             Transfer.cbOficinas.SelectedValue = sucursal;
             foreach (DataGridViewRow row in dtProductos.Rows)
             {
@@ -1171,23 +1184,131 @@ namespace caja
             }
 
             Transfer.calcula();
-            Transfer.btnGuardar.PerformClick();
-            PrinterSettings ps = new PrinterSettings();
-            printDocument1.PrintController = new StandardPrintController();
-            printDocument1.PrinterSettings = ps;
-            Configuration configuracion = new Configuration();
-            using (configuracion)
+            Folios folio = new Folios();
+            using (folio)
             {
-                List<Configuration> config = configuracion.getConfiguration();
-                printDocument1.PrinterSettings.PrinterName = config[0].Impresora;
-                printDocument1.PrintPage += new PrintPageEventHandler(printDocument1_PrintPage);
-                printDocument1.Print();
+                List<Folios> transfer = folio.getFolios();
+                Transfer.txtFolios.Text = transfer[0].Transferencia.ToString();
 
             }
+
+            id_transferencia = Transfer.txtFolios.Text;
+            Transfer.btnGuardar.PerformClick();
             
+            /*PrinterSettings ps = new PrinterSettings();
+			printDocument2.PrintController = new StandardPrintController();
+			printDocument2.PrinterSettings = ps;
+			Configuration configuracion = new Configuration();
+			using (configuracion)
+			{
+				List<Configuration> config = configuracion.getConfiguration();
+				printDocument2.PrinterSettings.PrinterName = config[0].Impresora;
+				printDocument2.PrintPage += new PrintPageEventHandler(print_transfer);
+				printDocument2.Print();
+
+			}*/
             limpiar();
         }
+        private void print_transfer(object sender, PrintPageEventArgs e)
+        {
+            double total = 0;
+            Det_transfers detallado_Transfer = new Det_transfers();
+            Configuration configuracion = new Configuration();
+            Product productos = new Product();
+			using (configuracion)
+			{
+				List<Configuration> config = configuracion.getConfiguration();
+				Font font = new Font("Verdana", 8, FontStyle.Regular);
+				int y = 70;
+				var format = new StringFormat() { Alignment = StringAlignment.Center };
 
+
+				if (config[0].Logo_ticket != "")
+				{
+					if (File.Exists(config[0].Logo_ticket))
+					{
+						Image logo = Image.FromFile(config[0].Logo_ticket);
+						e.Graphics.DrawImage(logo, new Rectangle(0, 00, 250, 70));
+					}
+				}
+				y = y + 10;
+				e.Graphics.DrawString(config[0].Razon_social, font, Brushes.Black, 125, y, format);
+				y = y + 10;
+				e.Graphics.DrawString(config[0].RFC, font, Brushes.Black, 125, y, format);
+				y = y + 10;
+				string calle = config[0].Calle + " " + config[0].No_ext;
+				if (config[0].No_int != "")
+				{
+					calle += "-" + config[0].No_int;
+				}
+				e.Graphics.DrawString(calle, font, Brushes.Black, 125, y, format);
+				y = y + 10;
+				e.Graphics.DrawString(config[0].Municipio + " " + config[0].Estado, font, Brushes.Black, 125, y, format);
+				y = y + 10;
+				e.Graphics.DrawString("Telefono" + config[0].Telefono, font, Brushes.Black, 125, y, format);
+				y = y + 10;
+				e.Graphics.DrawString(config[0].Razon_social, font, Brushes.Black, 125, y, format);
+				format = new StringFormat() { Alignment = StringAlignment.Far };
+				y = y + 10;
+				e.Graphics.DrawString("___________________________________________", font, Brushes.Black, 0, y);
+				
+				y = y + 15;
+				e.Graphics.DrawString("Folio: " + id_transferencia, font, Brushes.Black, 0, y);
+				/* y = y + 10;
+                e.Graphics.DrawString("___________________________________________", font, Brushes.Black, 0, y);
+                */
+				y = y + 20;
+				e.Graphics.DrawString("Cant.", font, Brushes.Black, 50, y, format);
+				e.Graphics.DrawString("P/U.", font, Brushes.Black, 100, y, format);
+				
+				e.Graphics.DrawString("IMPTE.", font, Brushes.Black, 220, y, format);
+				y = y + 10;
+				e.Graphics.DrawString("___________________________________________", font, Brushes.Black, 0, y);
+
+                using (detallado_Transfer)
+                {
+                    List<Det_transfers> deta = detallado_Transfer.getDet_trans(Convert.ToInt16(id_transferencia));
+                    foreach(Det_transfers item in deta)
+                    {
+                        using (productos)
+                        {
+                            List<Product> producto = productos.getProductById(item.Id_producto);
+                            y = y + 30;
+                            e.Graphics.DrawString(producto[0].Description, font, Brushes.Black, 10, y);
+                            e.Graphics.DrawString(item.Cantidad.ToString(), font, Brushes.Black, 50, y + 10, format);
+                            e.Graphics.DrawString(formato(item.Precio.ToString()), font, Brushes.Black, 100, y + 10, format);
+                            e.Graphics.DrawString(formato((item.Cantidad*item.Precio).ToString()), font, Brushes.Black, 220, y + 10, format);
+                            total = total + (item.Cantidad * item.Precio);
+                        }
+                       
+                    }
+                }
+                
+				y = y + 15;
+				e.Graphics.DrawString("___________________________________________", font, Brushes.Black, 0, y);
+				y = y + 15;
+				
+				e.Graphics.DrawString("Subtotal", font, Brushes.Black, 150, y + 10, format);
+				e.Graphics.DrawString(total.ToString(), font, Brushes.Black, 220, y + 10, format);
+				
+				e.Graphics.DrawString("_____________________________", font, Brushes.Black, 140, y + 10);
+				y = y + 15;
+				/*e.Graphics.DrawString("", font, Brushes.Black, 150, y + 10, format);
+                e.Graphics.DrawString(efectivo.ToString(), font, Brushes.Black, 220, y + 10, format);
+                y = y + 10;
+                e.Graphics.DrawString("Tarjeta", font, Brushes.Black, 150, y + 10, format);
+                e.Graphics.DrawString(tarjeta.ToString(), font, Brushes.Black, 220, y + 10, format);
+                y = y + 10;
+                */
+				
+				y = y + 40;
+				intercambios inter = new intercambios();
+				e.Graphics.DrawString(inter.enletras(total.ToString()), font, Brushes.Black, 0, y);
+				
+				y = y + 30;
+				e.Graphics.DrawString("___________________________________________", font, Brushes.Black, 0, y);
+			}
+        }
         private void txtidcliente_KeyDown(object sender, KeyEventArgs e)
         {
             bool error = false;
@@ -1692,7 +1813,7 @@ namespace caja
                     double cantidad = Convert.ToDouble(dtProductos.Rows[e.RowIndex].Cells["Cantidad"].Value);
                     double cantidad_pre = producto[0].Cost * cantidad;
                     double semitotal = (p_u * cantidad);
-                    double porcentaje = (semitotal / 100) * Convert.ToDouble(dtProductos.Rows[e.RowIndex].Cells["descuento"].Value);
+                    double porcentaje = (semitotal / 100) * Convert.ToDouble(dtProductos.Rows[e.RowIndex].Cells["descuento"].Value.ToString().Remove(dtProductos.Rows[e.RowIndex].Cells["descuento"].Value.ToString().Length-1));
 
                     dtProductos.Rows[e.RowIndex].Cells["importe"].Value = (semitotal - porcentaje).ToString();
                     calcula();
@@ -1703,12 +1824,7 @@ namespace caja
             txtCodigo.Focus();
         }
 
-        private void dtProductos_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
-        {
-            producto.Codigo = dtProductos.Rows[e.RowIndex].Cells["id_producto"].Value.ToString();
-            producto Producto = new producto();
-            Producto.Show(this);
-        }
+       
 
         private void dtProductos_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -1935,7 +2051,12 @@ namespace caja
             {
                 txtIdAtiende.Focus();
             }
-            
+            if (e.KeyCode == Keys.Delete)
+            {
+                int selectedrowindex = dtProductos.SelectedCells[0].RowIndex;
+                dtProductos.Rows.RemoveAt(selectedrowindex);
+                calcula();
+            }
         }
 
         private void printDocument1_PrintPage(object sender, PrintPageEventArgs e)
@@ -2013,7 +2134,7 @@ namespace caja
                     e.Graphics.DrawString(row.Cells["Producto"].Value.ToString(), font, Brushes.Black, 10, y);
                     e.Graphics.DrawString(row.Cells["cantidad"].Value.ToString(), font, Brushes.Black, 50, y + 10, format);
                     e.Graphics.DrawString(formato(row.Cells["p_unitario"].Value.ToString()), font, Brushes.Black, 100, y + 10, format);
-                    if (Convert.ToDouble(row.Cells["descuento"].Value.ToString()) != 0)
+                    if (Convert.ToDouble(row.Cells["descuento"].Value.ToString().Remove(row.Cells["descuento"].Value.ToString().Length-1)) != 0)
                     {
                         e.Graphics.DrawString(formato(row.Cells["descuento"].Value.ToString()), font, Brushes.Black, 150, y + 10, format);
                     }
@@ -2096,6 +2217,16 @@ namespace caja
             double descuento = Convert.ToDouble(txtTdescuento.Text);
             txtTdescuento.Text = string.Format("{0:#,0.00}", descuento);
             calcula();
+        }
+
+        private void dtProductos_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex.ToString() == "3")
+            {
+                producto.Codigo = dtProductos.Rows[e.RowIndex].Cells["id_producto"].Value.ToString();
+                producto Producto = new producto();
+                Producto.Show(this);
+            }
         }
     }
 }

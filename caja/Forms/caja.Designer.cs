@@ -94,6 +94,7 @@
 			this.lbCancelado = new System.Windows.Forms.Label();
 			this.label15 = new System.Windows.Forms.Label();
 			this.txtLineas = new System.Windows.Forms.TextBox();
+			this.printDocument2 = new System.Drawing.Printing.PrintDocument();
 			((System.ComponentModel.ISupportInitialize)(this.dtProductos)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
 			this.SuspendLayout();
@@ -178,8 +179,8 @@
 			this.dtProductos.Size = new System.Drawing.Size(1311, 367);
 			this.dtProductos.TabIndex = 8;
 			this.dtProductos.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtProductos_CellEndEdit);
+			this.dtProductos.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtProductos_CellContentDoubleClick);
 			this.dtProductos.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtProductos_CellEndEdit);
-			this.dtProductos.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dtProductos_CellMouseDoubleClick);
 			this.dtProductos.RowsRemoved += new System.Windows.Forms.DataGridViewRowsRemovedEventHandler(this.dtProductos_RowsRemoved);
 			this.dtProductos.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dtProductos_KeyDown);
 			// 
@@ -876,5 +877,6 @@
 		private System.Windows.Forms.DataGridViewTextBoxColumn costo;
 		private System.Windows.Forms.TextBox txtLineas;
 		private System.Windows.Forms.Label label15;
+		private System.Drawing.Printing.PrintDocument printDocument2;
 	}
 }

@@ -34,6 +34,23 @@ namespace caja.Forms
 
 		private void txtCodigo_KeyDown(object sender, KeyEventArgs e)
 		{
+
+			if (e.KeyCode == Keys.Enter)
+			{
+				Product producto = new Product();
+				using (producto)
+				{
+					List<Product> result = producto.getProductByCodeAbsolute(txtCodigo.Text);
+					foreach (Product item in result)
+					{
+						id = item.Id.ToString();
+						txtCodigo.Text = item.Code1;
+						txtDescripcion.Text = item.Description;
+						txtpu.Text = item.Cost.ToString();
+					}
+				}
+				txtpu.Focus();
+			}
 			if (e.KeyCode == Keys.F2)
 			{
 				busca_producto busca = new busca_producto();
@@ -71,17 +88,85 @@ namespace caja.Forms
 		public void calcula()
 		{
 			double totales = 0;
+			double cuantos = 0;
+			double importe = 0;
+			double excento = 0;
+			double once = 0;
+			double diezyseis = 0;
+			double cero = 0;
+			double grabado = 0;
+			double sin_grabar = 0;
+
+
+			//double descuento = Convert.ToDouble(txtTdescuento.Text);
+
 			foreach (DataGridViewRow row in dtProductos.Rows)
 			{
+				cuantos = cuantos + Convert.ToDouble(row.Cells["cantidad"].Value.ToString());
 				totales = totales + Convert.ToDouble(row.Cells["total"].Value.ToString());
+				importe = Convert.ToDouble(row.Cells["total"].Value.ToString());
+				switch (row.Cells["impuesto"].Value.ToString())
+				{
+					case "EXENTO IMPUESTOS":
+
+						break;
+					case "11":
+						once = once + ((importe) * 0.11);
+						break;
+					case "16":
+						diezyseis = diezyseis + ((importe) * 0.16);
+						break;
+					case "TASA CERO":
+
+						break;
+				}
+
+
+				if (row.Cells["impuesto"].Value.ToString() == "16" || row.Cells["impuesto"].Value.ToString() == "11")
+				{
+					grabado = grabado + Convert.ToDouble(row.Cells["total"].Value.ToString());
+				}
+				else
+				{
+					sin_grabar = sin_grabar + Convert.ToDouble(row.Cells["total"].Value.ToString());
+				}
+			
+
+
 			}
-			txtSubtotal.Text = totales.ToString();
-			double subtotal = Convert.ToDouble(txtSubtotal.Text) - Convert.ToDouble(txtdescuento.Text);
-			txtiva.Text = (subtotal * 0.16).ToString();
-			txttotal.Text= (subtotal * 1.16).ToString();
+			double descuento = (importe / 100) * Convert.ToDouble(txtdescuento.Text);
+			double productos = cuantos;
+			double subtotal = totales;
+
+			double iva = excento + once + diezyseis + cero;
+			double total = (subtotal + iva) - descuento;
+
+
+
+			txtiva.Text = string.Format("{0:#,0.00}", grabado);
+			txtSubtotal.Text = string.Format("{0:#,0.00}", subtotal);
+
+
+			txttotal.Text = string.Format("{0:#,0.00}", total);
 		}
 		private void txtDescripcion_KeyDown(object sender, KeyEventArgs e)
 		{
+			if (e.KeyCode == Keys.Enter)
+			{
+				Product producto = new Product();
+				using (producto)
+				{
+					List<Product> result = producto.getProductByDescription(txtDescripcion.Text);
+					foreach (Product item in result)
+					{
+						id = item.Id.ToString();
+						txtCodigo.Text = item.Code1;
+						txtDescripcion.Text = item.Description;
+						txtpu.Text = item.Cost.ToString();
+					}
+				}
+				txtpu.Focus();
+			}
 			if (e.KeyCode == Keys.F2)
 			{
 				busca_producto busca = new busca_producto();
@@ -169,7 +254,15 @@ namespace caja.Forms
 			
 
 			double total1 = (Convert.ToDouble(txtCantidad.Text) * Convert.ToDouble(txtpu.Text));
-			dtProductos.Rows.Add(id, txtCodigo.Text, txtCantidad.Text, txtDescripcion.Text, txtpu.Text, total1.ToString(), Lote, Cadu);
+
+			using (producto)
+			{
+				List<Product> item = producto.getProductById(Convert.ToInt16(id));
+
+				dtProductos.Rows.Add(id, txtCodigo.Text, txtCantidad.Text, txtDescripcion.Text, txtpu.Text, total1.ToString(), Lote, Cadu, item[0].Buy_tax);
+
+			}
+			
 			id = "";
 			txtCodigo.Text = "";
 			txtCantidad.Text = "";
@@ -178,9 +271,45 @@ namespace caja.Forms
 			calcula();
 			txtCantidad.Focus();
 		}
+		private AutoCompleteStringCollection cargadatos()
+		{
+			AutoCompleteStringCollection datos = new AutoCompleteStringCollection();
+			Product producto = new Product();
+			using (producto)
+			{
+				List<Product> result = producto.getProducts();
+				foreach (Product item in result)
+				{
+					datos.Add(item.Code1);
+				}
+				return datos;
+			}
+		}
 
+		private AutoCompleteStringCollection cargadatos2()
+		{
+			AutoCompleteStringCollection datos = new AutoCompleteStringCollection();
+			Product producto = new Product();
+			using (producto)
+			{
+				List<Product> result = producto.getProducts();
+				foreach (Product item in result)
+				{
+					datos.Add(item.Description);
+				}
+				return datos;
+			}
+		}
 		private void Form_compras_Load(object sender, EventArgs e)
 		{
+			txtCodigo.AutoCompleteCustomSource = cargadatos();
+			txtCodigo.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+			txtCodigo.AutoCompleteSource = AutoCompleteSource.CustomSource;
+
+			txtDescripcion.AutoCompleteCustomSource = cargadatos2();
+			txtDescripcion.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+			txtDescripcion.AutoCompleteSource = AutoCompleteSource.CustomSource;
+
 			dtFecha.Format = DateTimePickerFormat.Custom;
 			dtFecha.CustomFormat = "yyyy-MM-dd";
 			dtFechaDoc.Format = DateTimePickerFormat.Custom;
@@ -388,10 +517,10 @@ namespace caja.Forms
 						}
 
 
-						detalles.Cantidad = Convert.ToInt16(row.Cells["cantidad"].Value.ToString());
+						detalles.Cantidad = Convert.ToDouble(row.Cells["cantidad"].Value.ToString());
 						detalles.Id_producto = Convert.ToInt16(row.Cells["id_producto"].Value.ToString());
-						detalles.P_u = Convert.ToInt16(row.Cells["p_u"].Value.ToString());
-						detalles.Total = Convert.ToInt16(row.Cells["total"].Value.ToString());
+						detalles.P_u = Convert.ToDouble(row.Cells["p_u"].Value.ToString());
+						detalles.Total = Convert.ToDouble(row.Cells["total"].Value.ToString());
 						using (detalles)
 						{
 							detalles.createPurchases();
@@ -600,6 +729,22 @@ namespace caja.Forms
 			producto.Codigo = "";
 			producto prod = new producto();
 			prod.Show(this);
+		}
+
+		private void cbProveedor_KeyDown(object sender, KeyEventArgs e)
+		{
+			if (e.KeyCode == Keys.Enter)
+			{
+				Providers proveedores = new Providers();
+				using (proveedores)
+				{
+					List<Providers> proveedor = proveedores.getProviderbyNombreabsolute(cbProveedor.Text);
+					if (proveedor.Count > 0)
+					{
+						txtNumero.Text = proveedor[0].Id.ToString();
+					}
+				}
+			}
 		}
 	}
 }

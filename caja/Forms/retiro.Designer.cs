@@ -51,6 +51,7 @@
 			this.label8 = new System.Windows.Forms.Label();
 			this.txtProveedor = new System.Windows.Forms.TextBox();
 			this.label7 = new System.Windows.Forms.Label();
+			this.printDocument1 = new System.Drawing.Printing.PrintDocument();
 			this.groupBox2.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.num20)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.num50)).BeginInit();
@@ -280,6 +281,10 @@
 			this.label7.TabIndex = 0;
 			this.label7.Text = "Proveedor";
 			// 
+			// printDocument1
+			// 
+			this.printDocument1.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(this.printDocument1_PrintPage);
+			// 
 			// retiro
 			// 
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -331,5 +336,6 @@
 		private System.Windows.Forms.TextBox txtProveedor;
 		private System.Windows.Forms.Label label7;
 		private System.Windows.Forms.TextBox txtIdproveedor;
+		private System.Drawing.Printing.PrintDocument printDocument1;
 	}
 }
