@@ -1716,7 +1716,7 @@ namespace caja
                         }
                         else
                         {
-                            tickets.Id = Convert.ToInt16(folio);
+                            tickets.Folio = Convert.ToInt16(folio);
                             tickets.CancelTicket();
 
                             Dettickets detalle_ticket = new Dettickets();
@@ -1803,7 +1803,7 @@ namespace caja
                                 button6.Enabled = false;
                                 button7.Enabled = false;
                                 button8.Enabled = false;
-
+                                button10.Enabled = false;
                                
                                 dtProductos.AllowUserToDeleteRows = false;
                             }
@@ -1825,7 +1825,7 @@ namespace caja
                                 button6.Enabled = true;
                                 button7.Enabled = true;
                                 button8.Enabled = true;
-
+                                button10.Enabled = true;
                                 dtProductos.AllowUserToDeleteRows = true;
                             }
                             Client clientes = new Client();

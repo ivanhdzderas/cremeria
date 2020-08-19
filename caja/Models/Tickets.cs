@@ -57,7 +57,7 @@ namespace caja.Models
 		public Tickets() { }
 		public void CancelTicket()
 		{
-			string query = "update tbatickets set status='C' where id='" + this.Id + "'";
+			string query = "update tbatickets set status='C' where folio='" + this.Folio + "'";
 			runQuery(query);
 		}
 		public void termina()
