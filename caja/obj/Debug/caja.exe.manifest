@@ -55,14 +55,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="caja.exe" size="1028064">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="caja.exe" size="1047008">
       <assemblyIdentity name="caja" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>HFYLM9Vk8DXA9reO7nHik0AE062NVDNjJiOyT2nGt3I=</dsig:DigestValue>
+        <dsig:DigestValue>HPNBHWhCyKvkSFOLvveUbFjbgqJ8xbF0BxxDg1nL6lw=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

@@ -11,20 +11,20 @@ namespace caja.Models.Reports
 	{
 		public string Folio { get; set; }
 		public double Total { get; set; }
-		public double Ganancias { get; set; }
+		public string Status { get; set; }
 		public double S_iva { get; set; }
 		public double C_iva { get; set; }
 		public Tickets (
 			string folio, 
 			double total, 
-			double gancias,
+			string status,
 			double s_iva,
 			double c_iva
 			)
 		{
 			Folio = folio;
 			Total = total;
-			Ganancias = gancias;
+			Status = status;
 			S_iva = s_iva;
 			C_iva = c_iva;
 		}
@@ -35,9 +35,9 @@ namespace caja.Models.Reports
 		private Tickets build_ticket(MySqlDataReader data)
 		{
 			Tickets item = new Tickets(
-				data.GetString("id"),
+				data.GetString("folio"),
 				data.GetDouble("total"),
-				data.GetDouble(2),
+				data.GetString("status"),
 				data.GetDouble("s_iva"),
 				data.GetDouble("c_iva")
 				);
@@ -49,11 +49,12 @@ namespace caja.Models.Reports
 			string query = "";
 			if (Fecha1 == Fecha2)
 			{
-				query = "select tbatickets.id,tbatickets.total,  (select IFNULL(sum(((tbadetticket.pu-tbadetticket.costo)*tbadetticket.cantidad)),0) as ganancia from tbadetticket where tbadetticket.id_ticket=tbatickets.id), tbatickets.c_iva, tbatickets.s_iva from tbatickets where status='A' and DATE_FORMAT(tbatickets.fecha,'%Y-%m-%d') = '" + Fecha1 + "'";
+				query = "select tbatickets.folio,tbatickets.total, tbatickets.status,tbatickets.c_iva,tbatickets.s_iva  from tbatickets where status<>'G' and folio<>0 and DATE_FORMAT(tbatickets.fecha,'%Y-%m-%d') = '" + Fecha1 + "'";
 			}
 			else
 			{
-				query = "select tbatickets.id,tbatickets.total,  (select IFNULL(sum(((tbadetticket.pu-tbadetticket.costo)*tbadetticket.cantidad)),0) as ganancia from tbadetticket where tbadetticket.id_ticket=tbatickets.id), tbatickets.c_iva, tbatickets.s_iva from tbatickets where status='A' and DATE_FORMAT(tbatickets.fecha,'%Y-%m-%d') BETWEEN  '" + Fecha1 + "' and  '" + Fecha2 + "' ";
+				//query = "select tbatickets.folio,tbatickets.total,(select IFNULL(sum(((tbadetticket.pu-tbadetticket.costo)*tbadetticket.cantidad)),0) from tbadetticket where tbadetticket.id_ticket=tbatickets.id) as ganancia, tbatickets.status,tbatickets.c_iva,tbatickets.s_iva  from tbatickets where status<>'G' and folio<>0 and  DATE_FORMAT(tbatickets.fecha,'%Y-%m-%d') BETWEEN  '" + Fecha1 + "' and  '" + Fecha2 + "' ";
+				query = "select tbatickets.folio,tbatickets.total, tbatickets.status,tbatickets.c_iva,tbatickets.s_iva  from tbatickets where status<>'G' and folio<>0 and  DATE_FORMAT(tbatickets.fecha,'%Y-%m-%d') BETWEEN  '" + Fecha1 + "' and  '" + Fecha2 + "' ";
 			}
 			
 			MySqlDataReader data = runQuery(query);

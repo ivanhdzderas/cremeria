@@ -186,8 +186,6 @@ namespace caja.Forms
 			total = subtotal * 1.16;
 			iva = subtotal * 0.16;
 			txtSubtotal.Text = string.Format("{0:#,0.00}", subtotal);
-			txtIva.Text = string.Format("{0:#,0.00}", iva);
-			txtTotal.Text = string.Format("{0:#,0.00}", total);
 		}
 
 		private void dtProductos_RowsRemoved(object sender, DataGridViewRowsRemovedEventArgs e)
@@ -212,8 +210,8 @@ namespace caja.Forms
 				transferencia.Tipo_trapaso = "E";
 				transferencia.Sucursal = cbOficinas.SelectedValue.ToString();
 				transferencia.Subtotal = Convert.ToDouble(txtSubtotal.Text);
-				transferencia.Iva = Convert.ToDouble(txtIva.Text);
-				transferencia.Total = Convert.ToDouble(txtTotal.Text);
+				transferencia.Iva =0;
+				transferencia.Total = 0;
 				transferencia.Facturado = Convert.ToInt16(false);
 				transferencia.CreateTransfer();
 				List<Transfers> ultimo = transferencia.getTransferbyfolio(Convert.ToInt16(txtFolios.Text), "E");
@@ -264,7 +262,7 @@ namespace caja.Forms
 			}
 			
 
-			crea_xml();
+			//crea_xml();
 	
 			
 
@@ -452,7 +450,7 @@ namespace caja.Forms
 				e.Graphics.DrawString("___________________________________________", font, Brushes.Black, 0, y);
 				y = y + 15;
 				
-				e.Graphics.DrawString("Subtotal", font, Brushes.Black, 150, y + 10, format);
+				e.Graphics.DrawString("Total", font, Brushes.Black, 150, y + 10, format);
 				e.Graphics.DrawString(txtSubtotal.Text, font, Brushes.Black, 220, y + 10, format);
 				
 				y = y + 40;

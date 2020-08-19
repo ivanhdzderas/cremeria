@@ -90,6 +90,7 @@
 			this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.printToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.printPreviewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.articulosMasVendisosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.menuStrip.SuspendLayout();
 			this.statusStrip.SuspendLayout();
 			this.Menu.SuspendLayout();
@@ -274,7 +275,8 @@
             this.ventasEnPeriodoToolStripMenuItem,
             this.ticketsPorFacturarToolStripMenuItem,
             this.ticketsPorPagarToolStripMenuItem,
-            this.ventaPorClienteDetalladoToolStripMenuItem});
+            this.ventaPorClienteDetalladoToolStripMenuItem,
+            this.articulosMasVendisosToolStripMenuItem});
 			this.reportesToolStripMenuItem.Enabled = false;
 			this.reportesToolStripMenuItem.Name = "reportesToolStripMenuItem";
 			this.reportesToolStripMenuItem.Size = new System.Drawing.Size(65, 20);
@@ -597,6 +599,13 @@
 			this.printPreviewToolStripMenuItem.Size = new System.Drawing.Size(206, 22);
 			this.printPreviewToolStripMenuItem.Text = "&Vista previa de impresión";
 			// 
+			// articulosMasVendisosToolStripMenuItem
+			// 
+			this.articulosMasVendisosToolStripMenuItem.Name = "articulosMasVendisosToolStripMenuItem";
+			this.articulosMasVendisosToolStripMenuItem.Size = new System.Drawing.Size(214, 22);
+			this.articulosMasVendisosToolStripMenuItem.Text = "Articulos mas vendidos";
+			this.articulosMasVendisosToolStripMenuItem.Click += new System.EventHandler(this.articulosMasVendisosToolStripMenuItem_Click);
+			// 
 			// inicial
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -686,6 +695,7 @@
 		private System.Windows.Forms.ToolStripMenuItem ventaPorClienteDetalladoToolStripMenuItem;
 		private System.Windows.Forms.ToolStripButton toolStripButton7;
 		private System.Windows.Forms.ToolStripButton toolStripButton8;
+		private System.Windows.Forms.ToolStripMenuItem articulosMasVendisosToolStripMenuItem;
 	}
 }
 

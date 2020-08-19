@@ -48,11 +48,7 @@
 			this.p_u = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.Importe = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.label7 = new System.Windows.Forms.Label();
-			this.label8 = new System.Windows.Forms.Label();
-			this.label9 = new System.Windows.Forms.Label();
 			this.txtSubtotal = new System.Windows.Forms.TextBox();
-			this.txtIva = new System.Windows.Forms.TextBox();
-			this.txtTotal = new System.Windows.Forms.TextBox();
 			this.btnGuardar = new System.Windows.Forms.Button();
 			this.btnCancelar = new System.Windows.Forms.Button();
 			this.lbFecha = new System.Windows.Forms.Label();
@@ -227,24 +223,6 @@
 			this.label7.TabIndex = 13;
 			this.label7.Text = "Subtotal";
 			// 
-			// label8
-			// 
-			this.label8.AutoSize = true;
-			this.label8.Location = new System.Drawing.Point(596, 340);
-			this.label8.Name = "label8";
-			this.label8.Size = new System.Drawing.Size(24, 13);
-			this.label8.TabIndex = 14;
-			this.label8.Text = "IVA";
-			// 
-			// label9
-			// 
-			this.label9.AutoSize = true;
-			this.label9.Location = new System.Drawing.Point(589, 366);
-			this.label9.Name = "label9";
-			this.label9.Size = new System.Drawing.Size(31, 13);
-			this.label9.TabIndex = 15;
-			this.label9.Text = "Total";
-			// 
 			// txtSubtotal
 			// 
 			this.txtSubtotal.BorderStyle = System.Windows.Forms.BorderStyle.None;
@@ -253,24 +231,6 @@
 			this.txtSubtotal.Name = "txtSubtotal";
 			this.txtSubtotal.Size = new System.Drawing.Size(100, 13);
 			this.txtSubtotal.TabIndex = 16;
-			// 
-			// txtIva
-			// 
-			this.txtIva.BorderStyle = System.Windows.Forms.BorderStyle.None;
-			this.txtIva.Enabled = false;
-			this.txtIva.Location = new System.Drawing.Point(626, 337);
-			this.txtIva.Name = "txtIva";
-			this.txtIva.Size = new System.Drawing.Size(100, 13);
-			this.txtIva.TabIndex = 17;
-			// 
-			// txtTotal
-			// 
-			this.txtTotal.BorderStyle = System.Windows.Forms.BorderStyle.None;
-			this.txtTotal.Enabled = false;
-			this.txtTotal.Location = new System.Drawing.Point(626, 363);
-			this.txtTotal.Name = "txtTotal";
-			this.txtTotal.Size = new System.Drawing.Size(100, 13);
-			this.txtTotal.TabIndex = 18;
 			// 
 			// btnGuardar
 			// 
@@ -313,11 +273,7 @@
 			this.Controls.Add(this.lbFecha);
 			this.Controls.Add(this.btnCancelar);
 			this.Controls.Add(this.btnGuardar);
-			this.Controls.Add(this.txtTotal);
-			this.Controls.Add(this.txtIva);
 			this.Controls.Add(this.txtSubtotal);
-			this.Controls.Add(this.label9);
-			this.Controls.Add(this.label8);
 			this.Controls.Add(this.label7);
 			this.Controls.Add(this.dtProductos);
 			this.Controls.Add(this.nuCantidad);
@@ -364,11 +320,7 @@
 		public System.Windows.Forms.DataGridViewTextBoxColumn p_u;
 		public System.Windows.Forms.DataGridViewTextBoxColumn Importe;
 		public System.Windows.Forms.Label label7;
-		public System.Windows.Forms.Label label8;
-		public System.Windows.Forms.Label label9;
 		public System.Windows.Forms.TextBox txtSubtotal;
-		public System.Windows.Forms.TextBox txtIva;
-		public System.Windows.Forms.TextBox txtTotal;
 		public System.Windows.Forms.Button btnGuardar;
 		public System.Windows.Forms.Button btnCancelar;
 		public System.Windows.Forms.Label lbFecha;

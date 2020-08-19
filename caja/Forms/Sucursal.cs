@@ -54,8 +54,16 @@ namespace caja.Forms
 
 		private void button2_Click(object sender, EventArgs e)
 		{
-			caja.sucursal= cbOficinas.SelectedValue.ToString();
-			this.Close();
+			MessageBox.Show(cbOficinas.SelectedValue.ToString());
+			if (cbOficinas.SelectedValue.ToString() != "")
+			{
+				caja.sucursal = cbOficinas.SelectedValue.ToString();
+				this.Close();
+			}
+			else
+			{
+				MessageBox.Show("debe sele3ccionar una sucursal");
+			}
 		}
 
 		private void button1_Click(object sender, EventArgs e)

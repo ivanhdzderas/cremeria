@@ -35,6 +35,7 @@ namespace caja
 
         private void caja_Load(object sender, EventArgs e)
         {
+            
             txtTotal.ReadOnly = true;
             txtTotal.ForeColor = Color.Red;
             dtFecha.Format = DateTimePickerFormat.Custom;
@@ -113,22 +114,20 @@ namespace caja
         }
         private void get_folio()
         {
+            Models.Folios folios = new Models.Folios();
+            using (folios)
+            {
+                List<Models.Folios> folio = folios.getFolios();
+                txtFolio.Text = folio[0].Ticket.ToString();
+            }
+
+
             Models.Tickets ticket = new Models.Tickets();
             using (ticket)
             {
-                List<Models.Tickets> tic = ticket.get_folio();
-                if (tic.Count > 0)
-                {
-                    txtFolio.Text = (tic[0].Id + 1).ToString();
-                }
-                else
-                {
-                    txtFolio.Text = "1";
-                }
+                List<Models.Tickets> tick = ticket.get_folio();
+                txtid.Text = (tick[0].Id + 1).ToString();
             }
-                
-            
-            
 
         }
         private AutoCompleteStringCollection cargadatos()
@@ -288,6 +287,14 @@ namespace caja
             if (e.KeyCode == Keys.F12)
             {
                 button1.PerformClick();
+            }
+            if (e.KeyCode == Keys.F11)
+            {
+                button10.PerformClick();
+            }
+            if (e.KeyCode == Keys.F10)
+            {
+                button7.PerformClick();
             }
             if (txtCodigo.Text != "")
             {
@@ -464,6 +471,8 @@ namespace caja
 
       
         private void limpiar() {
+            txtStatus.Text = "";
+            folio_ticket = 0;
             txtTdescuento.Text = "0.00";
             cbPu.Text = "";
             dtProductos.Rows.Clear();
@@ -635,6 +644,8 @@ namespace caja
             }
             else
             {
+
+
                 if (Convert.ToInt16(txtidcliente.Text) > 0)
                 {
                     cobro cb = new cobro();
@@ -664,171 +675,393 @@ namespace caja
 
         }
         public void guardar() {
+
+            Models.Folios folios = new Models.Folios();
+           
             autorizado = false;
-
-            Tickets ticket = new Tickets();
-            using (ticket)
+            if (txtStatus.Text == "")
             {
-               
-                ticket.Id_cliente = Convert.ToInt16(txtidcliente.Text);
-                ticket.Fecha = fecha;
-                ticket.Subtotal = Convert.ToDouble(txtSubtotal.Text);
-                ticket.Descuento = Convert.ToDouble(txtTdescuento.Text);
-                ticket.Iva = Convert.ToDouble(txtIva.Text);
-                ticket.Total = Convert.ToDouble(txtTotal.Text);
-                ticket.Status = "A";
-                ticket.C_iva = Convert.ToDouble(txtcIva.Text);
-                ticket.S_iva = Convert.ToDouble(txtsIva.Text);
-                ticket.Id_usuario = Convert.ToInt16(inicial.id_usario);
-                ticket.Atienda = Convert.ToInt16(txtIdAtiende.Text);
-                ticket.A_facturar = Convert.ToInt16(factura);
-                ticket.Recibido = pagado;
-                Product producto = new Product();
-                Kardex kardex = new Kardex();
-                Afecta_inv afecta = new Afecta_inv();
-                double nuevo = 0;
-                Dettickets detalle = new Dettickets();
-
-
-               
-                List<Models.Tickets> tic = ticket.get_folio();
-                if (tic.Count > 0)
+                Tickets ticket = new Tickets();
+                using (ticket)
                 {
-                    if ((tic[0].Id + 1) == Convert.ToInt16(txtFolio.Text)) {
-                        folio_ticket = 0;
-                    }
-                }
-                    
-                
+
+                    ticket.Id_cliente = Convert.ToInt16(txtidcliente.Text);
+                    ticket.Folio = Convert.ToInt16(txtFolio.Text);
+                    ticket.Fecha = fecha;
+                    ticket.Subtotal = Convert.ToDouble(txtSubtotal.Text);
+                    ticket.Descuento = Convert.ToDouble(txtTdescuento.Text);
+                    ticket.Iva = Convert.ToDouble(txtIva.Text);
+                    ticket.Total = Convert.ToDouble(txtTotal.Text);
+                    ticket.Status = "A";
+                    ticket.C_iva = Convert.ToDouble(txtcIva.Text);
+                    ticket.S_iva = Convert.ToDouble(txtsIva.Text);
+                    ticket.Id_usuario = Convert.ToInt16(inicial.id_usario);
+                    ticket.Atienda = Convert.ToInt16(txtIdAtiende.Text);
+                    ticket.A_facturar = Convert.ToInt16(factura);
+                    ticket.Recibido = pagado;
+                    Product producto = new Product();
+                    Kardex kardex = new Kardex();
+                    Afecta_inv afecta = new Afecta_inv();
+                    double nuevo = 0;
+                    Dettickets detalle = new Dettickets();
 
 
-                if (folio_ticket == 0)
-                {
+
+
+
+
+                   
                     ticket.CreateTicket();
-                }
-                else
-                {
-                    ticket.update_ticket();
-                    using (detalle)
-                    {
-                        detalle.delete_det(folio_ticket);
-                    }
                     
-                }
-               
-                Pago_ticket pago = new Pago_ticket();
-                if (metodo == "Transferencia")
-                { }
-                else
-                {
-                    if (folio_ticket == 0)
-                    {
-                        pago.Id_ticket = Convert.ToInt16(txtFolio.Text);
-                    }
+
+                    Pago_ticket pago = new Pago_ticket();
+                    if (metodo == "Transferencia")
+                    { }
                     else
                     {
                        
-                        pago.Id_ticket = folio_ticket;
-                    }
-                    using (pago)
-                    {
-                        pago.delete_pago();
-                    }
-                    pago.Monto = pagado;
-                    pago.Tipo_pago = metodo;
-                    using (pago)
-                    {
+                            pago.Id_ticket = Convert.ToInt16(txtFolio.Text);
+                        
+                        using (pago)
+                        {
+                            pago.delete_pago();
+                        }
+                        pago.Monto = pagado;
+                        pago.Tipo_pago = metodo;
+                        using (pago)
+                        {
 
-                        pago.CreatePago();
+                            pago.CreatePago();
+                        }
+
                     }
                     
-                }
-                if (folio_ticket == 0)
-                {
-                    id = txtFolio.Text;
-                    detalle.Id_ticket = Convert.ToInt16(txtFolio.Text);
-                }
-                else
-                {
-                    id = folio_ticket.ToString();
-                    detalle.Id_ticket = folio_ticket;
-                }
+                        id = txtFolio.Text;
+                        detalle.Id_ticket = Convert.ToInt16(txtFolio.Text);
+                  
 
-                detalle.Id = 0;
-                detalle.Fecha = fecha;
-                foreach (DataGridViewRow row in dtProductos.Rows)
-                {
-                    detalle.Id_producto = Convert.ToInt16(row.Cells["id_producto"].Value.ToString());
-                    detalle.Pu = Convert.ToDouble(row.Cells["p_unitario"].Value.ToString());
-                    detalle.Cantidad = Convert.ToDouble(row.Cells["cantidad"].Value.ToString());
-                    detalle.Descuento = Convert.ToDouble(row.Cells["descuento"].Value.ToString().Remove(row.Cells["descuento"].Value.ToString().Length-1));
-                    detalle.Total = Convert.ToDouble(row.Cells["importe"].Value.ToString());
-                    detalle.Descripcion = row.Cells["Producto"].Value.ToString();
-                    detalle.Grabado = row.Cells["grabado"].Value.ToString();
-                    detalle.Costo = Convert.ToDouble(row.Cells["costo"].Value.ToString());
-                    using (detalle)
+                    detalle.Id = 0;
+                    detalle.Fecha = fecha;
+                    foreach (DataGridViewRow row in dtProductos.Rows)
                     {
-                        detalle.CrateDetTicket();
-                    }
-                    using (producto)
-                    {
-                        List<Product> prod = producto.getProductById(Convert.ToInt16(row.Cells["id_producto"].Value.ToString()));
-                        
-                        nuevo = Convert.ToDouble(row.Cells["cantidad"].Value.ToString());
-                        while (prod[0].Parent != "0")
+                        detalle.Id_producto = Convert.ToInt16(row.Cells["id_producto"].Value.ToString());
+                        detalle.Pu = Convert.ToDouble(row.Cells["p_unitario"].Value.ToString());
+                        detalle.Cantidad = Convert.ToDouble(row.Cells["cantidad"].Value.ToString());
+                        detalle.Descuento = Convert.ToDouble(row.Cells["descuento"].Value.ToString().Remove(row.Cells["descuento"].Value.ToString().Length - 1));
+                        detalle.Total = Convert.ToDouble(row.Cells["importe"].Value.ToString());
+                        detalle.Descripcion = row.Cells["Producto"].Value.ToString();
+                        detalle.Grabado = row.Cells["grabado"].Value.ToString();
+                        detalle.Costo = Convert.ToDouble(row.Cells["costo"].Value.ToString());
+                        using (detalle)
                         {
-                            nuevo = nuevo * Convert.ToInt16(prod[0].C_unidad);
-                            prod = producto.getProductById(Convert.ToInt16(prod[0].Parent));
+                            detalle.CrateDetTicket();
                         }
-                        kardex.Fecha = Convert.ToDateTime(fecha).ToString();
-                        kardex.Id_producto = prod[0].Id;
-                        kardex.Tipo = "V";
-                        kardex.Cantidad = nuevo;
-                        kardex.Antes = prod[0].Existencia;
-                        kardex.Id = 0;
-                        if (folio_ticket == 0)
+                        using (producto)
                         {
-                            kardex.Id_documento = Convert.ToInt16(txtFolio.Text);
-                        }
-                        else
-                        {
-                            kardex.Id_documento = folio_ticket;
-                        }
-                        using (kardex)
-                        {
-                            kardex.CreateKardex();
-                            if (folio_ticket == 0)
+                            List<Product> prod = producto.getProductById(Convert.ToInt16(row.Cells["id_producto"].Value.ToString()));
+
+                            nuevo = Convert.ToDouble(row.Cells["cantidad"].Value.ToString());
+                            while (prod[0].Parent != "0")
                             {
-                                List<Kardex> numeracion = kardex.getidKardex(prod[0].Id, Convert.ToInt16(txtFolio.Text), "V");
-                                using (afecta)
-                                {
-                                    afecta.Disminuye(numeracion[0].Id);
-                                }
+                                nuevo = nuevo * Convert.ToInt16(prod[0].C_unidad);
+                                prod = producto.getProductById(Convert.ToInt16(prod[0].Parent));
                             }
-                            else
+                            kardex.Fecha = Convert.ToDateTime(fecha).ToString();
+                            kardex.Id_producto = prod[0].Id;
+                            kardex.Tipo = "V";
+                            kardex.Cantidad = nuevo;
+                            kardex.Antes = prod[0].Existencia;
+                            kardex.Id = 0;
+                           
+                                kardex.Id_documento = Convert.ToInt16(txtFolio.Text);
+                           
+                            using (kardex)
                             {
-                                List<Kardex> numeracion = kardex.getidKardex(prod[0].Id, folio_ticket, "V");
-                                using (afecta)
+                                kardex.CreateKardex();
+                                if (folio_ticket == 0)
                                 {
-                                    afecta.Disminuye(numeracion[0].Id);
+                                    List<Kardex> numeracion = kardex.getidKardex(prod[0].Id, Convert.ToInt16(txtFolio.Text), "V");
+                                    using (afecta)
+                                    {
+                                        afecta.Disminuye(numeracion[0].Id);
+                                    }
+                                }
+                                else
+                                {
+                                    List<Kardex> numeracion = kardex.getidKardex(prod[0].Id, folio_ticket, "V");
+                                    using (afecta)
+                                    {
+                                        afecta.Disminuye(numeracion[0].Id);
+                                    }
                                 }
                             }
                         }
                     }
-                }
-                printDocument1 = new PrintDocument();
-                PrinterSettings ps = new PrinterSettings();
-                Configuration configuracion = new Configuration();
-                using (configuracion)
-                {
-                    List<Configuration> config = configuracion.getConfiguration();
+                  
+                    printDocument1 = new PrintDocument();
+                    PrinterSettings ps = new PrinterSettings();
+                    Configuration configuracion = new Configuration();
+                    using (configuracion)
+                    {
+                        List<Configuration> config = configuracion.getConfiguration();
 
-                    printDocument1.PrinterSettings = ps;
-                    printDocument1.PrinterSettings.PrinterName = config[0].Impresora;
-                    printDocument1.PrintPage += new PrintPageEventHandler(printDocument1_PrintPage);
-                    printDocument1.Print();
+                        printDocument1.PrinterSettings = ps;
+                        printDocument1.PrinterSettings.PrinterName = config[0].Impresora;
+                        printDocument1.PrintPage += new PrintPageEventHandler(printDocument1_PrintPage);
+                        printDocument1.Print();
+                    }
+                    using (folios)
+                    {
+                        folios.Ticket = Convert.ToInt16(txtFolio.Text) + 1;
+                        folios.saveticket();
+                    }
                 }
             }
+            else
+            {
+                if (txtStatus.Text == "G")
+                {
+                    Models.Product producto = new Models.Product();
+                    double nuevo = 0;
+                    Models.Afecta_inv afecta = new Models.Afecta_inv();
+                    Models.Kardex kardex = new Models.Kardex();
+                    Models.Tickets ticket = new Models.Tickets();
+                    Models.Dettickets detalles = new Models.Dettickets();
+                    using (detalles)
+                    {
+                        detalles.delete_det(Convert.ToInt16(txtid.Text));
+                    }
+
+                   
+                    using (ticket)
+                    {
+                        ticket.Id_cliente = Convert.ToInt16(txtidcliente.Text);
+                        ticket.Folio = Convert.ToInt16(txtFolio.Text);
+                        ticket.Fecha = fecha;
+                        ticket.Subtotal = Convert.ToDouble(txtSubtotal.Text);
+                        ticket.Descuento = Convert.ToDouble(txtTdescuento.Text);
+                        ticket.Iva = Convert.ToDouble(txtIva.Text);
+                        ticket.Total = Convert.ToDouble(txtTotal.Text);
+                        ticket.Status = "A";
+                        ticket.C_iva = Convert.ToDouble(txtcIva.Text);
+                        ticket.S_iva = Convert.ToDouble(txtsIva.Text);
+                        ticket.Id_usuario = Convert.ToInt16(inicial.id_usario);
+                        ticket.Atienda = Convert.ToInt16(txtIdAtiende.Text);
+                        ticket.A_facturar = Convert.ToInt16(factura);
+                        ticket.Recibido = 0;
+                        ticket.Id = Convert.ToInt16(txtid.Text);
+                        ticket.update_ticket();
+
+                        using (detalles)
+                        {
+                            detalles.Fecha = fecha;
+                            detalles.Id_ticket = Convert.ToInt16(txtid.Text);
+                            foreach (DataGridViewRow row in dtProductos.Rows)
+                            {
+                                detalles.Id_producto = Convert.ToInt16(row.Cells["id_producto"].Value.ToString());
+                                detalles.Descripcion = row.Cells["Producto"].Value.ToString();
+                                detalles.Cantidad = Convert.ToDouble(row.Cells["Cantidad"].Value.ToString());
+                                detalles.Descuento = Convert.ToDouble(row.Cells["descuento"].Value.ToString().Remove(row.Cells["descuento"].Value.ToString().Length - 1));
+                                detalles.Pu = Convert.ToDouble(row.Cells["importe"].Value.ToString());
+                                detalles.Total = Convert.ToDouble(row.Cells["importe"].Value.ToString());
+                                detalles.Grabado = row.Cells["grabado"].Value.ToString();
+                                detalles.Costo = Convert.ToDouble(row.Cells["costo"].Value.ToString());
+                                detalles.CrateDetTicket();
+                                using (producto)
+                                {
+                                    List<Product> prod = producto.getProductById(Convert.ToInt16(row.Cells["id_producto"].Value.ToString()));
+
+                                    nuevo = Convert.ToDouble(row.Cells["cantidad"].Value.ToString());
+                                    while (prod[0].Parent != "0")
+                                    {
+                                        nuevo = nuevo * Convert.ToInt16(prod[0].C_unidad);
+                                        prod = producto.getProductById(Convert.ToInt16(prod[0].Parent));
+                                    }
+                                    kardex.Fecha = Convert.ToDateTime(fecha).ToString();
+                                    kardex.Id_producto = prod[0].Id;
+                                    kardex.Tipo = "V";
+                                    kardex.Cantidad = nuevo;
+                                    kardex.Antes = prod[0].Existencia;
+                                    kardex.Id = 0;
+
+                                    kardex.Id_documento = Convert.ToInt16(txtid.Text);
+
+                                    using (kardex)
+                                    {
+                                        kardex.CreateKardex();
+                                        if (folio_ticket == 0)
+                                        {
+                                            List<Kardex> numeracion = kardex.getidKardex(prod[0].Id, Convert.ToInt16(txtid.Text), "V");
+                                            using (afecta)
+                                            {
+                                                afecta.Disminuye(numeracion[0].Id);
+                                            }
+                                        }
+                                        else
+                                        {
+                                            List<Kardex> numeracion = kardex.getidKardex(prod[0].Id, folio_ticket, "V");
+                                            using (afecta)
+                                            {
+                                                afecta.Disminuye(numeracion[0].Id);
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+
+                        }
+                    }
+                    printDocument1 = new PrintDocument();
+                    PrinterSettings ps = new PrinterSettings();
+                    Configuration configuracion = new Configuration();
+                    using (configuracion)
+                    {
+                        List<Configuration> config = configuracion.getConfiguration();
+
+                        printDocument1.PrinterSettings = ps;
+                        printDocument1.PrinterSettings.PrinterName = config[0].Impresora;
+                        printDocument1.PrintPage += new PrintPageEventHandler(printDocument1_PrintPage);
+                        printDocument1.Print();
+                    }
+                }
+                else if (txtStatus.Text == "A")
+                {
+                    Models.Product producto = new Models.Product();
+                    double nuevo = 0;
+                    Models.Afecta_inv afecta = new Models.Afecta_inv();
+                    Models.Kardex kardex = new Models.Kardex();
+                    Models.Tickets ticket = new Models.Tickets();
+                    Models.Dettickets detalles = new Models.Dettickets();
+                    Models.Pago_ticket pago = new Models.Pago_ticket();
+                    using (detalles) {
+                        List<Models.Dettickets> detalle = detalles.getDetalles(Convert.ToInt16(txtid.Text));
+                        foreach(Models.Dettickets item in detalle)
+                        {
+                            using (producto)
+                            {
+                                using (kardex)
+                                {
+                                    List<Models.Kardex> kar = kardex.getidKardex(item.Id_producto, Convert.ToInt16(txtid.Text), "V");
+                                    List<Models.Product> produ = producto.getProductById(item.Id_producto);
+                                    nuevo = produ[0].Existencia + kar[0].Cantidad;
+                                    producto.Existencia = nuevo ;
+                                    producto.Id = item.Id_producto;
+                                    producto.update_inventary();
+                                    kardex.Id = kar[0].Id;
+                                    kardex.delete_kardex();
+
+                                }
+                            }
+                        }
+                    }
+                    using (detalles)
+                    {
+                        detalles.delete_det(Convert.ToInt16(txtid.Text));
+                    }
+
+                    using (pago)
+                    {
+                        pago.Id_ticket = Convert.ToInt16(txtid.Text);
+                        pago.delete_pago();
+                    }
+                    using (ticket)
+                    {
+                        ticket.Id = Convert.ToInt16(txtid.Text);
+                        ticket.Id_cliente = Convert.ToInt16(txtidcliente.Text);
+                        ticket.Folio = Convert.ToInt16(txtFolio.Text);
+                        ticket.Fecha = fecha;
+                        ticket.Subtotal = Convert.ToDouble(txtSubtotal.Text);
+                        ticket.Descuento = Convert.ToDouble(txtTdescuento.Text);
+                        ticket.Iva = Convert.ToDouble(txtIva.Text);
+                        ticket.Total = Convert.ToDouble(txtTotal.Text);
+                        ticket.Status = "A";
+                        ticket.C_iva = Convert.ToDouble(txtcIva.Text);
+                        ticket.S_iva = Convert.ToDouble(txtsIva.Text);
+                        ticket.Id_usuario = Convert.ToInt16(inicial.id_usario);
+                        ticket.Atienda = Convert.ToInt16(txtIdAtiende.Text);
+                        ticket.A_facturar = Convert.ToInt16(factura);
+                        ticket.Recibido = 0;
+                        ticket.update_ticket();
+
+                        using (detalles)
+                        {
+                            detalles.Fecha = fecha;
+                            detalles.Id_ticket = Convert.ToInt16(txtid.Text);
+                            foreach (DataGridViewRow row in dtProductos.Rows)
+                            {
+                                detalles.Id_producto = Convert.ToInt16(row.Cells["id_producto"].Value.ToString());
+                                detalles.Descripcion = row.Cells["Producto"].Value.ToString();
+                                detalles.Cantidad = Convert.ToDouble(row.Cells["Cantidad"].Value.ToString());
+                                detalles.Descuento = Convert.ToDouble(row.Cells["descuento"].Value.ToString().Remove(row.Cells["descuento"].Value.ToString().Length - 1));
+                                detalles.Pu = Convert.ToDouble(row.Cells["p_unitario"].Value.ToString());
+                                detalles.Total = Convert.ToDouble(row.Cells["importe"].Value.ToString());
+                                detalles.Grabado = row.Cells["grabado"].Value.ToString();
+                                detalles.Costo = Convert.ToDouble(row.Cells["costo"].Value.ToString());
+                                detalles.CrateDetTicket();
+                                using (producto)
+                                {
+                                    List<Product> prod = producto.getProductById(Convert.ToInt16(row.Cells["id_producto"].Value.ToString()));
+
+                                    nuevo = Convert.ToDouble(row.Cells["cantidad"].Value.ToString());
+                                    while (prod[0].Parent != "0")
+                                    {
+                                        nuevo = nuevo * Convert.ToInt16(prod[0].C_unidad);
+                                        prod = producto.getProductById(Convert.ToInt16(prod[0].Parent));
+                                    }
+                                    kardex.Fecha = Convert.ToDateTime(fecha).ToString();
+                                    kardex.Id_producto = prod[0].Id;
+                                    kardex.Tipo = "V";
+                                    kardex.Cantidad = nuevo;
+                                    kardex.Antes = prod[0].Existencia;
+                                    kardex.Id = 0;
+
+                                    kardex.Id_documento = Convert.ToInt16(txtid.Text);
+
+                                    using (kardex)
+                                    {
+                                        kardex.CreateKardex();
+                                        if (folio_ticket == 0)
+                                        {
+                                            List<Kardex> numeracion = kardex.getidKardex(prod[0].Id, Convert.ToInt16(txtid.Text), "V");
+                                            using (afecta)
+                                            {
+                                                afecta.Disminuye(numeracion[0].Id);
+                                            }
+                                        }
+                                        else
+                                        {
+                                            List<Kardex> numeracion = kardex.getidKardex(prod[0].Id, folio_ticket, "V");
+                                            using (afecta)
+                                            {
+                                                afecta.Disminuye(numeracion[0].Id);
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+
+                        }
+                    }
+                    printDocument1 = new PrintDocument();
+                    PrinterSettings ps = new PrinterSettings();
+                    Configuration configuracion = new Configuration();
+                    using (configuracion)
+                    {
+                        List<Configuration> config = configuracion.getConfiguration();
+
+                        printDocument1.PrinterSettings = ps;
+                        printDocument1.PrinterSettings.PrinterName = config[0].Impresora;
+                        printDocument1.PrintPage += new PrintPageEventHandler(printDocument1_PrintPage);
+                        printDocument1.Print();
+                    }
+
+                }
+               
+                    
+                
+            }
+           
+
             limpiar();
             default_cliente();
             get_folio();
@@ -1152,6 +1385,22 @@ namespace caja
         string id_transferencia = "";
         public void transferencias()
         {
+
+            if (txtStatus.Text == "G")
+            {
+                Models.Dettickets detalle_ticket = new Models.Dettickets();
+                using (detalle_ticket)
+                {
+                    detalle_ticket.delete_det(Convert.ToInt16(txtid.Text));
+                }
+                Models.Tickets ticket = new Models.Tickets();
+                using (ticket)
+                {
+                    ticket.Id = Convert.ToInt16(txtid.Text);
+                    ticket.delete_ticket();
+                }
+            }
+
             cancelado = false;
             Sucursal cb = new Sucursal();
             Product productos = new Product();
@@ -1173,11 +1422,11 @@ namespace caja
             Transfer_forms.id_transfer = 0;
             Transfer_forms Transfer = new Transfer_forms();
 
-            Sucursal sucu = new Sucursal();
-            sucu.ShowDialog();
+            //Sucursal sucu = new Sucursal();
+            //sucu.ShowDialog();
 
-            Transfer.Show();
-            Transfer.cbOficinas.SelectedValue = sucursal;
+            
+            //Transfer.cbOficinas.SelectedValue = sucursal;
             foreach (DataGridViewRow row in dtProductos.Rows)
             {
                 Transfer.dtProductos.Rows.Add(row.Cells["id_producto"].Value, row.Cells["Cantidad"].Value, row.Cells["Codigo"].Value, row.Cells["Producto"].Value, row.Cells["p_unitario"].Value, row.Cells["importe"].Value);
@@ -1191,22 +1440,7 @@ namespace caja
                 Transfer.txtFolios.Text = transfer[0].Transferencia.ToString();
 
             }
-
-            id_transferencia = Transfer.txtFolios.Text;
-            Transfer.btnGuardar.PerformClick();
-            
-            /*PrinterSettings ps = new PrinterSettings();
-			printDocument2.PrintController = new StandardPrintController();
-			printDocument2.PrinterSettings = ps;
-			Configuration configuracion = new Configuration();
-			using (configuracion)
-			{
-				List<Configuration> config = configuracion.getConfiguration();
-				printDocument2.PrinterSettings.PrinterName = config[0].Impresora;
-				printDocument2.PrintPage += new PrintPageEventHandler(print_transfer);
-				printDocument2.Print();
-
-			}*/
+            Transfer.ShowDialog();
             limpiar();
         }
         private void print_transfer(object sender, PrintPageEventArgs e)
@@ -1473,7 +1707,7 @@ namespace caja
                 Tickets tickets = new Tickets();
                 using (tickets)
                 {
-                    List<Tickets> ticket = tickets.getTicketsbyId(Convert.ToInt16(folio));
+                    List<Tickets> ticket = tickets.getTicketsbyFolio(Convert.ToInt16(folio));
                     if (ticket.Count > 0)
                     {
                         if (ticket[0].Status == "C")
@@ -1533,45 +1767,7 @@ namespace caja
             }
         }
 
-        private void button9_Click(object sender, EventArgs e)
-        {
-            if (button9.Text == "Regresar")
-            {
-                lbCancelado.Visible = false;
-                txtIdAtiende.Enabled = true;
-                txtidcliente.Enabled = true;
-                txtCodigo.Enabled = true;
-                txtCantidad.Enabled = true;
-                txtTdescuento.Enabled = true;
-                button1.Enabled = true;
-                button2.Enabled = true;
-                button3.Enabled = true;
-                button4.Enabled = true;
-                button5.Enabled = true;
-                button6.Enabled = true;
-                button7.Enabled = true;
-                button8.Enabled = true;
-                dtProductos.AllowUserToDeleteRows = true;
-                button9.Text = "Ver Ticket";
-                dtProductos.Rows.Clear();
-                default_cliente();
-                txtIdAtiende.Text = "";
-                txtCodigo.Focus();
-            }
-            else
-            {
-                autentificar cb = new autentificar();
-                cb.origen = "ver";
-                cancelado = false;
-                cb.Owner = this;
-                cb.ShowDialog();
-                if (cancelado == false)
-                {
-                    ver_ticket();
-                }
-            }
-           
-        }
+        
         public void ver_ticket()
         {
             string folio = Interaction.InputBox("Ingrese el folio a ver", "Cancelar");
@@ -1581,10 +1777,146 @@ namespace caja
                 Tickets tic = new Tickets();
                 using (tic)
                 {
-                    List<Tickets> tick = tic.getTicketsbyId(folio_ticket);
+                    List<Tickets> ultimo = tic.get_folio();
+                    
+                        List<Tickets> tick = tic.getTicketsbyFolio(folio_ticket);
+                       
+                        if (tick.Count > 0)
+                        {
+                            txtStatus.Text = tick[0].Status;
+                            txtid.Text = folio_ticket.ToString();
+                            txtidcliente.Text = tick[0].Id_cliente.ToString();
+                            txtFolio.Text = tick[0].Folio.ToString();
+                            if (tick[0].Status == "C")
+                            {
+                                lbCancelado.Visible = true;
+                                txtIdAtiende.Enabled = false;
+                                txtidcliente.Enabled = false;
+                                txtCodigo.Enabled = false;
+                                txtCantidad.Enabled = false;
+                                txtTdescuento.Enabled = false;
+                                button1.Enabled = false;
+                                button2.Enabled = false;
+                                button3.Enabled = false;
+                                button4.Enabled = false;
+                                button5.Enabled = false;
+                                button6.Enabled = false;
+                                button7.Enabled = false;
+                                button8.Enabled = false;
 
+                               
+                                dtProductos.AllowUserToDeleteRows = false;
+                            }
+                            else
+                            {
+
+
+                                lbCancelado.Visible = false;
+                                txtIdAtiende.Enabled = true;
+                                txtidcliente.Enabled = true;
+                                txtCodigo.Enabled = true;
+                                txtCantidad.Enabled = true;
+                                txtTdescuento.Enabled = true;
+                                button1.Enabled = true;
+                                button2.Enabled = true;
+                                button3.Enabled = true;
+                                button4.Enabled = true;
+                                button5.Enabled = true;
+                                button6.Enabled = true;
+                                button7.Enabled = true;
+                                button8.Enabled = true;
+
+                                dtProductos.AllowUserToDeleteRows = true;
+                            }
+                            Client clientes = new Client();
+                            using (clientes)
+                            {
+                                List<Client> cliente = clientes.getClientbyId(tick[0].Id_cliente);
+                                lbClient.Text = "Cliente: " + cliente[0].Name + ", RFC: " + cliente[0].RFC;
+                                txtIdAtiende.Text = tick[0].Atienda.ToString();
+                            }
+                            Users usuarios = new Users();
+                            using (usuarios)
+                            {
+                                List<Users> usuario = usuarios.getUserbyname(txtIdAtiende.Text);
+                                if (usuario.Count > 0)
+                                {
+                                    lbAtiende.Text = usuario[0].Nombre;
+                                }
+                            }
+                            Dettickets detallados = new Dettickets();
+                            using (detallados)
+                            {
+                                List<Dettickets> detalle = detallados.getDetalles(Convert.ToInt16(folio));
+                                Product producto = new Product();
+                                dtProductos.Rows.Clear();
+                                foreach (Dettickets item in detalle)
+                                {
+                                    using (producto)
+                                    {
+                                        List<Product> prod = producto.getProductById(Convert.ToInt16(item.Id_producto));
+                                        if (prod.Count > 0)
+                                        {
+                                            string grabado = prod[0].Sale_tax;
+                                            double costo = prod[0].Cost;
+                                            grabado = grabado.Replace("IVA ", "");
+                                            dtProductos.Rows.Add(item.Id_producto, prod[0].Code1, item.Cantidad, prod[0].Description, string.Format("{0:#,0.00}", Convert.ToDouble(item.Pu)), string.Format("{0:#,0.00}", Convert.ToDouble(item.Descuento)) + "%", string.Format("{0:#,0.00}", Convert.ToDouble(item.Total)), grabado, costo);
+
+                                            calcula();
+                                        }
+
+                                    }
+
+                                }
+                            }
+
+                        }
+                        else if (tick.Count == 0)
+                        {
+                            lbCancelado.Visible = false;
+                            txtIdAtiende.Enabled = true;
+                            txtidcliente.Enabled = true;
+                            txtCodigo.Enabled = true;
+                            txtCantidad.Enabled = true;
+                            txtTdescuento.Enabled = true;
+                            button1.Enabled = true;
+                            button2.Enabled = true;
+                            button3.Enabled = true;
+                            button4.Enabled = true;
+                            button5.Enabled = true;
+                            button6.Enabled = true;
+                            button7.Enabled = true;
+                            button8.Enabled = true;
+                            dtProductos.AllowUserToDeleteRows = true;
+                            dtProductos.Rows.Clear();
+                            default_cliente();
+                            txtIdAtiende.Text = "";
+                            txtCodigo.Focus();
+                            get_folio();
+                        }
+                    
+
+                }
+
+
+
+                /*
+
+
+
+
+
+
+
+                folio_ticket = Convert.ToInt16(folio);
+                Tickets tic = new Tickets();
+                using (tic)
+                {
+                    List<Tickets> tick = tic.getTicketsbyFolio(folio_ticket);
+                    txtStatus.Text = tick[0].Status;
+                    txtid.Text = folio_ticket.ToString();
                     txtidcliente.Text = tick[0].Id_cliente.ToString();
-
+                    txtFolio.Text = tick[0].Folio.ToString();
                     if (tick[0].Status == "C")
                     {
                         lbCancelado.Visible = true;
@@ -1649,6 +1981,7 @@ namespace caja
                        
                     }
                 }
+                */
             }
                 
         }
@@ -1834,6 +2167,11 @@ namespace caja
 
         private void txtFolio_KeyDown(object sender, KeyEventArgs e)
         {
+            if (e.KeyCode == Keys.Enter)
+            {
+                buscar_ticket();
+            }
+            
             if (e.KeyCode == Keys.Left)
             {
                 if (inicial.tipo_usuario != "Admin")
@@ -1889,27 +2227,23 @@ namespace caja
                 }
             }
         }
-        private void ticket_buscar(string tipo)
+        private void buscar_ticket()
         {
-            int folio_actual = Convert.ToInt16(txtFolio.Text);
-            int folio_buscar = 0;
-            if (tipo == "menos")
-            {
-                folio_buscar = folio_actual - 1;
-            }
-            else
-            {
-                folio_buscar = folio_actual + 1;
-            }
-            folio_ticket = Convert.ToInt16(folio_buscar);
+            int folio = Convert.ToInt16(txtFolio.Text);
+            folio_ticket = Convert.ToInt16(folio);
             Tickets tic = new Tickets();
             using (tic)
             {
-                List<Tickets> tick = tic.getTicketsbyId(folio_ticket);
+                List<Tickets> ultimo = tic.get_folio();
+
+                List<Tickets> tick = tic.getTicketsbyFolio(folio_ticket);
+
                 if (tick.Count > 0)
                 {
+                    txtStatus.Text = tick[0].Status;
+                    txtid.Text = folio_ticket.ToString();
                     txtidcliente.Text = tick[0].Id_cliente.ToString();
-
+                    txtFolio.Text = tick[0].Folio.ToString();
                     if (tick[0].Status == "C")
                     {
                         lbCancelado.Visible = true;
@@ -1927,7 +2261,6 @@ namespace caja
                         button7.Enabled = false;
                         button8.Enabled = false;
 
-                        button9.Text = "Regresar";
                         dtProductos.AllowUserToDeleteRows = false;
                     }
                     else
@@ -1949,7 +2282,6 @@ namespace caja
                         button7.Enabled = true;
                         button8.Enabled = true;
 
-                        button9.Text = "Ver Ticket";
                         dtProductos.AllowUserToDeleteRows = true;
                     }
                     Client clientes = new Client();
@@ -1969,8 +2301,9 @@ namespace caja
                         }
                     }
                     Dettickets detallados = new Dettickets();
-                    using (detallados) {
-                        List<Dettickets> detalle = detallados.getDetalles(Convert.ToInt16(folio_buscar));
+                    using (detallados)
+                    {
+                        List<Dettickets> detalle = detallados.getDetalles(Convert.ToInt16(folio));
                         Product producto = new Product();
                         dtProductos.Rows.Clear();
                         foreach (Dettickets item in detalle)
@@ -1983,18 +2316,18 @@ namespace caja
                                     string grabado = prod[0].Sale_tax;
                                     double costo = prod[0].Cost;
                                     grabado = grabado.Replace("IVA ", "");
-                                    dtProductos.Rows.Add(item.Id_producto, prod[0].Code1, item.Cantidad, prod[0].Description, string.Format("{0:#,0.00}", Convert.ToDouble(item.Pu)), string.Format("{0:#,0.00}", Convert.ToDouble(item.Descuento))+"%", string.Format("{0:#,0.00}", Convert.ToDouble(item.Total)), grabado, costo);
+                                    dtProductos.Rows.Add(item.Id_producto, prod[0].Code1, item.Cantidad, prod[0].Description, string.Format("{0:#,0.00}", Convert.ToDouble(item.Pu)), string.Format("{0:#,0.00}", Convert.ToDouble(item.Descuento)) + "%", string.Format("{0:#,0.00}", Convert.ToDouble(item.Total)), grabado, costo);
 
                                     calcula();
                                 }
-                               
+
                             }
-                           
+
                         }
                     }
-                    txtFolio.Text = folio_buscar.ToString();
+
                 }
-                else if (tick.Count == 0 && tipo == "mas")
+                else if (tick.Count == 0)
                 {
                     lbCancelado.Visible = false;
                     txtIdAtiende.Enabled = true;
@@ -2011,13 +2344,178 @@ namespace caja
                     button7.Enabled = true;
                     button8.Enabled = true;
                     dtProductos.AllowUserToDeleteRows = true;
-                    button9.Text = "Ver Ticket";
                     dtProductos.Rows.Clear();
                     default_cliente();
                     txtIdAtiende.Text = "";
                     txtCodigo.Focus();
                     get_folio();
                 }
+
+
+            }
+        }
+        private void ticket_buscar(string tipo)
+        {
+            int folio_actual = Convert.ToInt16(txtid.Text);
+            int folio_buscar = 0;
+         
+            if (tipo == "menos")
+            {
+                folio_buscar = folio_actual - 1;
+            }
+            else
+            {
+                folio_buscar = folio_actual + 1;
+            }
+            folio_ticket = Convert.ToInt16(folio_buscar);
+            Tickets tic = new Tickets();
+            using (tic)
+            {
+                List<Tickets> ultimo = tic.get_folio();
+                if ((ultimo[0].Id)< Convert.ToInt16(folio_ticket) && tipo=="mas")
+                {
+                    limpiar();
+                    get_folio();
+                    txtStatus.Text = "";
+                }
+                else
+                {
+                    List<Tickets> tick = tic.getTicketsbyFolio(folio_ticket);
+                    while (tick.Count == 0)
+                    {
+                        if (tipo == "menos")
+                        {
+                            folio_buscar = folio_actual - 1;
+                            folio_ticket = folio_ticket - 1;
+                        }
+                        else
+                        {
+                            folio_buscar = folio_actual + 1;
+                            folio_ticket = folio_ticket + 1;
+                        }
+                        tick = tic.getTicketsbyFolio(folio_ticket);
+                        if ((ultimo[0].Id) < Convert.ToInt16(folio_ticket) && tipo == "mas")
+                        {
+                            limpiar();
+                            get_folio();
+                            txtStatus.Text = "";
+                            break;
+                        }
+                    }
+                    if (tick.Count > 0)
+                    {
+                        txtStatus.Text = tick[0].Status;
+                        txtid.Text = folio_ticket.ToString();
+                        txtidcliente.Text = tick[0].Id_cliente.ToString();
+                        txtFolio.Text = tick[0].Folio.ToString();
+                        if (tick[0].Status == "C")
+                        {
+                            lbCancelado.Visible = true;
+                            txtIdAtiende.Enabled = false;
+                            txtidcliente.Enabled = false;
+                            txtCodigo.Enabled = false;
+                            txtCantidad.Enabled = false;
+                            txtTdescuento.Enabled = false;
+                            button1.Enabled = false;
+                            button2.Enabled = false;
+                            button3.Enabled = false;
+                            button4.Enabled = false;
+                            button5.Enabled = false;
+                            button6.Enabled = false;
+                            button7.Enabled = false;
+                            button8.Enabled = false;
+
+                            dtProductos.AllowUserToDeleteRows = false;
+                        }
+                        else
+                        {
+
+
+                            lbCancelado.Visible = false;
+                            txtIdAtiende.Enabled = true;
+                            txtidcliente.Enabled = true;
+                            txtCodigo.Enabled = true;
+                            txtCantidad.Enabled = true;
+                            txtTdescuento.Enabled = true;
+                            button1.Enabled = true;
+                            button2.Enabled = true;
+                            button3.Enabled = true;
+                            button4.Enabled = true;
+                            button5.Enabled = true;
+                            button6.Enabled = true;
+                            button7.Enabled = true;
+                            button8.Enabled = true;
+
+                            dtProductos.AllowUserToDeleteRows = true;
+                        }
+                        Client clientes = new Client();
+                        using (clientes)
+                        {
+                            List<Client> cliente = clientes.getClientbyId(tick[0].Id_cliente);
+                            lbClient.Text = "Cliente: " + cliente[0].Name + ", RFC: " + cliente[0].RFC;
+                            txtIdAtiende.Text = tick[0].Atienda.ToString();
+                        }
+                        Users usuarios = new Users();
+                        using (usuarios)
+                        {
+                            List<Users> usuario = usuarios.getUserbyname(txtIdAtiende.Text);
+                            if (usuario.Count > 0)
+                            {
+                                lbAtiende.Text = usuario[0].Nombre;
+                            }
+                        }
+                        Dettickets detallados = new Dettickets();
+                        using (detallados)
+                        {
+                            List<Dettickets> detalle = detallados.getDetalles(Convert.ToInt16(folio_buscar));
+                            Product producto = new Product();
+                            dtProductos.Rows.Clear();
+                            foreach (Dettickets item in detalle)
+                            {
+                                using (producto)
+                                {
+                                    List<Product> prod = producto.getProductById(Convert.ToInt16(item.Id_producto));
+                                    if (prod.Count > 0)
+                                    {
+                                        string grabado = prod[0].Sale_tax;
+                                        double costo = prod[0].Cost;
+                                        grabado = grabado.Replace("IVA ", "");
+                                        dtProductos.Rows.Add(item.Id_producto, prod[0].Code1, item.Cantidad, prod[0].Description, string.Format("{0:#,0.00}", Convert.ToDouble(item.Pu)), string.Format("{0:#,0.00}", Convert.ToDouble(item.Descuento)) + "%", string.Format("{0:#,0.00}", Convert.ToDouble(item.Total)), grabado, costo);
+
+                                        calcula();
+                                    }
+
+                                }
+
+                            }
+                        }
+
+                    }
+                    else if (tick.Count == 0 && tipo == "mas")
+                    {
+                        lbCancelado.Visible = false;
+                        txtIdAtiende.Enabled = true;
+                        txtidcliente.Enabled = true;
+                        txtCodigo.Enabled = true;
+                        txtCantidad.Enabled = true;
+                        txtTdescuento.Enabled = true;
+                        button1.Enabled = true;
+                        button2.Enabled = true;
+                        button3.Enabled = true;
+                        button4.Enabled = true;
+                        button5.Enabled = true;
+                        button6.Enabled = true;
+                        button7.Enabled = true;
+                        button8.Enabled = true;
+                        dtProductos.AllowUserToDeleteRows = true;
+                        dtProductos.Rows.Clear();
+                        default_cliente();
+                        txtIdAtiende.Text = "";
+                        txtCodigo.Focus();
+                        get_folio();
+                    }
+                }
+                
             }
         }
 
@@ -2114,7 +2612,7 @@ namespace caja
                     e.Graphics.DrawString(fecha, font, Brushes.Black, 0, y);
                 }
                 y = y + 15;
-                e.Graphics.DrawString("Folio: " + id, font, Brushes.Black, 0, y);
+                e.Graphics.DrawString("Folio: " + txtFolio.Text, font, Brushes.Black, 0, y);
                 /* y = y + 10;
                 e.Graphics.DrawString("___________________________________________", font, Brushes.Black, 0, y);
                 */
@@ -2227,6 +2725,74 @@ namespace caja
                 producto Producto = new producto();
                 Producto.Show(this);
             }
+        }
+
+        private void button10_Click(object sender, EventArgs e)
+        {
+            if (txtIdAtiende.Text == "")
+            {
+                errorProvider1.SetError(txtIdAtiende, "Debe de ingresar quien atendio");
+                txtIdAtiende.Focus();
+            }
+            else
+            {
+                Tickets ticket = new Tickets();
+                using (ticket)
+                {
+
+                    ticket.Id_cliente = Convert.ToInt16(txtidcliente.Text);
+                    ticket.Folio = 0;
+                    ticket.Fecha = fecha;
+                    ticket.Subtotal = Convert.ToDouble(txtSubtotal.Text);
+                    ticket.Descuento = Convert.ToDouble(txtTdescuento.Text);
+                    ticket.Iva = Convert.ToDouble(txtIva.Text);
+                    ticket.Total = Convert.ToDouble(txtTotal.Text);
+                    ticket.Status = "G";
+                    ticket.C_iva = Convert.ToDouble(txtcIva.Text);
+                    ticket.S_iva = Convert.ToDouble(txtsIva.Text);
+                    ticket.Id_usuario = Convert.ToInt16(inicial.id_usario);
+                    ticket.Atienda = Convert.ToInt16(txtIdAtiende.Text);
+                    ticket.A_facturar = Convert.ToInt16(factura);
+                    ticket.Recibido = 0;
+                    ticket.CreateTicket();
+
+                    List<Tickets> tic = ticket.get_last_ticket(fecha, Convert.ToInt16(txtidcliente.Text), Convert.ToInt16(inicial.id_usario));
+
+
+                    Dettickets detalle = new Dettickets();
+
+
+
+                    detalle.Id_ticket = tic[0].Id;
+                    detalle.Fecha = fecha;
+                    foreach (DataGridViewRow row in dtProductos.Rows)
+                    {
+                        detalle.Id_producto = Convert.ToInt16(row.Cells["id_producto"].Value.ToString());
+                        detalle.Pu = Convert.ToDouble(row.Cells["p_unitario"].Value.ToString());
+                        detalle.Cantidad = Convert.ToDouble(row.Cells["cantidad"].Value.ToString());
+                        detalle.Descuento = Convert.ToDouble(row.Cells["descuento"].Value.ToString().Remove(row.Cells["descuento"].Value.ToString().Length - 1));
+                        detalle.Total = Convert.ToDouble(row.Cells["importe"].Value.ToString());
+                        detalle.Descripcion = row.Cells["Producto"].Value.ToString();
+                        detalle.Grabado = row.Cells["grabado"].Value.ToString();
+                        detalle.Costo = Convert.ToDouble(row.Cells["costo"].Value.ToString());
+                        using (detalle)
+                        {
+                            detalle.CrateDetTicket();
+                        }
+
+                    }
+
+                }
+                limpiar();
+                default_cliente();
+                get_folio();
+            }
+            
+        }
+
+        private void txtFolio_KeyPress(object sender, KeyPressEventArgs e)
+        {
+
         }
     }
 }

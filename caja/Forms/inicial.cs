@@ -90,7 +90,32 @@ namespace caja
         public static string nombre;
         public static Boolean exit;
         public static string tipo_usuario;
-       
+        private void nueva_tarea()
+        {
+           
+            Models.Reports.nuevo_db nuevo = new Models.Reports.nuevo_db();
+            using (nuevo)
+            {
+                //nuevo.ejecuta(" ALTER TABLE `tbafolios` ADD `ticket` INT NOT NULL AFTER `factura`;");
+                //nuevo.ejecuta("ALTER TABLE `tbatickets` ADD `folio` INT NOT NULL AFTER `id`;");
+                int ultimo = 0;
+                Models.Tickets tickets = new Models.Tickets();
+                using (tickets)
+                {
+                    List<Models.Tickets> tick = tickets.getTickets();
+                    foreach(Models.Tickets it in tick)
+                    {
+                        nuevo.ejecuta("update tbatickets set folio='" + it.Id + "' where id='"+ it.Id +"'");
+                        ultimo = it.Id;
+                    }
+                }
+                nuevo.ejecuta("update tbafolios set ticket='" + (ultimo+1) + "'");
+
+            }
+           
+
+            System.IO.File.Delete(@"nueva.txt");
+        }
         private void inicial_Load(object sender, EventArgs e)
         {
             exit = false;
@@ -101,7 +126,10 @@ namespace caja
             connectionString = conntxt;
 
             web_string = System.IO.File.ReadAllText(@"conn2.txt");
-
+            if (System.IO.File.Exists(@"nueva.txt"))
+            {
+                nueva_tarea();
+            }
 
             Home.Padding= new System.Drawing.Point(13,8);
             login fc = new login();
@@ -1292,6 +1320,38 @@ namespace caja
         {
             About nostros = new About();
             nostros.Show();
+        }
+
+        private void articulosMasVendisosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string tabName = "Mas vendido";
+            Boolean encontrado = false;
+            foreach (TabPage page in Home.TabPages)
+            {
+                string name = page.Name;
+
+                if (name == tabName)
+                {
+                    encontrado = true;
+                    Home.SelectTab(tabName);
+                }
+            }
+            if (encontrado == false)
+            {
+                TabPage tpage = new TabPage(tabName);
+                tpage.Name = tabName;
+                Forms.Reportes.vendido fc = new Forms.Reportes.vendido();
+                fc.TopLevel = false;
+                fc.Visible = true;
+
+                fc.MdiParent = this;
+                fc.FormBorderStyle = FormBorderStyle.None;
+                fc.Dock = DockStyle.Fill;
+                Home.TabPages.Add(tpage);
+                int ultimo = (Home.TabPages.Count - 1);
+                Home.TabPages[ultimo].Controls.Add(fc);
+                Home.SelectTab(tabName);
+            }
         }
     }
 }

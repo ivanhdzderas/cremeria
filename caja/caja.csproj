@@ -426,6 +426,12 @@
     <Compile Include="Forms\Reportes\Proveedores.Designer.cs">
       <DependentUpon>Proveedores.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Reportes\vendido.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Reportes\vendido.Designer.cs">
+      <DependentUpon>vendido.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\retiro.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -528,6 +534,7 @@
     <Compile Include="Models\Reports\Encaja.cs" />
     <Compile Include="Models\Reports\Ganancias.cs" />
     <Compile Include="Models\Reports\Mas_vendidos.cs" />
+    <Compile Include="Models\Reports\nuevo_db.cs" />
     <Compile Include="Models\Reports\Retiro_efectivo.cs" />
     <Compile Include="Models\Reports\Retiro_proveedores.cs" />
     <Compile Include="Models\Reports\Tickets.cs" />
@@ -680,6 +687,9 @@
     <EmbeddedResource Include="Forms\Reportes\Proveedores.resx">
       <DependentUpon>Proveedores.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Reportes\vendido.resx">
+      <DependentUpon>vendido.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\retiro.resx">
       <DependentUpon>retiro.cs</DependentUpon>
     </EmbeddedResource>
@@ -722,6 +732,7 @@
     </Compile>
     <EmbeddedResource Include="Reports\corte.rdlc" />
     <EmbeddedResource Include="Reports\corte2.rdlc" />
+    <EmbeddedResource Include="Reports\Mas_vendido.rdlc" />
     <None Include="caja_TemporaryKey.pfx" />
     <None Include="packages.config" />
     <None Include="Properties\DataSources\caja.Models.Reports.Encaja.datasource" />

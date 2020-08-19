@@ -85,7 +85,6 @@
 			this.button3 = new System.Windows.Forms.Button();
 			this.button2 = new System.Windows.Forms.Button();
 			this.button1 = new System.Windows.Forms.Button();
-			this.button9 = new System.Windows.Forms.Button();
 			this.lbClient = new System.Windows.Forms.Label();
 			this.txtFolio = new System.Windows.Forms.TextBox();
 			this.label7 = new System.Windows.Forms.Label();
@@ -95,6 +94,9 @@
 			this.label15 = new System.Windows.Forms.Label();
 			this.txtLineas = new System.Windows.Forms.TextBox();
 			this.printDocument2 = new System.Drawing.Printing.PrintDocument();
+			this.button10 = new System.Windows.Forms.Button();
+			this.txtid = new System.Windows.Forms.TextBox();
+			this.txtStatus = new System.Windows.Forms.TextBox();
 			((System.ComponentModel.ISupportInitialize)(this.dtProductos)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
 			this.SuspendLayout();
@@ -659,18 +661,6 @@
 			this.button1.UseVisualStyleBackColor = true;
 			this.button1.Click += new System.EventHandler(this.button1_Click);
 			// 
-			// button9
-			// 
-			this.button9.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-			this.button9.Location = new System.Drawing.Point(826, 599);
-			this.button9.Name = "button9";
-			this.button9.Size = new System.Drawing.Size(95, 80);
-			this.button9.TabIndex = 19;
-			this.button9.Text = "Ver Ticket";
-			this.button9.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-			this.button9.UseVisualStyleBackColor = true;
-			this.button9.Click += new System.EventHandler(this.button9_Click);
-			// 
 			// lbClient
 			// 
 			this.lbClient.AutoSize = true;
@@ -689,6 +679,7 @@
 			this.txtFolio.Size = new System.Drawing.Size(100, 26);
 			this.txtFolio.TabIndex = 21;
 			this.txtFolio.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtFolio_KeyDown);
+			this.txtFolio.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtFolio_KeyPress);
 			// 
 			// label7
 			// 
@@ -751,11 +742,40 @@
 			this.txtLineas.Size = new System.Drawing.Size(100, 26);
 			this.txtLineas.TabIndex = 48;
 			// 
+			// button10
+			// 
+			this.button10.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+			this.button10.Location = new System.Drawing.Point(826, 599);
+			this.button10.Name = "button10";
+			this.button10.Size = new System.Drawing.Size(95, 80);
+			this.button10.TabIndex = 49;
+			this.button10.Text = "Guardar";
+			this.button10.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+			this.button10.UseVisualStyleBackColor = true;
+			this.button10.Click += new System.EventHandler(this.button10_Click);
+			// 
+			// txtid
+			// 
+			this.txtid.Location = new System.Drawing.Point(12, 565);
+			this.txtid.Name = "txtid";
+			this.txtid.Size = new System.Drawing.Size(58, 26);
+			this.txtid.TabIndex = 50;
+			// 
+			// txtStatus
+			// 
+			this.txtStatus.Location = new System.Drawing.Point(76, 565);
+			this.txtStatus.Name = "txtStatus";
+			this.txtStatus.Size = new System.Drawing.Size(100, 26);
+			this.txtStatus.TabIndex = 51;
+			// 
 			// caja
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(1347, 717);
+			this.Controls.Add(this.txtStatus);
+			this.Controls.Add(this.txtid);
+			this.Controls.Add(this.button10);
 			this.Controls.Add(this.txtLineas);
 			this.Controls.Add(this.label15);
 			this.Controls.Add(this.lbCancelado);
@@ -763,7 +783,6 @@
 			this.Controls.Add(this.dtFecha);
 			this.Controls.Add(this.label7);
 			this.Controls.Add(this.txtFolio);
-			this.Controls.Add(this.button9);
 			this.Controls.Add(this.button8);
 			this.Controls.Add(this.lbAtiende);
 			this.Controls.Add(this.txtIdAtiende);
@@ -859,7 +878,6 @@
 		private System.Windows.Forms.TextBox txtIdAtiende;
 		private System.Windows.Forms.Label label13;
 		private System.Windows.Forms.Button button8;
-		private System.Windows.Forms.Button button9;
 		private System.Windows.Forms.Label lbClient;
 		private System.Windows.Forms.Label label7;
 		private System.Windows.Forms.TextBox txtFolio;
@@ -878,5 +896,8 @@
 		private System.Windows.Forms.TextBox txtLineas;
 		private System.Windows.Forms.Label label15;
 		private System.Drawing.Printing.PrintDocument printDocument2;
+		private System.Windows.Forms.Button button10;
+		private System.Windows.Forms.TextBox txtid;
+		private System.Windows.Forms.TextBox txtStatus;
 	}
 }

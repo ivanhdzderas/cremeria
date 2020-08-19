@@ -411,8 +411,12 @@ namespace caja
             }
             else
             {
+                double porcentaje = (1-(Convert.ToDouble(txtPercentPrice1.Text)/100));
+                txtPrice1.Text = string.Format("{0:#,0.00}",(Convert.ToDouble(txtCosto.Text)/porcentaje));
+                /*
                 double porcentaje = (Convert.ToDouble(txtPercentPrice1.Text)/100)+1;
                 txtPrice1.Text = string.Format("{0:#,0.00}", (Convert.ToDouble(txtCosto.Text)*porcentaje));
+                */
             }
         }
 
@@ -521,8 +525,8 @@ namespace caja
             }
             else
             {
-                double porcentaje = (Convert.ToDouble(txtPercentPrice2.Text) / 100) + 1;
-                txtPrice2.Text = string.Format("{0:#,0.00}", (Convert.ToDouble(txtCosto.Text) * porcentaje));
+                double porcentaje = (1 - (Convert.ToDouble(txtPercentPrice2.Text) / 100));
+                txtPrice2.Text = string.Format("{0:#,0.00}", (Convert.ToDouble(txtCosto.Text) / porcentaje));
             }
         }
 
@@ -535,8 +539,8 @@ namespace caja
             }
             else
             {
-                double porcentaje = (Convert.ToDouble(txtPercentPrice3.Text) / 100) + 1;
-                txtPrice3.Text = string.Format("{0:#,0.00}", (Convert.ToDouble(txtCosto.Text) * porcentaje));
+                double porcentaje = (1 - (Convert.ToDouble(txtPercentPrice3.Text) / 100));
+                txtPrice3.Text = string.Format("{0:#,0.00}", (Convert.ToDouble(txtCosto.Text) / porcentaje));
             }
         }
 
@@ -549,8 +553,8 @@ namespace caja
             }
             else
             {
-                double porcentaje = (Convert.ToDouble(txtPercentPrice4.Text) / 100) + 1;
-                txtPrice4.Text = string.Format("{0:#,0.00}", (Convert.ToDouble(txtCosto.Text) * porcentaje));
+                double porcentaje = (1 - (Convert.ToDouble(txtPercentPrice4.Text) / 100));
+                txtPrice4.Text = string.Format("{0:#,0.00}", (Convert.ToDouble(txtCosto.Text) / porcentaje));
             }
         }
 
@@ -563,8 +567,8 @@ namespace caja
             }
             else
             {
-                double porcentaje = (Convert.ToDouble(txtPercentPrice5.Text) / 100) + 1;
-                txtPrice5.Text = string.Format("{0:#,0.00}", (Convert.ToDouble(txtCosto.Text) * porcentaje));
+                double porcentaje = (1 - (Convert.ToDouble(txtPercentPrice5.Text) / 100));
+                txtPrice5.Text = string.Format("{0:#,0.00}", (Convert.ToDouble(txtCosto.Text) / porcentaje));
             }
         }
 
@@ -697,7 +701,12 @@ namespace caja
             }
             else
             {
-                double diferencia = ((Convert.ToDouble(txtPrice1.Text) / Convert.ToDouble(txtCosto.Text)) - 1) * 100;
+
+                /*double porcentaje = (1 - (Convert.ToDouble(txtPercentPrice1.Text) / 100));
+                txtPrice1.Text = string.Format("{0:#,0.00}", (Convert.ToDouble(txtCosto.Text) / porcentaje));
+                */
+
+                double diferencia = (1-(Convert.ToDouble(txtCosto.Text) / Convert.ToDouble(txtPrice1.Text))) * 100;
                 txtPercentPrice1.Text = string.Format("{0:#,0.00}", diferencia);
             }
         }
@@ -715,7 +724,7 @@ namespace caja
             }
             else
             {
-                double diferencia = ((Convert.ToDouble(txtPrice2.Text) / Convert.ToDouble(txtCosto.Text)) - 1) * 100;
+                double diferencia = (1 - (Convert.ToDouble(txtCosto.Text) / Convert.ToDouble(txtPrice2.Text))) * 100;
                 txtPercentPrice2.Text = string.Format("{0:#,0.00}", diferencia);
             }
         }
@@ -733,7 +742,7 @@ namespace caja
             }
             else
             {
-                double diferencia = ((Convert.ToDouble(txtPrice3.Text) / Convert.ToDouble(txtCosto.Text)) - 1) * 100;
+                double diferencia = (1 - (Convert.ToDouble(txtCosto.Text) / Convert.ToDouble(txtPrice3.Text))) * 100;
                 txtPercentPrice3.Text = string.Format("{0:#,0.00}", diferencia);
             }
         }
@@ -751,7 +760,7 @@ namespace caja
             }
             else
             {
-                double diferencia = ((Convert.ToDouble(txtPrice4.Text) / Convert.ToDouble(txtCosto.Text)) - 1) * 100;
+                double diferencia = (1 - (Convert.ToDouble(txtCosto.Text) / Convert.ToDouble(txtPrice4.Text))) * 100;
                 txtPercentPrice4.Text = string.Format("{0:#,0.00}", diferencia);
             }
         }
@@ -769,7 +778,7 @@ namespace caja
             }
             else
             {
-                double diferencia = ((Convert.ToDouble(txtPrice5.Text) / Convert.ToDouble(txtCosto.Text)) - 1) * 100;
+                double diferencia = (1 - (Convert.ToDouble(txtCosto.Text) / Convert.ToDouble(txtPrice5.Text))) * 100;
                 txtPercentPrice5.Text = string.Format("{0:#,0.00}", diferencia);
             }
         }
@@ -1392,8 +1401,11 @@ namespace caja
             }
             else
             {
-                double porcentaje = (Convert.ToDouble(txtUtilidad1C.Text) / 100) + 1;
-                txtPrecio1C.Text = string.Format("{0:#,0.00}", (Convert.ToDouble(txtCostoCaja.Text) * porcentaje));
+              
+
+
+                double porcentaje = (1 - (Convert.ToDouble(txtUtilidad1C.Text) / 100));
+                txtPrecio1C.Text = string.Format("{0:#,0.00}", (Convert.ToDouble(txtCostoCaja.Text) / porcentaje));
             }
         }
 
@@ -1406,8 +1418,8 @@ namespace caja
             }
             else
             {
-                double porcentaje = (Convert.ToDouble(txtUtilidad2C.Text) / 100) + 1;
-                txtPrecio2C.Text = string.Format("{0:#,0.00}", (Convert.ToDouble(txtCostoCaja.Text) * porcentaje));
+                double porcentaje = (1 - (Convert.ToDouble(txtUtilidad2C.Text) / 100));
+                txtPrecio2C.Text = string.Format("{0:#,0.00}", (Convert.ToDouble(txtCostoCaja.Text) / porcentaje));
             }
         }
 
@@ -1420,8 +1432,8 @@ namespace caja
             }
             else
             {
-                double porcentaje = (Convert.ToDouble(txtUtilidad3C.Text) / 100) + 1;
-                txtPrecio3C.Text = string.Format("{0:#,0.00}", (Convert.ToDouble(txtCostoCaja.Text) * porcentaje));
+                double porcentaje = (1 - (Convert.ToDouble(txtUtilidad3C.Text) / 100));
+                txtPrecio3C.Text = string.Format("{0:#,0.00}", (Convert.ToDouble(txtCostoCaja.Text) / porcentaje));
             }
         }
 
@@ -1434,7 +1446,10 @@ namespace caja
             }
             else
             {
-                double diferencia = ((Convert.ToDouble(txtPrecio1C.Text) / Convert.ToDouble(txtCostoCaja.Text)) - 1) * 100;
+                
+
+
+                double diferencia = (1 - (Convert.ToDouble(txtCostoCaja.Text) / Convert.ToDouble(txtPrecio1C.Text))) * 100;
                 txtUtilidad1C.Text = string.Format("{0:#,0.00}", diferencia);
             }
         }
@@ -1448,7 +1463,7 @@ namespace caja
             }
             else
             {
-                double diferencia = ((Convert.ToDouble(txtPrecio2C.Text) / Convert.ToDouble(txtCostoCaja.Text)) - 1) * 100;
+                double diferencia = (1 - (Convert.ToDouble(txtCostoCaja.Text) / Convert.ToDouble(txtPrecio2C.Text))) * 100;
                 txtUtilidad2C.Text = string.Format("{0:#,0.00}", diferencia);
             }
         }
@@ -1462,7 +1477,7 @@ namespace caja
             }
             else
             {
-                double diferencia = ((Convert.ToDouble(txtPrecio3C.Text) / Convert.ToDouble(txtCostoCaja.Text)) - 1) * 100;
+                double diferencia = (1 - (Convert.ToDouble(txtCostoCaja.Text) / Convert.ToDouble(txtPrecio3C.Text))) * 100;
                 txtUtilidad3C.Text = string.Format("{0:#,0.00}", diferencia);
             }
         }
@@ -1656,8 +1671,8 @@ namespace caja
             }
             else
             {
-                double porcentaje = (Convert.ToDouble(txtUtilidad1Ct.Text) / 100) + 1;
-                txtPrecio1Ct.Text = string.Format("{0:#,0.00}", (Convert.ToDouble(txtCostoCarton.Text) * porcentaje));
+                double porcentaje = (1 - (Convert.ToDouble(txtUtilidad1Ct.Text) / 100));
+                txtPrecio1Ct.Text = string.Format("{0:#,0.00}", (Convert.ToDouble(txtCostoCarton.Text) / porcentaje));
             }
         }
 
@@ -1670,8 +1685,8 @@ namespace caja
             }
             else
             {
-                double porcentaje = (Convert.ToDouble(txtUtilidad2Ct.Text) / 100) + 1;
-                txtPrecio2Ct.Text = string.Format("{0:#,0.00}", (Convert.ToDouble(txtCostoCarton.Text) * porcentaje));
+                double porcentaje = (1 - (Convert.ToDouble(txtUtilidad2Ct.Text) / 100));
+                txtPrecio2Ct.Text = string.Format("{0:#,0.00}", (Convert.ToDouble(txtCostoCarton.Text) / porcentaje));
             }
         }
 
@@ -1684,8 +1699,8 @@ namespace caja
             }
             else
             {
-                double porcentaje = (Convert.ToDouble(txtUtilidad3Ct.Text) / 100) + 1;
-                txtPrecio3Ct.Text = string.Format("{0:#,0.00}", (Convert.ToDouble(txtCostoCarton.Text) * porcentaje));
+                double porcentaje = (1 - (Convert.ToDouble(txtUtilidad3Ct.Text) / 100));
+                txtPrecio3Ct.Text = string.Format("{0:#,0.00}", (Convert.ToDouble(txtCostoCarton.Text) / porcentaje));
             }
         }
 
@@ -1698,7 +1713,9 @@ namespace caja
             }
             else
             {
-                double diferencia = ((Convert.ToDouble(txtPrecio1Ct.Text) / Convert.ToDouble(txtCostoCarton.Text)) - 1) * 100;
+               
+
+                double diferencia = (1 - (Convert.ToDouble(txtCostoCarton.Text) / Convert.ToDouble(txtPrecio1Ct.Text))) * 100;
                 txtUtilidad1Ct.Text = string.Format("{0:#,0.00}", diferencia);
             }
         }
@@ -1712,7 +1729,7 @@ namespace caja
             }
             else
             {
-                double diferencia = ((Convert.ToDouble(txtPrecio2Ct.Text) / Convert.ToDouble(txtCostoCarton.Text)) - 1) * 100;
+                double diferencia = (1 - (Convert.ToDouble(txtCostoCarton.Text) / Convert.ToDouble(txtPrecio2Ct.Text))) * 100;
                 txtUtilidad2Ct.Text = string.Format("{0:#,0.00}", diferencia);
             }
         }
@@ -1726,7 +1743,7 @@ namespace caja
             }
             else
             {
-                double diferencia = ((Convert.ToDouble(txtPrecio3Ct.Text) / Convert.ToDouble(txtCostoCarton.Text)) - 1) * 100;
+                double diferencia = (1 - (Convert.ToDouble(txtCostoCarton.Text) / Convert.ToDouble(txtPrecio3Ct.Text))) * 100;
                 txtUtilidad3Ct.Text = string.Format("{0:#,0.00}", diferencia);
             }
         }

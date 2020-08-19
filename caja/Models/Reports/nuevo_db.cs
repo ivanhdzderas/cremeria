@@ -6,14 +6,12 @@ using System.Threading.Tasks;
 
 namespace caja.Models.Reports
 {
-	public class Totales
+	public class nuevo_db:ConnectDB
 	{
-		public double Total { get; set; }
-		public Totales(
-			double total
-			) {
-			Total = total;
+		public void ejecuta(string query)
+		{
+			runQuery(query);
+
 		}
-		public Totales() { }
 	}
 }

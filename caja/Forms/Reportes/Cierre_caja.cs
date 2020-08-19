@@ -73,8 +73,11 @@ namespace caja.Forms.Reportes
 
 										foreach (Models.Reports.Tickets item in reporte)
 										{
-											totales.Ganancias = totales.Ganancias + item.Ganancias;
-											totales.Total = totales.Total + item.Total;
+											if (item.Status == "A")
+											{
+												totales.Total = totales.Total + item.Total;
+											}
+											
 										}
 
 										List<Models.Reports.Totales> tot = new List<Models.Reports.Totales>();
@@ -154,8 +157,10 @@ namespace caja.Forms.Reportes
 
 										foreach (Models.Reports.Tickets item in reporte)
 										{
-											totales.Ganancias = totales.Ganancias + item.Ganancias;
-											totales.Total = totales.Total + item.Total;
+											if (item.Status == "A")
+											{
+												totales.Total = totales.Total + item.Total;
+											}
 										}
 
 										List<Models.Reports.Totales> tot = new List<Models.Reports.Totales>();

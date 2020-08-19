@@ -54,6 +54,12 @@ namespace caja.Models
 			query += ")";
 			object result = runQuery(query);
 		}
+		public void delete_kardex()
+		{
+			string query = "delete from tbakardex where id='" + this.Id + "'";
+			object result = runQuery(query);
+
+		}
 
 		public List<Kardex> getKardex(int id_producto) {
 			string query = "select id, id_producto, tipo_movimiento,id_documento, cantidad, antes, fecha from tbakardex where id_producto='" + id_producto.ToString() + "' order by id";
@@ -85,7 +91,7 @@ namespace caja.Models
 			}
 			return result;
 		}
-
+		
 		public List<Kardex> getkardexbyid(int id)
 		{
 			string query = "select id, id_producto, tipo_movimiento,id_documento, cantidad, antes, fecha from tbakardex where id='" + id.ToString() + "'";
